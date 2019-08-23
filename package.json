@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "dotenv": "^8.1.0",
+    "ethers": "^4.0.36",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
