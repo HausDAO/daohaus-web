@@ -7,12 +7,8 @@ import ApplicationList from "../../components/applicationList/ApplicationList";
 
 const Profile = () => {
   const context = useWeb3Context()
-
-  console.log(context)
   const [molochs, setMolochs] = useState([]);
   const [applications, setApplications] = useState([]);
-
-  console.log(context.account)
 
   useEffect(() => {
     const fetchData = async () => {
