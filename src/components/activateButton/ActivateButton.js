@@ -1,6 +1,7 @@
 
 
 import React from "react";
+import { Link} from "react-router-dom";
 import { useWeb3Context } from 'web3-react'
 
 const ActivateButton = () => {
@@ -31,11 +32,15 @@ const ActivateButton = () => {
       )
     } else {
       // success
-      return ( <>
-        <button onClick={() => activate()}>
-          <span className="Data">{context.account}</span>
-        </button>
-      </>)
+      return ( 
+        <>
+        {context.account ? (
+        <Link to="/profile">
+          Profile
+          </Link>
+      ): null}
+      </>
+      )
     
     }
 

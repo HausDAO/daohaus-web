@@ -14,9 +14,6 @@ const TopNav = () => {
         <img src={Brand} alt="DAOHAUS"/>
         </Link>
       <ActivateButton />
-      {context.account ? (
-        <Link to="/profile">Profile</Link>
-      ): null}
     </header>
   );
 };

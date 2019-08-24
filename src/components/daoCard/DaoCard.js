@@ -8,7 +8,7 @@ const DaoCard = (props) => {
     <>
       {dao.contractAddress ? (
         <div className="DaoCard">
-          <h4>{dao.name}</h4>
+          <h4 className="DaoName">{dao.name}</h4>
           <p>{dao.description}</p>
           <p>Summoner</p>
           <span className="Data">{dao.summonerAddress}</span>
