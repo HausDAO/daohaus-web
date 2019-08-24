@@ -14,6 +14,8 @@ console.log(DaoAbi, DaoByteCode);
 const SummonAdvForm = () => {
   //  const [loading, setLoading] = useContext(LoaderContext);
   const context = useWeb3Context()
+  console.log(context);
+  
 
   return (
     <>
@@ -41,6 +43,7 @@ const SummonAdvForm = () => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
+
           const web3Service = new Web3Service();
           // const bcprocessor = new BcProcessorService();
             console.log('lol', DaoAbi);
@@ -71,8 +74,6 @@ const SummonAdvForm = () => {
           
           deployedContract.send({
              from: context.account,
-             gas: 1500000,
-             gasPrice: '30000000000000'
           }, function(error, transactionHash){ console.log(error, transactionHash);
           })
           .on('error', function(error){ console.log(error);
