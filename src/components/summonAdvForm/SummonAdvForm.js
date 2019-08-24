@@ -24,7 +24,8 @@ const SummonAdvForm = () => {
       <h2>Advanced Summon Form</h2>
       <Formik
         initialValues={{
-          summoner: "",
+          name: "",
+          description: "",
           approvedToken: "",
           periodDuration: "",
           votingPeriodLength: "",
@@ -57,7 +58,7 @@ const SummonAdvForm = () => {
             const deployedContract = await daoContract.deploy({
               data: DaoByteCode.object,
               arguments: [
-                values.summoner,
+                context.account,
                 values.approvedToken,
                 values.periodDuration,
                 values.votingPeriodLength,
