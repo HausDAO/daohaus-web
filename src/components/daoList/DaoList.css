@@ -1,3 +1,5 @@
-.DaoList__item {
-  border: 1px solid pink;
+
+.DaoList {
+  display: flex;
+  flex-wrap: wrap;
 }

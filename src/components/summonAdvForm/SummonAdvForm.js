@@ -1,12 +1,21 @@
 import React from "react";
 import Web3Service from '../../util/web3Service';
+import DaoAbi from '../../contracts/moloch.json';
+import DaoByteCode from '../../contracts/molochByteCode.json';
+
 // import BcProcessorService from '../../utils/BcProcessorService';
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useWeb3Context } from "web3-react";
+
+console.log(DaoAbi, DaoByteCode);
 
 // import Loading from '../shared/Loading';
 
 const SummonAdvForm = () => {
   //  const [loading, setLoading] = useContext(LoaderContext);
+  const context = useWeb3Context()
+  console.log(context);
+  
 
   return (
     <>
@@ -34,13 +43,52 @@ const SummonAdvForm = () => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
+
           const web3Service = new Web3Service();
           // const bcprocessor = new BcProcessorService();
+            console.log('lol', DaoAbi);
 
           // setLoading(true);
           try {
             setSubmitting(false);
-            return false;
+            const daoContract = await web3Service.createContract(DaoAbi);
+            console.log('contract', daoContract);
+            console.log('account', context.account);
+            
+            const deployedContract = await daoContract.deploy({
+              data: DaoByteCode.object,
+              arguments: [
+                values.summoner,
+                values.approvedToken,
+                values.periodDuration,
+                values.votingPeriodLength,
+                values.gracePeriodLength,
+                values.abortWindow,
+                values.proposalDeposit,
+                values.dilutionBound,
+                values.processingReward
+              ]
+          })
+
+          console.log('deployedContract', deployedContract);
+          
+          deployedContract.send({
+             from: context.account,
+          }, function(error, transactionHash){ console.log(error, transactionHash);
+          })
+          .on('error', function(error){ console.log(error);
+          })
+          .on('transactionHash', function(transactionHash){ console.log(transactionHash);
+          })
+          .on('receipt', function(receipt){
+             console.log(receipt.contractAddress) // contains the new contract address
+          })
+          .on('confirmation', function(confirmationNumber, receipt){ console.log(confirmationNumber, receipt);
+          })
+          .then(function(newContractInstance){
+              console.log(newContractInstance.options.address) // instance with the new contract address
+          });
+          
 
             // bcprocessor.setTx(
             //   hash,
@@ -53,7 +101,7 @@ const SummonAdvForm = () => {
             alert(`Something went wrong. please try again`);
           }
 
-          resetForm();
+          // resetForm();
           // setLoading(false);
           setSubmitting(false);
         }}

@@ -11,13 +11,13 @@ import './global.scss';
 
 const { InjectedConnector, NetworkOnlyConnector } = Connectors
 
-const MetaMask = new InjectedConnector({ supportedNetworks: [1] })
+const MetaMask = new InjectedConnector({ supportedNetworks: [1,2,3,4] })
 
 const Infura = new NetworkOnlyConnector({
   providerURL: process.env.REACT_APP_INFURA_URI
 })
 
-const connectors = { MetaMask, Infura }
+const connectors = { MetaMask }
 
 function App() {
   return (

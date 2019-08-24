@@ -6,7 +6,7 @@ const SummonButton = (props) => {
 
   return (
       <Link to={`summon`}> 
-        <button>Summon a new DAO</button>
+        <button>Summon a DAO</button>
       </Link>
   );
 };

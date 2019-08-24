@@ -25,8 +25,10 @@ const Profile = () => {
   }, [context.account]);
 
   return (
-    <>
+    <div className="View">
       <h1>Profile</h1>
+
+      {context.account}
 
       {molochs.length ? (
         <>
@@ -41,7 +43,7 @@ const Profile = () => {
           <h2>I have applied to these Molochs</h2>
         </>
       ) : null}
-    </>
+    </div>
   );
 };
 

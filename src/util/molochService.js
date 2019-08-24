@@ -1,4 +1,4 @@
-import DaoAbi from '../contracts/moloch.json';
+import DaoAbi from '../contracts/moloch';
 import Web3Service from './web3Service';
 
 export default class MolochService {
@@ -190,6 +190,20 @@ export default class MolochService {
     }
     let info = await this.contract.methods.proposalQueue(id).call();
     return info;
+  }
+
+  async approvedToken(id) {
+    if (!this.contract) {
+      await this.initContract();
+    }
+    let info = await this.contract.methods.approvedToken().call();
+    console.log('info', info)
+    const mapping = {
+      "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": "Weth",
+      "0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359": "Dai",
+    }
+
+    return mapping[info];
   }
 
   async processProposal(from, id, encodedPayload) {
