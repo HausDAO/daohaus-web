@@ -7,10 +7,12 @@
     "dotenv": "^8.1.0",
     "ethers": "^4.0.36",
     "node-sass": "^4.12.0",
+    "formik": "^1.5.8",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "web3": "^1.2.1",
     "web3-react": "^5.0.4"
   },
   "scripts": {
