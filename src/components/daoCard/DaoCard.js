@@ -4,7 +4,7 @@ const DaoCard = (props) => {
   const { dao } = props;
 
   return (
-    <div>
+    <>
       {dao.contractAddress ? (
         <div>
           <p>{dao.name}</p>
@@ -14,7 +14,7 @@ const DaoCard = (props) => {
       ) : (
         <p>THE HAUS IS LOADING THE DAO</p>
         )}
-    </div>
+    </>
   );
 };
 

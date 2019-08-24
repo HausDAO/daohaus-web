@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { get } from "../../util/requests";
 
 const Dao = props => {
@@ -14,7 +14,7 @@ const Dao = props => {
   }, [props.match.params.contractAddress]);
 
   return (
-    <Fragment>
+    <>
       <h1>DAO Page</h1>
       {daoData.contractAddress ? (
         <div>
@@ -25,7 +25,7 @@ const Dao = props => {
       ) : (
         <p>THE HAUS IS LOADING THE DAO</p>
       )}
-    </Fragment>
+    </>
   );
 };
 
