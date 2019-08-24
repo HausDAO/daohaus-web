@@ -17,7 +17,7 @@ const Infura = new NetworkOnlyConnector({
   providerURL: process.env.REACT_APP_INFURA_URI
 })
 
-const connectors = { MetaMask }
+const connectors = { MetaMask, Infura }
 
 function App() {
   return (

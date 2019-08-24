@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import './DaoCard.scss';
 
 const DaoCard = (props) => {
@@ -12,7 +11,7 @@ const DaoCard = (props) => {
           <h4 className="DaoName">{dao.name}</h4>
           <p>{dao.description}</p>
           <p>Summoner</p>
-          <Link to={'/'}><span className="Data">{dao.summonerAddress}</span></Link>
+          <span className="Data">{dao.summonerAddress}</span>
         </div>
       ) : (
         <p>THE HAUS IS LOADING THE DAO</p>
