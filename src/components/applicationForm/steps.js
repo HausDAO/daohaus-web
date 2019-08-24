@@ -1,4 +1,4 @@
-import { object, string, number } from 'yup'
+import { object, number } from 'yup'
 
 import PersonalInfo from './personalInfo'
 import PledgeInfo from './pledgeInfo'

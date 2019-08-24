@@ -11,7 +11,7 @@ const TopNav = () => {
   return (
     <header className="TopNav">
       <Link to={`/`} className="Brand" href="/" alt="DAOHaus Home">
-        <img src={Brand} />
+        <img src={Brand} alt="DAOHAUS"/>
         </Link>
       <ActivateButton />
       {context.account ? (
