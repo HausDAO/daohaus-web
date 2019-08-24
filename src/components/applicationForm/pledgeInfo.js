@@ -1,13 +1,28 @@
 import { FastField, useFormikContext } from 'formik'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import MolochService from '../../util/molochService';
 
 function PledgeInfo() {
-  const { errors, touched } = useFormikContext()
+  const { errors, touched } = useFormikContext();
+  const [contractData, setContractData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const molochService = new MolochService('0x0372f3696fa7dc99801f435fd6737e57818239f2');
+
+      const token = await molochService.approvedToken();
+      setContractData({token})
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
       <div>
-        <label htmlFor="pledge">Your pledge: </label>
+        <h3>Pledge</h3>
+        <label htmlFor="pledge">How much are you pledging?</label>
+        <p>{contractData.token}</p>
         <FastField name="pledge" id="pledge" />
       </div>
       <small style={{ color: 'red' }}>
