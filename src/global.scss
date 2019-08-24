@@ -9,12 +9,14 @@ body {
     font-family: 'Futura', sans-serif;
     font-weight: 400;
     width: 100%;
+    text-align: left;
 }
 
 a {
     color: $primary;
     text-decoration: none;
     cursor: pointer;
+    display: block;
 }
 
 button, .Button {
@@ -38,4 +40,21 @@ button, .Button {
 
 .AuthButton {
     display: block;
+}
+
+.View {
+    padding: $base-padding;
+}
+
+.Form {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 50vh;
+    padding: $base-padding;
+    button { margin: 0 auto; }
+}
+.daoList {
+
 }

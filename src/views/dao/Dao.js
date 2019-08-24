@@ -28,17 +28,20 @@ const Dao = props => {
   }, [props.match.params.contractAddress]);
 
   return (
-    <>
+  <div className="View">
       <h1>DAO Page</h1>
       {daoData.contractAddress ? (
         <div>
-          <p>{daoData.name}</p>
+          <h2>{daoData.name}</h2>
+          <p>{daoData.description}</p>
+          
+          <p className="Label">Shares</p>
+          <p className="Value Data">{contractData.totalShares}</p>
+          <p className="Label">Summoner</p>
+          <p className="Value Data">{daoData.summonerAddress}</p>
+          <h4>Minimum Tribute</h4>
+          <p>{daoData.minimumTribute} {contractData.token}</p>
           <ApplyButton contractAddress={daoData.contractAddress}/>
-          <p>Shares: {contractData.totalShares}</p>
-          <p>Description: {daoData.description}</p>
-          <p>Summoner: {daoData.summonerAddress}</p>
-          <p>Pledge Info</p>
-          <p>Minimum Tribute: {daoData.minimumTribute} {contractData.token}</p>
           {applications.length ? (
         <>
           <h3>Pledges</h3>
@@ -49,7 +52,7 @@ const Dao = props => {
       ) : (
         <p>THE HAUS IS LOADING THE DAO</p>
       )}
-    </>
+    </div>
   );
 };
 

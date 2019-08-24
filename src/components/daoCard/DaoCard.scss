@@ -1,0 +1,11 @@
+.DaoCard {
+    margin-bottom: 50px;
+    h4 { font-size: 32px; }
+    p:nth-child(3) {
+        font-size: .85em;
+        margin-bottom: 0;
+    }
+    span.Data {
+        margin-top: 5px;
+    }
+}

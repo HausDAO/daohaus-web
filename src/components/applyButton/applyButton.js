@@ -6,7 +6,7 @@ const ApplyButton = (props) => {
 
   return (
       <Link to={`/apply/${contractAddress}`}> 
-        <button>Pledge</button>
+        <button>Pledge to Join</button>
       </Link>
   );
 };

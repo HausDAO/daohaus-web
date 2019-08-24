@@ -32,10 +32,9 @@ const ActivateButton = () => {
     } else {
       // success
       return ( <>
-          <button onClick={() => activate()}>
-      Activated
-      </button>
-      <p className="Data">{context.account}</p>
+        <button onClick={() => activate()}>
+          <span className="Data">{context.account}</span>
+        </button>
       </>)
     
     }

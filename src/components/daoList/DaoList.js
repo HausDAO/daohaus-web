@@ -20,6 +20,7 @@ const DaoList = (props) => {
 
   return (
     <div>
+      <h3>DAOs</h3>
       {daoList}
     </div>
     

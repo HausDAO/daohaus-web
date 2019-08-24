@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+import './DaoCard.scss';
 
 const DaoCard = (props) => {
   const { dao } = props;
@@ -6,10 +8,11 @@ const DaoCard = (props) => {
   return (
     <>
       {dao.contractAddress ? (
-        <div>
-          <p>{dao.name}</p>
+        <div className="DaoCard">
+          <h4>{dao.name}</h4>
           <p>{dao.description}</p>
-          <p>Summoner: {dao.summonerAddress}</p>
+          <p>Summoner</p>
+          <Link to={'/'}><span className="Data">{dao.summonerAddress}</span></Link>
         </div>
       ) : (
         <p>THE HAUS IS LOADING THE DAO</p>
