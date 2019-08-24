@@ -8,15 +8,13 @@ import Web3Provider from 'web3-react'
 import TopNav from "./components/topNav/TopNav";
 const { InjectedConnector, NetworkOnlyConnector } = Connectors
 
-const MetaMask = new InjectedConnector({ supportedNetworks: [1, 4] })
+const MetaMask = new InjectedConnector({ supportedNetworks: [1] })
 
 const Infura = new NetworkOnlyConnector({
   providerURL: process.env.REACT_APP_INFURA_URI
 })
 
 const connectors = { MetaMask, Infura }
-
-
 
 function App() {
   return (
