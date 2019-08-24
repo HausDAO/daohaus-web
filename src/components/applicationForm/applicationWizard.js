@@ -1,7 +1,11 @@
 import React from 'react'
 import { FormikWizard } from 'formik-wizard'
 
+import { post } from '../../util/requests';
 import steps from './steps'
+import { useWeb3Context } from 'web3-react';
+
+
 
 function FormWrapper({
   children,
@@ -13,6 +17,7 @@ function FormWrapper({
 }) {
   return (
     <div>
+      {children}
       {status && (
         <div>
           {status.message}
@@ -24,26 +29,49 @@ function FormWrapper({
           Previous
         </button>
         <button type="submit">
-          {actionLabel || (isLastStep ? 'Submit' : 'Next step')}
+          {actionLabel || (isLastStep ? 'Pledge' : 'Next step')}
         </button>
       </div>
       <hr />
-      {children}
     </div>
   )
 }
 
-function ApplicationWizard() {
-  const handleSubmit = React.useCallback((values) => {
-    console.log('full values:', values)
+const ApplicationWizard = (props) => {
+  const { contractAddress } = props;
+  const context = useWeb3Context();
 
-    return {
-      message: 'Thanks for submitting!',
-    }
-  }, [])
+  const handleSubmit = async (values) => {
+      const application = {
+        name: values.personal.name,
+        bio: values.personal.bio,
+        pledge: values.pledge.pledge,
+        shares: values.shares.shares,
+        applicantAddress: context.account,
+        molochContractAddress: contractAddress
+      }
+
+      const res = await post(`moloch/apply`, application);
+
+      if (res.data.error) {
+        return {
+          message: res.data.error,
+        }
+      } else {
+        return {
+          message: 'thanks for signaling'
+        }
+      }
+  };
 
   return (
-    <FormikWizard steps={steps} onSubmit={handleSubmit} render={FormWrapper} />
+    <>
+    {context.account ? (
+      <FormikWizard steps={steps} onSubmit={handleSubmit} render={FormWrapper} />
+    ) : (
+      <p>Connect your metamask account</p>
+    )}
+    </>
   )
 }
 

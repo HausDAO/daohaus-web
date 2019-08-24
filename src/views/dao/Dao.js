@@ -18,12 +18,8 @@ const Dao = props => {
       setApplications(applicationRes.data)
 
       const molochService = new MolochService('0x0372f3696fa7dc99801f435fd6737e57818239f2');
-      console.log('molochService', molochService)
-
       const totalShares = await molochService.getTotalShares()
       const token = await molochService.approvedToken()
-      console.log('totalShares', totalShares)
-      console.log('token', token)
       setContractData({totalShares, token})
     };
 

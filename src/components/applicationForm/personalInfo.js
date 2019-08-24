@@ -1,21 +1,13 @@
-import { FastField, useFormikContext, Field, ErrorMessage } from 'formik'
+import { Field } from 'formik'
 import React from 'react'
 
 function PersonalInfo() {
-  const { errors, touched } = useFormikContext()
+  // const { errors, touched } = useFormikContext()
 
   return (
     <div>
       <h3>Personal Info</h3>
       <h4>The summoner what to know a little about you.</h4>
-      {/* <div>
-        <label htmlFor="name">Your name: </label>
-        <FastField name="name" id="name" />
-      </div>
-      <div>
-        <label htmlFor="name">Your bio: </label>
-        <FastField name="bio" id="bio" />
-      </div> */}
 
       <Field name="name">
         {({ field }) => (
