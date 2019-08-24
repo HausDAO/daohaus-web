@@ -1,9 +1,10 @@
 import React from "react";
+import SummonAdvForm from "../../components/summonAdvForm/SummonAdvForm";
 
 const Summon = () => {
   return (
     <>
-      <h1>SUMMON A DAO</h1>
+      <SummonAdvForm></SummonAdvForm>
     </>
   );
 };
