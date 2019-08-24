@@ -1,4 +1,4 @@
-import DaoAbi from '../contracts/moloch.json';
+import DaoAbi from '../contracts/moloch';
 import Web3Service from './web3Service';
 
 export default class MolochService {

@@ -5,6 +5,12 @@ export default class Web3Service {
     this.web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI));
   }
 
+  createContract(abi) {
+    let contract = new this.web3.eth.Contract(abi);
+    return contract;
+
+  }
+
   getKeyStore(privateKey, password){
     return this.web3.eth.accounts.encrypt(privateKey, password);
   }
