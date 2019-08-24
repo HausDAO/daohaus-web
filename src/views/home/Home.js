@@ -24,7 +24,10 @@ const Home = () => {
       <h1>DAOHAUS Home</h1>
       {(context.active && !context.error) && <SummonButton/>}
       {daosData.length ? (
+        <>
+        <h2>DAOS</h2>
         <DaoList daos={daosData} />
+        </>
       ) : (
         <p>THE HAUS IS LOADING THE DAOS</p>
       )}

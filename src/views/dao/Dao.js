@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { get } from "../../util/requests";
 import ApplicationList from "../../components/applicationList/ApplicationList";
 import ApplyButton from "../../components/applyButton/applyButton";
+import MolochService from "../../util/molochService";
 
 const Dao = props => {
   const [daoData, setDaoData] = useState({});
   const [applications, setApplications] = useState({});
+  const [contractData, setContractData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +16,15 @@ const Dao = props => {
 
       const applicationRes = await get(`moloch/${props.match.params.contractAddress}/applications`)
       setApplications(applicationRes.data)
+
+      const molochService = new MolochService('0x0372f3696fa7dc99801f435fd6737e57818239f2');
+      console.log('molochService', molochService)
+
+      const totalShares = await molochService.getTotalShares()
+      const token = await molochService.approvedToken()
+      console.log('totalShares', totalShares)
+      console.log('token', token)
+      setContractData({totalShares, token})
     };
 
 
@@ -26,12 +37,15 @@ const Dao = props => {
       {daoData.contractAddress ? (
         <div>
           <p>{daoData.name}</p>
-          <p>{daoData.description}</p>
-          <p>Summoner: {daoData.summonerAddress}</p>
           <ApplyButton contractAddress={daoData.contractAddress}/>
+          <p>Shares: {contractData.totalShares}</p>
+          <p>Description: {daoData.description}</p>
+          <p>Summoner: {daoData.summonerAddress}</p>
+          <p>Pledge Info</p>
+          <p>Minimum Tribute: {daoData.minimumTribute} {contractData.token}</p>
           {applications.length ? (
         <>
-          <h3>Applications</h3>
+          <h3>Pledges</h3>
           <ApplicationList applications={applications} />
         </>
       ) : null}

@@ -28,6 +28,8 @@ const Profile = () => {
     <>
       <h1>Profile</h1>
 
+      {context.account}
+
       {molochs.length ? (
         <>
           <h2>I am the summoner of these Molochs</h2>
