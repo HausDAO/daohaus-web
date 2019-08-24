@@ -1,7 +1,8 @@
 import React from "react";
-import Web3Service from '../../util/web3Service';
-import DaoAbi from '../../contracts/moloch.json';
-import DaoByteCode from '../../contracts/molochByteCode.json';
+import Web3Service from "../../util/web3Service";
+import DaoAbi from "../../contracts/moloch.json";
+import DaoByteCode from "../../contracts/molochByteCode.json";
+import { post } from "../../util/requests";
 
 // import BcProcessorService from '../../utils/BcProcessorService';
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -13,9 +14,8 @@ console.log(DaoAbi, DaoByteCode);
 
 const SummonAdvForm = () => {
   //  const [loading, setLoading] = useContext(LoaderContext);
-  const context = useWeb3Context()
+  const context = useWeb3Context();
   console.log(context);
-  
 
   return (
     <>
@@ -43,18 +43,17 @@ const SummonAdvForm = () => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-
           const web3Service = new Web3Service();
           // const bcprocessor = new BcProcessorService();
-            console.log('lol', DaoAbi);
+          console.log("lol", DaoAbi);
 
           // setLoading(true);
           try {
             setSubmitting(false);
             const daoContract = await web3Service.createContract(DaoAbi);
-            console.log('contract', daoContract);
-            console.log('account', context.account);
-            
+            console.log("contract", daoContract);
+            console.log("account", context.account);
+
             const deployedContract = await daoContract.deploy({
               data: DaoByteCode.object,
               arguments: [
@@ -68,27 +67,49 @@ const SummonAdvForm = () => {
                 values.dilutionBound,
                 values.processingReward
               ]
-          })
+            });
 
-          console.log('deployedContract', deployedContract);
-          
-          deployedContract.send({
-             from: context.account,
-          }, function(error, transactionHash){ console.log(error, transactionHash);
-          })
-          .on('error', function(error){ console.log(error);
-          })
-          .on('transactionHash', function(transactionHash){ console.log(transactionHash);
-          })
-          .on('receipt', function(receipt){
-             console.log(receipt.contractAddress) // contains the new contract address
-          })
-          .on('confirmation', function(confirmationNumber, receipt){ console.log(confirmationNumber, receipt);
-          })
-          .then(function(newContractInstance){
-              console.log(newContractInstance.options.address) // instance with the new contract address
-          });
-          
+            console.log("deployedContract", deployedContract);
+
+            deployedContract
+              .send(
+                {
+                  from: context.account
+                },
+                function(error, transactionHash) {
+                  console.log(error, transactionHash);
+                }
+              )
+              .on("error", function(error) {
+                console.log(error);
+              })
+              .on("transactionHash", function(transactionHash) {
+                console.log(transactionHash);
+              })
+              .on("receipt", function(receipt) {
+                console.log(receipt.contractAddress); // contains the new contract address
+                const newMoloch = {
+                  summonerAddress: context.account,
+                  contractAddress: receipt.contractAddress,
+                  name: values.name,
+                  minumumTribute: values.minumumTribute,
+                  description: values.description
+                };
+
+                post("moloch", newMoloch)
+                  .then(newMolochRes => {
+                    console.log("created new moloch", newMolochRes);
+                  })
+                  .catch(err => {
+                    console.log("moloch creation error", err);
+                  });
+              })
+              .on("confirmation", function(confirmationNumber, receipt) {
+                console.log(confirmationNumber, receipt);
+              })
+              .then(function(newContractInstance) {
+                console.log(newContractInstance.options.address); // instance with the new contract address
+              });
 
             // bcprocessor.setTx(
             //   hash,
@@ -108,16 +129,29 @@ const SummonAdvForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="Form">
-            <Field name="summoner">
+            <Field name="name">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Summoner</label>
+                  <label>Name</label>
                   <input type="text" {...field} />
                 </div>
               )}
             </Field>
             <ErrorMessage
-              name="summoner"
+              name="name"
+              render={msg => <div className="Error">{msg}</div>}
+            />
+
+            <Field name="description">
+              {({ field, form }) => (
+                <div className={field.value ? "Field HasValue" : "Field "}>
+                  <label>description</label>
+                  <input type="text" {...field} />
+                </div>
+              )}
+            </Field>
+            <ErrorMessage
+              name="description"
               render={msg => <div className="Error">{msg}</div>}
             />
 
@@ -207,6 +241,25 @@ const SummonAdvForm = () => {
             </Field>
             <ErrorMessage
               name="abortWindow"
+              render={msg => <div className="Error">{msg}</div>}
+            />
+
+            <Field name="minumumTribute">
+              {({ field, form }) => (
+                <div className={field.value ? "Field HasValue" : "Field "}>
+                  <label>minumumTribute</label>
+                  <input
+                    min="0"
+                    type="number"
+                    inputMode="numeric"
+                    step="any"
+                    {...field}
+                  />
+                </div>
+              )}
+            </Field>
+            <ErrorMessage
+              name="minumumTribute"
               render={msg => <div className="Error">{msg}</div>}
             />
 
