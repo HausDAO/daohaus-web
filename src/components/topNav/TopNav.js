@@ -5,7 +5,7 @@ const TopNav = () => {
 
   return (
     <header className="App-header">
-      <h1>DAUHAUS</h1>
+      <h1>DAOHaus</h1>
       <ActivateButton />
     </header>
   );
