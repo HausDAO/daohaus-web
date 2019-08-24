@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 import ActivateButton from "../../components/activateButton/ActivateButton";
 import './TopNav.scss';
 import Brand from '../../assets/logo.png';
@@ -6,9 +8,9 @@ const TopNav = () => {
 
   return (
     <header className="TopNav">
-      <a className="Brand" href="/" alt="DAOHaus Home">
+      <Link to={`/`} className="Brand" href="/" alt="DAOHaus Home">
         <img src={Brand} />
-      </a>
+        </Link>
       <ActivateButton />
     </header>
   );

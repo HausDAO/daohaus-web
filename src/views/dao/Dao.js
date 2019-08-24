@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../util/requests";
 import ApplicationList from "../../components/applicationList/ApplicationList";
+import ApplyButton from "../../components/applyButton/applyButton";
 
 const Dao = props => {
   const [daoData, setDaoData] = useState({});
@@ -27,6 +28,7 @@ const Dao = props => {
           <p>{daoData.name}</p>
           <p>{daoData.description}</p>
           <p>Summoner: {daoData.summonerAddress}</p>
+          <ApplyButton contractAddress={daoData.contractAddress}/>
           {applications.length ? (
         <>
           <h3>Applications</h3>
