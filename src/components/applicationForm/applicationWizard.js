@@ -21,7 +21,6 @@ function FormWrapper({
       {status && (
         <div>
           {status.message}
-          <hr />
         </div>
       )}
       <div>
