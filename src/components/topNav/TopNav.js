@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import { useWeb3Context } from 'web3-react'
 
 import ActivateButton from "../../components/activateButton/ActivateButton";
-
+import './TopNav.scss';
+import Brand from '../../assets/logo.png';
 const TopNav = () => {
   const context = useWeb3Context()
 
   return (
-    <header className="App-header">
-      <Link to={`/`}><h1>DAOHAUS</h1></Link>
+    <header className="TopNav">
+      <Link to={`/`} className="Brand" href="/" alt="DAOHaus Home">
+        <img src={Brand} />
+        </Link>
       <ActivateButton />
       {context.account ? (
         <Link to="/profile">Profile</Link>
