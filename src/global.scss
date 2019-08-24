@@ -73,3 +73,32 @@ button, .Button {
 p.Large {
     font-size: 1.35em;
 }
+
+// Wizard
+.Wizard {
+    padding: $base-padding;
+    h3 {
+        font-size: 2em;
+    }
+    .ButtonGroup {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+        margin: 25px 0px;
+        button {
+            margin-right: 15px;
+        }
+    }
+}
+.Step {
+    
+}
+
+input, textarea {
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid #efefef;
+    width: 100%;
+    margin: 10px 0px;
+}
