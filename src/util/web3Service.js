@@ -2,7 +2,7 @@ import Web3 from 'web3';
 
 export default class Web3Service {
   constructor() {
-    this.web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI)
+    this.web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI));
   }
 
   getKeyStore(privateKey, password){
