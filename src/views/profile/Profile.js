@@ -3,7 +3,7 @@ import { useWeb3Context } from 'web3-react'
 
 import { get } from "../../util/requests";
 import DaoList from "../../components/daoList/DaoList";
-import ApplicationList from "../../components/applicationList/ApplicationList";
+import ApplicationShortList from "../../components/applicationList/ApplicationShortList";
 
 const Profile = () => {
   const context = useWeb3Context()
@@ -28,19 +28,19 @@ const Profile = () => {
     <>
       <h1>Profile</h1>
 
-      <h2>I am the summoner of these Molochs</h2>
       {molochs.length ? (
-        <DaoList daos={molochs} />
-        ) : (
-          <p>No Molochs</p>
-          )}
+        <>
+          <h2>I am the summoner of these Molochs</h2>
+          <DaoList daos={molochs} />
+        </>
+        ) : null}
 
-      <h2>I have applied to these Molochs</h2>
       {applications.length ? (
-        <ApplicationList applications={applications} />
-      ) : (
-        <p>no applications</p>
-      )}
+        <>
+          <ApplicationShortList applications={applications} />
+          <h2>I have applied to these Molochs</h2>
+        </>
+      ) : null}
     </>
   );
 };

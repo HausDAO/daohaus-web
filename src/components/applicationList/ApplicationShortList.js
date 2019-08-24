@@ -1,16 +1,14 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-const ApplicationList = (props) => {
+const ApplicationShortList = (props) => {
   const { applications } = props;
 
   const applicationList = applications.map((application, i) => {
     return (
       <div key={i}>
         <Link to={`dao/${application.molochContractAddress}`}>
-          <p>{application.applicantAddress}</p>
-          <p>{application.name}</p>
-          <p>{application.bio}</p>
+          <p>{application.moloch.name}</p>
         </Link>
       </div>
     );
@@ -18,10 +16,11 @@ const ApplicationList = (props) => {
 
 
   return (
-    <>
+    <div>
       {applicationList}
-    </>
+    </div>
+    
   );
 };
 
-export default ApplicationList;
+export default ApplicationShortList;
