@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.Hero {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 50vh;
+    padding: 50px;
+    text-align: center;
+    button { margin: 0 auto; }
+}
+
+.daoList {
+    padding: $base-padding;
+}

@@ -3,6 +3,7 @@ import { get } from "../../util/requests";
 import DaoList from '../../components/daoList/DaoList'
 import SummonButton from "../../components/summonButton/summonButton";
 import { useWeb3Context } from "web3-react";
+import './Home.scss';
 
 
 const Home = () => {
@@ -21,14 +22,18 @@ const Home = () => {
 
   return (
     <>
-      <h2>Explore the Haus of Moloch</h2>
-      <h3>Discover and Pledge to existing Moloch DAOs, or summon your own.</h3>
-      {(context.active && !context.error) && <SummonButton/>}
-      {daosData.length ? (
-        <DaoList daos={daosData} />
-      ) : (
-        <p>THE HAUS IS LOADING THE DAOS</p>
-      )}
+      <div className="Hero">
+        <h2>Explore the Haus of Moloch</h2>
+        <h3>Discover and Pledge to existing Moloch DAOs, or summon your own.</h3>
+        {(context.active && !context.error) && <SummonButton/>}
+      </div>
+      <div className="daoList">
+        {daosData.length ? (
+          <DaoList daos={daosData} />
+        ) : (
+          <p>THE HAUS IS LOADING THE DAOS</p>
+        )}
+      </div>
     </>
   );
 };
