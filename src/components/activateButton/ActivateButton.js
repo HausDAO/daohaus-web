@@ -9,8 +9,7 @@ const ActivateButton = () => {
 
     const activate = async () => {
         await context.setFirstValidConnector(['MetaMask'])
-        console.log(context);
-        
+        console.log(context); 
 
     }
   
@@ -32,9 +31,13 @@ const ActivateButton = () => {
       )
     } else {
       // success
-      return (<button onClick={() => activate()}>
+      return ( <>
+          <button onClick={() => activate()}>
       Activated
-      </button>)
+      </button>
+      <p>{context.account}</p>
+      </>)
+    
     }
 
 
