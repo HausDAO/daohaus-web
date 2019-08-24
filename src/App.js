@@ -6,6 +6,9 @@ import "./App.css";
 import { Connectors } from 'web3-react'
 import Web3Provider from 'web3-react'
 import TopNav from "./components/topNav/TopNav";
+
+import './global.scss';
+
 const { InjectedConnector, NetworkOnlyConnector } = Connectors
 
 const MetaMask = new InjectedConnector({ supportedNetworks: [1] })

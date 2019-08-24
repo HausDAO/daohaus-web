@@ -21,7 +21,8 @@ const Home = () => {
 
   return (
     <>
-      <h1>DAOHAUS Home</h1>
+      <h2>Explore the Haus of Moloch</h2>
+      <h3>Discover and Pledge to existing Moloch DAOs, or summon your own.</h3>
       {(context.active && !context.error) && <SummonButton/>}
       {daosData.length ? (
         <DaoList daos={daosData} />

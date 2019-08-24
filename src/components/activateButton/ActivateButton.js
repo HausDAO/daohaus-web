@@ -15,15 +15,15 @@ const ActivateButton = () => {
   
     if (!context.active && !context.error) {
       // loading
-      return (<button onClick={() => activate()}>
-      Activate
+      return (<button className="AuthButton" onClick={() => activate()}>
+      Sign in with Ethereum
       </button>)
     } else if (context.error) {
       //error
       return (
       <>
       <button onClick={() => activate()}>
-      Activate
+      Sign in with Ethereum
       </button> 
      
           {context.error.code === 'UNSUPPORTED_NETWORK' &&  <p className="ErrorText">Unsupported network: please use mainnet</p>}
@@ -35,7 +35,7 @@ const ActivateButton = () => {
           <button onClick={() => activate()}>
       Activated
       </button>
-      <p>{context.account}</p>
+      <p className="Data">{context.account}</p>
       </>)
     
     }
