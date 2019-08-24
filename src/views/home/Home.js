@@ -25,7 +25,10 @@ const Home = () => {
       <h3>Discover and Pledge to existing Moloch DAOs, or summon your own.</h3>
       {(context.active && !context.error) && <SummonButton/>}
       {daosData.length ? (
+        <>
+        <h2>DAOS</h2>
         <DaoList daos={daosData} />
+        </>
       ) : (
         <p>THE HAUS IS LOADING THE DAOS</p>
       )}
