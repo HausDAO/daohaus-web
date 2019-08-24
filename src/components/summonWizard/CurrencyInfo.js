@@ -1,6 +1,8 @@
 import { Field, useFormikContext } from "formik";
 import React from "react";
 
+import { tokenToAddress } from "../../util/constants";
+
 const CurrencyInfo = () => {
   const { errors, touched } = useFormikContext();
 
@@ -9,13 +11,9 @@ const CurrencyInfo = () => {
       <h3>Currency</h3>
       <h4>Choose a currency to accept as tribute.</h4>
 
-      <Field name="approvedToken">
-        {({ field, form }) => (
-          <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Approved Token</label>
-            <input type="text" {...field} />
-          </div>
-        )}
+      <Field component="select" name="approvedToken">
+        <option value={tokenToAddress.Dai}>DAI</option>
+        <option value={tokenToAddress.Weth}>WETH</option>
       </Field>
 
       <small style={{ color: "red" }}>

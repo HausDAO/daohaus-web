@@ -6,7 +6,7 @@ const DepositInfo = () => {
 
   return (
     <div>
-      <h3>Desposit Info</h3>
+      <h3>Deposit Info</h3>
       <h4>This is the confusing part.</h4>
 
       <Field name="proposalDeposit">
