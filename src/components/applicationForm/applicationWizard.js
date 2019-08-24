@@ -6,6 +6,8 @@ import steps from "./steps";
 import { useWeb3Context } from "web3-react";
 import WethService from "../../util/wethService";
 import MolochService from "../../util/molochService";
+import Web3Service from "../../util/web3Service";
+import DaiService from "../../util/daiService";
 
 function FormWrapper({
   children,
@@ -42,6 +44,7 @@ const ApplicationWizard = props => {
   const context = useWeb3Context();
   const web3Service = new Web3Service();
   const wethService = new WethService();
+  const daiService = new DaiService();
   const molochService = new MolochService(contractAddress);
   let currency = '';
   const handleSubmit = async values => {
@@ -68,7 +71,6 @@ const ApplicationWizard = props => {
         .catch(err => {
           console.log(err);
           return { error: "rejected transaction" };
-          return false;
         });
     } catch (err) {
       console.log(err);

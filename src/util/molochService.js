@@ -192,10 +192,12 @@ export default class MolochService {
     return info;
   }
 
-  async approvedToken(id) {
+  async approvedToken() {
     if (!this.contract) {
       await this.initContract();
     }
+    console.log(this.contract);
+    
     let info = await this.contract.methods.approvedToken().call();
     console.log('info', info)
     const mapping = {

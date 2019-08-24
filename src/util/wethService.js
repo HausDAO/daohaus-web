@@ -1,6 +1,5 @@
 import WethAbi from '../contracts/weth.json';
-import Web3Service from '../utils/Web3Service';
-import config from '../config';
+import Web3Service from '../util/web3Service';
 
 export default class WethService {
   contractAddr;
@@ -9,7 +8,7 @@ export default class WethService {
   wethAbi;
 
   constructor() {
-    this.contractAddr = processes.env.REACT_APP_WETH_CONTRACT_ADDRESS;
+    this.contractAddr = process.env.REACT_APP_WETH_CONTRACT_ADDRESS;
     this.web3Service = new Web3Service();
     this.wethAbi = WethAbi;
     this.initContract();
