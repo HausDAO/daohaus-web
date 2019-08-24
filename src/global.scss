@@ -10,6 +10,7 @@ body {
     font-weight: 400;
     width: 100%;
     text-align: left;
+    word-wrap: pre-line;
 }
 
 a {
@@ -55,6 +56,20 @@ button, .Button {
     padding: $base-padding;
     button { margin: 0 auto; }
 }
-.daoList {
 
+.Label {
+    font-size: 0.85em;
+    margin-bottom: 0px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.Value {
+    margin-top: 5px;
+    font-size: 1.35em;
+}
+
+p.Large {
+    font-size: 1.35em;
 }
