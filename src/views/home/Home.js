@@ -1,26 +1,41 @@
-import React, {useEffect} from "react";
-import { useWeb3Context } from 'web3-react'
+import React, { useState, useEffect } from "react";
+import { get } from "../../util/requests";
+import DaoList from '../../components/daoList/DaoList'
+import SummonButton from "../../components/summonButton/summonButton";
+import { useWeb3Context } from "web3-react";
+import './Home.scss';
+
 
 const Home = () => {
-
-    const context = useWeb3Context()
-
-    useEffect(() => {
-      context.setFirstValidConnector(['MetaMask', 'Infura'])
-    }, [])
-  
-    if (!context.active && !context.error) {
-      // loading
-      return <h1>DAUHAUS</h1>
-    } else if (context.error) {
-      //error
-      return <h1>DAUHAUS ERROR</h1>
-    } else {
-      // success
-      return <h1>DAUHAUS Success</h1>
-    }
+  const [daosData, setDaosData] = useState([]);
+  const context = useWeb3Context()
 
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const daoRes = await get(`moloch/`)
+      setDaosData(daoRes.data)
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      <div className="Hero">
+        <h2>Explore the Haus of Moloch</h2>
+        <h3>Discover and Pledge to existing Moloch DAOs, or summon your own.</h3>
+        {(context.active && !context.error) && <SummonButton/>}
+      </div>
+      <div className="daoList">
+        {daosData.length ? (
+          <DaoList daos={daosData} />
+        ) : (
+          <p>THE HAUS IS LOADING THE DAOS</p>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Home;

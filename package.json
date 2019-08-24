@@ -3,13 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
     "dotenv": "^8.1.0",
     "ethers": "^4.0.36",
+    "formik": "^2.0.1-rc.12",
+    "formik-wizard": "^3.1.1",
+    "node-sass": "^4.12.0",
     "react": "^16.9.0",
+    "react-albus": "^2.0.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
-    "web3-react": "^5.0.4"
+    "web3": "^1.2.1",
+    "web3-react": "^5.0.4",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
