@@ -18,15 +18,14 @@ function FormWrapper({
   actionLabel
 }) {
   return (
-    <div>
+    <div className="Wizard">
       {children}
       {status && (
-        <div>
+        <div className="Status">
           {status.message}
-          <hr />
         </div>
       )}
-      <div>
+      <div className="ButtonGroup">
         <button type="button" onClick={goToPreviousStep} disabled={!canGoBack}>
           Previous
         </button>
@@ -34,7 +33,6 @@ function FormWrapper({
           {actionLabel || (isLastStep ? "Pledge" : "Next step")}
         </button>
       </div>
-      <hr />
     </div>
   );
 }
