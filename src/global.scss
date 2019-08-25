@@ -4,6 +4,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
 }
 
+p {
+    max-width: 800px;
+}
+
 body {
     font-size: 16px;
     font-family: 'Futura', sans-serif;
@@ -112,6 +116,12 @@ input, textarea {
     font-size: 1em;
 }
 
+.InlineLabel {
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+}
+
 textarea {
     padding: 15px;
     border-radius: 5px;
@@ -151,5 +161,18 @@ label {
         position: absolute;
         top: 3px;
         right: 70px;
+    }
+}
+
+.Loading {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    img {
+        display: block;
+        margin: 0;
+        max-width: 600px;
+        height: auto;
     }
 }
