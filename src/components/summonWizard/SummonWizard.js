@@ -26,7 +26,7 @@ function FormWrapper({
           Previous
         </button>
         <button type="submit">
-          {actionLabel || (isLastStep ? "Pledge" : "Next step")}
+          {actionLabel || (isLastStep ? "Summon!" : "Next step")}
         </button>
       </div>
     </div>
@@ -43,18 +43,20 @@ const SummonWizard = props => {
 
     try {
       const daoContract = await web3Service.createContract(DaoAbi);
+      console.log('values', values);
+      
       const deployedContract = await daoContract.deploy({
         data: DaoByteCode.object,
         arguments: [
           context.account,
-          values.approvedToken,
-          values.periodDuration,
-          values.votingPeriodLength,
-          values.gracePeriodLength,
-          values.abortWindow,
-          values.proposalDeposit,
-          values.dilutionBound,
-          values.processingReward
+          values.currency.approvedToken,
+          values.timing.periodDuration,
+          values.timing.votingPeriodLength,
+          values.timing.gracePeriodLength,
+          values.timing.abortWindow,
+          values.deposit.proposalDeposit,
+          values.deposit.dilutionBound,
+          values.deposit.processingReward
         ]
       });
 
@@ -80,9 +82,9 @@ const SummonWizard = props => {
           const newMoloch = {
             summonerAddress: context.account,
             contractAddress: receipt.contractAddress,
-            name: values.name,
-            minumumTribute: values.minumumTribute,
-            description: values.description
+            name: values.dao.name,
+            minimumTribute: values.currency.minimumTribute,
+            description: values.dao.description
           };
 
           post("moloch", newMoloch)

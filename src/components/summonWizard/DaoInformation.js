@@ -6,8 +6,8 @@ const DaoInformation = () => {
 
   return (
     <div>
-      <h3>Dao Info</h3>
-      <h4>What is this DAO?</h4>
+      <h3>DAO Info</h3>
+      <h4>What is this DAO about?</h4>
 
       <Field name="name">
         {({ field }) => (
@@ -19,14 +19,17 @@ const DaoInformation = () => {
       </Field>
 
       <small style={{ color: "red" }}>{touched.name && errors.name}</small>
-      <Field name="bio">
+      <Field name="description">
         {({ field }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>DAO Purpose</label>
+            <label>Describe the DAO</label>
             <textarea {...field} />
           </div>
         )}
       </Field>
+      <small style={{ color: "red" }}>{touched.description && errors.description}</small>
+
+
     </div>
   );
 };
