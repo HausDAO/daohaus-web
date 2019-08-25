@@ -44,12 +44,13 @@ const Profile = () => {
 
       {profile.name ? (
         <p>
+          {profile.emoji ? <span>{profile.emoji}{' '}</span> : null}
           {profile.name}
-          {profile.emoji ? <span>{profile.emoji}</span> : null}
+          
         </p>
       ) : null}
 
-      {profile.website ? <p>{profile.website}</p> : null}
+      {profile.website ? <a href={profile.website} target="_blank" rel="noreferrer noopener">{profile.website}</a> : null}
 
       {molochs.length ? (
         <>
