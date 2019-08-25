@@ -20,11 +20,7 @@ function FormWrapper({
   return (
     <div className="Wizard">
       {children}
-      {status && (
-        <div className="Status">
-          {status.message}
-        </div>
-      )}
+      {status && <div className="Status">{status.message}</div>}
       <div className="ButtonGroup">
         <button type="button" onClick={goToPreviousStep} disabled={!canGoBack}>
           Previous
