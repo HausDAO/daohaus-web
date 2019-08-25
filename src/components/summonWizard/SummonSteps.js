@@ -15,17 +15,21 @@ export default [
       description: ""
     },
     validationSchema: object().shape({
-      name: string().required()
+      name: string().required(),
+      description: string().required()
     })
   },
   {
     id: "currency",
     component: CurrencyInfo,
     initialValues: {
-      approvedToken: ""
+      approvedToken: "",
+      minimumTribute: ""
     },
     validationSchema: object().shape({
-      approvedToken: string().required()
+      approvedToken: string().required(),
+      minimumTribute: number().required()
+
     }),
     actionLabel: "Proceed"
   },
