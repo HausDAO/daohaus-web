@@ -91,7 +91,7 @@ const SummonWizard = props => {
             .then(newMolochRes => {
               console.log("created new moloch", newMolochRes);
 
-              props.history.push(`/moloch/${receipt.contractAddress}`);
+              props.history.push(`/dao/${receipt.contractAddress}`);
             })
             .catch(err => {
               console.log("moloch creation error", err);

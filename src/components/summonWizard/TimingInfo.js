@@ -13,14 +13,7 @@ const TimingInfo = () => {
         {({ field, form }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
             <label>Period Duration</label>
-            <input
-              min="0"
-              type="number"
-              inputMode="numeric"
-              step="any"
-              disabled="true"
-              {...field}
-            />
+            <p>1 day</p>
           </div>
         )}
       </Field>
