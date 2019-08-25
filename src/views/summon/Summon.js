@@ -22,7 +22,7 @@ const Summon = () => {
             <SummonAdvForm></SummonAdvForm>
           )}
           <button className="TabButton" onClick={toggleForm}>
-            {wizardForm ? "Hard Mode" : "Use Wizard"}
+            {wizardForm ? "Hard Mode" : "Easy Mode"}
           </button>
         </div>
       ) : null}
