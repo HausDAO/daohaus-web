@@ -10,7 +10,16 @@
     .Brand {
         font-size: 36px;
         margin: 0;
-        img { margin: 0; display: block; max-width: 200px; }
+        img { margin: 0; display: block; max-width: 240px; 
+            position: absolute;
+            transform: rotate(-5deg);
+            margin-left: -30px;
+        }
+    }
+    button {
+        height: 40px;
+        font-size: 0.85em;
+        padding: 0px 15px;
     }
 }
 

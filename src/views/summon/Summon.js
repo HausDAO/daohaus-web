@@ -16,15 +16,14 @@ const Summon = () => {
     <>
       {context.account ? (
         <div className="Form">
+          <button className="TabButton" onClick={toggleForm}>
+            {wizardForm ? "Hard Mode" : "Use Wizard"}
+          </button>
           {wizardForm ? (
             <SummonWizard></SummonWizard>
           ) : (
             <SummonAdvForm></SummonAdvForm>
           )}
-
-          <button onClick={toggleForm}>
-            {wizardForm ? "Use Advanced Form" : "Use Wizard"}
-          </button>
         </div>
       ) : null}
     </>

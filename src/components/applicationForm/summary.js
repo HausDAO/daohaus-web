@@ -18,7 +18,7 @@ function Summary() {
   }, []);
 
   return (
-    <div>
+    <div className="Step Summary">
       <p>Is this information correct?</p>
       <p>You are pledging {values.pledge.pledge} {contractData.token} in tribute</p>
       <p>Name: {values.personal.name}</p>

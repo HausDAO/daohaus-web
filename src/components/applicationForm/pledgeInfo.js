@@ -18,7 +18,7 @@ function PledgeInfo() {
   }, []);
 
   return (
-    <div>
+    <div className="Step">
       <div>
         <h3>Pledge</h3>
         <label htmlFor="pledge">How much are you pledging?</label>

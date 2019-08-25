@@ -10,7 +10,6 @@ const Home = () => {
   const [daosData, setDaosData] = useState([]);
   const context = useWeb3Context()
 
-
   useEffect(() => {
     const fetchData = async () => {
       const daoRes = await get(`moloch/`)
@@ -23,7 +22,7 @@ const Home = () => {
   return (
     <>
       <div className="Hero">
-        <h2>Explore the Haus of Moloch</h2>
+        <h1>Explore the Haus of Moloch</h1>
         <h3>Discover and Pledge to existing Moloch DAOs, or summon your own.</h3>
         {(context.active && !context.error) && <SummonButton/>}
       </div>

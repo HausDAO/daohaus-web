@@ -9,6 +9,10 @@
     padding: 50px;
     text-align: center;
     button { margin: 0 auto; }
+    h1 { font-size: 1.75em;}
+    @media (max-width: $mobile) {
+        button { position: relative; }
+    }
 }
 
 .daoList {

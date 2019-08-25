@@ -7,7 +7,7 @@ const CurrencyInfo = () => {
   const { errors, touched } = useFormikContext();
 
   return (
-    <div>
+    <div className="Wizard">
       <h3>Currency</h3>
       <h4>Choose a currency to accept as tribute.</h4>
 
@@ -16,9 +16,10 @@ const CurrencyInfo = () => {
         <option value={tokenToAddress.Weth}>WETH</option>
       </Field>
 
-      <small style={{ color: "red" }}>
+      <p><small style={{ color: "red" }}>
         {touched.approvedToken && errors.approvedToken}
       </small>
+      </p>
     </div>
   );
 };

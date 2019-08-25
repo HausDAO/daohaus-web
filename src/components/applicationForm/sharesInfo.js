@@ -5,7 +5,7 @@ function Shares() {
   const { errors, touched } = useFormikContext();
 
   return (
-    <div>
+    <div className="Step">
       <div>
         <h3>Shares</h3>
         <label htmlFor="shares">How many shares are you requesting?</label>
