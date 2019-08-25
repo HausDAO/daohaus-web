@@ -159,3 +159,16 @@ label {
         right: 70px;
     }
 }
+
+.Loading {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    img {
+        display: block;
+        margin: 0;
+        max-width: 600px;
+        height: auto;
+    }
+}
