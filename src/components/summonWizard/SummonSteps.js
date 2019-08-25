@@ -5,6 +5,7 @@ import CurrencyInfo from "./CurrencyInfo";
 import TimingInfo from "./TimingInfo";
 import DepositInfo from "./DepositInfo";
 import SummonSummary from "./SummonSummary";
+import { tokenToAddress } from "../../util/constants";
 
 export default [
   {
@@ -23,13 +24,12 @@ export default [
     id: "currency",
     component: CurrencyInfo,
     initialValues: {
-      approvedToken: "",
+      approvedToken: tokenToAddress.Dai,
       minimumTribute: ""
     },
     validationSchema: object().shape({
       approvedToken: string().required(),
       minimumTribute: number().required()
-
     }),
     actionLabel: "Proceed"
   },
@@ -37,10 +37,10 @@ export default [
     id: "timing",
     component: TimingInfo,
     initialValues: {
-      periodDuration: "",
-      votingPeriodLength: "",
-      gracePeriodLength: "",
-      abortWindow: ""
+      periodDuration: 86400,
+      votingPeriodLength: "1",
+      gracePeriodLength: "1",
+      abortWindow: "1"
     },
     validationSchema: object().shape({
       periodDuration: number().required(),
@@ -55,7 +55,7 @@ export default [
     component: DepositInfo,
     initialValues: {
       proposalDeposit: "",
-      dilutionBound: "",
+      dilutionBound: 3,
       processingReward: ""
     },
     validationSchema: object().shape({

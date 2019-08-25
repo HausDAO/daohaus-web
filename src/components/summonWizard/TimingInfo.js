@@ -13,13 +13,7 @@ const TimingInfo = () => {
         {({ field, form }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
             <label>Period Duration</label>
-            <input
-              min="0"
-              type="number"
-              inputMode="numeric"
-              step="any"
-              {...field}
-            />
+            <p>1 day</p>
           </div>
         )}
       </Field>
@@ -27,58 +21,35 @@ const TimingInfo = () => {
         {touched.periodDuration && errors.periodDuration}
       </small>
 
-      <Field name="votingPeriodLength">
-        {({ field, form }) => (
-          <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Voting Period Length</label>
-            <input
-              min="0"
-              type="number"
-              inputMode="numeric"
-              step="any"
-              {...field}
-            />
-          </div>
-        )}
+      <label>Voting Period Length</label>
+      <Field component="select" name="votingPeriodLength">
+        <option value="1">1 Day</option>
+        <option value="3">3 Day</option>
+        <option value="5">5 Day</option>
+        <option value="7">7 Day</option>
       </Field>
       <small style={{ color: "red" }}>
         {touched.votingPeriodLength && errors.votingPeriodLength}
       </small>
 
-      <Field name="gracePeriodLength">
-        {({ field, form }) => (
-          <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Grace Period Length</label>
-            <input
-              min="0"
-              type="number"
-              inputMode="numeric"
-              step="any"
-              {...field}
-            />
-          </div>
-        )}
+      <label>Grace Period Length</label>
+      <Field component="select" name="gracePeriodLength">
+        <option value="1">1 Day</option>
+        <option value="3">3 Day</option>
+        <option value="5">5 Day</option>
+        <option value="7">7 Day</option>
       </Field>
-
       <small style={{ color: "red" }}>
         {touched.gracePeriodLength && errors.gracePeriodLength}
       </small>
 
-      <Field name="abortWindow">
-        {({ field, form }) => (
-          <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Abort Window</label>
-            <input
-              min="0"
-              type="number"
-              inputMode="numeric"
-              step="any"
-              {...field}
-            />
-          </div>
-        )}
+      <label>Abort Window</label>
+      <Field component="select" name="abortWindow">
+        <option value="1">1 Day</option>
+        <option value="3">3 Day</option>
+        <option value="5">5 Day</option>
+        <option value="7">7 Day</option>
       </Field>
-
       <small style={{ color: "red" }}>
         {touched.abortWindow && errors.abortWindow}
       </small>
