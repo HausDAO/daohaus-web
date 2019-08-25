@@ -4,6 +4,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
 }
 
+p {
+    max-width: 800px;
+}
+
 body {
     font-size: 16px;
     font-family: 'Futura', sans-serif;
@@ -37,6 +41,7 @@ button, .Button {
 // Typography
 .Data {
     font-family: 'Roboto Mono', monospace;
+    word-break: break-all;
 }
 
 .AuthButton {
@@ -55,6 +60,7 @@ button, .Button {
     min-height: 50vh;
     padding: $base-padding;
     button { margin: 0 auto; }
+    width: calc(100% - 100px);
 }
 
 .Label {
@@ -72,4 +78,102 @@ button, .Button {
 
 p.Large {
     font-size: 1.35em;
+}
+
+// Wizard
+.Wizard {
+    padding: $base-padding;
+    h3 {
+        font-size: 2em;
+    }
+    p:first-child {
+        font-size: 1.5em;
+    }
+}
+.Step {
+    position: relative;
+}
+
+.ButtonGroup {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    margin: 25px 0px;
+    width: 100%;
+    button {
+        display: inline-block;
+    }
+}
+
+input, textarea {
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid #efefef;
+    width: 100%;
+    margin: 10px 0px;
+    outline: none !important;
+    padding: 0px 15px;
+    font-size: 1em;
+}
+
+.InlineLabel {
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+}
+
+textarea {
+    padding: 15px;
+    border-radius: 5px;
+}
+
+label {
+    margin-top: 25px;
+    font-size: 0.75em;
+    display: block;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.TabButton {
+    position: relative;
+    background-color: transparent;
+    color: $primary;
+    top: -50px;
+}
+
+ select {
+    appearance: none; 
+    border: none;
+    background-color: transparent;
+    font-size: 2em;
+    outline: none;
+}
+
+.Select {
+    position: relative;
+    svg {
+        width: 36px;
+        height: 36px;
+        fill: #000;
+        display: inline-block;
+        position: absolute;
+        top: 3px;
+        right: 70px;
+    }
+}
+
+.Loading {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    img {
+        display: block;
+        margin: 0;
+        max-width: 600px;
+        height: auto;
+    }
 }

@@ -14,7 +14,7 @@ const Routes = () => (
     <Route path="/dao/:contractAddress" exact component={Dao} />
     <Route path="/apply/:contractAddress" exact component={Apply} />
     <Route path="/summon" exact component={Summon} />
-    <Route path="/profile" exact component={Profile} />
+    <Route path="/profile/:account" exact component={Profile} />
     <Route path="*" component={FourOhFour} />
   </Switch>
 );

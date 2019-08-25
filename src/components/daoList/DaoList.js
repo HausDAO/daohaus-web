@@ -10,7 +10,7 @@ const DaoList = (props) => {
   const daoList = daos.map(dao => {
     return (
       <div className="DaoList__item" key={dao.contractAddress}>
-        <Link to={`dao/${dao.contractAddress}`}>
+        <Link to={`/dao/${dao.contractAddress}`}>
           <DaoCard dao={dao} />
         </Link>
       </div>

@@ -23,10 +23,9 @@ function FormWrapper({
       {status && (
         <div>
           {status.message}
-          <hr />
         </div>
       )}
-      <div>
+      <div className="ButtonGroup">
         <button type="button" onClick={goToPreviousStep} disabled={!canGoBack}>
           Previous
         </button>
@@ -34,7 +33,6 @@ function FormWrapper({
           {actionLabel || (isLastStep ? "Pledge" : "Next step")}
         </button>
       </div>
-      <hr />
     </div>
   );
 }
@@ -101,7 +99,7 @@ const ApplicationWizard = props => {
   };
 
   return (
-    <>
+    <div className="Wizard">
       {context.account ? (
         <FormikWizard
           steps={steps}
@@ -111,7 +109,7 @@ const ApplicationWizard = props => {
       ) : (
         <p>Connect your metamask account</p>
       )}
-    </>
+    </div>
   );
 };
 

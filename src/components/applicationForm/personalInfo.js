@@ -5,9 +5,9 @@ function PersonalInfo() {
   // const { errors, touched } = useFormikContext()
 
   return (
-    <div>
+    <div className="Step">
       <h3>Personal Info</h3>
-      <h4>The summoner what to know a little about you.</h4>
+      <h4>The summoner would like to know a little about you.</h4>
 
       <Field name="name">
         {({ field }) => (

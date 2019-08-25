@@ -18,12 +18,14 @@ function PledgeInfo() {
   }, []);
 
   return (
-    <div>
+    <div className="Step">
       <div>
         <h3>Pledge</h3>
-        <label htmlFor="pledge">How much are you pledging?</label>
-        <p>{contractData.token}</p>
-        <FastField name="pledge" id="pledge" />
+        <div className="Field">
+          <label htmlFor="pledge">How much are you pledging?</label>
+          <p className="InlineLabel">{contractData.token}</p>
+          <FastField name="pledge" id="pledge" />
+        </div>
       </div>
       <small style={{ color: 'red' }}>
         {touched.pledge && errors.pledge}

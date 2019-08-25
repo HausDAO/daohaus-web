@@ -18,11 +18,13 @@ function Summary() {
   }, []);
 
   return (
-    <div>
-      <p>Is this information correct?</p>
-      <p>You are pledging {values.pledge.pledge} {contractData.token} in tribute</p>
-      <p>Name: {values.personal.name}</p>
-      <p>Bio: {values.personal.bio}</p>
+    <div className="Step Summary">
+      <h3>Pledge to the DAO!</h3>
+      <p className="Label">Name</p><p className="Value Data">{values.personal.name}</p>
+      <p className="Label">Bio</p><p className="Value Data">{values.personal.bio}</p>
+      <p className="Value">You are pledging {values.pledge.pledge} {contractData.token} in tribute
+      and requesting {values.shares.shares} shares</p>
+      <p></p>
     </div>
   )
 }

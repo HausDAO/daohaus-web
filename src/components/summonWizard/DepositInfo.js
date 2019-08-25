@@ -7,12 +7,15 @@ const DepositInfo = () => {
   return (
     <div>
       <h3>Deposit Info</h3>
-      <h4>This is the confusing part.</h4>
+      <h4>
+        Members must post a deposit when submitting a proposal, and the
+        processing reward goes to the processor.
+      </h4>
 
       <Field name="proposalDeposit">
         {({ field, form }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Proposal Deposit</label>
+            <label>Proposal Deposit - ETH</label>
             <input
               min="0"
               type="number"
@@ -28,29 +31,10 @@ const DepositInfo = () => {
         {touched.proposalDeposit && errors.proposalDeposit}
       </small>
 
-      <Field name="dilutionBound">
-        {({ field, form }) => (
-          <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Dilution Bound</label>
-            <input
-              min="0"
-              type="number"
-              inputMode="numeric"
-              step="any"
-              {...field}
-            />
-          </div>
-        )}
-      </Field>
-
-      <small style={{ color: "red" }}>
-        {touched.dilutionBound && errors.dilutionBound}
-      </small>
-
       <Field name="processingReward">
-        {({ field, form }) => (
+        {({ field }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Processing Reward</label>
+            <label>Processing Reward - ETH</label>
             <input
               min="0"
               type="number"

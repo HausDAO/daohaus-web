@@ -3,7 +3,7 @@ import { get } from "../../util/requests";
 import ApplicationList from "../../components/applicationList/ApplicationList";
 import ApplyButton from "../../components/applyButton/applyButton";
 import MolochService from "../../util/molochService";
-import './Dao.scss';
+import "./Dao.scss";
 
 const Dao = props => {
   const [daoData, setDaoData] = useState({});
@@ -12,24 +12,27 @@ const Dao = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const daoRes = await get(`moloch/${props.match.params.contractAddress}`)
-      setDaoData(daoRes.data)
+      const daoRes = await get(`moloch/${props.match.params.contractAddress}`);
+      setDaoData(daoRes.data);
 
-      const applicationRes = await get(`moloch/${props.match.params.contractAddress}/applications`)
-      setApplications(applicationRes.data)
+      const applicationRes = await get(
+        `moloch/${props.match.params.contractAddress}/applications`
+      );
+      setApplications(applicationRes.data);
 
-      const molochService = new MolochService('0x0372f3696fa7dc99801f435fd6737e57818239f2');
-      const totalShares = await molochService.getTotalShares()
-      const token = await molochService.approvedToken()
-      setContractData({totalShares, token})
+      const molochService = new MolochService(
+        props.match.params.contractAddress
+      );
+      const totalShares = await molochService.getTotalShares();
+      const token = await molochService.approvedToken();
+      setContractData({ totalShares, token });
     };
-
 
     fetchData();
   }, [props.match.params.contractAddress]);
 
   return (
-  <div className="View">
+    <div className="View">
       {daoData.contractAddress ? (
         <div>
           <h2 className="DaoName">{daoData.name}</h2>
@@ -39,14 +42,16 @@ const Dao = props => {
           <p className="Label">Summoner</p>
           <p className="Value Data">{daoData.summonerAddress}</p>
           <p className="Label">Minimum Tribute</p>
-          <p className="Value Data">{daoData.minimumTribute} {contractData.token}</p>
-          <ApplyButton contractAddress={daoData.contractAddress}/>
+          <p className="Value Data">
+            {daoData.minimumTribute} {contractData.token}
+          </p>
+          <ApplyButton contractAddress={daoData.contractAddress} />
           {applications.length ? (
-        <>
-          <h3>Pledges</h3>
-          <ApplicationList applications={applications} />
-        </>
-      ) : null}
+            <>
+              <h3>Pledges</h3>
+              <ApplicationList applications={applications} />
+            </>
+          ) : null}
         </div>
       ) : (
         <p>THE HAUS IS LOADING THE DAO</p>
