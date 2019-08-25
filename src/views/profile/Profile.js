@@ -6,7 +6,7 @@ import { get } from "../../util/requests";
 import DaoList from "../../components/daoList/DaoList";
 import ApplicationShortList from "../../components/applicationList/ApplicationShortList";
 
-const Profile = () => {
+const Profile = props => {
   const context = useWeb3Context();
   const [molochs, setMolochs] = useState([]);
   const [applications, setApplications] = useState([]);
@@ -14,29 +14,30 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const daoRes = await get(`moloch/`);
-      setMolochs(
-        daoRes.data.filter(moloch => {
-          return moloch.summonerAddress === context.account;
-        })
-      );
+      if (context.account === props.match.params.account) {
+        const daoRes = await get(`moloch/`);
+        setMolochs(
+          daoRes.data.filter(moloch => {
+            return moloch.summonerAddress === context.account;
+          })
+        );
 
-      const applicationRes = await get(`applications/${context.account}`);
-      setApplications(applicationRes.data);
+        const applicationRes = await get(`applications/${context.account}`);
+        setApplications(applicationRes.data);
+      }
 
-      const profile = await getProfile(context.account);
-      // const profile = await getProfile(context.account);
+      const profile = await getProfile(props.match.params.account);
       console.log("profile", profile);
       setProfile(profile);
     };
 
     fetchData();
-  }, [context.account]);
+  }, [context.account, props.match.params.account]);
 
   return (
     <div className="View">
       <h1>Profile</h1>
-      {context.account}
+      {props.match.params.account}
 
       {/* {profile.image && profile.image[0] ? (
         <img src={profile.image[0].contentUrl} alt="profile" />

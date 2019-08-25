@@ -1,27 +1,22 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const ApplicationList = (props) => {
+const ApplicationList = props => {
   const { applications } = props;
 
   const applicationList = applications.map((application, i) => {
     return (
       <div key={i}>
-        <Link to={`dao/${application.molochContractAddress}`}>
+        <Link to={`/profile/${application.applicantAddress}`}>
           <p>{application.applicantAddress}</p>
           <p>{application.name}</p>
           <p>{application.bio}</p>
         </Link>
       </div>
     );
-  })
+  });
 
-
-  return (
-    <>
-      {applicationList}
-    </>
-  );
+  return <>{applicationList}</>;
 };
 
 export default ApplicationList;
