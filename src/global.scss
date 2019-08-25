@@ -112,6 +112,12 @@ input, textarea {
     font-size: 1em;
 }
 
+.InlineLabel {
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+}
+
 textarea {
     padding: 15px;
     border-radius: 5px;
