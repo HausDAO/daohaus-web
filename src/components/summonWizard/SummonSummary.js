@@ -6,17 +6,19 @@ function SummonSummary() {
 
   return (
     <div>
-      <p>Is this your DAO?</p>
-      <p>Name: {values.dao.name}</p>
-      <p>Description: {values.dao.bio}</p>
-      <p>Currency: {values.currency.approvedToken}</p>
-      <p>Period Duration: {values.timing.periodDuration}</p>
-      <p>votingPeriodLength: {values.timing.votingPeriodLength}</p>
-      <p>gracePeriodLength: {values.timing.gracePeriodLength}</p>
-      <p>abortWindow: {values.timing.abortWindow}</p>
-      <p>proposalDeposit: {values.deposit.proposalDeposit}</p>
-      <p>dilutionBound: {values.deposit.dilutionBound}</p>
-      <p>processingReward: {values.deposit.processingReward}</p>
+      <h3>Summon your DAO!</h3>
+      <p>Does this look right?</p>
+      <p className="Label">Name</p>
+      <p className="Value">{values.dao.name}</p>
+      <p className="Label">Description</p><p className="Value">{values.dao.bio}</p>
+      <p className="Label">Currency</p><p className="Value">{values.currency.approvedToken}</p>
+      <p className="Label">Period Duration</p><p className="Value">{values.timing.periodDuration}</p>
+      <p className="Label">Voting Period Length</p><p className="Value">{values.timing.votingPeriodLength}</p>
+      <p className="Label">Grace Period Length</p><p className="Value">{values.timing.gracePeriodLength}</p>
+      <p className="Label">Abort Window</p><p className="Value">{values.timing.abortWindow}</p>
+      <p className="Label">Proposal Deposit</p><p className="Value">{values.deposit.proposalDeposit}</p>
+      <p className="Label">Dilution Bound</p><p className="Value">{values.deposit.dilutionBound}</p>
+      <p className="Label">Processing Reward</p><p className="Value">{values.deposit.processingReward}</p>
     </div>
   );
 }

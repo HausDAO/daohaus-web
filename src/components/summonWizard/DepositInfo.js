@@ -7,7 +7,7 @@ const DepositInfo = () => {
   return (
     <div>
       <h3>Deposit Info</h3>
-      <h4>This is the confusing part.</h4>
+      <h4>Members must post a deposit when submitting a proposal, and the processing reward goes to the processor.</h4>
 
       <Field name="proposalDeposit">
         {({ field, form }) => (

@@ -55,6 +55,7 @@ button, .Button {
     min-height: 50vh;
     padding: $base-padding;
     button { margin: 0 auto; }
+    width: calc(100% - 100px);
 }
 
 .Label {
@@ -80,22 +81,24 @@ p.Large {
     h3 {
         font-size: 2em;
     }
-    .ButtonGroup {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-content: flex-start;
-        margin: 25px 0px;
-        button {
-            margin-right: 15px;
-        }
-    }
     p:first-child {
         font-size: 1.5em;
     }
 }
 .Step {
     position: relative;
+}
+
+.ButtonGroup {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    margin: 25px 0px;
+    width: 100%;
+    button {
+        display: inline-block;
+    }
 }
 
 input, textarea {
@@ -115,14 +118,38 @@ textarea {
 }
 
 label {
-    margin-top: 50px;
-    font-size: 0.85em;
+    margin-top: 25px;
+    font-size: 0.75em;
+    display: block;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .TabButton {
-    position: absolute;
-    top: 100px;
-    right: 0px;
+    position: relative;
     background-color: transparent;
     color: $primary;
+    top: -50px;
+}
+
+ select {
+    appearance: none; 
+    border: none;
+    background-color: transparent;
+    font-size: 2em;
+    outline: none;
+}
+
+.Select {
+    position: relative;
+    svg {
+        width: 36px;
+        height: 36px;
+        fill: #000;
+        display: inline-block;
+        position: absolute;
+        top: 3px;
+        right: 70px;
+    }
 }

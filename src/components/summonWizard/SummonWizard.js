@@ -30,7 +30,7 @@ function FormWrapper({
           Previous
         </button>
         <button type="submit">
-          {actionLabel || (isLastStep ? "Pledge" : "Next step")}
+          {actionLabel || (isLastStep ? "Summon!" : "Next step")}
         </button>
       </div>
     </div>
