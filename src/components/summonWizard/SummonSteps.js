@@ -38,9 +38,9 @@ export default [
     component: TimingInfo,
     initialValues: {
       periodDuration: 86400,
-      votingPeriodLength: "",
-      gracePeriodLength: "",
-      abortWindow: ""
+      votingPeriodLength: "1",
+      gracePeriodLength: "1",
+      abortWindow: "1"
     },
     validationSchema: object().shape({
       periodDuration: number().required(),

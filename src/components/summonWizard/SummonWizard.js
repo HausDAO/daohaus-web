@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { FormikWizard } from "formik-wizard";
 
@@ -8,6 +8,7 @@ import DaoAbi from "../../contracts/moloch.json";
 import DaoByteCode from "../../contracts/molochByteCode.json";
 import { post } from "../../util/requests";
 import summonSteps from "./SummonSteps";
+import Loading from "../loading/Loading";
 
 function FormWrapper({
   children,
@@ -35,9 +36,12 @@ function FormWrapper({
 
 const SummonWizard = props => {
   const context = useWeb3Context();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async values => {
     console.log(values);
+
+    setLoading(true);
 
     const web3Service = new Web3Service();
 
@@ -90,10 +94,12 @@ const SummonWizard = props => {
           post("moloch", newMoloch)
             .then(newMolochRes => {
               console.log("created new moloch", newMolochRes);
+              setLoading(false);
 
               props.history.push(`/dao/${receipt.contractAddress}`);
             })
             .catch(err => {
+              setLoading(false);
               console.log("moloch creation error", err);
             });
         })
@@ -109,14 +115,22 @@ const SummonWizard = props => {
     }
   };
 
+  console.log("loading", loading);
+
   return (
     <>
       {context.account ? (
-        <FormikWizard
-          steps={summonSteps}
-          onSubmit={handleSubmit}
-          render={FormWrapper}
-        />
+        <>
+          {!loading ? (
+            <FormikWizard
+              steps={summonSteps}
+              onSubmit={handleSubmit}
+              render={FormWrapper}
+            />
+          ) : (
+            <Loading />
+          )}
+        </>
       ) : (
         <p>Connect your metamask account</p>
       )}
