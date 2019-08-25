@@ -12,8 +12,6 @@ const ApplicationList = props => {
       <div key={i} className="Applicant__List">
         <Link to={`/profile/${application.applicantAddress}`}>
           <p>{application.applicantAddress}</p>
-          <p>{application.name}</p>
-          <p>{application.bio}</p>
         </Link>
         <ProfileHover address={application.applicantAddress} />
       </div>

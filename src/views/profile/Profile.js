@@ -45,13 +45,16 @@ const Profile = props => {
 
       {profile.name ? (
         <p>
-          {profile.emoji ? <span>{profile.emoji}{' '}</span> : null}
+          {profile.emoji ? <span>{profile.emoji} </span> : null}
           {profile.name}
-          
         </p>
       ) : null}
 
-      {profile.website ? <a href={profile.website} target="_blank" rel="noreferrer noopener">{profile.website}</a> : null}
+      {profile.website ? (
+        <a href={profile.website} target="_blank" rel="noreferrer noopener">
+          {profile.website}
+        </a>
+      ) : null}
 
       {molochs.length ? (
         <>
@@ -62,8 +65,8 @@ const Profile = props => {
 
       {applications.length ? (
         <>
-          <ApplicationShortList applications={applications} />
           <h2>I have applied to these Molochs</h2>
+          <ApplicationShortList applications={applications} />
         </>
       ) : null}
     </div>
