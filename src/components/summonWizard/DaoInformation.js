@@ -19,7 +19,7 @@ const DaoInformation = () => {
       </Field>
 
       <small style={{ color: "red" }}>{touched.name && errors.name}</small>
-      <Field name="bio">
+      <Field name="description">
         {({ field }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
             <label>DAO Purpose</label>
@@ -27,6 +27,9 @@ const DaoInformation = () => {
           </div>
         )}
       </Field>
+      <small style={{ color: "red" }}>{touched.description && errors.description}</small>
+
+
     </div>
   );
 };

@@ -20,6 +20,25 @@ const CurrencyInfo = () => {
         {touched.approvedToken && errors.approvedToken}
       </small>
       </p>
+
+      <Field name="minimumTribute">
+        {({ field, form }) => (
+          <div className={field.value ? "Field HasValue" : "Field "}>
+            <label>Minimum Tribute</label>
+            <input
+              min="0"
+              type="number"
+              inputMode="numeric"
+              step="any"
+              {...field}
+            />
+          </div>
+        )}
+      </Field>
+      <p><small style={{ color: "red" }}>
+        {touched.minimumTribute && errors.minimumTribute}
+      </small>
+      </p>
     </div>
   );
 };
