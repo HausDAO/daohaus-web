@@ -9,7 +9,7 @@ const ApplicationShortList = props => {
 
   const applicationList = applications.map((application, i) => {
     return (
-      <div key={i}>
+      <div key={i} className="Applicant__List">
         <Link to={`/profile/${application.applicantAddress}`}>
           <p>{application.moloch.name}</p>
         </Link>

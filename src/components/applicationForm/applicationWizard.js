@@ -20,11 +20,7 @@ function FormWrapper({
   return (
     <div>
       {children}
-      {status && (
-        <div>
-          {status.message}
-        </div>
-      )}
+      {status && <div>{status.message}</div>}
       <div className="ButtonGroup">
         <button type="button" onClick={goToPreviousStep} disabled={!canGoBack}>
           Previous
@@ -44,22 +40,24 @@ const ApplicationWizard = props => {
   const wethService = new WethService();
   const daiService = new DaiService();
   const molochService = new MolochService(contractAddress);
-  let currency = '';
+  let currency = "";
   const handleSubmit = async values => {
     try {
-      if(molochService.approvedToken() === "Weth"){
-        await wethService.initContract();
-        currency = wethService.contract;
+      if (molochService.approvedToken() === "Weth") {
+        let contract = await wethService.initContract();
+
+        currency = contract.contract;
+        console.log(currency);
       } else {
-        await daiService.initContract();
-        currency = wethService.contract;
+        let contract = await daiService.initContract();
+        currency = contract.contract;
       }
 
-      const approve = await currency
+      await currency
         .approve(
           context.account,
           contractAddress,
-          web3Service.toWei(values.amount)
+          web3Service.toWei(values.pledge.pledge)
         )
         .send({ from: context.account })
         .once("transactionHash", txHash => {})
