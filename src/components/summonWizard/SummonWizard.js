@@ -43,8 +43,8 @@ const SummonWizard = props => {
 
     try {
       const daoContract = await web3Service.createContract(DaoAbi);
-      console.log('values', values);
-      
+      console.log("values", values);
+
       const deployedContract = await daoContract.deploy({
         data: DaoByteCode.object,
         arguments: [
@@ -54,9 +54,9 @@ const SummonWizard = props => {
           values.timing.votingPeriodLength,
           values.timing.gracePeriodLength,
           values.timing.abortWindow,
-          values.deposit.proposalDeposit,
+          web3Service.toWei(values.deposit.proposalDeposit),
           values.deposit.dilutionBound,
-          values.deposit.processingReward
+          web3Service.toWei(values.deposit.processingReward)
         ]
       });
 
