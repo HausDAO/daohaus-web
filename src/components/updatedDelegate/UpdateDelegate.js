@@ -1,6 +1,4 @@
 import React from "react";
-import Web3Service from "../../util/web3Service";
-import DaoAbi from "../../contracts/moloch.json";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useWeb3Context } from "web3-react";
@@ -28,7 +26,6 @@ const UpdateDelegate = ({ contractAddress }) => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const web3Service = new Web3Service();
           const daoService = new MolochService(contractAddress)
 
           const daoContract = await daoService.initContract();

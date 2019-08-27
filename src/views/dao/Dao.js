@@ -16,8 +16,6 @@ const Dao = props => {
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
 
   useEffect(() => {
-    console.log("applicationRes.data", applications);
-    console.log("context.account", context);
     if (context.active && applications.length) {
       const applicantData = applications.find(applicant => {
         return (
@@ -29,7 +27,7 @@ const Dao = props => {
         setIsMemberOrApplicant(true);
       }
     }
-  }, [context.account, applications]);
+  }, [context, applications]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,10 +50,6 @@ const Dao = props => {
 
     fetchData();
   }, [props.match.params.contractAddress]);
-
-  const updateDelegate = async () => {
-    //pass
-  };
 
   return (
     <div className="View">
