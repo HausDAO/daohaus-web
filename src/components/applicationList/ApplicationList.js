@@ -7,7 +7,7 @@ const ApplicationList = (props) => {
   const applicationList = applications.map((application, i) => {
     return (
       <div key={i}>
-        <Link to={`dao/${application.molochContractAddress}`}>
+        <Link to={`/profile/${application.molochContractAddress}`}>
           <p>{application.applicantAddress}</p>
           <p>{application.name}</p>
           <p>{application.bio}</p>

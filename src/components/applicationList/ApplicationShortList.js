@@ -7,7 +7,7 @@ const ApplicationShortList = (props) => {
   const applicationList = applications.map((application, i) => {
     return (
       <div key={i}>
-        <Link to={`dao/${application.molochContractAddress}`}>
+        <Link to={`/dao/${application.molochContractAddress}`}>
           <p>{application.moloch.name}</p>
         </Link>
       </div>
