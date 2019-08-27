@@ -4,11 +4,30 @@ import ApplicationList from "../../components/applicationList/ApplicationList";
 import ApplyButton from "../../components/applyButton/applyButton";
 import MolochService from "../../util/molochService";
 import "./Dao.scss";
+import { useWeb3Context } from "web3-react";
 
 const Dao = props => {
+  const context = useWeb3Context();
   const [daoData, setDaoData] = useState({});
   const [applications, setApplications] = useState({});
   const [contractData, setContractData] = useState({});
+  const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
+
+  useEffect(() => {
+    console.log("applicationRes.data", applications);
+    console.log("context.account", context);
+    if (context.active && applications) {
+      const applicantData = applications.find(applicant => {
+        return (
+          applicant.applicantAddress.toLowerCase() ===
+          context.account.toLowerCase()
+        );
+      });
+      if (applicantData) {
+        setIsMemberOrApplicant(true);
+      }
+    }
+  }, [context.account])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +38,7 @@ const Dao = props => {
         `moloch/${props.match.params.contractAddress}/applications`
       );
       setApplications(applicationRes.data);
+     
 
       const molochService = new MolochService(
         props.match.params.contractAddress
@@ -45,7 +65,14 @@ const Dao = props => {
           <p className="Value Data">
             {daoData.minimumTribute} {contractData.token}
           </p>
-          <ApplyButton contractAddress={daoData.contractAddress} />
+          {isMemberOrApplicant ? (
+            <>
+              <p>you are a member or applicant</p>
+              <button>update delegate</button>
+            </>
+          ) : (
+            <ApplyButton contractAddress={daoData.contractAddress} />
+          )}
           {applications.length ? (
             <>
               <h3>Pledges</h3>
