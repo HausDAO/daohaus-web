@@ -19,6 +19,8 @@ export default class WethService {
       this.wethAbi,
       this.contractAddr,
     );
+    console.log('this.contract weth', this.contract);
+    
     return this.contract;
   }
 

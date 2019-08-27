@@ -4,7 +4,6 @@ import DaoAbi from "../../contracts/moloch.json";
 import DaoByteCode from "../../contracts/molochByteCode.json";
 import { post } from "../../util/requests";
 
-// import BcProcessorService from '../../utils/BcProcessorService';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useWeb3Context } from "web3-react";
 
@@ -50,7 +49,6 @@ const SummonAdvForm = () => {
 
           // setLoading(true);
           try {
-            setSubmitting(false);
             const daoContract = await web3Service.createContract(DaoAbi);
             console.log("contract", daoContract);
             console.log("account", context.account);
@@ -111,13 +109,6 @@ const SummonAdvForm = () => {
               .then(function(newContractInstance) {
                 console.log(newContractInstance.options.address); // instance with the new contract address
               });
-
-            // bcprocessor.setTx(
-            //   hash,
-            //   currentUser.attributes["custom:account_address"],
-            //   `Withdraw Eth: ${values.amount}`,
-            //   true
-            // );
           } catch (err) {
             console.log(err);
             alert(`Something went wrong. please try again`);

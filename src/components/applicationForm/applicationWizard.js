@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormikWizard } from "formik-wizard";
 
 import { post } from "../../util/requests";
@@ -8,6 +8,7 @@ import WethService from "../../util/wethService";
 import MolochService from "../../util/molochService";
 import Web3Service from "../../util/web3Service";
 import DaiService from "../../util/daiService";
+import Loading from "../loading/Loading";
 
 function FormWrapper({
   children,
@@ -39,6 +40,8 @@ function FormWrapper({
 
 const ApplicationWizard = props => {
   const { contractAddress } = props;
+  const [loading, setLoading] = useState(false);
+
   const context = useWeb3Context();
   const web3Service = new Web3Service();
   const wethService = new WethService();
@@ -46,66 +49,80 @@ const ApplicationWizard = props => {
   const molochService = new MolochService(contractAddress);
   let currency = '';
   const handleSubmit = async values => {
+    setLoading(true);
+
     try {
-      if(molochService.approvedToken() === "Weth"){
-        await wethService.initContract();
-        currency = wethService.contract;
+      const daoToken = await molochService.approvedToken();
+      console.log('molochService.approvedToken()', daoToken);
+      if(daoToken === "Weth"){
+        currency = await wethService.initContract();
       } else {
-        await daiService.initContract();
-        currency = wethService.contract;
+        currency = await daiService.initContract();
       }
 
-      const approve = await currency
+      await currency.methods
         .approve(
-          context.account,
           contractAddress,
-          web3Service.toWei(values.amount)
+          web3Service.toWei(values.pledge.pledge)
         )
         .send({ from: context.account })
         .once("transactionHash", txHash => {})
+        .on("receipt", async (receipt) => {
+          console.log(receipt); 
+          const application = {
+            name: values.personal.name,
+            bio: values.personal.bio,
+            pledge: values.pledge.pledge,
+            shares: values.shares.shares,
+            applicantAddress: context.account,
+            molochContractAddress: contractAddress
+          };
+      
+          const res = await post(`moloch/apply`, application);
+      
+          if (res.data.error) {
+            return {
+              message: res.data.error
+            };
+          } else {
+            return {
+              message: "thanks for signaling"
+            };
+          }
+          setLoading(false);
+
+        })
         .then(resp => {
           return resp;
         })
         .catch(err => {
+          setLoading(false);
           console.log(err);
           return { error: "rejected transaction" };
         });
     } catch (err) {
+      setLoading(false);
       console.log(err);
       alert(`Something went wrong. please try again`);
-      return false;
+      return { error: "rejected transaction" };
     }
 
-    const application = {
-      name: values.personal.name,
-      bio: values.personal.bio,
-      pledge: values.pledge.pledge,
-      shares: values.shares.shares,
-      applicantAddress: context.account,
-      molochContractAddress: contractAddress
-    };
-
-    const res = await post(`moloch/apply`, application);
-
-    if (res.data.error) {
-      return {
-        message: res.data.error
-      };
-    } else {
-      return {
-        message: "thanks for signaling"
-      };
-    }
   };
 
   return (
     <div className="Wizard">
       {context.account ? (
-        <FormikWizard
+        <>
+        {!loading ? (
+          <FormikWizard
           steps={steps}
           onSubmit={handleSubmit}
           render={FormWrapper}
         />
+        ) : (
+          <Loading />
+        )}
+        </>
       ) : (
         <p>Connect your metamask account</p>
       )}
