@@ -21,6 +21,7 @@ export default class MolochService {
       this.daoAbi,
       this.contractAddr
     );
+    return this.contract;
   }
 
   async getAllEvents() {
