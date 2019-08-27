@@ -79,8 +79,9 @@ const ApplicationWizard = props => {
           };
       
           const res = await post(`moloch/apply`, application);
-      
+          setLoading(false);
           if (res.data.error) {
+
             return {
               message: res.data.error
             };
@@ -89,7 +90,7 @@ const ApplicationWizard = props => {
               message: "thanks for signaling"
             };
           }
-          setLoading(false);
+          
 
         })
         .then(resp => {
