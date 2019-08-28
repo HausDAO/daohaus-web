@@ -61,7 +61,15 @@ const Dao = props => {
             <div>
               <h2 className="DaoName">{daoData.name}</h2>
               <p className="Large">{daoData.description}</p>
-              {daoData.daoUrl && (<a className="small" href={daoData.daoUrl} alt="link to dao site">{daoData.daoUrl}</a>)}
+              {daoData.daoUrl && (
+                <a
+                  className="small"
+                  href={daoData.daoUrl}
+                  alt="link to dao site"
+                >
+                  {daoData.daoUrl}
+                </a>
+              )}
               <p className="Label">Shares</p>
               <p className="Value Data">{contractData.totalShares}</p>
               <p className="Label">Summoner</p>
@@ -83,7 +91,10 @@ const Dao = props => {
               {applications.length ? (
                 <>
                   <h3>Pledges</h3>
-                  <ApplicationList applications={applications} />
+                  <ApplicationList
+                    applications={applications}
+                    summoner={daoData.summonerAddress}
+                  />
                 </>
               ) : null}
             </div>
