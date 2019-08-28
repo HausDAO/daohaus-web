@@ -21,11 +21,7 @@ function FormWrapper({
   return (
     <div>
       {children}
-      {status && (
-        <div>
-          {status.message}
-        </div>
-      )}
+      {status && <div>{status.message}</div>}
       <div className="ButtonGroup">
         <button type="button" onClick={goToPreviousStep} disabled={!canGoBack}>
           Previous
@@ -47,7 +43,7 @@ const ApplicationWizard = props => {
   const wethService = new WethService();
   const daiService = new DaiService();
   const molochService = new MolochService(contractAddress);
-  let currency = '';
+  let currency = "";
   const handleSubmit = async values => {
     setLoading(true);
 
