@@ -71,7 +71,8 @@ const ApplicationWizard = props => {
             pledge: values.pledge.pledge,
             shares: values.shares.shares,
             applicantAddress: context.account,
-            molochContractAddress: contractAddress
+            molochContractAddress: contractAddress,
+            status: 'new'
           };
       
           const res = await post(`moloch/apply`, application);

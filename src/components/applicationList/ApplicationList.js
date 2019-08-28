@@ -12,14 +12,20 @@ const ApplicationList = props => {
       return a.shares - b.shares;
     })
     .map((application, i) => {
-      application.status = "member";
-
       if (application.shares === "0") {
         application.status = "zero share member";
       }
 
       if (application.applicantAddress === summoner) {
         application.status = "summoner";
+      }
+
+      if (application.status === "new") {
+        application.status = "New Pledge";
+      }
+
+      if (!application.status) {
+        application.status = "member";
       }
 
       return (
