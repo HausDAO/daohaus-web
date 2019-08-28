@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useWeb3Context } from "web3-react";
 import { getProfile } from "3box/lib/api";
+import { useWeb3Context } from "web3-react";
 
 import { get } from "../../util/requests";
 import DaoList from "../../components/daoList/DaoList";
@@ -58,7 +58,7 @@ const Profile = props => {
 
       {molochs.length ? (
         <>
-          <h2>I am the summoner of these Molochs</h2>
+          <h2>Summoner of these Molochs</h2>
           <DaoList daos={molochs} />
         </>
       ) : null}
