@@ -37,7 +37,12 @@ const Profile = props => {
   return (
     <div className="View">
       <h1>Profile</h1>
-      {props.match.params.account}
+      <p>{props.match.params.account}</p>
+      {context.account === props.match.params.account && (
+        <a href="https://3box.io/hub" target="_blank" rel="noreferrer noopener">
+          Manage/Create profile
+        </a>
+      )}
 
       {/* {profile.image && profile.image[0] ? (
         <img src={profile.image[0].contentUrl} alt="profile" />
