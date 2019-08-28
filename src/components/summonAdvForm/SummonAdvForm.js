@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Web3Service from "../../util/web3Service";
 import DaoAbi from "../../contracts/moloch.json";
 import DaoByteCode from "../../contracts/molochByteCode.json";
@@ -6,19 +6,19 @@ import { post } from "../../util/requests";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useWeb3Context } from "web3-react";
+import Loading from "../loading/Loading";
 
-console.log(DaoAbi, DaoByteCode);
+import "./SummonAdvForm.scss";
 
 // import Loading from '../shared/Loading';
 
 const SummonAdvForm = () => {
-  //  const [loading, setLoading] = useContext(LoaderContext);
+  const [loading, setLoading] = useState(false);
   const context = useWeb3Context();
-  console.log(context);
 
   return (
     <>
-      {/* {loading && <Loading />} */}
+      {loading && <Loading />}
 
       <h2>Advanced Summon Form</h2>
       <Formik
@@ -31,27 +31,52 @@ const SummonAdvForm = () => {
           gracePeriodLength: "",
           abortWindow: "",
           proposalDeposit: "",
-          dilutionBound: "",
-          processingReward: ""
+          processingReward: "",
+          dilutionBound: ""
         }}
         validate={values => {
           let errors = {};
           if (!values.summoner) {
             errors.summoner = "Required";
           }
-
+          if (!values.name) {
+            errors.name = "Required";
+          }
+          if (!values.description) {
+            errors.description = "Required";
+          }
+          if (!values.approvedToken) {
+            errors.approvedToken = "Required";
+          }
+          if (!values.periodDuration) {
+            errors.periodDuration = "Required";
+          }
+          if (!values.votingPeriodLength) {
+            errors.votingPeriodLength = "Required";
+          }
+          if (!values.gracePeriodLength) {
+            errors.gracePeriodLength = "Required";
+          }
+          if (!values.abortWindow) {
+            errors.abortWindow = "Required";
+          }
+          if (!values.proposalDeposit) {
+            errors.proposalDeposit = "Required";
+          }
+          if (!values.processingReward) {
+            errors.processingReward = "Required";
+          }
+          if (!values.dilutionBound) {
+            errors.dilutionBound = "Required";
+          }
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           const web3Service = new Web3Service();
-          // const bcprocessor = new BcProcessorService();
-          console.log("lol", DaoAbi);
 
-          // setLoading(true);
+          setLoading(true);
           try {
             const daoContract = await web3Service.createContract(DaoAbi);
-            console.log("contract", daoContract);
-            console.log("account", context.account);
 
             const deployedContract = await daoContract.deploy({
               data: DaoByteCode.object,
@@ -63,8 +88,8 @@ const SummonAdvForm = () => {
                 values.gracePeriodLength,
                 values.abortWindow,
                 values.proposalDeposit,
-                values.dilutionBound,
-                values.processingReward
+                values.processingReward,
+                values.dilutionBound
               ]
             });
 
@@ -102,6 +127,10 @@ const SummonAdvForm = () => {
                   .catch(err => {
                     console.log("moloch creation error", err);
                   });
+
+                resetForm();
+                setLoading(false);
+                setSubmitting(false);
               })
               .on("confirmation", function(confirmationNumber, receipt) {
                 console.log(confirmationNumber, receipt);
@@ -112,11 +141,9 @@ const SummonAdvForm = () => {
           } catch (err) {
             console.log(err);
             alert(`Something went wrong. please try again`);
+            setLoading(false);
+            setSubmitting(false);
           }
-
-          // resetForm();
-          // setLoading(false);
-          setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
@@ -137,7 +164,7 @@ const SummonAdvForm = () => {
             <Field name="description">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>description</label>
+                  <label>Description</label>
                   <input type="text" {...field} />
                 </div>
               )}
@@ -150,7 +177,9 @@ const SummonAdvForm = () => {
             <Field name="approvedToken">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Approved Token</label>
+                  <label>
+                    Approved Token (ERC-20 Contract Address - needs Approve)
+                  </label>
                   <input type="text" {...field} />
                 </div>
               )}
@@ -163,7 +192,7 @@ const SummonAdvForm = () => {
             <Field name="periodDuration">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Period Duration</label>
+                  <label>Period Duration (Seconds)</label>
                   <input
                     min="0"
                     type="number"
@@ -182,7 +211,7 @@ const SummonAdvForm = () => {
             <Field name="votingPeriodLength">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Voting Period Length</label>
+                  <label>Voting Period Length (Number of Periods)</label>
                   <input
                     min="0"
                     type="number"
@@ -201,7 +230,7 @@ const SummonAdvForm = () => {
             <Field name="gracePeriodLength">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Grace Period Length</label>
+                  <label>Grace Period Length (Number of Periods)</label>
                   <input
                     min="0"
                     type="number"
@@ -220,7 +249,7 @@ const SummonAdvForm = () => {
             <Field name="abortWindow">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Abort Window</label>
+                  <label>Abort Window (Number of Periods)</label>
                   <input
                     min="0"
                     type="number"
@@ -239,7 +268,7 @@ const SummonAdvForm = () => {
             <Field name="minumumTribute">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>minumumTribute</label>
+                  <label>Minumum Tribute (Base Currency)</label>
                   <input
                     min="0"
                     type="number"
@@ -258,7 +287,7 @@ const SummonAdvForm = () => {
             <Field name="proposalDeposit">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Proposal Deposit</label>
+                  <label>Proposal Deposit (Base Currency 18 decimals)</label>
                   <input
                     min="0"
                     type="number"
@@ -274,29 +303,10 @@ const SummonAdvForm = () => {
               render={msg => <div className="Error">{msg}</div>}
             />
 
-            <Field name="dilutionBound">
-              {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Dilution Bound</label>
-                  <input
-                    min="0"
-                    type="number"
-                    inputMode="numeric"
-                    step="any"
-                    {...field}
-                  />
-                </div>
-              )}
-            </Field>
-            <ErrorMessage
-              name="dilutionBound"
-              render={msg => <div className="Error">{msg}</div>}
-            />
-
             <Field name="processingReward">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
-                  <label>Processing Reward</label>
+                  <label>Processing Reward (Base Currency 18 decimals)</label>
                   <input
                     min="0"
                     type="number"
@@ -309,6 +319,25 @@ const SummonAdvForm = () => {
             </Field>
             <ErrorMessage
               name="processingReward"
+              render={msg => <div className="Error">{msg}</div>}
+            />
+
+            <Field name="dilutionBound">
+              {({ field, form }) => (
+                <div className={field.value ? "Field HasValue" : "Field "}>
+                  <label>Dilution Bound (Use 3 if not sure)</label>
+                  <input
+                    min="0"
+                    type="number"
+                    inputMode="numeric"
+                    step="any"
+                    {...field}
+                  />
+                </div>
+              )}
+            </Field>
+            <ErrorMessage
+              name="dilutionBound"
               render={msg => <div className="Error">{msg}</div>}
             />
 
