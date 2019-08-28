@@ -93,7 +93,7 @@ const Dao = props => {
                   <h3>Pledges</h3>
                   <ApplicationList
                     applications={applications}
-                    summoner={daoData.summonerAddress}
+                    daoData={daoData}
                   />
                 </>
               ) : null}
