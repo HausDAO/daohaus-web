@@ -12,7 +12,7 @@ const TimingInfo = () => {
       <Field name="periodDuration">
         {({ field, form }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Period Duration</label>
+            <label>Proposal Period Duration</label>
             <p>5 per day</p>
           </div>
         )}
