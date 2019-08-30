@@ -13,7 +13,7 @@ const TimingInfo = () => {
         {({ field, form }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
             <label>Period Duration</label>
-            <p>1 day</p>
+            <p>5 per day</p>
           </div>
         )}
       </Field>
@@ -23,10 +23,11 @@ const TimingInfo = () => {
 
       <label>Voting Period Length</label>
       <Field component="select" name="votingPeriodLength">
-        <option value="1">1 Day</option>
-        <option value="3">3 Day</option>
-        <option value="5">5 Day</option>
-        <option value="7">7 Day</option>
+        <option value="5">1 Day</option>
+        <option value="10">2 Day</option>
+        <option value="15">3 Day</option>
+        <option value="25">5 Day</option>
+        <option value="35">7 Day</option>
       </Field>
       <small style={{ color: "red" }}>
         {touched.votingPeriodLength && errors.votingPeriodLength}
@@ -34,10 +35,11 @@ const TimingInfo = () => {
 
       <label>Grace Period Length</label>
       <Field component="select" name="gracePeriodLength">
-        <option value="1">1 Day</option>
-        <option value="3">3 Day</option>
-        <option value="5">5 Day</option>
-        <option value="7">7 Day</option>
+        <option value="5">1 Day</option>
+        <option value="10">2 Day</option>
+        <option value="15">3 Day</option>
+        <option value="25">5 Day</option>
+        <option value="35">7 Day</option>
       </Field>
       <small style={{ color: "red" }}>
         {touched.gracePeriodLength && errors.gracePeriodLength}
@@ -45,10 +47,11 @@ const TimingInfo = () => {
 
       <label>Abort Window</label>
       <Field component="select" name="abortWindow">
-        <option value="1">1 Day</option>
-        <option value="3">3 Day</option>
-        <option value="5">5 Day</option>
-        <option value="7">7 Day</option>
+        <option value="5">1 Day</option>
+        <option value="10">2 Day</option>
+        <option value="15">3 Day</option>
+        <option value="25">5 Day</option>
+        <option value="35">7 Day</option>
       </Field>
       <small style={{ color: "red" }}>
         {touched.abortWindow && errors.abortWindow}
