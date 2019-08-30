@@ -37,7 +37,7 @@ export default [
     id: "timing",
     component: TimingInfo,
     initialValues: {
-      periodDuration: 86400,
+      periodDuration: 17280,
       votingPeriodLength: "1",
       gracePeriodLength: "1",
       abortWindow: "1"
