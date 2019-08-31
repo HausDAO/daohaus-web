@@ -3,9 +3,9 @@ import ApplicationWizard from "../../components/applicationForm/applicationWizar
 
 const Apply = (props) => {
   return (
-    <>
+    <div className="View">
       <ApplicationWizard contractAddress={props.match.params.contractAddress}></ApplicationWizard>
-    </>
+    </div>
   );
 };
 

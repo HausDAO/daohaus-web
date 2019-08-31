@@ -20,7 +20,7 @@ const SummonAdvForm = () => {
     <>
       {loading && <Loading />}
 
-      <h2>Advanced Summon Form</h2>
+      <h2>Summon (Hard Mode)</h2>
       <Formik
         initialValues={{
           name: "",
@@ -147,7 +147,7 @@ const SummonAdvForm = () => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form className="Form">
+          <Form>
             <Field name="name">
               {({ field, form }) => (
                 <div className={field.value ? "Field HasValue" : "Field "}>
