@@ -33,25 +33,34 @@ const Profile = props => {
 
     fetchData();
   }, [context.account, props.match.params.account]);
-
   return (
     <div className="View">
+      <div className="Row">
       <h1>Profile</h1>
-      <p>{props.match.params.account}</p>
       {context.account === props.match.params.account && (
         <a href="https://3box.io/hub" target="_blank" rel="noreferrer noopener">
-          Manage/Create profile
+          Manage on 3Box
         </a>
       )}
+      </div>
 
-      {/* {profile.image && profile.image[0] ? (
-        <img src={profile.image[0].contentUrl} alt="profile" />
-      ) : null} */}
+      {profile.image && profile.image[0] ? (
+        <div className="ProfileImg" style={{backgroundImage:`url(${'https://ipfs.infura.io/ipfs/' + profile.image[0].contentUrl['/']})`}}>
+        {''}
+        </div>
+      ) : null}
 
       {profile.name ? (
+        <h2>
+          {profile.name} {profile.emoji ? <span>{profile.emoji} </span> : null}
+        </h2>
+      ) : null}
+
+      <p className="Data">{props.match.params.account}</p>
+
+      {profile.description ? (
         <p>
-          {profile.emoji ? <span>{profile.emoji} </span> : null}
-          {profile.name}
+          {profile.description}
         </p>
       ) : null}
 
@@ -62,15 +71,15 @@ const Profile = props => {
       ) : null}
 
       {molochs.length ? (
-        <>
-          <h2>Summoner of these Molochs</h2>
+        <div className="Section">
+          <h2>I am the Summoner of these Molochs</h2>
           <DaoList daos={molochs} />
-        </>
+        </div>
       ) : null}
 
       {applications.length ? (
         <>
-          <h2>I have applied to these Molochs</h2>
+          <h2>I have pledged to these Molochs</h2>
           <ApplicationShortList applications={applications} />
         </>
       ) : null}

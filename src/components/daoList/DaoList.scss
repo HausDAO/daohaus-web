@@ -1,0 +1,25 @@
+@import '../../variables';
+.DaoList {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-between;
+  &__Item {
+    @media (max-width: $mobile){
+      width: 100%;
+    }
+    width: 30%;
+    max-width: 420px;
+  }
+  a .DaoCard { 
+    transition: all .15s linear; 
+    height: auto; 
+    min-height: 200px; 
+    
+  }
+  a:hover .DaoCard { 
+    background-color: $primary; 
+    color: white !important;
+    scale: 1.05;
+  }
+}

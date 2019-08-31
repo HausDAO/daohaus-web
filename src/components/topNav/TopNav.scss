@@ -1,3 +1,4 @@
+@import '../../variables';
 .TopNav {
     background-color: white;
     display: flex;
@@ -7,13 +8,22 @@
     height: auto;
     width: calc(100% - 50px);
     padding: 25px;
+    @media (max-width: $mobile) {
+        //flex-direction: column;
+    }
     .Brand {
         font-size: 36px;
         margin: 0;
-        img { margin: 0; display: block; max-width: 240px; 
+        img {
+            margin: 0;
+            display: block;
+            max-width: 240px;
             position: absolute;
             transform: rotate(-5deg);
             margin-left: -30px;
+            @media (max-width: $mobile) {
+                max-width: 160px;
+            }
         }
     }
     button {
@@ -22,4 +32,3 @@
         padding: 0px 15px;
     }
 }
-
