@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
+
 import { FormikWizard } from "formik-wizard";
 
 import { post } from "../../util/requests";
@@ -35,8 +37,9 @@ function FormWrapper({
 }
 
 const ApplicationWizard = props => {
-  const { contractAddress } = props;
+  const { contractAddress, history } = props;
   const [loading, setLoading] = useState(false);
+  const [formError, setformError] = useState("");
 
   const context = useWeb3Context();
   const web3Service = new Web3Service();
@@ -49,22 +52,18 @@ const ApplicationWizard = props => {
 
     try {
       const daoToken = await molochService.approvedToken();
-      console.log('molochService.approvedToken()', daoToken);
-      if(daoToken === "Weth"){
+      if (daoToken === "Weth") {
         currency = await wethService.initContract();
       } else {
         currency = await daiService.initContract();
       }
 
       await currency.methods
-        .approve(
-          contractAddress,
-          web3Service.toWei(values.pledge.pledge)
-        )
+        .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
         .send({ from: context.account })
         .once("transactionHash", txHash => {})
-        .on("receipt", async (receipt) => {
-          console.log(receipt); 
+        .on("receipt", async receipt => {
+          console.log(receipt);
           const application = {
             name: values.personal.name,
             bio: values.personal.bio,
@@ -72,13 +71,14 @@ const ApplicationWizard = props => {
             shares: values.shares.shares,
             applicantAddress: context.account,
             molochContractAddress: contractAddress,
-            status: 'new'
+            status: "new"
           };
-      
+
           const res = await post(`moloch/apply`, application);
           setLoading(false);
-          if (res.data.error) {
+          history.push(`/dao/${contractAddress}`);
 
+          if (res.data.error) {
             return {
               message: res.data.error
             };
@@ -87,8 +87,6 @@ const ApplicationWizard = props => {
               message: "thanks for signaling"
             };
           }
-          
-
         })
         .then(resp => {
           return resp;
@@ -96,30 +94,34 @@ const ApplicationWizard = props => {
         .catch(err => {
           setLoading(false);
           console.log(err);
+          setformError(`Something went wrong. please try again`);
+
           return { error: "rejected transaction" };
         });
     } catch (err) {
       setLoading(false);
       console.log(err);
-      alert(`Something went wrong. please try again`);
+      setformError(`Something went wrong. please try again`);
       return { error: "rejected transaction" };
     }
-
   };
 
   return (
     <div className="Wizard">
       {context.account ? (
         <>
-        {!loading ? (
-          <FormikWizard
-          steps={steps}
-          onSubmit={handleSubmit}
-          render={FormWrapper}
-        />
-        ) : (
-          <Loading />
-        )}
+          {!loading ? (
+            <>
+              {formError && <p>{formError}</p>}
+              <FormikWizard
+                steps={steps}
+                onSubmit={handleSubmit}
+                render={FormWrapper}
+              />
+            </>
+          ) : (
+            <Loading />
+          )}
         </>
       ) : (
         <p>Connect your metamask account</p>
@@ -128,4 +130,4 @@ const ApplicationWizard = props => {
   );
 };
 
-export default ApplicationWizard;
+export default withRouter(ApplicationWizard);

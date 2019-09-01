@@ -49,25 +49,42 @@ const ApplicationList = props => {
     }
 
     balance[applicant].cover = balance.allowance > balance.balanceOf;
-    console.log("-=-=-=-=-=-=-=-=-=-=-=");
     console.log({ ...applicants, ...balance });
     setApplicants({ ...applicants, ...balance });
   };
 
   const applicationList = applications
     .sort(function(a, b) {
-      return a.shares - b.shares;
+      return b.shares - a.shares;
+    })
+    .sort(function(x, y) {
+      return x.applicantAddress.toLowerCase() ===
+        daoData.summonerAddress.toLowerCase()
+        ? -1
+        : y.applicantAddress.toLowerCase() ===
+          daoData.summonerAddress.toLowerCase()
+        ? 1
+        : 0;
+    })
+    .sort(function(x, y) {
+      return x.status ===
+        "new"
+        ? -1
+        : y.status ===
+          "new"
+        ? 1
+        : 0;
     })
     .map((application, i) => {
       if (application.shares === "0") {
-        application.status = "zero share member";
+        application.status = "Zero share member";
       }
 
       if (
         application.applicantAddress.toLowerCase() ===
         daoData.summonerAddress.toLowerCase()
       ) {
-        application.status = "summoner";
+        application.status = "Summoner";
       }
 
       if (application.status === "new") {
@@ -76,29 +93,36 @@ const ApplicationList = props => {
       }
 
       if (!application.status) {
-        application.status = "member";
+        application.status = "Member";
       }
 
       return (
-        <div key={i} className="Applicant__List">
+        <div key={i} className="ApplicationList__Item">
           <Link to={`/profile/${application.applicantAddress}`}>
-            <p>Shares: {application.shares}</p>
-            <p>{application.status}</p>
+            <div className="Row MemberInfo">
+              <p>{application.status}</p>
+              {application.status === "New Pledge" ? (
+                <p>Requesting {application.shares} Shares</p>
+              ) : (
+                <p>{application.shares} Shares</p>
+              )}
+            </div>
+            <ProfileHover address={application.applicantAddress} />
             {applicants[application.applicantAddress] &&
               application.status === "New Pledge" && (
-                <>
+                <div className="Row PledgeInfo">
                   <p>
-                    allowance:{" "}
-                    {"" + applicants[application.applicantAddress].allowanceEth}
+                    {"" + applicants[application.applicantAddress].allowanceEth}{" "}
+                    approved
                   </p>
-                  <p>
-                    can cover with balance:{" "}
-                    {"" + applicants[application.applicantAddress].cover}
-                  </p>
-                </>
+                  {applicants[application.applicantAddress].cover ? (
+                    <p className="Success">Tribute ready</p>
+                  ) : (
+                    <p className="Danger">Insufficient funds</p>
+                  )}
+                </div>
               )}
           </Link>
-          <ProfileHover address={application.applicantAddress} />
         </div>
       );
     });

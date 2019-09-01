@@ -22,12 +22,12 @@ const Home = () => {
     <>
       <div className="Hero">
         <h1>Explore the Haus of Moloch</h1>
-        <h3>
+        <h2>
           Discover and Pledge to existing Moloch DAOs, or summon your own.
-        </h3>
+        </h2>
         {context.active && !context.error && <SummonButton />}
       </div>
-      <div className="daoList">
+      <div className="View">
         {daosData.length ? (
           <DaoList daos={daosData} />
         ) : (
