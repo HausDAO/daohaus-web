@@ -1,5 +1,5 @@
 import Web3Service from '../util/web3Service';
-import DaiAbi from '../contracts/guildbank.json';
+import DaiAbi from '../contracts/dai.json';
 
 export default class DaiService {
   contractAddr;
@@ -20,6 +20,7 @@ export default class DaiService {
       this.daiAbi,
       this.contractAddr,
     );
+    return this.contract;
   }
 
   async balanceOf(account, atBlock = 'latest') {

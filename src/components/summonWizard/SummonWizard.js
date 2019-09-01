@@ -37,6 +37,7 @@ function FormWrapper({
 const SummonWizard = props => {
   const context = useWeb3Context();
   const [loading, setLoading] = useState(false);
+  const [formError, setformError] = useState("");
 
   const handleSubmit = async values => {
     console.log(values);
@@ -47,7 +48,6 @@ const SummonWizard = props => {
 
     try {
       const daoContract = await web3Service.createContract(DaoAbi);
-      console.log("values", values);
 
       const deployedContract = await daoContract.deploy({
         data: DaoByteCode.object,
@@ -63,8 +63,6 @@ const SummonWizard = props => {
           web3Service.toWei(values.deposit.processingReward)
         ]
       });
-
-      console.log("deployedContract", deployedContract);
 
       deployedContract
         .send(
@@ -111,7 +109,8 @@ const SummonWizard = props => {
         });
     } catch (err) {
       console.log(err);
-      alert(`Something went wrong. please try again`);
+      setLoading(false);
+      setformError(`Something went wrong. please try again`);
     }
   };
 
@@ -122,11 +121,14 @@ const SummonWizard = props => {
       {context.account ? (
         <>
           {!loading ? (
-            <FormikWizard
-              steps={summonSteps}
-              onSubmit={handleSubmit}
-              render={FormWrapper}
-            />
+            <>
+              {formError && <p>{formError}</p>}
+              <FormikWizard
+                steps={summonSteps}
+                onSubmit={handleSubmit}
+                render={FormWrapper}
+              />
+            </>
           ) : (
             <Loading />
           )}
