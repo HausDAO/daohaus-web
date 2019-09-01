@@ -201,7 +201,8 @@ export default class MolochService {
     console.log(this.contract);
     
     let info = await this.contract.methods.approvedToken().call();
-
+    console.log('^^^^^^^^^^^^^^^', info);
+    
     return addressToToken[info];
   }
 
