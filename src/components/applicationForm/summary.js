@@ -7,7 +7,7 @@ function Summary() {
   const { values } = useFormikWizard();
   const [contractData, setContractData] = useState({});
 
-  useEffect(() => {
+  useEffect((props) => {
     const fetchData = async () => {
       const molochService = new MolochService(props.match.params.contractAddress);
       const token = await molochService.approvedToken();
