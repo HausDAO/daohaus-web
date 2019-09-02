@@ -8323,9 +8323,9 @@ idb-readable-stream@0.0.4:
   dependencies:
     xtend "^4.0.1"
 
-identity-obj-proxy@3.0.0:
+iddao-obj-proxy@3.0.0:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/identity-obj-proxy/-/identity-obj-proxy-3.0.0.tgz#94d2bda96084453ef36fbc5aaec37e0f79f1fc14"
+  resolved "https://registry.yarnpkg.com/iddao-obj-proxy/-/iddao-obj-proxy-3.0.0.tgz#94d2bda96084453ef36fbc5aaec37e0f79f1fc14"
   integrity sha1-lNK9qWCERT7zb7xarsN+D3nx/BQ=
   dependencies:
     harmony-reflect "^1.4.6"
@@ -8730,7 +8730,7 @@ ipfs-log@^4.3.1, ipfs-log@~4.3.2:
     cids "~0.7.1"
     ipld-dag-pb "^0.17.4"
     json-stringify-deterministic "^1.0.1"
-    orbit-db-identity-provider "~0.1.0"
+    orbit-db-iddao-provider "~0.1.0"
     orbit-db-io "~0.1.0"
     p-each-series "^2.1.0"
     p-map "^1.1.1"
@@ -12837,9 +12837,9 @@ orbit-db-feedstore@~1.5.0:
   dependencies:
     orbit-db-eventstore "~1.5.0"
 
-orbit-db-identity-provider@~0.1.0:
+orbit-db-iddao-provider@~0.1.0:
   version "0.1.6"
-  resolved "https://registry.yarnpkg.com/orbit-db-identity-provider/-/orbit-db-identity-provider-0.1.6.tgz#3b37320713255c7ace2c8ee03b50f7f16a32d2c1"
+  resolved "https://registry.yarnpkg.com/orbit-db-iddao-provider/-/orbit-db-iddao-provider-0.1.6.tgz#3b37320713255c7ace2c8ee03b50f7f16a32d2c1"
   integrity sha512-BuDCko5u73e9Ch6r8xrJ+QRsGgPlx2Kn3tcOMCZaC4xaif0T9pB7wp7+P2DWL00tMMqippw3udMljwXyM3KEXQ==
   dependencies:
     ethers "^4.0.20"
@@ -12911,7 +12911,7 @@ orbit-db@^0.21.4:
     orbit-db-docstore "~1.5.0"
     orbit-db-eventstore "~1.5.0"
     orbit-db-feedstore "~1.5.0"
-    orbit-db-identity-provider "~0.1.0"
+    orbit-db-iddao-provider "~0.1.0"
     orbit-db-io "~0.1.0"
     orbit-db-keystore "^0.2.1"
     orbit-db-kvstore "~1.5.0"
@@ -15014,7 +15014,7 @@ react-scripts@3.1.1:
     file-loader "3.0.1"
     fs-extra "7.0.1"
     html-webpack-plugin "4.0.0-beta.5"
-    identity-obj-proxy "3.0.0"
+    iddao-obj-proxy "3.0.0"
     is-wsl "^1.1.0"
     jest "24.8.0"
     jest-environment-jsdom-fourteen "0.1.0"
