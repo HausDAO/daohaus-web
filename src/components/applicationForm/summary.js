@@ -1,5 +1,6 @@
 import { useFormikWizard } from 'formik-wizard'
 import React, { useState, useEffect } from 'react'
+import { withRouter } from "react-router-dom";
 import MolochService from '../../util/molochService';
 
 function Summary() {
@@ -8,8 +9,7 @@ function Summary() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const molochService = new MolochService('0x0372f3696fa7dc99801f435fd6737e57818239f2');
-
+      const molochService = new MolochService(props.match.params.contractAddress);
       const token = await molochService.approvedToken();
       setContractData({token})
     };
@@ -29,4 +29,4 @@ function Summary() {
   )
 }
 
-export default Summary
+export default withRouter(Summary)

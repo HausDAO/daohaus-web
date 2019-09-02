@@ -36,6 +36,8 @@ const ApplicationList = props => {
       balance[applicant].balanceOf = await wethService.balanceOf(applicant);
       console.log("allowance", balance[applicant].allowance);
     } else if (daoToken === "Dai") {
+      console.log("Dai", applicant);
+
       balance[applicant].allowance = await daiService.allowance(
         applicant,
         daoData.contractAddress
