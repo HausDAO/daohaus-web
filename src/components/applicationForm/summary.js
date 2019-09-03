@@ -3,19 +3,20 @@ import React, { useState, useEffect } from 'react'
 import { withRouter } from "react-router-dom";
 import MolochService from '../../util/molochService';
 
-function Summary() {
+function Summary(props) {
   const { values } = useFormikWizard();
   const [contractData, setContractData] = useState({});
 
-  useEffect((props) => {
+  useEffect(() => {
     const fetchData = async () => {
+      
       const molochService = new MolochService(props.match.params.contractAddress);
       const token = await molochService.approvedToken();
       setContractData({token})
     };
 
     fetchData();
-  }, []);
+  }, [props.match.params.contractAddress]);
 
   return (
     <div className="Step Summary">
