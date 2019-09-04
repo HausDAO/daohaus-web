@@ -46,6 +46,12 @@ const SummonWizard = props => {
 
     const web3Service = new Web3Service();
 
+    if(web3Service.toWei(values.deposit.proposalDeposit) < web3Service.toWei(values.deposit.processingReward)){
+      setformError("Deposit must be greater than reward.")
+      setLoading(false);
+      return false;
+    }
+
     try {
       const daoContract = await web3Service.createContract(DaoAbi);
 
@@ -122,7 +128,7 @@ const SummonWizard = props => {
         <>
           {!loading ? (
             <>
-              {formError && <p>{formError}</p>}
+              {formError && <small style={{ color: "red" }}>{formError}</small>}
               <FormikWizard
                 steps={summonSteps}
                 onSubmit={handleSubmit}
