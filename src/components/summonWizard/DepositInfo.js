@@ -9,13 +9,13 @@ const DepositInfo = () => {
       <h3>Deposit Info</h3>
       <h4>
         Members must post a deposit when submitting a proposal, and the
-        processing reward goes to the processor.
+        processing reward goes to the processor. Values are in chosen currency.
       </h4>
 
       <Field name="proposalDeposit">
         {({ field, form }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Proposal Deposit - ETH</label>
+            <label>Proposal Deposit</label>
             <input
               min="0"
               type="number"
@@ -34,7 +34,7 @@ const DepositInfo = () => {
       <Field name="processingReward">
         {({ field }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
-            <label>Processing Reward - ETH</label>
+            <label>Processing Reward</label>
             <input
               min="0"
               type="number"
