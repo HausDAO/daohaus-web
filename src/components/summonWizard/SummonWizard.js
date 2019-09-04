@@ -100,7 +100,24 @@ const SummonWizard = props => {
               console.log("created new moloch", newMolochRes);
               setLoading(false);
 
-              props.history.push(`/dao/${receipt.contractAddress}`);
+              const application = {
+                name: "Summoner",
+                bio: "Summoner of the Dao",
+                pledge: 0,
+                shares: 1,
+                applicantAddress: context.account,
+                molochContractAddress: receipt.contractAddress,
+                status: "member"
+              };
+    
+              post(`moloch/apply`, application).then((appRes)=> {
+                console.log("summoner added", appRes);
+
+                props.history.push(`/dao/${receipt.contractAddress}`);
+              });
+
+
+
             })
             .catch(err => {
               setLoading(false);
