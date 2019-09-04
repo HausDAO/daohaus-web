@@ -111,7 +111,7 @@ const SummonWizard = props => {
               };
     
               post(`moloch/apply`, application).then((appRes)=> {
-                console.log("summoner added", nappRes);
+                console.log("summoner added", appRes);
 
                 props.history.push(`/dao/${receipt.contractAddress}`);
               });
