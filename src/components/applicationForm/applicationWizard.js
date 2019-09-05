@@ -71,13 +71,13 @@ const ApplicationWizard = props => {
       const res = await post(`moloch/apply`, application);
 
       if (res.data.error) {
-        return {
+        rconsole.log({
           message: res.data.error
-        };
+        });
       } else {
-        return {
+        rconsole.log({
           message: "thanks for signaling, appoving tokens now"
-        };
+        });
 
       await currency.methods
         .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
