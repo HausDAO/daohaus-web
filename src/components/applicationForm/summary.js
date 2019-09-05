@@ -11,6 +11,7 @@ function Summary() {
       const molochService = new MolochService('0x0372f3696fa7dc99801f435fd6737e57818239f2');
 
       const token = await molochService.approvedToken();
+      
       setContractData({token})
     };
 

@@ -116,9 +116,9 @@ const ApplicationList = props => {
                     approved
                   </p>
                   {applicants[application.applicantAddress].cover ? (
-                    <p className="Success">Tribute ready</p>
+                    <p className="Success">Tribute Ready</p>
                   ) : (
-                    <p className="Danger">Insufficient funds</p>
+                    <p className="Danger">Insufficient Balance</p>
                   )}
                 </div>
               )}
