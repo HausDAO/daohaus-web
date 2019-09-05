@@ -58,34 +58,37 @@ const ApplicationWizard = props => {
         currency = await daiService.initContract();
       }
 
+      const application = {
+        name: values.personal.name,
+        bio: values.personal.bio,
+        pledge: values.pledge.pledge,
+        shares: values.shares.shares,
+        applicantAddress: context.account,
+        molochContractAddress: contractAddress,
+        status: "new"
+      };
+
+      const res = await post(`moloch/apply`, application);
+
+      if (res.data.error) {
+        rconsole.log({
+          message: res.data.error
+        });
+      } else {
+        rconsole.log({
+          message: "thanks for signaling, appoving tokens now"
+        });
+
       await currency.methods
         .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
         .send({ from: context.account })
         .once("transactionHash", txHash => {})
         .on("receipt", async receipt => {
           console.log(receipt);
-          const application = {
-            name: values.personal.name,
-            bio: values.personal.bio,
-            pledge: values.pledge.pledge,
-            shares: values.shares.shares,
-            applicantAddress: context.account,
-            molochContractAddress: contractAddress,
-            status: "new"
-          };
 
-          const res = await post(`moloch/apply`, application);
           setLoading(false);
           history.push(`/dao/${contractAddress}`);
 
-          if (res.data.error) {
-            return {
-              message: res.data.error
-            };
-          } else {
-            return {
-              message: "thanks for signaling"
-            };
           }
         })
         .then(resp => {
