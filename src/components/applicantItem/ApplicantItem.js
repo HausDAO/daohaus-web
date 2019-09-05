@@ -112,7 +112,7 @@ const ApplicantItem = props => {
           <p>{applicant.shares} Shares</p>
         )}
       </div>
-      <div className="Row ">
+      <div className="Row ProfileInfo">
         {applicantProfile &&
         applicantProfile.profile &&
         applicantProfile.profile.image &&
@@ -138,6 +138,7 @@ const ApplicantItem = props => {
             {""}
           </div>
         )}
+        <div>
         {applicantProfile &&
         applicantProfile.profile &&
         applicantProfile.profile.name ? (
@@ -147,10 +148,10 @@ const ApplicantItem = props => {
               <span>{applicantProfile.profile.emoji} </span>
             ) : null}
           </h2>
+          
         ) : null}
-      </div>
-      <div className="Row ">
         <p>{truncateAddr(applicant.applicantAddress)}</p>
+        </div>
       </div>
       {applicant.status === "New Pledge" && (
         <div className="Row PledgeInfo">
