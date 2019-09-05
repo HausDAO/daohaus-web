@@ -7,8 +7,6 @@ import ApplicantItem from "../applicantItem/ApplicantItem";
 const ApplicationList = props => {
   const { applications, daoData } = props;
 
-  console.log("*************daoDATA", daoData);
-
   const applicationList = applications
     .sort(function(a, b) {
       return b.shares - a.shares;
