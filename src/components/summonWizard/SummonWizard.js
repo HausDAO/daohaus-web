@@ -37,6 +37,7 @@ function FormWrapper({
 const SummonWizard = props => {
   const context = useWeb3Context();
   const [loading, setLoading] = useState(false);
+  const [runOnce, setRunOnce] = useState(false);
   const [formError, setformError] = useState("");
 
   const handleSubmit = async values => {
@@ -45,6 +46,12 @@ const SummonWizard = props => {
     setLoading(true);
 
     const web3Service = new Web3Service();
+
+    if(web3Service.toWei(values.deposit.proposalDeposit) < web3Service.toWei(values.deposit.processingReward)){
+      setformError("Deposit must be greater than reward.")
+      setLoading(false);
+      return false;
+    }
 
     try {
       const daoContract = await web3Service.createContract(DaoAbi);
@@ -81,25 +88,53 @@ const SummonWizard = props => {
         })
         .on("receipt", function(receipt) {
           console.log(receipt.contractAddress); // contains the new contract address
-          const newMoloch = {
-            summonerAddress: context.account,
-            contractAddress: receipt.contractAddress,
-            name: values.dao.name,
-            minimumTribute: values.currency.minimumTribute,
-            description: values.dao.description
-          };
+          console.log('runOnce', runOnce);
+          if(!runOnce){
+            setRunOnce(true); // not working
+            const newMoloch = {
+              summonerAddress: context.account,
+              contractAddress: receipt.contractAddress,
+              name: values.dao.name,
+              minimumTribute: values.currency.minimumTribute,
+              description: values.dao.description
+            };
+  
+            post("moloch", newMoloch)
+              .then(newMolochRes => {
+  
+                const application = {
+                  name: "Summoner",
+                  bio: "Summoner of the Dao",
+                  pledge: "0",
+                  shares: "1",
+                  applicantAddress: context.account,
+                  molochContractAddress: receipt.contractAddress,
+                  status: "Member"
+                };
 
-          post("moloch", newMoloch)
-            .then(newMolochRes => {
-              console.log("created new moloch", newMolochRes);
-              setLoading(false);
+                console.log("created new moloch", newMolochRes, application);
 
-              props.history.push(`/dao/${receipt.contractAddress}`);
-            })
-            .catch(err => {
-              setLoading(false);
-              console.log("moloch creation error", err);
-            });
+  
+                post(`moloch/apply`, application).then((appRes)=> {
+                  console.log("summoner added", appRes);
+  
+                  props.history.push(`/dao/${receipt.contractAddress}`);
+                  setLoading(false);
+
+                }).catch(err => {
+                  setLoading(false);
+                  console.log("new applicant error", err);
+                });
+                
+                
+  
+              })
+              .catch(err => {
+                setLoading(false);
+                console.log("moloch creation error", err);
+              });
+          }
+
         })
         .on("confirmation", function(confirmationNumber, receipt) {
           console.log(confirmationNumber, receipt);
@@ -122,7 +157,7 @@ const SummonWizard = props => {
         <>
           {!loading ? (
             <>
-              {formError && <p>{formError}</p>}
+              {formError && <small style={{ color: "red" }}>{formError}</small>}
               <FormikWizard
                 steps={summonSteps}
                 onSubmit={handleSubmit}
