@@ -43,7 +43,8 @@ const ApplicantItem = props => {
             {
               addr: _applicant,
               inEth: web3Service.fromWei(allowance),
-              balanceOf: web3Service.fromWei(balanceOf)
+              balanceOf: web3Service.fromWei(balanceOf),
+              profile: profile
             }
           ]);
 
