@@ -25,7 +25,8 @@ function Summary(props) {
       <p className="Label">Bio</p><p className="Value Data">{values.personal.bio}</p>
       <p className="Value">You are pledging {values.pledge.pledge} {contractData.token} in tribute
       and requesting {values.shares.shares} shares</p>
-      <p></p>
+      <p>After pledging a sponsoring member can now make a proposal for your application. You have not been accepted yet and have 
+        only approved the DAO to hold your funds during the proposal period. You must have these funds available in your wallet for a proposal to begin..</p>
     </div>
   )
 }
