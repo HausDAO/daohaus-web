@@ -1,4 +1,4 @@
-import { object, number } from 'yup'
+import { object, number, string } from 'yup'
 
 import PersonalInfo from './personalInfo'
 import PledgeInfo from './pledgeInfo'
@@ -13,6 +13,10 @@ export default [
       name: '',
       bio: '',
     },
+    validationSchema: object().shape({
+      name: string().required(),
+      bio: string().required(),
+    }),
   },
   {
     id: 'pledge',
@@ -23,7 +27,6 @@ export default [
     validationSchema: object().shape({
       pledge: number().required(),
     }),
-    actionLabel: 'Proceed',
   },
   {
     id: 'shares',
@@ -34,7 +37,6 @@ export default [
     validationSchema: object().shape({
       shares: number().required(),
     }),
-    actionLabel: 'Proceed',
   },
   {
     id: 'summary',

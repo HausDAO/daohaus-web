@@ -23,6 +23,9 @@
     "web3-react": "^5.0.4",
     "yup": "^0.27.0"
   },
+  "dev-dependencies": {
+    "eslint-plugin-react-hooks": "^2.0.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
