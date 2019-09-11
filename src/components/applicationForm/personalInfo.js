@@ -1,8 +1,8 @@
-import { Field } from 'formik'
-import React from 'react'
+import { Field, useFormikContext } from "formik";
+import React from "react";
 
 function PersonalInfo() {
-  // const { errors, touched } = useFormikContext()
+  const { errors, touched } = useFormikContext();
 
   return (
     <div className="Step">
@@ -17,6 +17,7 @@ function PersonalInfo() {
           </div>
         )}
       </Field>
+      <small style={{ color: "red" }}>{touched.name && errors.name}</small>
       <Field name="bio">
         {({ field }) => (
           <div className={field.value ? "Field HasValue" : "Field "}>
@@ -25,8 +26,9 @@ function PersonalInfo() {
           </div>
         )}
       </Field>
+      <small style={{ color: "red" }}>{touched.bio && errors.bio}</small>
     </div>
-  )
+  );
 }
 
-export default PersonalInfo
+export default PersonalInfo;
