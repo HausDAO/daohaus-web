@@ -2,15 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { get } from "../../util/requests";
 import ApplicationList from "../../components/applicationList/ApplicationList";
 import ApplyButton from "../../components/applyButton/applyButton";
-
 import "./Dao.scss";
 import { useWeb3Context } from "web3-react";
 import UpdateDelegate from "../../components/updatedDelegate/UpdateDelegate";
 import MolochService from "../../util/molochService";
 
-import {
-  MolochContext
-} from "../../contexts/ContractContexts";
+import { MolochContext } from "../../contexts/ContractContexts";
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -23,9 +20,23 @@ const Dao = props => {
   const [molochService, setMoloch] = useContext(MolochContext);
 
   useEffect(() => {
+    if (context.active && applications.length) {
+      const applicantData = applications.find(applicant => {
+        return (
+          applicant.applicantAddress.toLowerCase() ===
+          context.account.toLowerCase()
+        );
+      });
+      if (applicantData) {
+        setIsMemberOrApplicant(true);
+      }
+    }
+  }, [context, applications]);
+
+  useEffect(() => {
     const moloch = new MolochService(props.match.params.contractAddress);
     setMoloch(moloch);
-  },[])
+  }, []);
   useEffect(() => {
     if (context.active && applications.length) {
       const applicantData = applications.find(applicant => {
@@ -51,13 +62,11 @@ const Dao = props => {
       );
       setApplications(applicationRes.data);
 
-
-        if(molochService){
-            const totalShares = await molochService.getTotalShares();
-            const token = await molochService.approvedToken();
-            setContractData({ totalShares, token });
-        }
-
+      if (molochService) {
+        const totalShares = await molochService.getTotalShares();
+        const token = await molochService.approvedToken();
+        setContractData({ totalShares, token });
+      }
     };
 
     fetchData();
