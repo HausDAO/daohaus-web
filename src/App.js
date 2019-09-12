@@ -8,6 +8,7 @@ import Web3Provider from "web3-react";
 import TopNav from "./components/topNav/TopNav";
 
 import "./global.scss";
+import ContractContexts from "./contexts/ContractContexts";
 
 const { InjectedConnector, NetworkOnlyConnector } = Connectors;
 
@@ -26,12 +27,15 @@ function App() {
       connectors={connectors}
       libraryName={"ethers.js" | "web3.js" | null}
     >
-      <div className="App">
-        <Router>
-          <TopNav />
-          <Routes />
-        </Router>
-      </div>
+      <ContractContexts>
+        {" "}
+        <div className="App">
+          <Router>
+            <TopNav />
+            <Routes />
+          </Router>
+        </div>
+      </ContractContexts>
     </Web3Provider>
   );
 }
