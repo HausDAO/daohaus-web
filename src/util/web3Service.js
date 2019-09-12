@@ -3,7 +3,7 @@ import Web3 from 'web3';
 export default class Web3Service {
   constructor() {
     this.web3 = new Web3(Web3.givenProvider);
-    this.web3.currentProvider.setMaxListeners(300);
+    // this.web3.currentProvider.setMaxListeners(300); kills mobile
   }
 
   createContract(abi) {
