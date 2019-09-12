@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { getProfile } from "3box/lib/api";
@@ -8,16 +8,21 @@ import { truncateAddr } from "../../util/helpers";
 
 import "./ApplicantItem.scss";
 import Web3Service from "../../util/web3Service";
+import { WethContext, DaiContext, MolochContext } from "../../contexts/ContractContexts";
 
 const ApplicantItem = props => {
-  const { applicant, daoData, molochService, wethService, daiService } = props;
+  const { applicant, daoData } = props;
   const [currentApplicant, setCurrentApplicant] = useState([]);
+
+  const [wethService] = useContext(WethContext);
+  const [daiService] = useContext(DaiContext);
+  const [molochService, setMoloch] = useContext(MolochContext);
 
   useEffect(() => {
     const web3Service = new Web3Service();
 
     const setup = async () => {
-      if (applicant.applicantAddress) {
+      if (applicant.applicantAddress && molochService) {
         const _applicant = applicant.applicantAddress;
         const daoToken = await molochService.approvedToken();
         let profile;
