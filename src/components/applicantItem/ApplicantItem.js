@@ -54,6 +54,7 @@ const ApplicantItem = props => {
             daoData.contractAddress
           );
           const balanceOf = await daiService.balanceOf(_applicant);
+          console.log(balanceOf, allowance );
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -64,7 +65,7 @@ const ApplicantItem = props => {
               profile: profile
             }
           ]);
-
+          
           return true;
         } else {
           setCurrentApplicant(currentApplicant => [
@@ -156,7 +157,7 @@ const ApplicantItem = props => {
         <div className="Row PledgeInfo">
           {applicantProfile && <p>{"" + applicantProfile.inEth} approved</p>}
           {applicantProfile &&
-          applicantProfile.inEth < applicantProfile.balanceOf ? (
+          parseInt(applicantProfile.inEth) < parseInt(applicantProfile.balanceOf) ? (
             <p className="Success">Tribute ready</p>
           ) : (
             <p className="Danger">Insufficient funds</p>
