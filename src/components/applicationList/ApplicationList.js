@@ -7,10 +7,7 @@ import ApplicantItem from "../applicantItem/ApplicantItem";
 const ApplicationList = props => {
   const {
     applications,
-    daoData,
-    molochService,
-    wethService,
-    daiService
+    daoData
   } = props;
 
   const applicationList = applications
@@ -35,9 +32,6 @@ const ApplicationList = props => {
           <ApplicantItem
             applicant={application}
             daoData={daoData}
-            molochService={molochService}
-            wethService={wethService}
-            daiService={daiService}
           />
         </div>
       );
