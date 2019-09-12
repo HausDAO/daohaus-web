@@ -3,6 +3,8 @@ import {get } from "../../util/requests";
 import ApplicationList from "../../components/applicationList/ApplicationList";
 import ApplyButton from "../../components/applyButton/applyButton";
 import MolochService from "../../util/molochService";
+import WethService from "../../util/wethService";
+import DaiService from "../../util/daiService";
 import "./Dao.scss";
 import { useWeb3Context } from "web3-react";
 import UpdateDelegate from "../../components/updatedDelegate/UpdateDelegate";
@@ -14,6 +16,13 @@ const Dao = props => {
         const [contractData, setContractData] = useState({});
         const [updateDelegateView, setUpdateDelegateView] = useState(false);
         const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
+
+        const molochService = new MolochService(
+            props.match.params.contractAddress
+        );
+        const wethService = new WethService();
+        const daiService = new DaiService();
+
 
         useEffect(() => {
             if (context.active && applications.length) {
@@ -40,16 +49,13 @@ const Dao = props => {
                 );
                 setApplications(applicationRes.data);
 
-                const molochService = new MolochService(
-                    props.match.params.contractAddress
-                );
                 const totalShares = await molochService.getTotalShares();
                 const token = await molochService.approvedToken();
                 setContractData({ totalShares, token });
             };
 
             fetchData();
-        }, [props.match.params.contractAddress]);
+        }, [props.match.params.contractAddress, molochService]);
 
         return ( <div className = "View" > {
                 updateDelegateView ? ( <UpdateDelegate contractAddress = { daoData.contractAddress }/>
@@ -89,7 +95,10 @@ const Dao = props => {
                             <h3>Pledges</h3>
                             <div className="ApplicationList">
                                 <ApplicationList applications = { applications }
-                                daoData = { daoData }/> 
+                                daoData = { daoData }
+                                molochService = {molochService}
+                                wethService = {wethService}
+                                daiService = {daiService}/> 
                             </div>
                         </>
                         ) : null 

@@ -7,21 +7,15 @@ import makeBlockie from "ethereum-blockies-base64";
 import { truncateAddr } from "../../util/helpers";
 
 import "./ApplicantItem.scss";
-import MolochService from "../../util/molochService";
 import Web3Service from "../../util/web3Service";
-import WethService from "../../util/wethService";
-import DaiService from "../../util/daiService";
 
 const ApplicantItem = props => {
-  const { applicant, daoData } = props;
+  const { applicant, daoData, molochService, wethService, daiService } = props;
   const [currentApplicant, setCurrentApplicant] = useState([]);
-  const molochService = new MolochService(daoData.contractAddress);
-
 
   useEffect(() => {
     const web3Service = new Web3Service();
-    const wethService = new WethService();
-    const daiService = new DaiService();
+
     const setup = async () => {
       if (applicant.applicantAddress) {
         const _applicant = applicant.applicantAddress;
@@ -78,7 +72,13 @@ const ApplicantItem = props => {
       }
     };
     setup();
-  }, [applicant.applicantAddress]);
+  }, [
+    applicant.applicantAddress,
+    daoData.contractAddress,
+    molochService,
+    wethService,
+    daiService
+  ]);
 
   if (applicant.shares === "0") {
     applicant.status = "Zero share member";
@@ -140,18 +140,17 @@ const ApplicantItem = props => {
           </div>
         )}
         <div>
-        {applicantProfile &&
-        applicantProfile.profile &&
-        applicantProfile.profile.name ? (
-          <h2>
-            {applicantProfile.profile.name}{" "}
-            {applicantProfile.profile.emoji ? (
-              <span>{applicantProfile.profile.emoji} </span>
-            ) : null}
-          </h2>
-          
-        ) : null}
-        <p>{truncateAddr(applicant.applicantAddress)}</p>
+          {applicantProfile &&
+          applicantProfile.profile &&
+          applicantProfile.profile.name ? (
+            <h2>
+              {applicantProfile.profile.name}{" "}
+              {applicantProfile.profile.emoji ? (
+                <span>{applicantProfile.profile.emoji} </span>
+              ) : null}
+            </h2>
+          ) : null}
+          <p>{truncateAddr(applicant.applicantAddress)}</p>
         </div>
       </div>
       {applicant.status === "New Pledge" && (
