@@ -72,13 +72,7 @@ const ApplicantItem = props => {
       }
     };
     setup();
-  }, [
-    applicant.applicantAddress,
-    daoData.contractAddress,
-    molochService,
-    wethService,
-    daiService
-  ]);
+  }, [applicant.applicantAddress]);
 
   if (applicant.shares === "0") {
     applicant.status = "Zero share member";

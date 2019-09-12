@@ -55,7 +55,7 @@ const Dao = props => {
             };
 
             fetchData();
-        }, [props.match.params.contractAddress, molochService]);
+        }, [props.match.params.contractAddress]);
 
         return ( <div className = "View" > {
                 updateDelegateView ? ( <UpdateDelegate contractAddress = { daoData.contractAddress }/>
