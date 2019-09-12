@@ -5,7 +5,13 @@ import "./ApplicationList.scss";
 import ApplicantItem from "../applicantItem/ApplicantItem";
 
 const ApplicationList = props => {
-  const { applications, daoData } = props;
+  const {
+    applications,
+    daoData,
+    molochService,
+    wethService,
+    daiService
+  } = props;
 
   const applicationList = applications
     .sort(function(a, b) {
@@ -21,19 +27,18 @@ const ApplicationList = props => {
         : 0;
     })
     .sort(function(x, y) {
-      return x.status ===
-        "new"
-        ? -1
-        : y.status ===
-          "new"
-        ? 1
-        : 0;
+      return x.status === "new" ? -1 : y.status === "new" ? 1 : 0;
     })
     .map((application, i) => {
-
       return (
         <div key={i} className="ApplicationList__Item">
-          <ApplicantItem applicant={application} daoData={daoData} />
+          <ApplicantItem
+            applicant={application}
+            daoData={daoData}
+            molochService={molochService}
+            wethService={wethService}
+            daiService={daiService}
+          />
         </div>
       );
     });
