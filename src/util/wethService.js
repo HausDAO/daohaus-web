@@ -15,6 +15,8 @@ export default class WethService {
   }
 
   async initContract() {
+    console.log('init weth');
+    
     this.contract = await this.web3Service.initContract(
       this.wethAbi,
       this.contractAddr,

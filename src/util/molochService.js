@@ -17,6 +17,8 @@ export default class MolochService {
   }
 
   async initContract() {
+    console.log('init moloch service');
+    
     this.contract = await this.web3Service.initContract(
       this.daoAbi,
       this.contractAddr
