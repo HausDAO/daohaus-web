@@ -26,6 +26,7 @@ const Dao = props => {
     const moloch = new MolochService(props.match.params.contractAddress);
     setMoloch(moloch);
   },[])
+  
   useEffect(() => {
     if (context.active && applications.length) {
       const applicantData = applications.find(applicant => {
