@@ -2,7 +2,14 @@ import Web3 from 'web3';
 
 export default class Web3Service {
   constructor() {
-    this.web3 = new Web3(Web3.givenProvider);
+    console.log('Web3.givenProvider', Web3.givenProvider)
+    if(Web3.givenProvider) {
+      this.web3 = new Web3(Web3.givenProvider);
+
+    } else {
+      this.web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI));
+
+    }
     // this.web3.currentProvider.setMaxListeners(300); kills mobile
   }
 
