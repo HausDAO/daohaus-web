@@ -21,11 +21,6 @@ const Dao = props => {
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
 
   const [molochService, setMoloch] = useContext(MolochContext);
-
-  useEffect(() => {
-    const moloch = new MolochService(props.match.params.contractAddress);
-    setMoloch(moloch);
-  },[])
   
   useEffect(() => {
     if (context.active && applications.length) {
@@ -56,6 +51,13 @@ const Dao = props => {
             const totalShares = await molochService.getTotalShares();
             const token = await molochService.approvedToken();
             setContractData({ totalShares, token });
+        } else {
+          
+          const moloch = new MolochService(props.match.params.contractAddress);
+          setMoloch(moloch);
+          const totalShares = await moloch.getTotalShares();
+          const token = await moloch.approvedToken();
+          setContractData({ totalShares, token });
         }
 
     };
