@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useWeb3Context } from "web3-react";
-import MolochService from "../../util/molochService";
+import { MolochContext } from "../../contexts/ContractContexts";
 
 // import Loading from '../shared/Loading';
 
 const UpdateDelegate = ({ contractAddress }) => {
   const context = useWeb3Context();
+  const [molochService] = useContext(MolochContext);
+
 
   return (
     <>
@@ -26,15 +28,13 @@ const UpdateDelegate = ({ contractAddress }) => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const daoService = new MolochService(contractAddress)
 
-          const daoContract = await daoService.initContract();
-          console.log('daoContract', daoContract);
+          console.log('molochService', molochService);
           
           // setLoading(true);
           try {
             
-            await daoContract.methods
+            await molochService.methods
             .updateDelegateKey(
               values.address
             )
