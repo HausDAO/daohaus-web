@@ -16,7 +16,7 @@ const ApplicantItem = props => {
 
   const [wethService] = useContext(WethContext);
   const [daiService] = useContext(DaiContext);
-  const [molochService, setMoloch] = useContext(MolochContext);
+  const [molochService] = useContext(MolochContext);
 
   useEffect(() => {
     const web3Service = new Web3Service();
@@ -37,6 +37,8 @@ const ApplicantItem = props => {
             daoData.contractAddress
           );
           const balanceOf = await wethService.balanceOf(_applicant);
+          console.log(balanceOf, allowance );
+
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
             {
@@ -54,7 +56,7 @@ const ApplicantItem = props => {
             daoData.contractAddress
           );
           const balanceOf = await daiService.balanceOf(_applicant);
-          console.log(balanceOf, allowance );
+          // console.log(balanceOf, allowance );
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -157,7 +159,7 @@ const ApplicantItem = props => {
         <div className="Row PledgeInfo">
           {applicantProfile && <p>{"" + applicantProfile.inEth} approved</p>}
           {applicantProfile &&
-          parseInt(applicantProfile.inEth) < parseInt(applicantProfile.balanceOf) ? (
+          parseInt(applicantProfile.inEth) <= parseInt(applicantProfile.balanceOf) ? (
             <p className="Success">Tribute ready</p>
           ) : (
             <p className="Danger">Insufficient funds</p>
