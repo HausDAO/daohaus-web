@@ -6,11 +6,10 @@ import ApplyButton from "../../components/applyButton/applyButton";
 import "./Dao.scss";
 import { useWeb3Context } from "web3-react";
 import UpdateDelegate from "../../components/updatedDelegate/UpdateDelegate";
+import RageQuit from "../../components/rageQuit/RageQuit";
 import MolochService from "../../util/molochService";
 
-import {
-  MolochContext
-} from "../../contexts/ContractContexts";
+import { MolochContext } from "../../contexts/ContractContexts";
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -18,10 +17,11 @@ const Dao = props => {
   const [applications, setApplications] = useState({});
   const [contractData, setContractData] = useState({});
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
+  const [updateRageView, setUpdateRageView] = useState(false);
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
 
   const [molochService, setMoloch] = useContext(MolochContext);
-  
+
   useEffect(() => {
     if (context.active && applications.length) {
       const applicantData = applications.find(applicant => {
@@ -47,19 +47,17 @@ const Dao = props => {
       );
       setApplications(applicationRes.data);
 
-        if(molochService){
-            const totalShares = await molochService.getTotalShares();
-            const token = await molochService.approvedToken();
-            setContractData({ totalShares, token });
-        } else {
-          
-          const moloch = new MolochService(props.match.params.contractAddress);
-          setMoloch(moloch);
-          const totalShares = await moloch.getTotalShares();
-          const token = await moloch.approvedToken();
-          setContractData({ totalShares, token });
-        }
-
+      if (molochService) {
+        const totalShares = await molochService.getTotalShares();
+        const token = await molochService.approvedToken();
+        setContractData({ totalShares, token });
+      } else {
+        const moloch = new MolochService(props.match.params.contractAddress);
+        setMoloch(moloch);
+        const totalShares = await moloch.getTotalShares();
+        const token = await moloch.approvedToken();
+        setContractData({ totalShares, token });
+      }
     };
 
     fetchData();
@@ -70,6 +68,8 @@ const Dao = props => {
       {" "}
       {updateDelegateView ? (
         <UpdateDelegate contractAddress={daoData.contractAddress} />
+      ) : updateRageView ? (
+        <RageQuit contractAddress={daoData.contractAddress} />
       ) : (
         <>
           {daoData.contractAddress ? (
@@ -98,6 +98,10 @@ const Dao = props => {
                   <p>You are a member or applicant.</p>
                   <button onClick={() => setUpdateDelegateView(true)}>
                     Update Delegate{" "}
+                  </button>
+                  <br />
+                  <button onClick={() => setUpdateRageView(true)}>
+                    Rage Quit{" "}
                   </button>
                 </>
               ) : (
