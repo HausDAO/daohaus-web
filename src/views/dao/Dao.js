@@ -3,13 +3,15 @@ import { get } from "../../util/requests";
 import ApplicationList from "../../components/applicationList/ApplicationList";
 import ApplyButton from "../../components/applyButton/applyButton";
 
+import DaoAbi from "../../contracts/moloch";
+
 import "./Dao.scss";
 import { useWeb3Context } from "web3-react";
 import UpdateDelegate from "../../components/updatedDelegate/UpdateDelegate";
 import RageQuit from "../../components/rageQuit/RageQuit";
-import MolochService from "../../util/molochService";
 
-import { MolochContext } from "../../contexts/ContractContexts";
+import { Web3Context } from "../../contexts/ContractContexts";
+import { addressToToken } from "../../util/constants";
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -20,8 +22,10 @@ const Dao = props => {
   const [updateRageView, setUpdateRageView] = useState(false);
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
 
-  const [molochService, setMoloch] = useContext(MolochContext);
+  const [molochContract, setMolochContract] = useState();
+  const [web3Service] = useContext(Web3Context);
 
+  
   useEffect(() => {
     if (context.active && applications.length) {
       const applicantData = applications.find(applicant => {
@@ -38,38 +42,50 @@ const Dao = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const daoRes = await get(`moloch/${props.match.params.contractAddress}`);
-      setDaoData(daoRes.data);
-      console.log("daoData", daoRes.data);
+      if(!molochContract){
+        console.log('setup contract');
+        
+        const contract = await web3Service.initContract(
+          DaoAbi,
+          props.match.params.contractAddress
+        );
+        setMolochContract(contract)
 
-      const applicationRes = await get(
-        `moloch/${props.match.params.contractAddress}/applications`
-      );
-      setApplications(applicationRes.data);
+      } else  {
+        console.log('contract set');
 
-      if (molochService) {
-        const totalShares = await molochService.getTotalShares();
-        const token = await molochService.approvedToken();
-        setContractData({ totalShares, token });
-      } else {
-        const moloch = new MolochService(props.match.params.contractAddress);
-        setMoloch(moloch);
-        const totalShares = await moloch.getTotalShares();
-        const token = await moloch.approvedToken();
-        setContractData({ totalShares, token });
+        const daoRes = await get(`moloch/${props.match.params.contractAddress}`);
+        setDaoData(daoRes.data);
+        console.log("daoData", daoRes.data);
+  
+        const applicationRes = await get(
+          `moloch/${props.match.params.contractAddress}/applications`
+        );
+        setApplications(applicationRes.data);
+          console.log('dao web3', web3Service);
+          console.log('dao moloch', );
+
+          const totalShares = await molochContract.methods
+          .totalShares()
+          .call({}, "latest");
+          const token = await molochContract.methods.approvedToken().call();
+          setContractData({ totalShares, token });
       }
+
     };
 
-    fetchData();
-  }, [props.match.params.contractAddress]);
+    if(web3Service){
+      fetchData();
+    }
+  }, [props.match.params.contractAddress, web3Service, molochContract]);
 
   return (
     <div className="View">
       {" "}
       {updateDelegateView ? (
-        <UpdateDelegate contractAddress={daoData.contractAddress} />
+        <UpdateDelegate contract={molochContract} />
       ) : updateRageView ? (
-        <RageQuit contractAddress={daoData.contractAddress} />
+        <RageQuit contract={molochContract} />
       ) : (
         <>
           {daoData.contractAddress ? (
@@ -91,7 +107,7 @@ const Dao = props => {
               <p className="Value Data">{daoData.summonerAddress}</p>
               <p className="Label">Minimum Tribute</p>
               <p className="Value Data">
-                {daoData.minimumTribute} {contractData.token}
+                {daoData.minimumTribute} {addressToToken[contractData.token]}
               </p>
               {isMemberOrApplicant ? (
                 <>
@@ -114,6 +130,8 @@ const Dao = props => {
                     <ApplicationList
                       applications={applications}
                       daoData={daoData}
+                      contractData={contractData}
+                      contract={molochContract}
                     />
                   </div>
                 </>

@@ -1,4 +1,3 @@
-import Web3Service from '../util/web3Service';
 import DaiAbi from '../contracts/dai.json';
 
 export default class DaiService {
@@ -7,9 +6,9 @@ export default class DaiService {
   contract;
   gbAbi;
 
-  constructor(contractAddr) {
+  constructor(web3Service) {
     this.contractAddr = process.env.REACT_APP_DAI_CONTRACT_ADDRESS;
-    this.web3Service = new Web3Service();
+    this.web3Service = web3Service;
     this.daiAbi = DaiAbi;
 
     this.initContract();
