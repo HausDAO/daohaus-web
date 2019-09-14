@@ -7,37 +7,38 @@ import makeBlockie from "ethereum-blockies-base64";
 import { truncateAddr } from "../../util/helpers";
 
 import "./ApplicantItem.scss";
-import Web3Service from "../../util/web3Service";
-import { WethContext, DaiContext, MolochContext } from "../../contexts/ContractContexts";
+import { WethContext, DaiContext, Web3Context } from "../../contexts/ContractContexts";
+import { addressToToken } from "../../util/constants";
 
 const ApplicantItem = props => {
-  const { applicant, daoData } = props;
+  const { applicant, daoData, contract, contractData } = props;
   const [currentApplicant, setCurrentApplicant] = useState([]);
 
+  const [web3Service] = useContext(Web3Context);
   const [wethService] = useContext(WethContext);
   const [daiService] = useContext(DaiContext);
-  const [molochService] = useContext(MolochContext);
 
   useEffect(() => {
-    const web3Service = new Web3Service();
 
     const setup = async () => {
-      if (applicant.applicantAddress && molochService) {
+      if (applicant.applicantAddress && contract) {
         const _applicant = applicant.applicantAddress;
-        const daoToken = await molochService.approvedToken();
+        
+        const daoToken = contractData.token;
+        
         let profile;
         try {
           profile = await getProfile(_applicant);
         } catch {
           profile = {};
         }
-        if (daoToken === "Weth") {
+        if (addressToToken[daoToken] === "Weth") {
           const allowance = await wethService.allowance(
             _applicant,
             daoData.contractAddress
           );
           const balanceOf = await wethService.balanceOf(_applicant);
-          console.log(balanceOf, allowance );
+          // console.log(_applicant, allowance, "<=", balanceOf );
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -50,13 +51,13 @@ const ApplicantItem = props => {
           ]);
 
           return true;
-        } else if (daoToken === "Dai") {
+        } else if (addressToToken[daoToken] === "Dai") {
           const allowance = await daiService.allowance(
             _applicant,
             daoData.contractAddress
           );
           const balanceOf = await daiService.balanceOf(_applicant);
-          // console.log(balanceOf, allowance );
+          // console.log(_applicant, allowance, "<=", balanceOf );
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
