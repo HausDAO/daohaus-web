@@ -3,13 +3,15 @@ import { get } from "../../util/requests";
 import ApplicationList from "../../components/applicationList/ApplicationList";
 import ApplyButton from "../../components/applyButton/applyButton";
 
+import DaoAbi from "../../contracts/moloch";
+
 import "./Dao.scss";
 import { useWeb3Context } from "web3-react";
 import UpdateDelegate from "../../components/updatedDelegate/UpdateDelegate";
 import RageQuit from "../../components/rageQuit/RageQuit";
-import MolochService from "../../util/molochService";
 
-import { MolochContext, Web3Context } from "../../contexts/ContractContexts";
+import { Web3Context } from "../../contexts/ContractContexts";
+import { addressToToken } from "../../util/constants";
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -20,7 +22,6 @@ const Dao = props => {
   const [updateRageView, setUpdateRageView] = useState(false);
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
 
-  const [molochService, setMoloch] = useContext(MolochContext);
   const [molochContract, setMolochContract] = useState();
   const [web3Service] = useContext(Web3Context);
 
@@ -42,11 +43,17 @@ const Dao = props => {
   useEffect(() => {
     const fetchData = async () => {
       if(!molochContract){
-        const moloch = new MolochService(props.match.params.contractAddress, web3Service);
-        const contract = await moloch.initContract()
+        console.log('setup contract');
+        
+        const contract = await web3Service.initContract(
+          DaoAbi,
+          props.match.params.contractAddress
+        );
         setMolochContract(contract)
-        setMoloch(moloch);
+
       } else  {
+        console.log('contract set');
+
         const daoRes = await get(`moloch/${props.match.params.contractAddress}`);
         setDaoData(daoRes.data);
         console.log("daoData", daoRes.data);
@@ -70,15 +77,15 @@ const Dao = props => {
     if(web3Service){
       fetchData();
     }
-  }, [props.match.params.contractAddress, web3Service, molochService]);
+  }, [props.match.params.contractAddress, web3Service, molochContract]);
 
   return (
     <div className="View">
       {" "}
       {updateDelegateView ? (
-        <UpdateDelegate contractAddress={daoData.contractAddress} />
+        <UpdateDelegate contract={molochContract} />
       ) : updateRageView ? (
-        <RageQuit contractAddress={daoData.contractAddress} />
+        <RageQuit contract={molochContract} />
       ) : (
         <>
           {daoData.contractAddress ? (
@@ -100,7 +107,7 @@ const Dao = props => {
               <p className="Value Data">{daoData.summonerAddress}</p>
               <p className="Label">Minimum Tribute</p>
               <p className="Value Data">
-                {daoData.minimumTribute} {contractData.token}
+                {daoData.minimumTribute} {addressToToken[contractData.token]}
               </p>
               {isMemberOrApplicant ? (
                 <>
@@ -123,6 +130,7 @@ const Dao = props => {
                     <ApplicationList
                       applications={applications}
                       daoData={daoData}
+                      contractData={contractData}
                       contract={molochContract}
                     />
                   </div>

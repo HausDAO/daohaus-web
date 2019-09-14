@@ -8,7 +8,8 @@ const ApplicationList = props => {
   const {
     applications,
     daoData,
-    contract
+    contract,
+    contractData
   } = props;
 
   const applicationList = applications
@@ -34,6 +35,7 @@ const ApplicationList = props => {
             applicant={application}
             daoData={daoData}
             contract={contract}
+            contractData={contractData}
           />
         </div>
       );
