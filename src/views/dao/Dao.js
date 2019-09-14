@@ -9,7 +9,7 @@ import UpdateDelegate from "../../components/updatedDelegate/UpdateDelegate";
 import RageQuit from "../../components/rageQuit/RageQuit";
 import MolochService from "../../util/molochService";
 
-import { MolochContext } from "../../contexts/ContractContexts";
+import { MolochContext, Web3Context } from "../../contexts/ContractContexts";
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -21,7 +21,10 @@ const Dao = props => {
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
 
   const [molochService, setMoloch] = useContext(MolochContext);
+  const [molochContract, setMolochContract] = useState();
+  const [web3Service] = useContext(Web3Context);
 
+  
   useEffect(() => {
     if (context.active && applications.length) {
       const applicantData = applications.find(applicant => {
@@ -38,30 +41,36 @@ const Dao = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const daoRes = await get(`moloch/${props.match.params.contractAddress}`);
-      setDaoData(daoRes.data);
-      console.log("daoData", daoRes.data);
-
-      const applicationRes = await get(
-        `moloch/${props.match.params.contractAddress}/applications`
-      );
-      setApplications(applicationRes.data);
-
-      if (molochService) {
-        const totalShares = await molochService.getTotalShares();
-        const token = await molochService.approvedToken();
-        setContractData({ totalShares, token });
-      } else {
-        const moloch = new MolochService(props.match.params.contractAddress);
+      if(!molochContract){
+        const moloch = new MolochService(props.match.params.contractAddress, web3Service);
+        const contract = await moloch.initContract()
+        setMolochContract(contract)
         setMoloch(moloch);
-        const totalShares = await moloch.getTotalShares();
-        const token = await moloch.approvedToken();
-        setContractData({ totalShares, token });
+      } else  {
+        const daoRes = await get(`moloch/${props.match.params.contractAddress}`);
+        setDaoData(daoRes.data);
+        console.log("daoData", daoRes.data);
+  
+        const applicationRes = await get(
+          `moloch/${props.match.params.contractAddress}/applications`
+        );
+        setApplications(applicationRes.data);
+          console.log('dao web3', web3Service);
+          console.log('dao moloch', );
+
+          const totalShares = await molochContract.methods
+          .totalShares()
+          .call({}, "latest");
+          const token = await molochContract.methods.approvedToken().call();
+          setContractData({ totalShares, token });
       }
+
     };
 
-    fetchData();
-  }, [props.match.params.contractAddress]);
+    if(web3Service){
+      fetchData();
+    }
+  }, [props.match.params.contractAddress, web3Service, molochService]);
 
   return (
     <div className="View">
@@ -114,6 +123,7 @@ const Dao = props => {
                     <ApplicationList
                       applications={applications}
                       daoData={daoData}
+                      contract={molochContract}
                     />
                   </div>
                 </>

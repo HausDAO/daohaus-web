@@ -7,24 +7,24 @@ import makeBlockie from "ethereum-blockies-base64";
 import { truncateAddr } from "../../util/helpers";
 
 import "./ApplicantItem.scss";
-import Web3Service from "../../util/web3Service";
-import { WethContext, DaiContext, MolochContext } from "../../contexts/ContractContexts";
+import { WethContext, DaiContext, MolochContext, Web3Context } from "../../contexts/ContractContexts";
 
 const ApplicantItem = props => {
-  const { applicant, daoData } = props;
+  const { applicant, daoData,contract } = props;
   const [currentApplicant, setCurrentApplicant] = useState([]);
 
+  const [web3Service] = useContext(Web3Context);
   const [wethService] = useContext(WethContext);
   const [daiService] = useContext(DaiContext);
-  const [molochService] = useContext(MolochContext);
 
   useEffect(() => {
-    const web3Service = new Web3Service();
 
     const setup = async () => {
-      if (applicant.applicantAddress && molochService) {
+      if (applicant.applicantAddress && contract) {
         const _applicant = applicant.applicantAddress;
-        const daoToken = await molochService.approvedToken();
+        console.log('contract', contract);
+        
+        const daoToken = await contract.methods.approvedToken().call();
         let profile;
         try {
           profile = await getProfile(_applicant);

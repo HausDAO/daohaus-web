@@ -1,5 +1,4 @@
 import DaoAbi from "../contracts/moloch";
-import Web3Service from "./web3Service";
 import { addressToToken } from "./constants";
 
 export default class MolochService {
@@ -8,22 +7,19 @@ export default class MolochService {
   contract;
   daoAbi;
 
-  constructor(contractAddr) {
+  constructor(contractAddr, web3Service) {
     this.contractAddr = contractAddr;
-    this.web3Service = new Web3Service();
+    this.web3Service = web3Service;
     this.daoAbi = DaoAbi;
-
-    this.initContract();
   }
 
   async initContract() {
-    console.log('init moloch service');
+    console.log('init moloch service', this.contractAddr);
     
-    this.contract = await this.web3Service.initContract(
+    return await this.web3Service.initContract(
       this.daoAbi,
       this.contractAddr
     );
-    return this.contract;
   }
 
   async getAllEvents() {
