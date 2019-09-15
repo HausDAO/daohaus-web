@@ -4,6 +4,8 @@ import { useWeb3Context } from "web3-react";
 
 const ActivateButton = () => {
   const context = useWeb3Context();
+  console.log(context);
+  
 
   const activate = async () => {
     await context.setFirstValidConnector(["MetaMask"]);

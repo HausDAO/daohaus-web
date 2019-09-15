@@ -10,7 +10,7 @@ import { useWeb3Context } from "web3-react";
 import UpdateDelegate from "../../components/updatedDelegate/UpdateDelegate";
 import RageQuit from "../../components/rageQuit/RageQuit";
 
-import { Web3Context } from "../../contexts/ContractContexts";
+import { Web3Context, MolochContext } from "../../contexts/ContractContexts";
 import { addressToToken } from "../../util/constants";
 
 const Dao = props => {
@@ -23,6 +23,7 @@ const Dao = props => {
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
 
   const [molochContract, setMolochContract] = useState();
+  const [molochContext, setMolochContext] = useContext(MolochContext);
   const [web3Service] = useContext(Web3Context);
 
   
@@ -49,6 +50,7 @@ const Dao = props => {
           DaoAbi,
           props.match.params.contractAddress
         );
+        setMolochContext(contract)
         setMolochContract(contract)
 
       } else  {
@@ -62,8 +64,6 @@ const Dao = props => {
           `moloch/${props.match.params.contractAddress}/applications`
         );
         setApplications(applicationRes.data);
-          console.log('dao web3', web3Service);
-          console.log('dao moloch', );
 
           const totalShares = await molochContract.methods
           .totalShares()
