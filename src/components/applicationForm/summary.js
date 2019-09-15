@@ -1,19 +1,23 @@
 import { useFormikWizard } from 'formik-wizard'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { withRouter } from "react-router-dom";
-import MolochService from '../../util/molochService';
+
+
+import { Web3Context, MolochContext  } from "../../contexts/ContractContexts";
+import { addressToToken } from '../../util/constants';
+
 
 function Summary(props) {
   const { values } = useFormikWizard();
   const [contractData, setContractData] = useState({});
+  const [molochContext] = useContext(MolochContext);
 
   useEffect(() => {
     const fetchData = async () => {
       
-      const molochService = new MolochService(props.match.params.contractAddress);
-      const token = await molochService.approvedToken();
-      
-      setContractData({token})
+        const token = await molochContext.methods.approvedToken().call();
+        const tokenSymbol = addressToToken[token];
+        setContractData({tokenSymbol})
     };
 
     fetchData();

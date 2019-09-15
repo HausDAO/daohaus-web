@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useWeb3Context } from "web3-react";

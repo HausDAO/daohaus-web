@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
 
 import { FormikWizard } from "formik-wizard";
@@ -6,11 +6,12 @@ import { FormikWizard } from "formik-wizard";
 import { post } from "../../util/requests";
 import steps from "./steps";
 import { useWeb3Context } from "web3-react";
-import WethService from "../../util/wethService";
 import MolochService from "../../util/molochService";
-import Web3Service from "../../util/web3Service";
-import DaiService from "../../util/daiService";
+
 import Loading from "../loading/Loading";
+
+import { WethContext, DaiContext, Web3Context } from "../../contexts/ContractContexts";
+import { addressToToken } from "../../util/constants";
 
 function FormWrapper({
   children,
@@ -37,26 +38,31 @@ function FormWrapper({
 }
 
 const ApplicationWizard = props => {
-  const { contractAddress, history } = props;
+  const { contractAddress, contract, history } = props;
   const [loading, setLoading] = useState(false);
   const [formError, setformError] = useState("");
 
   const context = useWeb3Context();
-  const web3Service = new Web3Service();
-  const wethService = new WethService();
-  const daiService = new DaiService();
-  const molochService = new MolochService(contractAddress);
+// 
+  const [web3Service] = useContext(Web3Context);
+  const [wethService] = useContext(WethContext);
+  const [daiService] = useContext(DaiContext);
+
+
   let currency = "";
   const handleSubmit = async values => {
     setLoading(true);
 
     try {
-      const daoToken = await molochService.approvedToken();
-      if (daoToken === "Weth") {
-        currency = await wethService.initContract();
+      console.log('contract', contract);
+      
+      const daoToken = await contract.methods.approvedToken().call();
+      if (addressToToken[daoToken] === "Weth") {
+        currency = wethService;
       } else {
-        currency = await daiService.initContract();
+        currency = daiService;
       }
+      
 
       const application = {
         name: values.personal.name,
@@ -80,7 +86,7 @@ const ApplicationWizard = props => {
         });
       }
 
-      await currency.methods
+      await currency.contract.methods
         .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
         .send({ from: context.account })
         .once("transactionHash", txHash => {})
