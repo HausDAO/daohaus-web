@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { FormikWizard } from "formik-wizard";
 
@@ -9,6 +9,8 @@ import DaoByteCode from "../../contracts/molochByteCode.json";
 import { post } from "../../util/requests";
 import summonSteps from "./SummonSteps";
 import Loading from "../loading/Loading";
+
+import { Web3Context } from "../../contexts/ContractContexts";
 
 function FormWrapper({
   children,
@@ -40,15 +42,16 @@ const SummonWizard = props => {
   const [runOnce, setRunOnce] = useState(false);
   const [formError, setformError] = useState("");
 
-  const handleSubmit = async values => {
-    console.log(values);
+  const [web3Service] = useContext(Web3Context);
 
+  const handleSubmit = async values => {
     setLoading(true);
 
-    const web3Service = new Web3Service();
-
-    if(web3Service.toWei(values.deposit.proposalDeposit) < web3Service.toWei(values.deposit.processingReward)){
-      setformError("Deposit must be greater than reward.")
+    if (
+      parseInt(web3Service.toWei(values.deposit.proposalDeposit)) <
+      parseInt(web3Service.toWei(values.deposit.processingReward))
+    ) {
+      setformError("Deposit must be greater than reward.");
       setLoading(false);
       return false;
     }
@@ -81,15 +84,16 @@ const SummonWizard = props => {
           }
         )
         .on("error", function(error) {
-          console.log(error);
+          setLoading(false);
+          setformError(`Something went wrong. please try again`);
+          console.log("moloch creation error", error);
         })
         .on("transactionHash", function(transactionHash) {
           console.log(transactionHash);
         })
         .on("receipt", function(receipt) {
           console.log(receipt.contractAddress); // contains the new contract address
-          console.log('runOnce', runOnce);
-          if(!runOnce){
+          if (!runOnce) {
             setRunOnce(true); // not working
             const newMoloch = {
               summonerAddress: context.account,
@@ -98,10 +102,9 @@ const SummonWizard = props => {
               minimumTribute: values.currency.minimumTribute,
               description: values.dao.description
             };
-  
+
             post("moloch", newMoloch)
               .then(newMolochRes => {
-  
                 const application = {
                   name: "Summoner",
                   bio: "Summoner of the Dao",
@@ -114,27 +117,23 @@ const SummonWizard = props => {
 
                 console.log("created new moloch", newMolochRes, application);
 
-  
-                post(`moloch/apply`, application).then((appRes)=> {
-                  console.log("summoner added", appRes);
-  
-                  props.history.push(`/dao/${receipt.contractAddress}`);
-                  setLoading(false);
+                post(`moloch/apply`, application)
+                  .then(appRes => {
+                    console.log("summoner added", appRes);
 
-                }).catch(err => {
-                  setLoading(false);
-                  console.log("new applicant error", err);
-                });
-                
-                
-  
+                    props.history.push(`/dao/${receipt.contractAddress}`);
+                    setLoading(false);
+                  })
+                  .catch(err => {
+                    setLoading(false);
+                    console.log("new applicant error", err);
+                  });
               })
               .catch(err => {
                 setLoading(false);
                 console.log("moloch creation error", err);
               });
           }
-
         })
         .on("confirmation", function(confirmationNumber, receipt) {
           console.log(confirmationNumber, receipt);
@@ -148,8 +147,6 @@ const SummonWizard = props => {
       setformError(`Something went wrong. please try again`);
     }
   };
-
-  console.log("loading", loading);
 
   return (
     <>
