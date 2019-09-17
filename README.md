@@ -1,10 +1,6 @@
 # daohaus-web
 
-TBD
-SNAFU
-FUBAR
-
-Hackathon project. took too many shortcuts, this repo will need to be redone
+Hackathon project. Needs some work.
 
 
 Still needs your support
