@@ -1,0 +1,118 @@
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_approvedToken",
+				"type": "address"
+			},
+			{
+				"name": "_periodDuration",
+				"type": "uint256"
+			},
+			{
+				"name": "_votingPeriodLength",
+				"type": "uint256"
+			},
+			{
+				"name": "_gracePeriodLength",
+				"type": "uint256"
+			},
+			{
+				"name": "_abortWindow",
+				"type": "uint256"
+			},
+			{
+				"name": "_proposalDeposit",
+				"type": "uint256"
+			},
+			{
+				"name": "_dilutionBound",
+				"type": "uint256"
+			},
+			{
+				"name": "_processingReward",
+				"type": "uint256"
+			},
+			{
+				"name": "_daoTitle",
+				"type": "string"
+			}
+		],
+		"name": "newDao",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_daoAdress",
+				"type": "address"
+			},
+			{
+				"name": "_summoner",
+				"type": "address"
+			},
+			{
+				"name": "_daoTitle",
+				"type": "string"
+			}
+		],
+		"name": "registerDao",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "moloch",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "summoner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "daoIdx",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "newContract",
+				"type": "uint256"
+			}
+		],
+		"name": "Register",
+		"type": "event"
+	}
+]
