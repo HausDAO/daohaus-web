@@ -1,11 +1,12 @@
-import DaoAbi from "../contracts/moloch";
-import { addressToToken } from "./constants";
+import DaoAbi from '../contracts/moloch';
+import { addressToToken } from './constants';
 
 export default class MolochService {
   contractAddr;
   web3Service;
   contract;
   daoAbi;
+  contract;
 
   constructor(contractAddr, web3Service) {
     this.contractAddr = contractAddr;
@@ -14,11 +15,9 @@ export default class MolochService {
   }
 
   async initContract() {
-    console.log('init moloch service', this.contractAddr);
-    
-    return await this.web3Service.initContract(
+    this.contract = await this.web3Service.initContract(
       this.daoAbi,
-      this.contractAddr
+      this.contractAddr,
     );
   }
 
@@ -26,9 +25,9 @@ export default class MolochService {
     if (!this.contract) {
       await this.initContract();
     }
-    let events = await this.contract.getPastEvents("allEvents", {
+    let events = await this.contract.getPastEvents('allEvents', {
       fromBlock: 0,
-      toBlock: "latest"
+      toBlock: 'latest',
     });
     return events;
   }
@@ -41,7 +40,7 @@ export default class MolochService {
     return currentPeriod;
   }
 
-  async getTotalShares(atBlock = "latest") {
+  async getTotalShares(atBlock = 'latest') {
     if (!this.contract) {
       await this.initContract();
     }
@@ -98,6 +97,7 @@ export default class MolochService {
       await this.initContract();
     }
     let guildBank = await this.contract.methods.guildBank().call();
+
     return guildBank;
   }
 
@@ -134,13 +134,13 @@ export default class MolochService {
     let vote = this.contract.methods
       .submitVote(proposalIndex, uintVote)
       .send({ from })
-      .once("transactionHash", txHash => {})
+      .once('transactionHash', txHash => {})
       .then(resp => {
         return resp;
       })
       .catch(err => {
         console.log(err);
-        return { error: "rejected transaction" };
+        return { error: 'rejected transaction' };
       });
     return vote;
   }
@@ -157,13 +157,13 @@ export default class MolochService {
     let rage = this.contract.methods
       .ragequit(amount)
       .send({ from })
-      .once("transactionHash", txHash => {})
+      .once('transactionHash', txHash => {})
       .then(resp => {
         return resp;
       })
       .catch(err => {
         console.log(err);
-        return { error: "rejected transaction" };
+        return { error: 'rejected transaction' };
       });
     return rage;
   }
@@ -196,9 +196,9 @@ export default class MolochService {
     if (!this.contract) {
       await this.initContract();
     }
-    
+
     let info = await this.contract.methods.approvedToken().call();
-    
+
     return addressToToken[info];
   }
 
@@ -219,7 +219,7 @@ export default class MolochService {
     tokenTribute,
     sharesRequested,
     details,
-    encodedPayload = false
+    encodedPayload = false,
   ) {
     if (!this.contract) {
       await this.initContract();
@@ -235,13 +235,13 @@ export default class MolochService {
     let proposal = this.contract.methods
       .submitProposal(applicant, tokenTribute, sharesRequested, details)
       .send({ from })
-      .once("transactionHash", txHash => {})
+      .once('transactionHash', txHash => {})
       .then(resp => {
         return resp;
       })
       .catch(err => {
         console.log(err);
-        return { error: "rejected transaction" };
+        return { error: 'rejected transaction' };
       });
 
     return proposal;
