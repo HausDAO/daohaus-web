@@ -1,18 +1,14 @@
 import axios from "axios";
 
-export const BaseUrl = () => {
-    return process.env.REACT_APP_GRAPH_URI;
-  };
 
 export const legacyGraph = async (endpoint, payload) => {
-    const baseURL = BaseUrl();
   
     const instance = axios.create({
         endpoint,
       headers: { "Content-Type": "application/json" }
     });
     try {
-      return await instance.post(`/${endpoint}`, payload);
+      return await instance.post(`${endpoint}`, payload);
     } catch (err) {
       return err.response;
     }
