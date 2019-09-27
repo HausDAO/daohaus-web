@@ -62,7 +62,7 @@ const SummonWizard = props => {
         process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS
       );
 
-      const newDao = await factoryContract.methods
+      await factoryContract.methods
         .newDao(
           values.currency.approvedToken,
           values.timing.periodDuration,
