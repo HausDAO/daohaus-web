@@ -1,14 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from './Routes';
-import './App.css';
-
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 import { Connectors } from 'web3-react';
 import Web3Provider from 'web3-react';
+
+import Routes from './Routes';
 import TopNav from './components/topNav/TopNav';
+import ContractContexts from './contexts/ContractContexts';
+import { resolvers } from './util/resolvers';
 
 import './global.scss';
-import ContractContexts from './contexts/ContractContexts';
+import './App.css';
 
 const { InjectedConnector, NetworkOnlyConnector } = Connectors;
 
@@ -17,9 +20,16 @@ const MetaMask = new InjectedConnector({ supportedNetworks: [1] });
 
 const Infura = new NetworkOnlyConnector({
   providerURL: process.env.REACT_APP_INFURA_URI,
-});
+})
 
 const connectors = { MetaMask, Infura };
+
+const client = new ApolloClient({
+  uri: 'https://api.thegraph.com/subgraphs/name/skuhlmann/molochfactorykovan',
+  clientState: {
+    resolvers,
+  },
+});
 
 function App() {
   return (
@@ -27,15 +37,17 @@ function App() {
       connectors={connectors}
       libraryName={'ethers.js' | 'web3.js' | null}
     >
-      <ContractContexts>
-        {' '}
-        <div className="App">
-          <Router>
-            <TopNav />
-            <Routes />
-          </Router>
-        </div>
-      </ContractContexts>
+      <ApolloProvider client={client}>
+        <ContractContexts>
+          {' '}
+          <div className="App">
+            <Router>
+              <TopNav />
+              <Routes />
+            </Router>
+          </div>
+        </ContractContexts>
+      </ApolloProvider>
     </Web3Provider>
   );
 }
