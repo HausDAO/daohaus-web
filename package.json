@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "3box": "^1.10.7",
+    "@apollo/react-hooks": "^3.1.1",
+    "apollo-boost": "^0.4.4",
     "axios": "^0.19.0",
     "dotenv": "^8.1.0",
     "ethereum-blockies-base64": "^1.0.2",
@@ -15,6 +17,7 @@
     "profile-hover": "^1.0.2",
     "react": "^16.9.0",
     "react-albus": "^2.0.0",
+    "react-apollo": "^3.1.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
@@ -24,13 +27,30 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^2.0.1"
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-app": "^5.0.2",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "clean:install": "rimraf node_modules && yarn install",
+    "clean:build": "rimraf build && yarn build",
+    "lint": "eslint --fix ."
   },
   "eslintConfig": {
     "extends": "react-app"
