@@ -1,31 +1,27 @@
-import React from "react";
+import React from 'react';
 import { Link } from 'react-router-dom';
-import DaoCard from '../daoCard/DaoCard'
+import DaoCard from '../daoCard/DaoCard';
 
-import "./DaoList.scss"
+import './DaoList.scss';
 
-const DaoList = (props) => {
+const DaoList = props => {
   const { daos } = props;
 
   const daoList = daos.map(dao => {
     return (
-      <div className="DaoList__Item" key={dao.contractAddress}>
-        <Link to={`/dao/${dao.contractAddress}`}>
+      <div className="DaoList__Item" key={dao.moloch}>
+        <Link to={`/dao/${dao.moloch}`}>
           <DaoCard dao={dao} />
         </Link>
       </div>
     );
-  })
-
+  });
 
   return (
     <div>
       <h3>DAOs</h3>
-      <div className="DaoList">
-        {daoList}
-      </div>
+      <div className="DaoList">{daoList}</div>
     </div>
-    
   );
 };
 

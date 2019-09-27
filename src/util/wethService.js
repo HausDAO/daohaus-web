@@ -14,13 +14,11 @@ export default class WethService {
   }
 
   async initContract() {
-    console.log('init weth');
-    
     this.contract = await this.web3Service.initContract(
       this.wethAbi,
       this.contractAddr,
     );
-    
+
     return this.contract;
   }
 
@@ -68,11 +66,11 @@ export default class WethService {
     const approve = await this.contract.methods
       .approve(guy, wad)
       .send({ from })
-      .once('transactionHash', (txHash) => {})
-      .then((resp) => {
+      .once('transactionHash', txHash => {})
+      .then(resp => {
         return resp;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         return { error: 'rejected transaction' };
       });
@@ -93,11 +91,11 @@ export default class WethService {
     let deposit = this.contract.methods
       .deposit()
       .send({ from, value: amount })
-      .once('transactionHash', (txHash) => {})
-      .then((resp) => {
+      .once('transactionHash', txHash => {})
+      .then(resp => {
         return resp;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         return { error: 'rejected transaction' };
       });
@@ -118,11 +116,11 @@ export default class WethService {
     const trans = await this.contract.methods
       .transfer(dist, wad)
       .send({ from })
-      .once('transactionHash', (txHash) => {})
-      .then((resp) => {
+      .once('transactionHash', txHash => {})
+      .then(resp => {
         return resp;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         return { error: 'rejected transaction' };
       });
