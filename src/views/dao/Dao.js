@@ -13,7 +13,7 @@ import RageQuit from '../../components/rageQuit/RageQuit';
 import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
 import { addressToToken } from '../../util/constants';
 import { Query } from 'react-apollo';
-import { GET_MEMBERDATA } from '../../util/queries';
+import { GET_MEMBERDATA, GET_MEMBERDATA_LEGACY } from '../../util/queries';
 import { legacyGraph } from '../../util/legacyGraphService';
 
 const Dao = props => {
@@ -65,8 +65,8 @@ const Dao = props => {
         console.log('daodata addr', daoRes.data.contractAddress);
 
         if(daoRes.data.isLegacy){
-          const legacyData = await legacyGraph('', GET_MEMBERDATA)
-          console.log('legacyData');
+          const legacyData = await legacyGraph('', GET_MEMBERDATA_LEGACY)
+          console.log('legacyData', legacyData );
           
         }
 
