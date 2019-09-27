@@ -6,6 +6,9 @@ import { useWeb3Context } from "web3-react";
 import Web3Service from "../../util/web3Service";
 import DaoAbi from "../../contracts/moloch.json";
 import DaoByteCode from "../../contracts/molochByteCode.json";
+
+import FactoryAbi from "../../contracts/factory.json";
+
 import { post } from "../../util/requests";
 import summonSteps from "./SummonSteps";
 import Loading from "../loading/Loading";
@@ -57,12 +60,13 @@ const SummonWizard = props => {
     }
 
     try {
-      const daoContract = await web3Service.createContract(DaoAbi);
+      const factoryContract = await web3Service.initContract(
+        FactoryAbi,
+        process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS
+      );
 
-      const deployedContract = await daoContract.deploy({
-        data: DaoByteCode.object,
-        arguments: [
-          context.account,
+      const newDao = await factoryContract.methods
+        .newDao(
           values.currency.approvedToken,
           values.timing.periodDuration,
           values.timing.votingPeriodLength,
@@ -70,11 +74,9 @@ const SummonWizard = props => {
           values.timing.abortWindow,
           web3Service.toWei(values.deposit.proposalDeposit),
           values.deposit.dilutionBound,
-          web3Service.toWei(values.deposit.processingReward)
-        ]
-      });
-
-      deployedContract
+          web3Service.toWei(values.deposit.processingReward),
+          values.dao.name
+        )
         .send(
           {
             from: context.account
@@ -92,12 +94,13 @@ const SummonWizard = props => {
           console.log(transactionHash);
         })
         .on("receipt", function(receipt) {
-          console.log(receipt.contractAddress); // contains the new contract address
+          console.log(receipt.events.Register); // contains the new contract address
+          const contractAddress = receipt.events.Register.returnValues.moloch;
           if (!runOnce) {
             setRunOnce(true); // not working
             const newMoloch = {
               summonerAddress: context.account,
-              contractAddress: receipt.contractAddress,
+              contractAddress: contractAddress,
               name: values.dao.name,
               minimumTribute: values.currency.minimumTribute,
               description: values.dao.description
@@ -111,23 +114,13 @@ const SummonWizard = props => {
                   pledge: "0",
                   shares: "1",
                   applicantAddress: context.account,
-                  molochContractAddress: receipt.contractAddress,
+                  molochContractAddress: contractAddress,
                   status: "Member"
                 };
 
                 console.log("created new moloch", newMolochRes, application);
 
-                post(`moloch/apply`, application)
-                  .then(appRes => {
-                    console.log("summoner added", appRes);
-
-                    props.history.push(`/dao/${receipt.contractAddress}`);
-                    setLoading(false);
-                  })
-                  .catch(err => {
-                    setLoading(false);
-                    console.log("new applicant error", err);
-                  });
+                props.history.push(`/moa/${contractAddress}`);
               })
               .catch(err => {
                 setLoading(false);
