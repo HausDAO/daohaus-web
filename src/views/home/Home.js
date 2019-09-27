@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useWeb3Context } from 'web3-react';
 import { useQuery } from '@apollo/react-hooks';
+// import { InMemoryCache } from 'apollo-boost';
 
 import DaoList from '../../components/daoList/DaoList';
 import SummonButton from '../../components/summonButton/summonButton';
-import { GET_MOLOCHES } from '../../util/queries';
+import { GET_MOLOCHES, GET_API_MOLOCHES } from '../../util/queries';
+// import { get } from '../../util/requests';
 
 import './Home.scss';
 
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
+
+  console.log('data', data);
+  const { loadingApi, errorApi, dataApi } = useQuery(GET_API_MOLOCHES);
+
+  console.log('loadingApi', loadingApi);
+  console.log('errorApi', errorApi);
+  console.log('dataApi', dataApi);
+
+  useEffect(() => {
+    // const fetchData = async () => {
+    //   const daoRes = await get(`moloch/`);
+    //   const cache = new InMemoryCache();
+    //   cache.writeData({
+    //     data: {
+    //       apiDaos: daoRes.data,
+    //     },
+    //   });
+    // };
+    // fetchData();
+  }, []);
 
   return (
     <>
