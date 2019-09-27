@@ -11,6 +11,10 @@ export const GET_MEMBERDATA = gql`
   }
 `;
 
+export const GET_MEMBERDATA_LEGACY = {
+    "query": "members { \nid \ndelegateKey \nmolochAddress \nshares \n}"
+  };
+
 export const GET_MOLOCHES = gql`
   query {
     factories(orderBy: count) {
