@@ -10,8 +10,8 @@ const ApplicationList = props => {
 
   const memberList = () => {
     console.log('query data', data);
-    
-    return data.members
+    if("members" in data ){
+      return data.members
       .sort(function(a, b) {
         return b.shares - a.shares;
       })
@@ -36,6 +36,10 @@ const ApplicationList = props => {
           </div>
         );
       });
+    } else {
+      return [];
+    }
+    
   };
 
   const newPledgeList = () => {
