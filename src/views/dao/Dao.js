@@ -14,6 +14,7 @@ import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
 import { addressToToken } from '../../util/constants';
 import { Query } from 'react-apollo';
 import { GET_MEMBERDATA } from '../../util/queries';
+import { legacyGraph } from '../../util/legacyGraphService';
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -44,7 +45,6 @@ const Dao = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-
       if (!molochContract) {
         console.log('setup contract');
 
@@ -63,7 +63,12 @@ const Dao = props => {
         setDaoData(daoRes.data);
         console.log('daoData', daoRes.data);
         console.log('daodata addr', daoRes.data.contractAddress);
-        
+
+        if(daoRes.data.isLegacy){
+          const legacyData = await legacyGraph('', GET_MEMBERDATA)
+          console.log('legacyData');
+          
+        }
 
         const applicationRes = await get(
           `moloch/${props.match.params.contractAddress}/applications`,
@@ -130,20 +135,17 @@ const Dao = props => {
                 </>
               ) : (
                 <>
-                <p>{daoData.contractAddress}</p>
-                <ApplyButton contractAddress={daoData.contractAddress} />
+                  <ApplyButton contractAddress={daoData.contractAddress} />
                 </>
               )}{' '}
-              {daoData.contractAddress ? (
+              {!daoData.isLegacy ? (
                 <>
                   <h3>Pledges</h3>
                   <Query
                     query={GET_MEMBERDATA}
-                    variables={{ contractAddr: "0xbd6fa666fbb6fdeb4fc5eb36cdd5c87b069b24c1" }}
+                    variables={{ contractAddr: daoData.contractAddress }}
                   >
                     {({ loading, error, data }) => {
-                      console.log('member data', loading, error, data);
-                      
                       return (
                         <div className="ApplicationList">
                           {data && (
@@ -160,7 +162,17 @@ const Dao = props => {
                     }}
                   </Query>
                 </>
-              ) : null}{' '}
+              ) : (
+                <div className="ApplicationList">
+                    <ApplicationList
+                      applications={applications}
+                      daoData={daoData}
+                      contractData={contractData}
+                      contract={molochContract}
+                      data={[]}
+                    />
+                </div>
+              )}{' '}
             </div>
           ) : (
             <p>THE HAUS IS LOADING THE DAO</p>
