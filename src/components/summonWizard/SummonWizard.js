@@ -3,9 +3,6 @@ import { withRouter } from "react-router-dom";
 import { FormikWizard } from "formik-wizard";
 
 import { useWeb3Context } from "web3-react";
-import Web3Service from "../../util/web3Service";
-import DaoAbi from "../../contracts/moloch.json";
-import DaoByteCode from "../../contracts/molochByteCode.json";
 
 import FactoryAbi from "../../contracts/factory.json";
 
