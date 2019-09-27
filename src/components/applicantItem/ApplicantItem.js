@@ -25,6 +25,8 @@ const ApplicantItem = props => {
         const _applicant = applicant.applicantAddress;
         
         const daoToken = contractData.token;
+        console.log('addressToToken[daoToken]', addressToToken[daoToken]);
+        
         
         let profile;
         try {
@@ -38,7 +40,7 @@ const ApplicantItem = props => {
             daoData.contractAddress
           );
           const balanceOf = await wethService.balanceOf(_applicant);
-          // console.log(_applicant, allowance, "<=", balanceOf );
+          console.log(_applicant, allowance, "<=", balanceOf );
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -57,7 +59,7 @@ const ApplicantItem = props => {
             daoData.contractAddress
           );
           const balanceOf = await daiService.balanceOf(_applicant);
-          // console.log(_applicant, allowance, "<=", balanceOf );
+          console.log( _applicant, allowance, "<=", balanceOf );
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -83,24 +85,9 @@ const ApplicantItem = props => {
     setup();
   }, [applicant.applicantAddress]);
 
-  if (applicant.shares === "0") {
-    applicant.status = "Zero share member";
-  }
+ 
+  applicant.status = "New Pledge";
 
-  if (
-    applicant.applicantAddress.toLowerCase() ===
-    daoData.summonerAddress.toLowerCase()
-  ) {
-    applicant.status = "Summoner";
-  }
-
-  if (applicant.status === "new") {
-    applicant.status = "New Pledge";
-  }
-
-  if (!applicant.status) {
-    applicant.status = "Member";
-  }
 
   const applicantProfile = currentApplicant.find(
     item => item.addr === applicant.applicantAddress
@@ -159,12 +146,14 @@ const ApplicantItem = props => {
       {applicant.status === "New Pledge" && (
         <div className="Row PledgeInfo">
           {applicantProfile && <p>{"" + applicantProfile.inEth} approved</p>}
-          {applicantProfile &&
+          <p className="Success">Tribute ready</p>
+
+          {/* {applicantProfile &&
           parseInt(applicantProfile.inEth) <= parseInt(applicantProfile.balanceOf) ? (
             <p className="Success">Tribute ready</p>
           ) : (
             <p className="Danger">Insufficient funds</p>
-          )}
+          )} */}
         </div>
       )}
     </Link>
