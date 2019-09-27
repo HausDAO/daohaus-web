@@ -25,7 +25,7 @@ const Infura = new NetworkOnlyConnector({
 const connectors = { MetaMask, Infura };
 
 const client = new ApolloClient({
-  uri: 'https://api.thegraph.com/subgraphs/name/skuhlmann/molochfactorykovan',
+  uri: process.env.REACT_APP_GRAPH_URI,
   clientState: {
     resolvers,
   },

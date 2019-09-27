@@ -11,6 +11,7 @@ export const GET_MEMBERDATA = gql`
   }
 `;
 
+
 export const GET_MOLOCHES = gql`
   query {
     factories(orderBy: count) {

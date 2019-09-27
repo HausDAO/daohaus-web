@@ -142,6 +142,8 @@ const Dao = props => {
                     variables={{ contractAddr: "0xbd6fa666fbb6fdeb4fc5eb36cdd5c87b069b24c1" }}
                   >
                     {({ loading, error, data }) => {
+                      console.log('member data', loading, error, data);
+                      
                       return (
                         <div className="ApplicationList">
                           {data && (
