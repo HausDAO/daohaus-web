@@ -19,6 +19,7 @@ import { legacyGraph } from '../../util/legacyGraphService';
 const Dao = props => {
   const context = useWeb3Context();
   const [daoData, setDaoData] = useState({});
+  const [legacyData, setLegacyData] = useState();
   const [applications, setApplications] = useState({});
   const [contractData, setContractData] = useState({});
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
@@ -63,12 +64,13 @@ const Dao = props => {
         setDaoData(daoRes.data);
         console.log('daoData', daoRes.data);
         console.log('daodata addr', daoRes.data.contractAddress);
-
+        let _legacyData = [];
         if(daoRes.data.isLegacy && daoRes.data.graphNodeUri){
-          const legacyData = await legacyGraph(daoRes.data.graphNodeUri, GET_MEMBERDATA_LEGACY)
+          _legacyData = await legacyGraph(daoRes.data.graphNodeUri, GET_MEMBERDATA_LEGACY)
           console.log('legacyData', legacyData );
           
-        }
+        } 
+        setLegacyData(_legacyData);
 
         const applicationRes = await get(
           `moloch/${props.match.params.contractAddress}/applications`,
@@ -138,7 +140,7 @@ const Dao = props => {
                   <ApplyButton contractAddress={daoData.contractAddress} />
                 </>
               )}{' '}
-              {!daoData.isLegacy ? (
+              {!daoData.isLegacy && !daoData.graphNodeUri ? (
                 <>
                   <h3>Pledges</h3>
                   <Query
@@ -169,7 +171,7 @@ const Dao = props => {
                       daoData={daoData}
                       contractData={contractData}
                       contract={molochContract}
-                      data={[]}
+                      data={legacyData}
                     />
                 </div>
               )}{' '}
