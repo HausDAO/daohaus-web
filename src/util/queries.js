@@ -24,3 +24,12 @@ export const GET_MOLOCHES = gql`
     }
   }
 `;
+
+export const GET_API_MOLOCHES = gql`
+  query {
+    apiDaos(first: 5) @client {
+      id @client
+      name @client
+    }
+  }
+`;
