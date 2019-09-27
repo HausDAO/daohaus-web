@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { get } from "../../util/requests";
-import DaoList from "../../components/daoList/DaoList";
-import SummonButton from "../../components/summonButton/summonButton";
-import { useWeb3Context } from "web3-react";
-import "./Home.scss";
+import React from 'react';
+import { useWeb3Context } from 'web3-react';
+import { useQuery } from '@apollo/react-hooks';
+
+import DaoList from '../../components/daoList/DaoList';
+import SummonButton from '../../components/summonButton/summonButton';
+import { GET_MOLOCHES } from '../../util/queries';
+
+import './Home.scss';
 
 const Home = () => {
-  const [daosData, setDaosData] = useState([]);
   const context = useWeb3Context();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const daoRes = await get(`moloch/`);
-      setDaosData(daoRes.data.reverse());
-    };
-
-    fetchData();
-  }, []);
+  const { loading, error, data } = useQuery(GET_MOLOCHES);
 
   return (
     <>
@@ -28,11 +22,9 @@ const Home = () => {
         {context.active && !context.error && <SummonButton />}
       </div>
       <div className="View">
-        {daosData.length ? (
-          <DaoList daos={daosData} />
-        ) : (
-          <p>THE HAUS IS LOADING THE DAOS</p>
-        )}
+        {loading ? <p>THE HAUS IS LOADING THE DAOS</p> : null}
+        {error ? <p>Error</p> : null}
+        {data ? <DaoList daos={data.factories} /> : null}
       </div>
     </>
   );
