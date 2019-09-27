@@ -64,8 +64,8 @@ const Dao = props => {
         console.log('daoData', daoRes.data);
         console.log('daodata addr', daoRes.data.contractAddress);
 
-        if(daoRes.data.isLegacy){
-          const legacyData = await legacyGraph('', GET_MEMBERDATA_LEGACY)
+        if(daoRes.data.isLegacy && daoRes.data.graphNodeUri){
+          const legacyData = await legacyGraph(daoRes.data.graphNodeUri, GET_MEMBERDATA_LEGACY)
           console.log('legacyData', legacyData );
           
         }
