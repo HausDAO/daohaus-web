@@ -11,6 +11,10 @@ export const GET_MEMBERDATA = gql`
   }
 `;
 
+export const GET_MEMBERDATA_LEGACY = {
+    "query": "query members { members { id delegateKey shares }}"
+};
+
 export const GET_MOLOCHES = gql`
   query {
     factories(orderBy: count) {
