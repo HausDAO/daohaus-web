@@ -31,7 +31,7 @@ const RageQuit = ({ contract }) => {
           try {
             
             await contract.methods
-            .RageQuit(
+            .ragequit(
               values.ammount
             )
             .send({ from: context.account })
