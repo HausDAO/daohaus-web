@@ -65,6 +65,8 @@ const ApplicationList = props => {
               />
             </div>
           );
+        } else {
+          return null;
         }
       })
       .filter(member => member !== undefined);

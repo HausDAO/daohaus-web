@@ -15,8 +15,6 @@ const DaoCard = props => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  //TODO: Memebers will comback as 0 if legacy. Need to figure out api hydration from here.
-
   return (
     <>
       {dao.id ? (
@@ -32,7 +30,11 @@ const DaoCard = props => {
             </div>
             <div className="Column">
               <p className="Label">Members</p>
-              <p className="Data">{data.members.length}</p>
+              <p className="Data">
+                {dao.apiData.legacyData
+                  ? dao.apiData.legacyData.members.length
+                  : data.members.length}
+              </p>
             </div>
           </div>
         </div>

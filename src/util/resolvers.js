@@ -3,8 +3,10 @@ import Web3 from 'web3';
 import Web3Service from '../util/web3Service';
 import MolochService from './molochService';
 import WethService from './wethService';
-import { get } from './requests';
 import DaiService from './daiService';
+import { legacyGraph } from './legacyGraphService';
+import { get } from './requests';
+import { GET_MEMBERDATA_LEGACY } from './queries';
 
 let _web3;
 if (Web3.givenProvider) {
@@ -32,7 +34,17 @@ export const resolvers = {
     },
     apiData: async (moloch, _args) => {
       const daoRes = await get(`moloch/${moloch.moloch}`);
-      return daoRes.data;
+      const apiData = daoRes.data;
+
+      if (apiData.isLegacy && apiData.graphNodeUri) {
+        let legacyData = await legacyGraph(
+          apiData.graphNodeUri,
+          GET_MEMBERDATA_LEGACY,
+        );
+        apiData.legacyData = legacyData.data.data;
+      }
+
+      return apiData;
     },
     approvedToken: async (moloch, _args) => {
       const molochService = new MolochService(moloch.moloch, web3Service);

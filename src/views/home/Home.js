@@ -4,14 +4,13 @@ import { useQuery } from '@apollo/react-hooks';
 
 import DaoList from '../../components/daoList/DaoList';
 import SummonButton from '../../components/summonButton/summonButton';
-import { GET_MOLOCHES} from '../../util/queries';
+import { GET_MOLOCHES } from '../../util/queries';
 
 import './Home.scss';
 
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
-  console.log('data', data);
 
   return (
     <>
