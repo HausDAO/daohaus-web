@@ -12,6 +12,9 @@ const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
 
+  console.log('error', error);
+  console.log('data', data);
+
   return (
     <>
       <div className="Hero">

@@ -74,10 +74,9 @@ const ApplicationList = props => {
 
   return (
     <>
-    {data && (
-      {applications && <>{newPledgeList()}</>}
+      {data && applications && <>{newPledgeList()}</>}
       <>{memberList()}</>
-    )}
+      )}
     </>
   );
 };
