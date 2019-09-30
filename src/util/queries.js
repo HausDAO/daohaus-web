@@ -7,12 +7,13 @@ export const GET_MEMBERDATA = gql`
       delegateKey
       molochAddress
       shares
+      memberId @client
     }
   }
 `;
 
 export const GET_MEMBERDATA_LEGACY = {
-    "query": "query members { members { id delegateKey shares }}"
+  query: 'query members { members { id delegateKey shares }}',
 };
 
 export const GET_MOLOCHES = gql`

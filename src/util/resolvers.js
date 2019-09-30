@@ -51,4 +51,13 @@ export const resolvers = {
       return await molochService.approvedToken();
     },
   },
+  Member: {
+    memberId: async (member, _args) => {
+      let memberId = member.id;
+      if (memberId.includes('-0x')) {
+        memberId = memberId.split('-')[1];
+      }
+      return memberId;
+    },
+  },
 };
