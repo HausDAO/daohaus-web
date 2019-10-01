@@ -30,6 +30,21 @@ export const GET_MOLOCHES = gql`
   }
 `;
 
+export const GET_MOLOCHES_STATS = gql`
+  query {
+    factories(orderBy: count) {
+      id
+      title
+      moloch
+      summoner
+      guildBankValue @client
+      approvedToken @client
+      totalShares @client
+      apiData @client
+    }
+  }
+`;
+
 export const GET_MOLOCH = gql`
   query factories($contractAddr: String!) {
     factories(where: { id: $contractAddr }) {
