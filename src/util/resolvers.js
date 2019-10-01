@@ -50,6 +50,10 @@ export const resolvers = {
       const molochService = new MolochService(moloch.moloch, web3Service);
       return await molochService.approvedToken();
     },
+    totalShares: async (moloch, _args) => {
+      const molochService = new MolochService(moloch.moloch, web3Service);
+      return await molochService.getTotalShares();
+    },
   },
   Member: {
     memberId: async (member, _args) => {

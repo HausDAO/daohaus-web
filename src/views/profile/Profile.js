@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { getProfile } from "3box/lib/api";
-import { useWeb3Context } from "web3-react";
+import React, { useState, useEffect } from 'react';
+import { getProfile } from '3box/lib/api';
+import { useWeb3Context } from 'web3-react';
 
-import { get } from "../../util/requests";
-import DaoList from "../../components/daoList/DaoList";
-import ApplicationShortList from "../../components/applicationList/ApplicationShortList";
+import { get } from '../../util/requests';
+import DaoList from '../../components/daoList/DaoList';
+import ApplicationShortList from '../../components/applicationList/ApplicationShortList';
 
 const Profile = props => {
   const context = useWeb3Context();
@@ -19,7 +19,7 @@ const Profile = props => {
         setMolochs(
           daoRes.data.filter(moloch => {
             return moloch.summonerAddress === context.account;
-          })
+          }),
         );
 
         const applicationRes = await get(`applications/${context.account}`);
@@ -27,26 +27,37 @@ const Profile = props => {
       }
 
       const profile = await getProfile(props.match.params.account);
-      console.log("profile", profile);
+      console.log('profile', profile);
       setProfile(profile);
     };
 
     fetchData();
-  }, [context.account, props.match.params.account]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="View">
       <div className="Row">
-      <h1>Profile</h1>
-      {context.account === props.match.params.account && (
-        <a href="https://3box.io/hub" target="_blank" rel="noreferrer noopener">
-          Manage on 3Box
-        </a>
-      )}
+        <h1>Profile</h1>
+        {context.account === props.match.params.account && (
+          <a
+            href="https://3box.io/hub"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Manage on 3Box
+          </a>
+        )}
       </div>
 
       {profile.image && profile.image[0] ? (
-        <div className="ProfileImg" style={{backgroundImage:`url(${'https://ipfs.infura.io/ipfs/' + profile.image[0].contentUrl['/']})`}}>
-        {''}
+        <div
+          className="ProfileImg"
+          style={{
+            backgroundImage: `url(${'https://ipfs.infura.io/ipfs/' +
+              profile.image[0].contentUrl['/']})`,
+          }}
+        >
+          {''}
         </div>
       ) : null}
 
@@ -58,11 +69,7 @@ const Profile = props => {
 
       <p className="Data">{props.match.params.account}</p>
 
-      {profile.description ? (
-        <p>
-          {profile.description}
-        </p>
-      ) : null}
+      {profile.description ? <p>{profile.description}</p> : null}
 
       {profile.website ? (
         <a href={profile.website} target="_blank" rel="noreferrer noopener">

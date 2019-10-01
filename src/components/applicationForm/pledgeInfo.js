@@ -18,7 +18,8 @@ function PledgeInfo(props) {
     };
 
     fetchData();
-  }, [molochContext.methods, props.match.params.contractAddress]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="Step">

@@ -85,15 +85,8 @@ const ApplicantItem = props => {
       }
     };
     setup();
-  }, [
-    applicant.applicantAddress,
-    contract,
-    contractData.token,
-    daiService,
-    daoData.contractAddress,
-    web3Service,
-    wethService,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   applicant.status = 'New Pledge';
 

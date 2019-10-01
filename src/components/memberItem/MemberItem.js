@@ -39,7 +39,8 @@ const MemberItem = props => {
       }
     };
     setup();
-  }, [applicant, contract]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (
     applicant.id.split('-')[1].toLowerCase() ===
