@@ -17,12 +17,10 @@ import './Dao.scss';
 const Dao = props => {
   const context = useWeb3Context();
   const client = useApolloClient();
-
   const [web3Service] = useContext(Web3Context);
-  console.log('web3Service', web3Service);
 
   const [daoData, setDaoData] = useState({});
-  const [memberData, setMemberData] = useState({});
+  const [memberData, setMemberData] = useState();
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
@@ -42,7 +40,6 @@ const Dao = props => {
 
   const setUpContract = async () => {
     if (web3Service) {
-      console.log('setup contract');
       const contract = await web3Service.initContract(
         DaoAbi,
         props.match.params.contractAddress,
@@ -91,7 +88,9 @@ const Dao = props => {
     });
 
     members.applicants = apiApplicants.data.filter(applicant => {
-      return !memberAddresses.includes(applicant.applicantAddress);
+      return !memberAddresses.includes(
+        applicant.applicantAddress.toLowerCase(),
+      );
     });
 
     const isMember =
@@ -106,11 +105,6 @@ const Dao = props => {
     setIsMemberOrApplicant(isMember || isApplicant);
     setMemberData(members);
   };
-
-  console.log('loading', loading);
-  console.log('error', error);
-  console.log('daoData', daoData);
-  console.log('memberData', memberData);
 
   return (
     <div className="View">
@@ -150,26 +144,22 @@ const Dao = props => {
             <>
               <p>You are a member or applicant.</p>
               <button onClick={() => setUpdateDelegateView(true)}>
-                Update Delegate{' '}
+                Update Delegate
               </button>
               <br />
-              <button onClick={() => setUpdateRageView(true)}>
-                Rage Quit{' '}
-              </button>
+              <button onClick={() => setUpdateRageView(true)}>Rage Quit</button>
             </>
           ) : (
             <>{<ApplyButton contractAddress={daoData.contractAddress} />}</>
           )}
 
-          <div className="ApplicationList">
-            {/* <ApplicationList
-              applications={members.applications}
+          {memberData ? (
+            <ApplicationList
+              members={memberData}
               daoData={daoData}
-              contractData={contractData}
               contract={molochContract}
-              data={legacyData}
-            /> */}
-          </div>
+            />
+          ) : null}
         </>
       )}
     </div>

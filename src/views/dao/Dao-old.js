@@ -33,7 +33,6 @@ const Dao = props => {
   const [daoData, setDaoData] = useState({});
   const [legacyData, setLegacyData] = useState();
 
-
   const [applications, setApplications] = useState({});
   const [contractData, setContractData] = useState({});
   const [updateDelegateView, setUpdateDelegateView] = useState(false);

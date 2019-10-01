@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-import { getProfile } from '3box/lib/api';
 import makeBlockie from 'ethereum-blockies-base64';
+import { getProfile } from '3box/lib/api';
 
 import { truncateAddr } from '../../util/helpers';
 
 import './MemberItem.scss';
 
 const MemberItem = props => {
-  const { applicant, daoData, contract } = props;
+  const { applicant, applicantAddress, daoData, contract } = props;
   const [currentApplicant, setCurrentApplicant] = useState([]);
 
   useEffect(() => {
     const setup = async () => {
-      if (applicant.id.split('-')[1] && contract) {
-        const _applicant = applicant.id.split('-')[1];
+      if (applicantAddress && contract) {
+        const _applicant = applicantAddress;
 
         let profile;
         try {
@@ -42,21 +41,18 @@ const MemberItem = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (
-    applicant.id.split('-')[1].toLowerCase() ===
-    daoData.summonerAddress.toLowerCase()
-  ) {
+  if (applicantAddress.toLowerCase() === daoData.summoner.toLowerCase()) {
     applicant.status = 'Summoner';
   } else {
     applicant.status = 'Member';
   }
 
   const applicantProfile = currentApplicant.find(
-    item => item.addr === applicant.id.split('-')[1],
+    item => item.addr === applicantAddress,
   );
 
   return (
-    <Link to={`/profile/${applicant.id.split('-')[1]}`}>
+    <Link to={`/profile/${applicantAddress}`}>
       <div className="Row MemberInfo">
         <p>{applicant.status}</p>
         <p>{applicant.shares} Shares</p>
@@ -79,9 +75,7 @@ const MemberItem = props => {
           <div
             className="ProfileImgCard"
             style={{
-              backgroundImage: `url("${makeBlockie(
-                applicant.id.split('-')[1],
-              )}")`,
+              backgroundImage: `url("${makeBlockie(applicantAddress)}")`,
             }}
           >
             {''}
@@ -98,7 +92,7 @@ const MemberItem = props => {
               ) : null}
             </h2>
           ) : null}
-          <p>{truncateAddr(applicant.id.split('-')[1])}</p>
+          <p>{truncateAddr(applicantAddress)}</p>
         </div>
       </div>
     </Link>

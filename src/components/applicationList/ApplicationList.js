@@ -6,77 +6,56 @@ import ApplicantItem from '../applicantItem/ApplicantItem';
 import MemberItem from '../memberItem/MemberItem';
 
 const ApplicationList = props => {
-  const { applications, daoData, contract, contractData, data } = props;
+  const { members, daoData, contract } = props;
 
   const memberList = () => {
-    console.log('query data', data);
-    if ('members' in data) {
-      return data.members
-        .sort(function(a, b) {
-          return b.shares - a.shares;
-        })
-        .sort(function(x, y) {
-          return x.id.split('-')[1].toLowerCase() ===
-            daoData.summonerAddress.toLowerCase()
-            ? -1
-            : y.id.split('-')[1].toLowerCase() ===
-              daoData.summonerAddress.toLowerCase()
-            ? 1
-            : 0;
-        })
-        .map((member, i) => {
-          return (
-            <div key={i} className="ApplicationList__Item">
-              <MemberItem
-                applicant={member}
-                daoData={daoData}
-                contract={contract}
-                contractData={contractData}
-              />
-            </div>
-          );
-        });
-    } else {
-      return [];
-    }
+    return members.active
+      .sort((a, b) => b.shares - a.shares)
+      .sort((a, b) => {
+        let idField = +daoData.newContract ? 'memberId' : 'id';
+        return a[idField] === daoData.summoner
+          ? -1
+          : b[idField] === daoData.summoner
+          ? 1
+          : 0;
+      })
+      .map((member, i) => {
+        let applicantAddress = +daoData.newContract
+          ? member['memberId']
+          : member['id'];
+        return (
+          <div key={i} className="ApplicationList__Item">
+            <MemberItem
+              applicant={member}
+              applicantAddress={applicantAddress}
+              daoData={daoData}
+              contract={contract}
+            />
+          </div>
+        );
+      });
   };
 
   const newPledgeList = () => {
-    console.log('applications', applications);
-    if (
-      !applications ||
-      (Object.entries(applications).length === 0 &&
-        applications.constructor === Object)
-    ) {
-      return [];
-    }
-
-    return applications
-      .map((member, i) => {
-        // remove members
-        if (JSON.stringify(data).indexOf(member.applicantAddress) === -1) {
-          return (
-            <div key={i} className="ApplicationList__Item">
-              <ApplicantItem
-                applicant={member}
-                daoData={daoData}
-                contract={contract}
-                contractData={contractData}
-              />
-            </div>
-          );
-        } else {
-          return null;
-        }
-      })
-      .filter(member => member !== undefined);
+    return members.applicants.map((pledge, i) => {
+      return (
+        <div key={i} className="ApplicationList__Item">
+          <ApplicantItem
+            applicant={pledge}
+            daoData={daoData}
+            contract={contract}
+          />
+        </div>
+      );
+    });
   };
 
   return (
     <>
-      {data && applications && <>{newPledgeList()}</>}
-      <>{memberList()}</>
-      )}
+      <h3>Members</h3>
+      <div className="ApplicationList">{memberList()}</div>
+      <h3>Pledges</h3>
+      <div className="ApplicationList">{newPledgeList()}</div>
     </>
   );
 };
