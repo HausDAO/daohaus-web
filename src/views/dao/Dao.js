@@ -9,22 +9,20 @@ import { useQuery, useApolloClient } from '@apollo/react-hooks';
 // import RageQuit from '../../components/rageQuit/RageQuit';
 // import DaoAbi from '../../contracts/moloch';
 // import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
-// import { get } from '../../util/requests';
 // import { addressToToken } from '../../util/constants';
 // import { legacyGraph } from '../../util/legacyGraphService';
-import {
-  // GET_MEMBERDATA,
-  // GET_MEMBERDATA_LEGACY,
-  GET_MOLOCH,
-} from '../../util/queries';
+import { get } from '../../util/requests';
+import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 
 import './Dao.scss';
 
 const Dao = props => {
   // const context = useWeb3Context();
   const [daoData, setDaoData] = useState({});
+  const [memberData, setMemberData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
   const client = useApolloClient();
 
   useEffect(() => {
@@ -40,17 +38,47 @@ const Dao = props => {
 
     isLoading && setLoading(loading);
     isError && setError(error);
-    data && setDaoData(data.factories[0]);
+
+    if (data) {
+      setDaoData(data.factories[0]);
+      getMembers(data.factories[0]);
+    }
   };
-  // const { loading, error, data } = useQuery(GET_MOLOCH, {
-  //   variables: { contractAddr: props.match.params.contractAddress },
-  // });
-  // const daoData = data ? data.factories[0] : null;
-  // console.log(daoData);
+
+  const getMembers = async dao => {
+    let members = {};
+
+    if (+dao.newContract) {
+      const { data } = await client.query({
+        query: GET_MEMBERDATA,
+        variables: { contractAddr: props.match.params.contractAddress },
+      });
+
+      if (data) {
+        members.active = data.members;
+      }
+    } else {
+      members.active = dao.apiData.legacyData.members;
+    }
+
+    const apiApplicants = await get(
+      `moloch/${props.match.params.contractAddress}/applications`,
+    );
+
+    const memberAddresses = members.active.map(member => {
+      return +dao.newContract ? member.memberId : member.id;
+    });
+    members.applicants = apiApplicants.data.filter(applicant => {
+      return !memberAddresses.includes(applicant.applicantAddress);
+    });
+
+    setMemberData(members);
+  };
 
   console.log('loading', loading);
   console.log('error', error);
   console.log('daoData', daoData);
+  console.log('memberData', memberData);
 
   return (
     <div className="View">
@@ -72,13 +100,27 @@ const Dao = props => {
           <p className="Label">Shares</p>
           <p className="Value Data">{daoData.totalShares}</p>
           <p className="Label">Summoner</p>
-          <p className="Value Data">{daoData.summonerAddress}</p>
+          <p className="Value Data">{daoData.summoner}</p>
           <p className="Label">Minimum Tribute</p>
           <p className="Value Data">
             {daoData.apiData.minimumTribute} {daoData.approvedToken}
           </p>
         </div>
       ) : null}
+      {/* {isMemberOrApplicant ? (
+        <>
+          <p>You are a member or applicant.</p>
+          <button onClick={() => setUpdateDelegateView(true)}>
+            Update Delegate{' '}
+          </button>
+          <br />
+          <button onClick={() => setUpdateRageView(true)}>Rage Quit </button>
+        </>
+      ) : (
+        <>
+          <ApplyButton contractAddress={daoData.contractAddress} />
+        </>
+      )}{' '} */}
     </div>
   );
 };
