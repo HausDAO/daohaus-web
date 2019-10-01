@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_MEMBERDATA } from '../../util/queries';
 
 import './DaoCard.scss';
+import { Web3Context } from '../../contexts/ContractContexts';
 
 const DaoCard = props => {
   const { dao } = props;
+  const [web3Service] = useContext(Web3Context);
 
   const { loading, error, data } = useQuery(GET_MEMBERDATA, {
     variables: { contractAddr: dao.moloch },
@@ -25,7 +27,7 @@ const DaoCard = props => {
             <div className="Column">
               <p className="Label">Bank</p>
               <p className="Data">
-                {dao.guildBankValue} {dao.approvedToken}
+                {web3Service.fromWei(dao.guildBankValue)} {dao.approvedToken}
               </p>
             </div>
             <div className="Column">
