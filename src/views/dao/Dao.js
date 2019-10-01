@@ -7,7 +7,7 @@ import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
 import ApplicationList from '../../components/applicationList/ApplicationList';
 
-import { Web3Context } from '../../contexts/ContractContexts';
+import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
 import DaoAbi from '../../contracts/moloch';
 import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
@@ -24,7 +24,7 @@ const Dao = props => {
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
-  const [molochContract, setMolochContract] = useState();
+  const [molochContract, setMolochContract] = useContext(MolochContext);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -150,7 +150,7 @@ const Dao = props => {
               <button onClick={() => setUpdateRageView(true)}>Rage Quit</button>
             </>
           ) : (
-            <>{<ApplyButton contractAddress={daoData.contractAddress} />}</>
+            <>{<ApplyButton contractAddress={daoData.id} />}</>
           )}
 
           {memberData ? (
