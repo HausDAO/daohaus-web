@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
+
 import Web3Service from "../../util/web3Service";
-import DaoAbi from "../../contracts/moloch.json";
-import DaoByteCode from "../../contracts/molochByteCode.json";
+
+import FactoryAbi from "../../contracts/factory.json";
+
 import { post } from "../../util/requests";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -12,7 +15,7 @@ import "./SummonAdvForm.scss";
 
 // import Loading from '../shared/Loading';
 
-const SummonAdvForm = () => {
+const SummonAdvForm = (props) => {
   const [loading, setLoading] = useState(false);
   const context = useWeb3Context();
 
@@ -76,26 +79,23 @@ const SummonAdvForm = () => {
 
           setLoading(true);
           try {
-            const daoContract = await web3Service.createContract(DaoAbi);
+            const factoryContract = await web3Service.initContract(
+              FactoryAbi,
+              process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS
+            );
 
-            const deployedContract = await daoContract.deploy({
-              data: DaoByteCode.object,
-              arguments: [
-                context.account,
+            await factoryContract.methods
+              .newDao(
                 values.approvedToken,
                 values.periodDuration,
                 values.votingPeriodLength,
                 values.gracePeriodLength,
                 values.abortWindow,
-                values.proposalDeposit,
-                values.processingReward,
-                values.dilutionBound
-              ]
-            });
-
-            console.log("deployedContract", deployedContract);
-
-            deployedContract
+                web3Service.toWei(values.proposalDeposit),
+                values.dilutionBound,
+                web3Service.toWei(values.processingReward),
+                values.name
+              )
               .send(
                 {
                   from: context.account
@@ -111,20 +111,40 @@ const SummonAdvForm = () => {
                 console.log(transactionHash);
               })
               .on("receipt", function(receipt) {
-                console.log(receipt.contractAddress); // contains the new contract address
+                console.log(receipt.events.Register); // contains the new contract address
+                const contractAddress =
+                  receipt.events.Register.returnValues.moloch;
+
                 const newMoloch = {
                   summonerAddress: context.account,
-                  contractAddress: receipt.contractAddress,
+                  contractAddress: contractAddress,
                   name: values.name,
-                  minumumTribute: values.minumumTribute,
+                  minimumTribute: values.minimumTribute,
                   description: values.description
                 };
 
                 post("moloch", newMoloch)
                   .then(newMolochRes => {
-                    console.log("created new moloch", newMolochRes);
+                    const application = {
+                      name: "Summoner",
+                      bio: "Summoner of the Dao",
+                      pledge: "0",
+                      shares: "1",
+                      applicantAddress: context.account,
+                      molochContractAddress: contractAddress,
+                      status: "Member"
+                    };
+
+                    console.log(
+                      "created new moloch",
+                      newMolochRes,
+                      application
+                    );
+
+                    props.history.push(`/moa/${contractAddress}`);
                   })
                   .catch(err => {
+                    setLoading(false);
                     console.log("moloch creation error", err);
                   });
 
@@ -351,4 +371,4 @@ const SummonAdvForm = () => {
   );
 };
 
-export default SummonAdvForm;
+export default withRouter(SummonAdvForm);

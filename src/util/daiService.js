@@ -58,11 +58,11 @@ export default class DaiService {
     const approve = await this.contract.methods
       .approve(guy, wad)
       .send({ from })
-      .once('transactionHash', (txHash) => {})
-      .then((resp) => {
+      .once('transactionHash', txHash => {})
+      .then(resp => {
         return resp;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         return { error: 'rejected transaction' };
       });
@@ -83,11 +83,11 @@ export default class DaiService {
     const trans = await this.contract.methods
       .transfer(dist, wad)
       .send({ from })
-      .once('transactionHash', (txHash) => {})
-      .then((resp) => {
+      .once('transactionHash', txHash => {})
+      .then(resp => {
         return resp;
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         return { error: 'rejected transaction' };
       });

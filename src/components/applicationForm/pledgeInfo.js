@@ -1,26 +1,25 @@
-import { FastField, useFormikContext } from 'formik'
-import React, { useState, useEffect, useContext } from 'react'
-import { Web3Context, MolochContext } from "../../contexts/ContractContexts";
+import { FastField, useFormikContext } from 'formik';
+import React, { useState, useEffect, useContext } from 'react';
+import { MolochContext } from '../../contexts/ContractContexts';
 
-
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { addressToToken } from '../../util/constants';
 
 function PledgeInfo(props) {
   const { errors, touched } = useFormikContext();
   const [contractData, setContractData] = useState({});
   const [molochContext] = useContext(MolochContext);
-  
+
   useEffect(() => {
     const fetchData = async () => {
-
       const token = await molochContext.methods.approvedToken().call();
       const tokenSymbol = addressToToken[token];
-      setContractData({tokenSymbol})
+      setContractData({ tokenSymbol });
     };
 
     fetchData();
-  }, [props.match.params.contractAddress]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="Step">
@@ -32,11 +31,9 @@ function PledgeInfo(props) {
           <FastField name="pledge" id="pledge" />
         </div>
       </div>
-      <small style={{ color: 'red' }}>
-        {touched.pledge && errors.pledge}
-      </small>
+      <small style={{ color: 'red' }}>{touched.pledge && errors.pledge}</small>
     </div>
-  )
+  );
 }
 
-export default withRouter(PledgeInfo)
+export default withRouter(PledgeInfo);

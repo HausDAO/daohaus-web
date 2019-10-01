@@ -1,47 +1,63 @@
-import React from "react";
+import React from 'react';
 
-import "./ApplicationList.scss";
+import './ApplicationList.scss';
 
-import ApplicantItem from "../applicantItem/ApplicantItem";
+import ApplicantItem from '../applicantItem/ApplicantItem';
+import MemberItem from '../memberItem/MemberItem';
 
 const ApplicationList = props => {
-  const {
-    applications,
-    daoData,
-    contract,
-    contractData
-  } = props;
+  const { members, daoData, contract } = props;
 
-  const applicationList = applications
-    .sort(function(a, b) {
-      return b.shares - a.shares;
-    })
-    .sort(function(x, y) {
-      return x.applicantAddress.toLowerCase() ===
-        daoData.summonerAddress.toLowerCase()
-        ? -1
-        : y.applicantAddress.toLowerCase() ===
-          daoData.summonerAddress.toLowerCase()
-        ? 1
-        : 0;
-    })
-    .sort(function(x, y) {
-      return x.status === "new" ? -1 : y.status === "new" ? 1 : 0;
-    })
-    .map((application, i) => {
+  const memberList = () => {
+    return members.active
+      .sort((a, b) => b.shares - a.shares)
+      .sort((a, b) => {
+        let idField = +daoData.newContract ? 'memberId' : 'id';
+        return a[idField] === daoData.summoner
+          ? -1
+          : b[idField] === daoData.summoner
+          ? 1
+          : 0;
+      })
+      .map((member, i) => {
+        let applicantAddress = +daoData.newContract
+          ? member['memberId']
+          : member['id'];
+        return (
+          <div key={i} className="ApplicationList__Item">
+            <MemberItem
+              applicant={member}
+              applicantAddress={applicantAddress}
+              daoData={daoData}
+              contract={contract}
+            />
+          </div>
+        );
+      });
+  };
+
+  const newPledgeList = () => {
+    return members.applicants.map((pledge, i) => {
       return (
         <div key={i} className="ApplicationList__Item">
           <ApplicantItem
-            applicant={application}
+            applicant={pledge}
             daoData={daoData}
             contract={contract}
-            contractData={contractData}
           />
         </div>
       );
     });
+  };
 
-  return <>{applicationList}</>;
+  return (
+    <>
+      <h3>Members</h3>
+      <div className="ApplicationList">{memberList()}</div>
+      <h3>Pledges</h3>
+      <div className="ApplicationList">{newPledgeList()}</div>
+    </>
+  );
 };
 
 export default ApplicationList;

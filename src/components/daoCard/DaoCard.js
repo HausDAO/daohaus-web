@@ -1,21 +1,48 @@
-import React from "react";
-import './DaoCard.scss';
+import React, { useContext } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 
-const DaoCard = (props) => {
+import { GET_MEMBERDATA } from '../../util/queries';
+
+import './DaoCard.scss';
+import { Web3Context } from '../../contexts/ContractContexts';
+
+const DaoCard = props => {
   const { dao } = props;
+  const [web3Service] = useContext(Web3Context);
+
+  const { loading, error, data } = useQuery(GET_MEMBERDATA, {
+    variables: { contractAddr: dao.moloch },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
   return (
     <>
-      {dao.contractAddress ? (
+      {dao.id ? (
         <div className="DaoCard">
-          <h4 className="DaoName">{dao.name}</h4>
-          <p>{dao.description}</p>
-          <p>Summoner</p>
-          <span className="Data">{dao.summonerAddress}</span>
+          <h4 className="DaoName">{dao.apiData.name}</h4>
+          <p>{dao.apiData.description}</p>
+          <div className="Row">
+            <div className="Column">
+              <p className="Label">Bank</p>
+              <p className="Data">
+                {web3Service.fromWei(dao.guildBankValue)} {dao.approvedToken}
+              </p>
+            </div>
+            <div className="Column">
+              <p className="Label">Members</p>
+              <p className="Data">
+                {dao.apiData.legacyData
+                  ? dao.apiData.legacyData.members.length
+                  : data.members.length}
+              </p>
+            </div>
+          </div>
         </div>
       ) : (
-        <p>THE HAUS IS LOADING THE DAO</p>
-        )}
+        <p>LOADING THE DAOs</p>
+      )}
     </>
   );
 };
