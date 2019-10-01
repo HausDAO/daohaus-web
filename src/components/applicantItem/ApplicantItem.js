@@ -12,10 +12,9 @@ import {
   DaiContext,
   Web3Context,
 } from '../../contexts/ContractContexts';
-import { addressToToken } from '../../util/constants';
 
 const ApplicantItem = props => {
-  const { applicant, daoData, contract, contractData } = props;
+  const { applicant, daoData, contract } = props;
   const [currentApplicant, setCurrentApplicant] = useState([]);
 
   const [web3Service] = useContext(Web3Context);
@@ -27,22 +26,18 @@ const ApplicantItem = props => {
       if (applicant.applicantAddress && contract) {
         const _applicant = applicant.applicantAddress;
 
-        const daoToken = contractData.token;
-        console.log('addressToToken[daoToken]', addressToToken[daoToken]);
-
         let profile;
         try {
           profile = await getProfile(_applicant);
         } catch {
           profile = {};
         }
-        if (addressToToken[daoToken] === 'Weth') {
+        if (daoData.approvedToken === 'Weth') {
           const allowance = await wethService.allowance(
             _applicant,
-            daoData.contractAddress,
+            daoData.moloch,
           );
           const balanceOf = await wethService.balanceOf(_applicant);
-          console.log(_applicant, allowance, '<=', balanceOf);
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -55,13 +50,12 @@ const ApplicantItem = props => {
           ]);
 
           return true;
-        } else if (addressToToken[daoToken] === 'Dai') {
+        } else if (daoData.approvedToken === 'Dai') {
           const allowance = await daiService.allowance(
             _applicant,
-            daoData.contractAddress,
+            daoData.moloch,
           );
           const balanceOf = await daiService.balanceOf(_applicant);
-          console.log(_applicant, allowance, '<=', balanceOf);
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -85,15 +79,8 @@ const ApplicantItem = props => {
       }
     };
     setup();
-  }, [
-    applicant.applicantAddress,
-    contract,
-    contractData.token,
-    daiService,
-    daoData.contractAddress,
-    web3Service,
-    wethService,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   applicant.status = 'New Pledge';
 
@@ -154,14 +141,14 @@ const ApplicantItem = props => {
       {applicant.status === 'New Pledge' && (
         <div className="Row PledgeInfo">
           {applicantProfile && <p>{'' + applicantProfile.inEth} approved</p>}
-          <p className="Success">Tribute ready</p>
 
-          {/* {applicantProfile &&
-          parseInt(applicantProfile.inEth) <= parseInt(applicantProfile.balanceOf) ? (
+          {applicantProfile &&
+          parseInt(applicantProfile.inEth) <=
+            parseInt(applicantProfile.balanceOf) ? (
             <p className="Success">Tribute ready</p>
           ) : (
             <p className="Danger">Insufficient funds</p>
-          )} */}
+          )}
         </div>
       )}
     </Link>

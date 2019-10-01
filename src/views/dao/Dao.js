@@ -1,184 +1,165 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { get } from '../../util/requests';
-import ApplicationList from '../../components/applicationList/ApplicationList';
-import ApplyButton from '../../components/applyButton/applyButton';
+import { useWeb3Context } from 'web3-react';
+import { useApolloClient } from '@apollo/react-hooks';
 
+import ApplyButton from '../../components/applyButton/applyButton';
+import RageQuit from '../../components/rageQuit/RageQuit';
+import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
+import ApplicationList from '../../components/applicationList/ApplicationList';
+
+import { Web3Context } from '../../contexts/ContractContexts';
 import DaoAbi from '../../contracts/moloch';
+import { get } from '../../util/requests';
+import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 
 import './Dao.scss';
-import { useWeb3Context } from 'web3-react';
-import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
-import RageQuit from '../../components/rageQuit/RageQuit';
-
-import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
-import { addressToToken } from '../../util/constants';
-import { Query } from 'react-apollo';
-import { GET_MEMBERDATA, GET_MEMBERDATA_LEGACY } from '../../util/queries';
-import { legacyGraph } from '../../util/legacyGraphService';
 
 const Dao = props => {
   const context = useWeb3Context();
-  const [daoData, setDaoData] = useState({});
-  const [legacyData, setLegacyData] = useState();
-  const [applications, setApplications] = useState({});
-  const [contractData, setContractData] = useState({});
-  const [updateDelegateView, setUpdateDelegateView] = useState(false);
-  const [updateRageView, setUpdateRageView] = useState(false);
-  const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
-
-  const [molochContract, setMolochContract] = useState();
-  const [molochContext, setMolochContext] = useContext(MolochContext);
+  const client = useApolloClient();
   const [web3Service] = useContext(Web3Context);
 
-  useEffect(() => {
-    if (context.active && applications.length) {
-      const applicantData = applications.find(applicant => {
-        return (
-          applicant.applicantAddress.toLowerCase() ===
-          context.account.toLowerCase()
-        );
-      });
-      if (applicantData) {
-        setIsMemberOrApplicant(true);
-      }
-    }
-  }, [context, applications]);
+  const [daoData, setDaoData] = useState({});
+  const [memberData, setMemberData] = useState();
+  const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
+  const [updateDelegateView, setUpdateDelegateView] = useState(false);
+  const [updateRageView, setUpdateRageView] = useState(false);
+  const [molochContract, setMolochContract] = useState();
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (!molochContract) {
-        console.log('setup contract');
+    getDao();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-        const contract = await web3Service.initContract(
-          DaoAbi,
-          props.match.params.contractAddress,
-        );
-        setMolochContext(contract);
-        setMolochContract(contract);
-      } else {
-        console.log('contract set');
+  useEffect(() => {
+    setUpContract();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [web3Service]);
 
-        const daoRes = await get(
-          `moloch/${props.match.params.contractAddress}`,
-        );
-        setDaoData(daoRes.data);
-        console.log('daoData', daoRes.data);
-        console.log('daodata addr', daoRes.data.contractAddress);
-        let _legacyData = {};
-        if(daoRes.data.isLegacy && daoRes.data.graphNodeUri){
-          _legacyData = await legacyGraph(daoRes.data.graphNodeUri, GET_MEMBERDATA_LEGACY)
-          console.log('legacyData', legacyData );
-          
-        } 
-        setLegacyData(_legacyData);
-
-        const applicationRes = await get(
-          `moloch/${props.match.params.contractAddress}/applications`,
-        );
-        console.log('applicationRes.data', applicationRes.data);
-
-        setApplications(applicationRes.data);
-
-        const totalShares = await molochContract.methods
-          .totalShares()
-          .call({}, 'latest');
-        const token = await molochContract.methods.approvedToken().call();
-        console.log('totalShares, token', totalShares, token);
-
-        setContractData({ totalShares, token });
-      }
-    };
-
+  const setUpContract = async () => {
     if (web3Service) {
-      fetchData();
+      const contract = await web3Service.initContract(
+        DaoAbi,
+        props.match.params.contractAddress,
+      );
+      setMolochContract(contract);
     }
-  }, [props.match.params.contractAddress, web3Service, molochContract]);
+  };
+
+  const getDao = async () => {
+    const { isLoading, isError, data } = await client.query({
+      query: GET_MOLOCH,
+      variables: { contractAddr: props.match.params.contractAddress },
+    });
+
+    isLoading && setLoading(loading);
+    isError && setError(error);
+
+    if (data) {
+      setDaoData(data.factories[0]);
+      getMembers(data.factories[0]);
+    }
+  };
+
+  const getMembers = async dao => {
+    let members = {};
+
+    if (+dao.newContract) {
+      const { data } = await client.query({
+        query: GET_MEMBERDATA,
+        variables: { contractAddr: props.match.params.contractAddress },
+      });
+
+      if (data) {
+        members.active = data.members;
+      }
+    } else {
+      members.active = dao.apiData.legacyData.members;
+    }
+
+    const apiApplicants = await get(
+      `moloch/${props.match.params.contractAddress}/applications`,
+    );
+
+    const memberAddresses = members.active.map(member => {
+      return +dao.newContract ? member.memberId : member.id;
+    });
+
+    members.applicants = apiApplicants.data.filter(applicant => {
+      return !memberAddresses.includes(
+        applicant.applicantAddress.toLowerCase(),
+      );
+    });
+
+    const isMember =
+      context.active && memberAddresses.includes(context.account.toLowerCase());
+    const applicantAddresses = members.applicants.map(app => {
+      return app.applicantAddress.toLowerCase();
+    });
+    const isApplicant =
+      context.active &&
+      applicantAddresses.includes(context.account.toLowerCase());
+
+    setIsMemberOrApplicant(isMember || isApplicant);
+    setMemberData(members);
+  };
 
   return (
     <div className="View">
-      {' '}
+      {loading ? <p>THE HAUS IS LOADING THE DAO</p> : null}
+      {error ? <p>Error</p> : null}
+
       {updateDelegateView ? (
         <UpdateDelegate contract={molochContract} />
       ) : updateRageView ? (
         <RageQuit contract={molochContract} />
       ) : (
         <>
-          {daoData.contractAddress ? (
+          {daoData.id ? (
             <div>
-              <h2 className="DaoName">{daoData.name}</h2>
-              <p className="Large">{daoData.description}</p>
-              {daoData.daoUrl && (
+              <h2 className="DaoName">{daoData.apiData.name}</h2>
+              <p className="Large">{daoData.apiData.description}</p>
+              {daoData.apiData.daoUrl && (
                 <a
                   className="small"
-                  href={daoData.daoUrl}
+                  href={daoData.apiData.daoUrl}
                   alt="link to dao site"
                 >
-                  {daoData.daoUrl}
+                  {daoData.apiData.daoUrl}
                 </a>
               )}
               <p className="Label">Shares</p>
-              <p className="Value Data">{contractData.totalShares}</p>
+              <p className="Value Data">{daoData.totalShares}</p>
               <p className="Label">Summoner</p>
-              <p className="Value Data">{daoData.summonerAddress}</p>
+              <p className="Value Data">{daoData.summoner}</p>
               <p className="Label">Minimum Tribute</p>
               <p className="Value Data">
-                {daoData.minimumTribute} {addressToToken[contractData.token]}
+                {daoData.apiData.minimumTribute} {daoData.approvedToken}
               </p>
-              {isMemberOrApplicant ? (
-                <>
-                  <p>You are a member or applicant.</p>
-                  <button onClick={() => setUpdateDelegateView(true)}>
-                    Update Delegate{' '}
-                  </button>
-                  <br />
-                  <button onClick={() => setUpdateRageView(true)}>
-                    Rage Quit{' '}
-                  </button>
-                </>
-              ) : (
-                <>
-                  <ApplyButton contractAddress={daoData.contractAddress} />
-                </>
-              )}{' '}
-              {!daoData.isLegacy && !daoData.graphNodeUri ? (
-                <>
-                  <h3>Pledges</h3>
-                  <Query
-                    query={GET_MEMBERDATA}
-                    variables={{ contractAddr: daoData.contractAddress }}
-                  >
-                    {({ loading, error, data }) => {
-                      return (
-                        <div className="ApplicationList">
-                          {data && (
-                            <ApplicationList
-                              applications={applications}
-                              daoData={daoData}
-                              contractData={contractData}
-                              contract={molochContract}
-                              data={data}
-                            />
-                          )}
-                        </div>
-                      );
-                    }}
-                  </Query>
-                </>
-              ) : (
-                <div className="ApplicationList">
-                    <ApplicationList
-                      applications={applications}
-                      daoData={daoData}
-                      contractData={contractData}
-                      contract={molochContract}
-                      data={legacyData}
-                    />
-                </div>
-              )}{' '}
             </div>
+          ) : null}
+          {isMemberOrApplicant ? (
+            <>
+              <p>You are a member or applicant.</p>
+              <button onClick={() => setUpdateDelegateView(true)}>
+                Update Delegate
+              </button>
+              <br />
+              <button onClick={() => setUpdateRageView(true)}>Rage Quit</button>
+            </>
           ) : (
-            <p>THE HAUS IS LOADING THE DAO</p>
+            <>{<ApplyButton contractAddress={daoData.contractAddress} />}</>
           )}
+
+          {memberData ? (
+            <ApplicationList
+              members={memberData}
+              daoData={daoData}
+              contract={molochContract}
+            />
+          ) : null}
         </>
       )}
     </div>

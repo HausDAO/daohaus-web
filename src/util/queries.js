@@ -30,6 +30,22 @@ export const GET_MOLOCHES = gql`
   }
 `;
 
+export const GET_MOLOCH = gql`
+  query factories($contractAddr: String!) {
+    factories(where: { id: $contractAddr }) {
+      id
+      title
+      moloch
+      summoner
+      newContract
+      guildBankValue @client
+      approvedToken @client
+      totalShares @client
+      apiData @client
+    }
+  }
+`;
+
 export const GET_API_MOLOCHES = gql`
   query ApiDao {
     apiDaos @client {

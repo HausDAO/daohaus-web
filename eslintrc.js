@@ -32,5 +32,7 @@ module.exports = {
     // TODO: this really should be active... (add prop types to components)
     'react/prop-types': 'off',
     'no-unused-vars': 'error',
+    // 'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'off',
   },
 };
