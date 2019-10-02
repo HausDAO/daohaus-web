@@ -73,22 +73,21 @@ const ApplicationWizard = props => {
         status: 'new',
       };
 
-      const res = await post(`moloch/apply`, application);
-
-      if (res.data.error) {
-        console.log({
-          message: res.data.error,
-        });
-      } else {
-        console.log({
-          message: 'thanks for signaling, appoving tokens now',
-        });
-      }
-
       await currency.contract.methods
         .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
         .send({ from: context.account })
-        .once('transactionHash', txHash => {})
+        .once('transactionHash', txHash => {
+          post(`moloch/apply`, application).then(()=>{
+            console.log({
+              message: 'thanks for signaling, appoving tokens now',
+            });
+          }).catch((err) => {
+            console.log({
+              message: err,
+            });
+          });
+
+        })
         .on('receipt', async receipt => {
           console.log(receipt);
 
