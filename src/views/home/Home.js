@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import DaoList from '../../components/daoList/DaoList';
 import SummonButton from '../../components/summonButton/summonButton';
 import { GET_MOLOCHES } from '../../util/queries';
+import HeroBackground from '../../assets/random-bg.png';
 
 import './Home.scss';
 
@@ -14,7 +15,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="Hero">
+      <div className="Hero" style={{backgroundImage: "url(" + HeroBackground + ")"}}>
         <h1>Explore the Haus of Moloch</h1>
         <h2>
           Discover and Pledge to existing Moloch DAOs, or summon your own.
