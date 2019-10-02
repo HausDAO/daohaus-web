@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import _ from 'lodash';
 
 import { GET_MOLOCHES_STATS } from '../../util/queries';
 import { Web3Context } from '../../contexts/ContractContexts';
@@ -38,6 +39,32 @@ const Stats = props => {
     }, 0);
   };
 
+  const totalDoaMemberships = () => {
+    const counts = data.factories.reduce(
+      (sum, dao) => {
+        +dao.newContract
+          ? (sum.new += dao.newContractMembers.length)
+          : (sum.legacy += dao.apiData.legacyData.members.length);
+        return sum;
+      },
+      { new: 0, legacy: 0 },
+    );
+
+    return counts.new + counts.legacy;
+  };
+
+  const uniqueDaoMembers = () => {
+    const memberIDs = _.flatMap(data.factories, dao => {
+      return +dao.newContract
+        ? dao.newContractMembers
+        : dao.apiData.legacyData.members;
+    }).map(member => {
+      return member.memberId ? member.memberId : member.id;
+    });
+
+    return _.uniq(memberIDs).length;
+  };
+
   return (
     <div className="View">
       <h1>DAOalytics</h1>
@@ -51,8 +78,10 @@ const Stats = props => {
           <p className="Stat__value">{totalShares()}</p>
           <p className="Stat__title">Total Guild Bank Value</p>
           <p className="Stat__value">{totalGuildBank()}</p>
-          <p className="Stat__title">Total Dao Members</p>
-          <p className="Stat__value">tbd</p>
+          <p className="Stat__title">Total Dao Memberships</p>
+          <p className="Stat__value">{totalDoaMemberships()}</p>
+          <p className="Stat__title">Unique Dao Members</p>
+          <p className="Stat__value">{uniqueDaoMembers()}</p>
         </div>
       ) : null}
     </div>
