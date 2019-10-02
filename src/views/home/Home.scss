@@ -7,16 +7,25 @@
     flex-direction: column;
     min-height: 50vh;
     padding: 50px;
+    padding-bottom: 150px;
     text-align: center;
+    background-color: $primary-background;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #fff;
     button { margin: 0 auto; }
     h1 { 
         font-size: 3em;
+        margin: 0px;
         @media (max-width: $mobile){
             font-size: 2.25em;
         }
     }
     h2 { 
         font-size: 1.5em;
+        max-width: 500px;
+        margin: 15px auto;
     }
     @media (max-width: $mobile) {
         button { position: relative; }

@@ -1,6 +1,6 @@
 @import '../../variables';
 .TopNav {
-    background-color: white;
+    background-color: $primary-background;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -17,12 +17,9 @@
         img {
             margin: 0;
             display: block;
-            max-width: 240px;
-            position: absolute;
-            transform: rotate(-5deg);
-            margin-left: -30px;
+            max-width: 200px;
             @media (max-width: $mobile) {
-                max-width: 160px;
+                max-width: 140px;
             }
         }
     }
