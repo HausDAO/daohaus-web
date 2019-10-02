@@ -6,7 +6,7 @@ import WethService from './wethService';
 import DaiService from './daiService';
 import { legacyGraph } from './legacyGraphService';
 import { get } from './requests';
-import { GET_MEMBERDATA_LEGACY } from './queries';
+import { GET_MEMBERDATA_LEGACY, GET_MEMBERDATA } from './queries';
 
 let _web3;
 if (Web3.givenProvider) {
@@ -53,6 +53,18 @@ export const resolvers = {
     totalShares: async (moloch, _args) => {
       const molochService = new MolochService(moloch.moloch, web3Service);
       return await molochService.getTotalShares();
+    },
+    newContractMembers: async (moloch, _args, context) => {
+      if (+moloch.newContract) {
+        const { data } = await context.client.query({
+          query: GET_MEMBERDATA,
+          variables: { contractAddr: moloch.moloch },
+        });
+
+        return data.members;
+      } else {
+        return [];
+      }
     },
   },
   Member: {
