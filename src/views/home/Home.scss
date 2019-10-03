@@ -7,16 +7,38 @@
     flex-direction: column;
     min-height: 50vh;
     padding: 50px;
-    text-align: center;
-    button { margin: 0 auto; }
+    padding-bottom: 250px;
+    padding-left: 150px;
+    text-align: left;
+    background-color: $primary-background;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    color: #fff;
+    button { margin: 15px 0px; }
+    @media (max-width: $mobile) {
+        padding-left: 50px;
+    }
     h1 { 
         font-size: 3em;
+        margin: 0px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
         @media (max-width: $mobile){
             font-size: 2.25em;
         }
+        text-shadow:
+		-1px -1px 0 #fff,
+		1px -1px 0 #fff,
+		-1px 1px 0 #fff,
+        1px 1px 0 #fff;
+        color: $primary-background;
     }
     h2 { 
-        font-size: 1.5em;
+        font-size: 1.75em;
+        max-width: 320px;
+        margin: 15px 0px;
+        font-weight: 100;
     }
     @media (max-width: $mobile) {
         button { position: relative; }

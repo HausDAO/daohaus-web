@@ -1,15 +1,16 @@
 @import '../../variables';
 .TopNav {
-    background-color: white;
+    background-color: $primary-background;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
     height: auto;
-    width: calc(100% - 50px);
-    padding: 25px;
+    width: calc(100% - 150px);
+    padding: 25px 75px;
     @media (max-width: $mobile) {
-        //flex-direction: column;
+        width: calc(100% - 50px);
+        padding: 25px;
     }
     .Brand {
         font-size: 36px;
@@ -17,10 +18,7 @@
         img {
             margin: 0;
             display: block;
-            max-width: 240px;
-            position: absolute;
-            transform: rotate(-5deg);
-            margin-left: -30px;
+            max-width: 200px;
             @media (max-width: $mobile) {
                 max-width: 160px;
             }
