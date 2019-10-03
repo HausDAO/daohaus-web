@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import DaoList from '../../components/daoList/DaoList';
 import SummonButton from '../../components/summonButton/summonButton';
 import { GET_MOLOCHES } from '../../util/queries';
-import HeroBackground from '../../assets/daohaus__hero--bg.png';
+import HeroBackground from '../../assets/daohaus__hero--falling.png';
 
 import './Home.scss';
 
