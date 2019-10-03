@@ -24,6 +24,7 @@
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "react-vis": "^1.11.7",
     "web3": "^1.2.1",
     "web3-react": "^5.0.4",
     "yup": "^0.27.0"
@@ -40,7 +41,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^2.0.1",
+    "eslint-plugin-react-hooks": "^2.1.1",
     "eslint-plugin-standard": "^4.0.1",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0"
