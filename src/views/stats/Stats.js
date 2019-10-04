@@ -69,7 +69,7 @@ const Stats = props => {
     <div className="View">
       <h1>DAOalytics</h1>
       {loading ? <p>Loading stats</p> : null}
-      {error ? <p>Error</p> : null}
+      {error ? <p>Error - are you on mainnet?</p> : null}
       {data ? (
         <div>
           <p className="Stat__title">Daos summoned</p>
