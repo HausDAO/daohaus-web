@@ -15,7 +15,7 @@ const DaoCard = props => {
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (error) return <p>Error - use mainnet :(</p>;
 
   return (
     <>
