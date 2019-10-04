@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import _ from 'lodash';
 
 import { GET_MOLOCHES_STATS } from '../../util/queries';
 import { Web3Context } from '../../contexts/ContractContexts';
 
+// import '../node_modules/react-vis/dist/style.css';
 import './Stats.scss';
 
 const Stats = props => {
@@ -27,9 +28,10 @@ const Stats = props => {
     );
 
     return (
-      <span>
-        {value.Weth} Weth / {value.Dai} Dai
-      </span>
+      <>
+        <p className="Stat__value">{value.Weth} Weth</p>
+        <p className="Stat__value">{value.Dai} Dai</p>
+      </>
     );
   };
 
@@ -67,7 +69,7 @@ const Stats = props => {
 
   return (
     <div className="View">
-      <h1>DAOalytics</h1>
+      <h1>DAOalytics: BIG DAoTA</h1>
       {loading ? <p>Loading stats</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}
       {data ? (
@@ -76,8 +78,8 @@ const Stats = props => {
           <p className="Stat__value">{totalDaos()}</p>
           <p className="Stat__title">Total Shares Held</p>
           <p className="Stat__value">{totalShares()}</p>
-          <p className="Stat__title">Total Guild Bank Value</p>
-          <p className="Stat__value">{totalGuildBank()}</p>
+          <p className="Stat__title">Totals of all Guild Banks</p>
+          {totalGuildBank()}
           <p className="Stat__title">Total Dao Memberships</p>
           <p className="Stat__value">{totalDoaMemberships()}</p>
           <p className="Stat__title">Unique Dao Members</p>
