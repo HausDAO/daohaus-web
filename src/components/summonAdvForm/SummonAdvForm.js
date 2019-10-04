@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
-
-import Web3Service from "../../util/web3Service";
 
 import FactoryAbi from "../../contracts/factory.json";
 
@@ -11,6 +9,10 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useWeb3Context } from "web3-react";
 import Loading from "../loading/Loading";
 
+import {
+  Web3Context,
+} from '../../contexts/ContractContexts';
+
 import "./SummonAdvForm.scss";
 
 // import Loading from '../shared/Loading';
@@ -18,6 +20,8 @@ import "./SummonAdvForm.scss";
 const SummonAdvForm = (props) => {
   const [loading, setLoading] = useState(false);
   const context = useWeb3Context();
+  const [web3Service] = useContext(Web3Context);
+
 
   return (
     <>
@@ -75,7 +79,6 @@ const SummonAdvForm = (props) => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const web3Service = new Web3Service();
 
           setLoading(true);
           try {

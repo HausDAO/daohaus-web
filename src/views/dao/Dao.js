@@ -109,7 +109,7 @@ const Dao = props => {
   return (
     <div className="View">
       {loading ? <p>THE HAUS IS LOADING THE DAO</p> : null}
-      {error ? <p>Error</p> : null}
+      {error ? <p>Error - are you on mainnet?</p> : null}
 
       {updateDelegateView ? (
         <UpdateDelegate contract={molochContract} />

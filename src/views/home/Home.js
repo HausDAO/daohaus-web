@@ -24,7 +24,7 @@ const Home = () => {
       </div>
       <div className="View">
         {loading ? <p>THE HAUS IS LOADING THE DAOS</p> : null}
-        {error ? <p>Error</p> : null}
+        {error ? <p>Error - are you on mainnet?</p> : null}
         {data ? <DaoList daos={data.factories} /> : null}
       </div>
     </>
