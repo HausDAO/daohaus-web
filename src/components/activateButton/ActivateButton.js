@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useWeb3Context } from "web3-react";
 
+import "./ActivateButton.scss"
+
 const ActivateButton = () => {
   const context = useWeb3Context();
   console.log(context);
@@ -9,7 +11,6 @@ const ActivateButton = () => {
 
   const activate = async () => {
     await context.setFirstValidConnector(["MetaMask"]);
-    console.log(context);
   };
 
   if (!context.active && !context.error) {
@@ -23,7 +24,7 @@ const ActivateButton = () => {
     //error
     return (
       <>
-        <button onClick={() => activate()}>Sign in with Ethereum</button>
+        <button onClick={() => alert('You need a browser with web3 support on mainnet.')}>Sign in with Ethereum</button>
 
         {context.error.code === "UNSUPPORTED_NETWORK" && (
           <p className="ErrorText">Unsupported network: please use mainnet</p>
