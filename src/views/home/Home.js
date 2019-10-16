@@ -12,6 +12,9 @@ import './Home.scss';
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
+  const filterDaos = (daos) => {
+    return daos.filter(dao => !dao.apiData.hide);
+  } 
 
   return (
     <>
@@ -25,7 +28,7 @@ const Home = () => {
       <div className="View">
         {loading ? <p>THE HAUS IS LOADING THE DAOS</p> : null}
         {error ? <p>Error - are you on mainnet?</p> : null}
-        {data ? <DaoList daos={data.factories} /> : null}
+        {data ? <DaoList daos={filterDaos(data.factories)} /> : null}
       </div>
     </>
   );
