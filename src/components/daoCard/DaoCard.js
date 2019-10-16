@@ -14,6 +14,11 @@ const DaoCard = props => {
     variables: { contractAddr: dao.moloch },
   });
 
+  const bankValue = (value) => {
+    const amt = web3Service.fromWei(value);
+    return parseFloat(amt).toFixed(2)
+  }
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error - use mainnet :(</p>;
 
@@ -27,7 +32,7 @@ const DaoCard = props => {
             <div className="Column">
               <p className="Label">Bank</p>
               <p className="Data">
-                {web3Service.fromWei(dao.guildBankValue)} {dao.approvedToken}
+                {bankValue(dao.guildBankValue)} {dao.approvedToken}
               </p>
             </div>
             <div className="Column">
