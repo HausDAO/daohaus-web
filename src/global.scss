@@ -200,15 +200,30 @@ select {
 
 // Loader
 .Loading {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 110px);
     display: flex;
     align-content: center;
     justify-content: center;
     flex-direction: column;
+    background-color: white;
+    overflow: hidden;
     img {
         display: block;
-        margin: 0;
+        margin: 0 auto;
         max-width: 600px;
-        height: auto;
+        width: 100%;
+        overflow: hidden;
+    }
+    h5 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2em;
     }
 }
 
