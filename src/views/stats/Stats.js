@@ -19,8 +19,6 @@ const Stats = props => {
   useEffect(() => {
     const fetchPrices = async () => {
       const pricesRes = await getPrices();
-      console.log('pricesRes', pricesRes);
-
       setPrices(pricesRes);
     };
 
