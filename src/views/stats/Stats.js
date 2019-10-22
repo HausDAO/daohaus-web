@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import _ from 'lodash';
 
 import { GET_MOLOCHES_STATS } from '../../util/queries';
 import { Web3Context } from '../../contexts/ContractContexts';
+import { getPrices } from '../../util/prices';
 
 // import '../node_modules/react-vis/dist/style.css';
 import './Stats.scss';
@@ -11,8 +12,19 @@ import './Stats.scss';
 const Stats = props => {
   const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
   const [web3Service] = useContext(Web3Context);
+  const [prices, setPrices] = useState();
 
   console.log('data', data);
+
+  useEffect(() => {
+    const fetchPrices = async () => {
+      const pricesRes = await getPrices();
+      setPrices(pricesRes);
+    };
+
+    fetchPrices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [web3Service]);
 
   const totalDaos = () => {
     return data.factories.length;
@@ -27,7 +39,20 @@ const Stats = props => {
       { Weth: 0, Dai: 0 },
     );
 
-    return (
+    return prices ? (
+      <>
+        <p className="Stat__value">
+          {value.Weth} weth / {(value.Weth * prices.Weth).toFixed(2)} usd
+        </p>
+        <p className="Stat__value">
+          {value.Dai} dai / {(value.Dai * prices.Dai).toFixed(2)} usd
+        </p>
+        <p className="Stat__value">
+          {(value.Dai * prices.Dai + value.Weth * prices.Weth).toFixed(2)} Total
+          usd
+        </p>
+      </>
+    ) : (
       <>
         <p className="Stat__value">{value.Weth} Weth</p>
         <p className="Stat__value">{value.Dai} Dai</p>
