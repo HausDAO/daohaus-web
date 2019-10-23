@@ -10,7 +10,6 @@ import { GET_MEMBERDATA_LEGACY, GET_MEMBERDATA } from './queries';
 
 let _web3;
 if (Web3.givenProvider && Web3.givenProvider.networkVersion === '1') {
-
   _web3 = new Web3(Web3.givenProvider);
 } else {
   _web3 = new Web3(
@@ -34,8 +33,13 @@ export const resolvers = {
       }
     },
     apiData: async (moloch, _args) => {
-      const daoRes = await get(`moloch/${moloch.moloch}`);
-      const apiData = daoRes.data;
+      let apiData = [];
+      try {
+        const daoRes = await get(`moloch/${moloch.moloch}`);
+        apiData = daoRes.data;
+      } catch (e) {
+        console.log('error on dao api call', e);
+      }
 
       if (apiData.isLegacy && apiData.graphNodeUri) {
         let legacyData = await legacyGraph(
