@@ -1,63 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { useQuery } from '@apollo/react-hooks';
 import _ from 'lodash';
 
 import { GET_MOLOCHES_STATS } from '../../util/queries';
-import { Web3Context } from '../../contexts/ContractContexts';
-import { getPrices } from '../../util/prices';
 
-// import '../node_modules/react-vis/dist/style.css';
 import './Stats.scss';
+import GuildBanks from './GuildBanks';
 
 const Stats = props => {
   const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
-  const [web3Service] = useContext(Web3Context);
-  const [prices, setPrices] = useState();
 
   console.log('data', data);
 
-  useEffect(() => {
-    const fetchPrices = async () => {
-      const pricesRes = await getPrices();
-      setPrices(pricesRes);
-    };
-
-    fetchPrices();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [web3Service]);
-
   const totalDaos = () => {
     return data.factories.length;
-  };
-
-  const totalGuildBank = () => {
-    const value = data.factories.reduce(
-      (sum, dao) => {
-        sum[dao.approvedToken] += +web3Service.fromWei(dao.guildBankValue);
-        return sum;
-      },
-      { Weth: 0, Dai: 0 },
-    );
-
-    return prices ? (
-      <>
-        <p className="Stat__value">
-          {value.Weth} weth / {(value.Weth * prices.Weth).toFixed(2)} usd
-        </p>
-        <p className="Stat__value">
-          {value.Dai} dai / {(value.Dai * prices.Dai).toFixed(2)} usd
-        </p>
-        <p className="Stat__value">
-          {(value.Dai * prices.Dai + value.Weth * prices.Weth).toFixed(2)} Total
-          usd
-        </p>
-      </>
-    ) : (
-      <>
-        <p className="Stat__value">{value.Weth} Weth</p>
-        <p className="Stat__value">{value.Dai} Dai</p>
-      </>
-    );
   };
 
   const totalShares = () => {
@@ -99,16 +56,38 @@ const Stats = props => {
       {error ? <p>Error - are you on mainnet?</p> : null}
       {data ? (
         <div>
-          <p className="Stat__title">Daos summoned</p>
-          <p className="Stat__value">{totalDaos()}</p>
-          <p className="Stat__title">Total Shares Held</p>
-          <p className="Stat__value">{totalShares()}</p>
-          <p className="Stat__title">Totals of all Guild Banks</p>
-          {totalGuildBank()}
-          <p className="Stat__title">Total Dao Memberships</p>
-          <p className="Stat__value">{totalDoaMemberships()}</p>
-          <p className="Stat__title">Unique Dao Members</p>
-          <p className="Stat__value">{uniqueDaoMembers()}</p>
+          <div className="Stat_overview">
+            <div className="Stat_group">
+              <p className="Stat__title">Daos summoned</p>
+              <p className="Stat__value">{totalDaos()}</p>
+            </div>
+            <div className="Stat_group">
+              <p className="Stat__title">Total Shares Held</p>
+              <p className="Stat__value">{totalShares()}</p>
+            </div>
+            <div className="Stat_group">
+              <p className="Stat__title">Total Dao Memberships</p>
+              <p className="Stat__value">{totalDoaMemberships()}</p>
+            </div>
+            <div className="Stat_group">
+              <p className="Stat__title">Unique Dao Members</p>
+              <p className="Stat__value">{uniqueDaoMembers()}</p>
+            </div>
+          </div>
+
+          <Tabs>
+            <TabList>
+              <Tab>Guild Banks</Tab>
+              <Tab>Proposals and Votes</Tab>
+            </TabList>
+
+            <TabPanel>
+              <GuildBanks data={data} />
+            </TabPanel>
+            <TabPanel>
+              <h2>Coming soon</h2>
+            </TabPanel>
+          </Tabs>
         </div>
       ) : null}
     </div>

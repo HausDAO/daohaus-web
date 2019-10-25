@@ -1,3 +1,19 @@
+@import '../../variables';
+
+.Stat_overview {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.GuildBank_overview {
+  margin-bottom: 20px;
+}
+
+.Stat_group {
+  text-align: center;
+}
+
 .Stat__title {
   font-size: 1em;
   font-weight: 700;
@@ -5,4 +21,24 @@
 
 .Stat__value {
   font-size: 2em;
+}
+
+ul.react-tabs__tab-list {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-inline-start: 0;
+}
+
+li.react-tabs__tab {
+  margin: 0 2vw 0 0;
+  padding: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+li.react-tabs__tab--selected {
+  border-bottom: 2px solid $primary;
 }
