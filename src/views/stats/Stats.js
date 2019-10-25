@@ -85,7 +85,7 @@ const Stats = props => {
               <GuildBanks data={data} />
             </TabPanel>
             <TabPanel>
-              <h2>Coming soon</h2>
+              <h2>Nothing here yet</h2>
             </TabPanel>
           </Tabs>
         </div>
