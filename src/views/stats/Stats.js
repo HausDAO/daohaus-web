@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { GET_MOLOCHES_STATS } from '../../util/queries';
 
 import './Stats.scss';
-import GuildBanks from './GuildBanks';
+import GuildBanks from '../../components/stats/GuildBank';
 
 const Stats = props => {
   const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
@@ -28,7 +28,7 @@ const Stats = props => {
       (sum, dao) => {
         +dao.newContract
           ? (sum.new += dao.newContractMembers.length)
-          : (sum.legacy += dao.apiData.legacyData.members.length);
+          : (sum.legacy += dao.apiDataStats.legacyData.members.length);
         return sum;
       },
       { new: 0, legacy: 0 },
@@ -41,7 +41,7 @@ const Stats = props => {
     const memberIDs = _.flatMap(data.factories, dao => {
       return +dao.newContract
         ? dao.newContractMembers
-        : dao.apiData.legacyData.members;
+        : dao.apiDataStats.legacyData.members;
     }).map(member => {
       return member.memberId ? member.memberId : member.id;
     });
