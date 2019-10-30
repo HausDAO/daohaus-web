@@ -6,7 +6,11 @@ import WethService from './wethService';
 import DaiService from './daiService';
 import { legacyGraph } from './legacyGraphService';
 import { get } from './requests';
-import { GET_MEMBERDATA_LEGACY, GET_MEMBERDATA } from './queries';
+import {
+  GET_MEMBERDATA_LEGACY,
+  GET_MEMBERDATA,
+  GET_PROPOSALS,
+} from './queries';
 
 let _web3;
 if (Web3.givenProvider && Web3.givenProvider.networkVersion === '1') {
@@ -51,6 +55,25 @@ export const resolvers = {
 
       return apiData;
     },
+    apiDataStats: async (moloch, _args) => {
+      let apiData = [];
+      try {
+        const daoRes = await get(`moloch/${moloch.moloch}`);
+        apiData = daoRes.data;
+      } catch (e) {
+        console.log('error on dao api call', e);
+      }
+
+      if (apiData.isLegacy && apiData.graphNodeUri) {
+        let legacyData = await legacyGraph(
+          apiData.graphNodeUri,
+          GET_MEMBERDATA_LEGACY,
+        );
+        apiData.legacyData = legacyData.data.data;
+      }
+
+      return apiData;
+    },
     approvedToken: async (moloch, _args) => {
       const molochService = new MolochService(moloch.moloch, web3Service);
       return await molochService.approvedToken();
@@ -67,6 +90,18 @@ export const resolvers = {
         });
 
         return data.members;
+      } else {
+        return [];
+      }
+    },
+    newContractProposals: async (moloch, _args, context) => {
+      if (+moloch.newContract) {
+        const { data } = await context.client.query({
+          query: GET_PROPOSALS,
+          variables: { contractAddr: moloch.moloch },
+        });
+
+        return data.proposals;
       } else {
         return [];
       }

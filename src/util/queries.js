@@ -55,8 +55,20 @@ export const GET_MOLOCHES_STATS = gql`
       guildBankValue @client
       approvedToken @client
       totalShares @client
-      apiData @client
+      apiDataStats @client
       newContractMembers @client
     }
   }
 `;
+
+export const GET_PROPOSALS = gql`
+  query proposals($contractAddr: String!) {
+    proposals(where: { molochAddress: $contractAddr }) {
+      id
+    }
+  }
+`;
+
+export const GET_PROPOSALS_LEGACY = {
+  query: 'query proposals { proposals { id }}',
+};
