@@ -5,7 +5,7 @@ import { Web3Context } from '../../contexts/ContractContexts';
 import { getPrices } from '../../util/prices';
 import { formatTotalUsd, toUsd } from '../../util/statHelpers';
 
-import './Stats.scss';
+import '../../views/stats/Stats.scss';
 
 const GuildBanks = props => {
   const { data } = props;
@@ -50,10 +50,10 @@ const GuildBanks = props => {
     return barData;
   };
 
-  const toggleMoloch = () => {
-    setMolochOn(!molochOn);
-    setBarDaos(barDaos.filter(dao => dao.title !== 'Moloch DAO'));
-  };
+  // const toggleMoloch = () => {
+  //   setMolochOn(!molochOn);
+  //   setBarDaos(barDaos.filter(dao => dao.title !== 'Moloch DAO'));
+  // };
 
   const totalGuildBank = () => {
     const value = data.factories.reduce(
