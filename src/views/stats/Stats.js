@@ -7,6 +7,7 @@ import { GET_MOLOCHES_STATS } from '../../util/queries';
 
 import './Stats.scss';
 import GuildBanks from '../../components/stats/GuildBank';
+import ProposalStats from '../../components/stats/ProposalStats';
 
 const Stats = props => {
   const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
@@ -85,7 +86,7 @@ const Stats = props => {
               <GuildBanks data={data} />
             </TabPanel>
             <TabPanel>
-              <h2>Nothing here yet</h2>
+              <ProposalStats data={data} />
             </TabPanel>
           </Tabs>
         </div>
