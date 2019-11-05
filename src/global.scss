@@ -229,6 +229,11 @@ select {
 
 // Utils
 
+.Contain {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .Row {
     display: flex;
     flex-direction: row;

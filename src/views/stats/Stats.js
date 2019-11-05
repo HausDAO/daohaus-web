@@ -50,7 +50,7 @@ const Stats = props => {
   };
 
   return (
-    <div className="View">
+    <div className="View Contain">
       <h1>BIG DAOta</h1>
       {loading ? <p>Loading stats</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}
