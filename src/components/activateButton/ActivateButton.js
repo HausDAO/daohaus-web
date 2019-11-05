@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useWeb3Context } from "web3-react";
+import IconEthereum from "../../assets/icon__ethereum.png";
 
 import "./ActivateButton.scss"
 
@@ -17,7 +18,7 @@ const ActivateButton = () => {
     // loading
     return (
       <button className="AuthButton" onClick={() => activate()}>
-        Sign in with Ethereum
+        <img src={IconEthereum} /> Sign in<span> with Ethereum</span>
       </button>
     );
   } else if (context.error) {
