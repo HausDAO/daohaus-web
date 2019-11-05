@@ -234,6 +234,30 @@ select {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.Column {
+    display: flex;
+    flex-direction: column;
+    &--33 {
+        width: 30%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--50 {
+        width: 45%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--66 {
+        width: 60%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
 }
 
 .Section {
