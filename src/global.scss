@@ -227,6 +227,16 @@ select {
     }
 }
 
+.Applicant__List {
+    display: block;
+    width: 100%; 
+    * { float: none; }
+    .List--Item { 
+        margin: 25px 0px;
+        font-size: 1.5em;
+    }
+}
+
 // Utils
 
 .Contain {
