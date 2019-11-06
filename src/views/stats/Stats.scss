@@ -12,7 +12,11 @@
 }
 
 .Stat_group {
-  text-align: center;
+  text-align: left;
+  &--Large {
+    .Label { font-size: 1em; }
+    .Value { font-size: 2.5em; }
+  }
 }
 
 .Stat__title {
