@@ -227,13 +227,52 @@ select {
     }
 }
 
+.Applicant__List {
+    display: block;
+    width: 100%; 
+    * { float: none; }
+    .List--Item { 
+        margin: 25px 0px;
+        font-size: 1.5em;
+    }
+}
+
 // Utils
+
+.Contain {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
 .Row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.Column {
+    display: flex;
+    flex-direction: column;
+    &--33 {
+        width: 30%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--50 {
+        width: 45%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--66 {
+        width: 60%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
 }
 
 .Section {

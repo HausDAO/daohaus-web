@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 import { Web3Context } from '../../contexts/ContractContexts';
 import { getPrices } from '../../util/prices';
@@ -66,40 +67,44 @@ const GuildBanks = props => {
 
     return prices ? (
       <>
-        <div className="Stat_overview GuildBank_overview">
-          <div className="Stat_group">
-            <p className="Stat__title">Total Value (USD)</p>
-            <p className="Stat__value">{formatTotalUsd(value, prices)}</p>
+        <div className="Row">
+          <div className="Column--33">
+            <div className="Stat_group--Large">
+              <p className="Label">Total Value (USD)</p>
+              <p className="Value">{formatTotalUsd(value, prices)}</p>
+            </div>
+            <div className="Stat_group">
+              <p className="Label">Total Eth</p>
+              <p className="Value">
+                {value.Weth.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}
+              </p>
+            </div>
+            <div className="Stat_group">
+              <p className="Label">Total Dai</p>
+              <p className="Value">
+                {value.Dai.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}
+              </p>
+            </div>
           </div>
-          <div className="Stat_group">
-            <p className="Stat__title">Total Eth</p>
-            <p className="Stat__value">
-              {value.Weth.toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })}
-            </p>
-          </div>
-          <div className="Stat_group">
-            <p className="Stat__title">Total Dai</p>
-            <p className="Stat__value">
-              {value.Dai.toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-              })}
-            </p>
-          </div>
-        </div>
-        <div>
-          <div>Guild Bank Balances</div>
-          <div>
-            {/* Click to toggle Moloch on and off
-            <input
-              type="checkbox"
-              checked={molochOn}
-              onChange={() => toggleMoloch()}
-            /> */}
-          </div>
+          <div className="Column--66">
+            <h3>Guild Bank Balances</h3>
+            <div>
+              {/* Click to toggle Moloch on and off
+              <input
+                type="checkbox"
+                checked={molochOn}
+                onChange={() => toggleMoloch()}
+              /> */}
+            </div>
 
-          <Bar data={barData(data.factories)} />
+            <Doughnut 
+              data={barData(data.factories)} 
+            />
+          </div>
         </div>
       </>
     ) : (
