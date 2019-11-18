@@ -20,18 +20,17 @@ const ProposalStats = props => {
   };
 
   const totalVotes = () => {
-    //loop each proposal too
-    // const counts = data.factories.reduce(
-    //   (sum, dao) => {
-    //     +dao.newContract
-    //       ? (sum.new += dao.newContractProposals.votes.length)
-    //       : (sum.legacy += dao.apiDataStats.legacyData.proposals.votes.length);
-    //     return sum;
-    //   },
-    //   { new: 0, legacy: 0 },
-    // );
-    // return counts.new + counts.legacy;
+    return data.factories.reduce((sum, dao) => {
+      let proposals = +dao.newContract
+        ? dao.newContractProposals
+        : dao.apiDataStats.legacyData.proposals;
+      return (
+        sum +
+        proposals.reduce((voteSum, prop) => +voteSum + prop.votes.length, 0)
+      );
+    }, 0);
   };
+
   return (
     <>
       <div className="Stat_overview">

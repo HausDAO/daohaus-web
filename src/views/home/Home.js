@@ -12,14 +12,27 @@ import './Home.scss';
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
-  const filterDaos = (daos) => {
-    return daos.filter(dao => !dao.apiData.hide);
-  } 
+  const filterDaos = daos => {
+    console.log('daos', daos);
+    // return daos.filter(dao => !dao.apiData.hide);
+    return daos
+      .filter(dao => !dao.apiData.hide)
+      .sort((a, b) => {
+        ///TODO: sort by member - check against legacy
+      });
+  };
 
   return (
     <>
-      <div className="Hero" style={{backgroundImage: "url(" + HeroBackground + ")"}}>
-        <h1>Explore the<br />Haus of Moloch</h1>
+      <div
+        className="Hero"
+        style={{ backgroundImage: 'url(' + HeroBackground + ')' }}
+      >
+        <h1>
+          Explore the
+          <br />
+          Haus of Moloch
+        </h1>
         <h2>
           Discover and Pledge to existing Moloch DAOs, or summon your own.
         </h2>
