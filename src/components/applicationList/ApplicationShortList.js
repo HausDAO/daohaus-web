@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ProfileHover from "profile-hover";
 
 import "./ApplicationList.scss";
 
