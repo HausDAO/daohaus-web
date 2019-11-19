@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
 
@@ -38,6 +39,13 @@ const Dao = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Service]);
 
+  useEffect(() => {
+    if(!_.isEmpty(daoData)) {
+      getMembers(daoData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [context]);
+
   const setUpContract = async () => {
     if (web3Service) {
       const contract = await web3Service.initContract(
@@ -57,7 +65,7 @@ const Dao = props => {
     isLoading && setLoading(loading);
     isError && setError(error);
 
-    if (data) {
+    if (data) {      
       setDaoData(data.factories[0]);
       getMembers(data.factories[0]);
     }
@@ -93,6 +101,11 @@ const Dao = props => {
       );
     });
 
+    checkIfMemberOrApplicant(memberAddresses, members);
+    setMemberData(members);
+  };
+
+  const checkIfMemberOrApplicant = (memberAddresses, members) => {
     const isMember =
       context.active && memberAddresses.includes(context.account.toLowerCase());
     const applicantAddresses = members.applicants.map(app => {
@@ -103,7 +116,6 @@ const Dao = props => {
       applicantAddresses.includes(context.account.toLowerCase());
 
     setIsMemberOrApplicant(isMember || isApplicant);
-    setMemberData(members);
   };
 
   return (
