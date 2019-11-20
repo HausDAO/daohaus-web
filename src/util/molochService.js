@@ -199,8 +199,9 @@ export default class MolochService {
 
     let info = await this.contract.methods.approvedToken().call();
 
-    return addressToToken[info];
+    return info;
   }
+
 
   async processProposal(from, id, encodedPayload) {
     if (!this.contract) {

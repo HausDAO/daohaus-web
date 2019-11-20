@@ -12,6 +12,8 @@ import './Home.scss';
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
+  console.log('error', error);
+  
   const filterDaos = (daos) => {
     return daos.filter(dao => !dao.apiData.hide);
   } 
