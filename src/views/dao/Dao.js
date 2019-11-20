@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
 
@@ -7,8 +8,9 @@ import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
 import ApplicationList from '../../components/applicationList/ApplicationList';
 
-import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
+import { Web3Context, MolochContext, TokenContext } from '../../contexts/ContractContexts';
 import DaoAbi from '../../contracts/moloch';
+import TokenAbi from '../../contracts/erc20';
 import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 
@@ -25,18 +27,26 @@ const Dao = props => {
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
   const [molochContract, setMolochContract] = useContext(MolochContext);
+  const [, setTokenContract] = useContext(TokenContext);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getDao();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [web3Service]);
 
   useEffect(() => {
     setUpContract();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3Service]);
+
+  useEffect(() => {
+    if(!_.isEmpty(daoData)) {
+      getMembers(daoData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [context]);
 
   const setUpContract = async () => {
     if (web3Service) {
@@ -44,7 +54,10 @@ const Dao = props => {
         DaoAbi,
         props.match.params.contractAddress,
       );
+      console.log('contract', contract);
+      
       setMolochContract(contract);
+
     }
   };
 
@@ -57,8 +70,15 @@ const Dao = props => {
     isLoading && setLoading(loading);
     isError && setError(error);
 
-    if (data) {
+    if (data && web3Service) { 
+
+      const tokenContract = await web3Service.initContract(
+        TokenAbi,
+        data.factories[0].tokenInfo.address,
+      );
+
       setDaoData(data.factories[0]);
+      setTokenContract(tokenContract);
       getMembers(data.factories[0]);
     }
   };
@@ -93,6 +113,11 @@ const Dao = props => {
       );
     });
 
+    checkIfMemberOrApplicant(memberAddresses, members);
+    setMemberData(members);
+  };
+
+  const checkIfMemberOrApplicant = (memberAddresses, members) => {
     const isMember =
       context.active && memberAddresses.includes(context.account.toLowerCase());
     const applicantAddresses = members.applicants.map(app => {
@@ -103,7 +128,6 @@ const Dao = props => {
       applicantAddresses.includes(context.account.toLowerCase());
 
     setIsMemberOrApplicant(isMember || isApplicant);
-    setMemberData(members);
   };
 
   return (
@@ -136,7 +160,7 @@ const Dao = props => {
               <p className="Value Data">{daoData.summoner}</p>
               <p className="Label">Minimum Tribute</p>
               <p className="Value Data">
-                {daoData.apiData.minimumTribute} {daoData.approvedToken}
+                {daoData.apiData.minimumTribute} {daoData.tokenInfo.symbol}
               </p>
             </div>
           ) : null}

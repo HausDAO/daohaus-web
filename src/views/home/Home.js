@@ -12,6 +12,7 @@ import './Home.scss';
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
+<<<<<<< HEAD
   const filterDaos = daos => {
     console.log('daos', daos);
     // return daos.filter(dao => !dao.apiData.hide);
@@ -21,6 +22,13 @@ const Home = () => {
         ///TODO: sort by member - check against legacy
       });
   };
+=======
+  console.log('error', error);
+  
+  const filterDaos = (daos) => {
+    return daos.filter(dao => !dao.apiData.hide);
+  } 
+>>>>>>> a1459107dfb11824974d0fa92b156a5282f4803b
 
   return (
     <>

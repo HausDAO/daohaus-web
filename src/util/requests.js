@@ -45,3 +45,17 @@ export const put = async (endpoint, payload) => {
     throw new Error(err);
   }
 };
+
+export const remove = async endpoint => {
+  const baseURL = BaseUrl();
+
+  const instance = axios.create({
+    baseURL,
+    headers: { "Content-Type": "application/json" }
+  });
+  try {
+    return await instance.delete(`/${endpoint}`);
+  } catch (err) {
+    throw new Error(err);
+  }
+};

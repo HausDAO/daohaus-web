@@ -10,7 +10,7 @@ function SummonSummary() {
       <p>Does this look right?</p>
       <p className="Label">Name</p>
       <p className="Value">{values.dao.name}</p>
-      <p className="Label">Description</p><p className="Value">{values.dao.bio}</p>
+      <p className="Label">Description</p><p className="Value">{values.dao.description}</p>
       <p className="Label">Currency</p><p className="Value">{values.currency.approvedToken}</p>
       <p className="Label">Period Duration</p><p className="Value">{values.timing.periodDuration}</p>
       <p className="Label">Voting Period Length</p><p className="Value">{values.timing.votingPeriodLength}</p>

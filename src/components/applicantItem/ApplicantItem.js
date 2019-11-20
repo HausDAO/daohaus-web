@@ -8,8 +8,7 @@ import { truncateAddr } from '../../util/helpers';
 
 import './ApplicantItem.scss';
 import {
-  WethContext,
-  DaiContext,
+  TokenContext,
   Web3Context,
 } from '../../contexts/ContractContexts';
 
@@ -18,8 +17,8 @@ const ApplicantItem = props => {
   const [currentApplicant, setCurrentApplicant] = useState([]);
 
   const [web3Service] = useContext(Web3Context);
-  const [wethService] = useContext(WethContext);
-  const [daiService] = useContext(DaiContext);
+
+  const [tokenService] = useContext(TokenContext);
 
   useEffect(() => {
     const setup = async () => {
@@ -32,12 +31,13 @@ const ApplicantItem = props => {
         } catch {
           profile = {};
         }
-        if (daoData.approvedToken === 'Weth') {
-          const allowance = await wethService.allowance(
+        
+        if (daoData.approvedToken && tokenService) {
+          const allowance = await tokenService.methods.allowance(
             _applicant,
             daoData.moloch,
-          );
-          const balanceOf = await wethService.balanceOf(_applicant);
+          ).call();
+          const balanceOf = await tokenService.methods.balanceOf(_applicant).call();
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -49,25 +49,6 @@ const ApplicantItem = props => {
             },
           ]);
 
-          return true;
-        } else if (daoData.approvedToken === 'Dai') {
-          const allowance = await daiService.allowance(
-            _applicant,
-            daoData.moloch,
-          );
-          const balanceOf = await daiService.balanceOf(_applicant);
-
-          setCurrentApplicant(currentApplicant => [
-            ...currentApplicant,
-            {
-              addr: _applicant,
-              inEth: web3Service.fromWei(allowance),
-              balanceOf: web3Service.fromWei(balanceOf),
-              profile: profile,
-            },
-          ]);
-
-          return true;
         } else {
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,

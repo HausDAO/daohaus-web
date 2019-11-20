@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import FactoryAbi from "../../contracts/factory.json";
 
-import { post } from "../../util/requests";
+import { post, remove } from "../../util/requests";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useWeb3Context } from "web3-react";
@@ -82,6 +82,15 @@ const SummonAdvForm = (props) => {
 
           setLoading(true);
           try {
+            const cacheMoloch = {
+              summonerAddress: context.account,
+              name: values.dao.name.trim(),
+              minimumTribute: values.minimumTribute,
+              description: values.description,
+            };
+            // cache dao incase of web3 timeout timeout
+            const cacheId = await post('moloch/orphan', cacheMoloch);
+
             const factoryContract = await web3Service.initContract(
               FactoryAbi,
               process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS
@@ -97,7 +106,7 @@ const SummonAdvForm = (props) => {
                 web3Service.toWei(values.proposalDeposit),
                 values.dilutionBound,
                 web3Service.toWei(values.processingReward),
-                values.name
+                values.name.trim()
               )
               .send(
                 {
@@ -108,6 +117,12 @@ const SummonAdvForm = (props) => {
                 }
               )
               .on("error", function(error) {
+                if (error.code === 4001) {
+                  //remove from cache
+                  remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
+                    console.log('dao rejected, remove cache');
+                  });
+                } 
                 console.log(error);
               })
               .on("transactionHash", function(transactionHash) {
@@ -121,30 +136,20 @@ const SummonAdvForm = (props) => {
                 const newMoloch = {
                   summonerAddress: context.account,
                   contractAddress: contractAddress,
-                  name: values.name,
+                  name: values.name.trim(),
                   minimumTribute: values.minimumTribute,
                   description: values.description
                 };
 
                 post("moloch", newMoloch)
                   .then(newMolochRes => {
-                    const application = {
-                      name: "Summoner",
-                      bio: "Summoner of the Dao",
-                      pledge: "0",
-                      shares: "1",
-                      applicantAddress: context.account,
-                      molochContractAddress: contractAddress,
-                      status: "Member"
-                    };
 
-                    console.log(
-                      "created new moloch",
-                      newMolochRes,
-                      application
-                    );
 
-                    props.history.push(`/moa/${contractAddress}`);
+                      //remove from cache and redirect
+                      remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
+                        props.history.push(`/doa/${contractAddress.toLowerCase()}`);
+                      });
+
                   })
                   .catch(err => {
                     setLoading(false);

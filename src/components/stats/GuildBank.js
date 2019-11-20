@@ -40,9 +40,9 @@ const GuildBanks = props => {
       ],
     };
     barDaos.forEach(dao => {
-      if (+dao.guildBankValue) {
+      if (+dao.tokenInfo.guildBankValue) {
         barData.labels.push(dao.title);
-        const value = +web3Service.fromWei(dao.guildBankValue);
+        const value = +web3Service.fromWei(dao.tokenInfo.guildBankValue);
         const usd = toUsd(dao.approvedToken, value, prices);
         barData.datasets[0].data.push(usd);
       }
@@ -59,7 +59,7 @@ const GuildBanks = props => {
   const totalGuildBank = () => {
     const value = data.factories.reduce(
       (sum, dao) => {
-        sum[dao.approvedToken] += +web3Service.fromWei(dao.guildBankValue);
+        sum[dao.approvedToken] += +web3Service.fromWei(dao.tokenInfo.guildBankValue);
         return sum;
       },
       { Weth: 0, Dai: 0 },

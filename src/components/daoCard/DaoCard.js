@@ -32,7 +32,7 @@ const DaoCard = props => {
             <div className="Column">
               <p className="Label">Bank</p>
               <p className="Data">
-                {bankValue(dao.guildBankValue)} {dao.approvedToken}
+                {bankValue(dao.tokenInfo.guildBankValue)} {dao.tokenInfo.symbol}
               </p>
             </div>
             <div className="Column">

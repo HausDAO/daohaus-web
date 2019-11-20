@@ -23,8 +23,8 @@ export const GET_MOLOCHES = gql`
       title
       moloch
       summoner
-      guildBankValue @client
-      approvedToken @client
+      tokenInfo @client
+
       apiData @client
     }
   }
@@ -38,8 +38,8 @@ export const GET_MOLOCH = gql`
       moloch
       summoner
       newContract
-      guildBankValue @client
-      approvedToken @client
+      tokenInfo @client
+
       totalShares @client
       apiData @client
     }
@@ -52,8 +52,8 @@ export const GET_MOLOCHES_STATS = gql`
       title
       moloch
       newContract
-      guildBankValue @client
-      approvedToken @client
+      tokenInfo @client
+
       totalShares @client
       apiDataStats @client
       newContractMembers @client
