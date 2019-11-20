@@ -13,7 +13,7 @@ function PledgeInfo(props) {
   useEffect(() => {
     const fetchData = async () => {
       const token = await molochContext.methods.approvedToken().call();
-      const tokenSymbol = addressToToken[token];
+      const tokenSymbol = "ERC20";
       setContractData({ tokenSymbol });
     };
 
