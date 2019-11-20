@@ -31,7 +31,6 @@ const ApplicantItem = props => {
         } catch {
           profile = {};
         }
-        console.log('tokenService', tokenService);
         
         if (daoData.approvedToken && tokenService) {
           const allowance = await tokenService.methods.allowance(
