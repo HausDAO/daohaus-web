@@ -8,12 +8,14 @@ import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
 import ApplicationList from '../../components/applicationList/ApplicationList';
 
-import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
+import { Web3Context, MolochContext, TokenContext } from '../../contexts/ContractContexts';
 import DaoAbi from '../../contracts/moloch';
+import TokenAbi from '../../contracts/erc20';
 import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 
 import './Dao.scss';
+import TokenService from '../../util/tokenService';
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -26,13 +28,14 @@ const Dao = props => {
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
   const [molochContract, setMolochContract] = useContext(MolochContext);
+  const [tokenContract, setTokenContract] = useContext(TokenContext);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getDao();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [web3Service]);
 
   useEffect(() => {
     setUpContract();
@@ -52,7 +55,10 @@ const Dao = props => {
         DaoAbi,
         props.match.params.contractAddress,
       );
+      console.log('contract', contract);
+      
       setMolochContract(contract);
+
     }
   };
 
@@ -65,8 +71,15 @@ const Dao = props => {
     isLoading && setLoading(loading);
     isError && setError(error);
 
-    if (data) {      
+    if (data && web3Service) { 
+
+      const tokenContract = await web3Service.initContract(
+        TokenAbi,
+        data.factories[0].tokenInfo.address,
+      );
+
       setDaoData(data.factories[0]);
+      setTokenContract(tokenContract);
       getMembers(data.factories[0]);
     }
   };
@@ -148,7 +161,7 @@ const Dao = props => {
               <p className="Value Data">{daoData.summoner}</p>
               <p className="Label">Minimum Tribute</p>
               <p className="Value Data">
-                {daoData.apiData.minimumTribute} {daoData.approvedToken}
+                {daoData.apiData.minimumTribute} {daoData.tokenInfo.symbol}
               </p>
             </div>
           ) : null}

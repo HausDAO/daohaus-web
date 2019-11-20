@@ -2,8 +2,8 @@ import Web3 from 'web3';
 
 import Web3Service from '../util/web3Service';
 import MolochService from './molochService';
-import WethService from './wethService';
-import DaiService from './daiService';
+
+import TokenService from './tokenService';
 import { legacyGraph } from './legacyGraphService';
 import { get } from './requests';
 import {
@@ -21,21 +21,9 @@ if (Web3.givenProvider && Web3.givenProvider.networkVersion === '1') {
   );
 }
 const web3Service = new Web3Service(_web3);
-const weth = new WethService(web3Service);
-const dai = new DaiService(web3Service);
 
 export const resolvers = {
   Factory: {
-    guildBankValue: async (moloch, _args) => {
-      const molochService = new MolochService(moloch.moloch, web3Service);
-      const guildBankAddr = await molochService.getGuildBankAddr();
-      const token = await molochService.approvedToken();
-      if (token === 'Dai') {
-        return await dai.balanceOf(guildBankAddr);
-      } else {
-        return await weth.balanceOf(guildBankAddr);
-      }
-    },
     apiData: async (moloch, _args) => {
       let apiData = [];
       try {
@@ -74,9 +62,22 @@ export const resolvers = {
 
       return apiData;
     },
-    approvedToken: async (moloch, _args) => {
-      const molochService = new MolochService(moloch.moloch, web3Service);
-      return await molochService.approvedToken();
+    tokenInfo: async (moloch, _args, _context) => {
+      console.log('_args', _args);
+      console.log('_context', _context);
+      
+      const molochService =  new MolochService(moloch.moloch, web3Service);
+      const address = await molochService.approvedToken();
+      const guildBankAddr = await molochService.getGuildBankAddr();
+      const tokenService = new TokenService(address, web3Service);
+      const symbol = await tokenService.getSymbol();
+      const guildbankValue = await tokenService.balanceOf(guildBankAddr);
+      
+      return {
+        guildbankValue,
+        symbol,
+        address
+      };
     },
     totalShares: async (moloch, _args) => {
       const molochService = new MolochService(moloch.moloch, web3Service);
