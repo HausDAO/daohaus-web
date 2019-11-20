@@ -1,6 +1,7 @@
 import React from 'react';
 import { useWeb3Context } from 'web3-react';
 import { useQuery } from '@apollo/react-hooks';
+import _ from 'lodash';
 
 import DaoList from '../../components/daoList/DaoList';
 import SummonButton from '../../components/summonButton/summonButton';
@@ -12,23 +13,11 @@ import './Home.scss';
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
-<<<<<<< HEAD
   const filterDaos = daos => {
-    console.log('daos', daos);
-    // return daos.filter(dao => !dao.apiData.hide);
-    return daos
-      .filter(dao => !dao.apiData.hide)
-      .sort((a, b) => {
-        ///TODO: sort by member - check against legacy
-      });
+    return _.sortBy(daos.filter(dao => !dao.apiData.hide), dao => {
+      return +dao.tokenInfo.guildBankValue;
+    }).reverse();
   };
-=======
-  console.log('error', error);
-  
-  const filterDaos = (daos) => {
-    return daos.filter(dao => !dao.apiData.hide);
-  } 
->>>>>>> a1459107dfb11824974d0fa92b156a5282f4803b
 
   return (
     <>

@@ -56,7 +56,6 @@ export const resolvers = (() => {
           console.log('error on dao api call', e);
         }
 
-<<<<<<< HEAD
       if (apiData.isLegacy && apiData.graphNodeUri) {
         let legacyData = await legacyGraph(
           apiData.graphNodeUri,
@@ -71,15 +70,6 @@ export const resolvers = (() => {
 
         apiData.legacyData.proposals = legacyProposals.data.data.proposals;
       }
-=======
-        if (apiData.isLegacy && apiData.graphNodeUri) {
-          let legacyData = await legacyGraph(
-            apiData.graphNodeUri,
-            GET_MEMBERDATA_LEGACY,
-          );
-          apiData.legacyData = legacyData.data.data;
-        }
->>>>>>> a1459107dfb11824974d0fa92b156a5282f4803b
 
         return apiData;
       },
