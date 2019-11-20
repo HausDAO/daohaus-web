@@ -88,7 +88,9 @@ export const resolvers = (() => {
         // console.log('molochs', molochs);
         
         const symbol = await tokenService.getSymbol();
-        const guildbankValue = await tokenService.balanceOf(guildBankAddr);
+        const guildBankValue = await tokenService.balanceOf(guildBankAddr);
+        //console.log(guildbankValue);
+        
         // console.log({
         //   guildbankValue,
         //   symbol,
@@ -96,7 +98,7 @@ export const resolvers = (() => {
         // });
         
         return {
-          guildbankValue,
+          guildBankValue,
           symbol,
           address,
         };

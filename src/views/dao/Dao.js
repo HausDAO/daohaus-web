@@ -15,7 +15,6 @@ import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 
 import './Dao.scss';
-import TokenService from '../../util/tokenService';
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -28,7 +27,7 @@ const Dao = props => {
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
   const [molochContract, setMolochContract] = useContext(MolochContext);
-  const [tokenContract, setTokenContract] = useContext(TokenContext);
+  const [, setTokenContract] = useContext(TokenContext);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 

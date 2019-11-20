@@ -52,9 +52,9 @@ export default class TokenService {
   }
 
   async balanceOf(account, atBlock = 'latest') {
-    // if (!this.contract) {
-    //   await this.initContract();
-    // }
+    if (!this.contract) {
+      await this.initContract();
+    }
 
     const balanceOf = await this.contract.methods
       .balanceOf(account)
