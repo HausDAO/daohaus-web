@@ -5,6 +5,7 @@ export default class TokenService {
   contractAddr;
   web3Service;
   contract;
+  contract32;
   abi;
 
   constructor(daoToken, web3Service) {
@@ -20,19 +21,26 @@ export default class TokenService {
 
   async getSymbol() {
     let symbol;
-    
+
     try {
-      const contract = await this.initContract(Erc20Abi);
-      symbol = await contract.methods.symbol().call();
+      if (!this.contract) {
+        this.contract = await this.initContract(Erc20Abi);
+        console.log('this.contract', this.contract);
+      }
+
+      symbol = await this.contract.methods.symbol().call();
     } catch {
-      const contract = await this.initContract(Erc20Bytes32Abi);
-      const hexString = await contract.methods.symbol().call();
+      if (!this.contract32) {
+        this.contract32 = await this.initContract(Erc20Bytes32Abi);
+        console.log('this.contract32', this.contract32);
+      }
+
+      const hexString = await this.contract32.methods.symbol().call();
       symbol = this.web3Service.toUtf8(hexString);
     }
 
     return symbol;
   }
-
 
   async totalSupply() {
     if (!this.contract) {
