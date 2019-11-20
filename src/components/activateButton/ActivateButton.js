@@ -36,7 +36,8 @@ const ActivateButton = () => {
       )}
       {!context.active && !context.error && (
         <button className="AuthButton" onClick={() => activate()}>
-          <img src={IconEthereum} alt="eth logo" /> Sign in<span> with Ethereum</span>
+          <img src={IconEthereum} alt="eth logo" /> Sign in
+          <span> with Ethereum</span>
         </button>
       )}
     </>
