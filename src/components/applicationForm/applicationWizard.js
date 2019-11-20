@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
+import TokenAbi from '../../contracts/erc20';
 
 import { FormikWizard } from 'formik-wizard';
 
@@ -9,11 +10,11 @@ import { useWeb3Context } from 'web3-react';
 import Loading from '../loading/Loading';
 
 import {
-  WethContext,
-  DaiContext,
   Web3Context,
 } from '../../contexts/ContractContexts';
 import { addressToToken } from '../../util/constants';
+import TokenService from '../../util/tokenService';
+
 
 function FormWrapper({
   children,
@@ -46,8 +47,7 @@ const ApplicationWizard = props => {
 
   const context = useWeb3Context();
   const [web3Service] = useContext(Web3Context);
-  const [wethService] = useContext(WethContext);
-  const [daiService] = useContext(DaiContext);
+
 
   let currency = '';
   const handleSubmit = async values => {
@@ -57,11 +57,13 @@ const ApplicationWizard = props => {
       console.log('contract', contract);
 
       const daoToken = await contract.methods.approvedToken().call();
-      if (addressToToken[daoToken] === 'Weth') {
-        currency = wethService;
-      } else {
-        currency = daiService;
-      }
+
+      //currency = new TokenService(daoToken, web3Service);
+      currency = await web3Service.initContract(
+        TokenAbi,
+        daoToken,
+      );
+      
 
       const application = {
         name: values.personal.name,
@@ -73,7 +75,7 @@ const ApplicationWizard = props => {
         status: 'new',
       };
 
-      await currency.contract.methods
+      await currency.methods
         .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
         .send({ from: context.account })
         .once('transactionHash', txHash => {
