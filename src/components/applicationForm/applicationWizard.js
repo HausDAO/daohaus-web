@@ -51,6 +51,7 @@ const ApplicationWizard = props => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const [txHash, settxHash] = useState('');
   const [formError, setformError] = useState('');
   const [, setDaoData] = useState({});
 
@@ -106,7 +107,8 @@ const ApplicationWizard = props => {
       await tokenService.contract.methods
         .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
         .send({ from: context.account })
-        .once('transactionHash', txHash => {
+        .once('transactionHash', _txHash => {
+          settxHash(_txHash);
           post(`moloch/apply`, application)
             .then(() => {
               console.log({
@@ -133,11 +135,22 @@ const ApplicationWizard = props => {
           console.log(err);
           if (err.code === 4001) {
             setformError(`Approval rejected by user. Please try again.`);
-          } else {
-            setformError(`Something went wrong. Please try again.`);
+            return { error: err };
           }
 
-          return { error: 'rejected transaction' };
+          if (
+            err.indexOf('Error: Transaction was not mined within 50 blocks') >
+            -1
+          ) {
+            setformError(
+              `rejected transaction is taking a long time. tx hash: ${txHash}`,
+            );
+            return { error: err };
+          }
+
+          setformError(`Something went wrong. Please try again.`);
+
+          return { error: 'rejected transaction is taking a long time. ' };
         });
     } catch (err) {
       setLoading(false);

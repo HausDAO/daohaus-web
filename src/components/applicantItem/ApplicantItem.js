@@ -29,12 +29,13 @@ const ApplicantItem = props => {
           profile = {};
         }
 
-        if (daoData.approvedToken && tokenService) {
+        if (daoData.tokenInfo.address && tokenService) {
           const allowance = await tokenService.allowance(
             _applicant,
             daoData.moloch,
           );
           const balanceOf = await tokenService.balanceOf(_applicant);
+          
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
