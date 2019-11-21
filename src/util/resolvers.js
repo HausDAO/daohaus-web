@@ -10,6 +10,7 @@ import {
   GET_MEMBERDATA_LEGACY,
   GET_MEMBERDATA,
   GET_PROPOSALS,
+  GET_PROPOSALS_LEGACY,
 } from './queries';
 
 let _web3;
@@ -55,13 +56,20 @@ export const resolvers = (() => {
           console.log('error on dao api call', e);
         }
 
-        if (apiData.isLegacy && apiData.graphNodeUri) {
-          let legacyData = await legacyGraph(
-            apiData.graphNodeUri,
-            GET_MEMBERDATA_LEGACY,
-          );
-          apiData.legacyData = legacyData.data.data;
-        }
+      if (apiData.isLegacy && apiData.graphNodeUri) {
+        let legacyData = await legacyGraph(
+          apiData.graphNodeUri,
+          GET_MEMBERDATA_LEGACY,
+        );
+        apiData.legacyData = legacyData.data.data;
+
+        let legacyProposals = await legacyGraph(
+          apiData.graphNodeUri,
+          GET_PROPOSALS_LEGACY,
+        );
+
+        apiData.legacyData.proposals = legacyProposals.data.data.proposals;
+      }
 
         return apiData;
       },

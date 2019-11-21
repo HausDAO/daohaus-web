@@ -57,6 +57,7 @@ export const GET_MOLOCHES_STATS = gql`
       totalShares @client
       apiDataStats @client
       newContractMembers @client
+      newContractProposals @client
     }
   }
 `;
@@ -65,10 +66,13 @@ export const GET_PROPOSALS = gql`
   query proposals($contractAddr: String!) {
     proposals(where: { molochAddress: $contractAddr }) {
       id
+      votes {
+        id
+      }
     }
   }
 `;
 
 export const GET_PROPOSALS_LEGACY = {
-  query: 'query proposals { proposals { id }}',
+  query: 'query proposals { proposals { id, votes { id } }}',
 };
