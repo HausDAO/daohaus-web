@@ -1,7 +1,6 @@
 import { Field, useFormikContext } from "formik";
 import React from "react";
 
-import { tokenToAddress } from "../../util/constants";
 
 const CurrencyInfo = () => {
   const { errors, touched } = useFormikContext();
@@ -17,8 +16,8 @@ const CurrencyInfo = () => {
       </svg>
 
       <Field component="select" name="approvedToken">
-        <option value={tokenToAddress.Dai}>DAI</option>
-        <option value={tokenToAddress.Weth}>WETH</option>
+        <option value={'0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359'}>DAI</option>
+        <option value={'0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'}>WETH</option>
       </Field>
       </div>
 

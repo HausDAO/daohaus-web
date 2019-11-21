@@ -161,7 +161,7 @@ const SummonWizard = props => {
               />
             </>
           ) : (
-            <Loading />
+            <Loading msg={'Summoning'} />
           )}
         </>
       ) : (

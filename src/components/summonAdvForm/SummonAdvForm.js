@@ -1,85 +1,81 @@
-import React, { useState, useContext } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { withRouter } from 'react-router-dom';
 
-import FactoryAbi from "../../contracts/factory.json";
+import FactoryAbi from '../../contracts/factory.json';
 
-import { post, remove } from "../../util/requests";
+import { post, remove } from '../../util/requests';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useWeb3Context } from "web3-react";
-import Loading from "../loading/Loading";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useWeb3Context } from 'web3-react';
+import Loading from '../loading/Loading';
 
-import {
-  Web3Context,
-} from '../../contexts/ContractContexts';
+import { Web3Context } from '../../contexts/ContractContexts';
 
-import "./SummonAdvForm.scss";
+import './SummonAdvForm.scss';
 
 // import Loading from '../shared/Loading';
 
-const SummonAdvForm = (props) => {
+const SummonAdvForm = props => {
   const [loading, setLoading] = useState(false);
   const context = useWeb3Context();
   const [web3Service] = useContext(Web3Context);
 
-
   return (
     <>
-      {loading && <Loading />}
+      {loading && <Loading msg={'Summoning'} />}
 
       <h2>Summon (Hard Mode)</h2>
       <Formik
         initialValues={{
-          name: "",
-          description: "",
-          approvedToken: "",
-          periodDuration: "",
-          votingPeriodLength: "",
-          gracePeriodLength: "",
-          abortWindow: "",
-          proposalDeposit: "",
-          processingReward: "",
-          dilutionBound: ""
+          name: '',
+          description: '',
+          approvedToken: '',
+          periodDuration: '',
+          votingPeriodLength: '',
+          gracePeriodLength: '',
+          abortWindow: '',
+          proposalDeposit: '',
+          processingReward: '',
+          dilutionBound: '',
         }}
         validate={values => {
           let errors = {};
           if (!values.summoner) {
-            errors.summoner = "Required";
+            errors.summoner = 'Required';
           }
           if (!values.name) {
-            errors.name = "Required";
+            errors.name = 'Required';
           }
           if (!values.description) {
-            errors.description = "Required";
+            errors.description = 'Required';
           }
           if (!values.approvedToken) {
-            errors.approvedToken = "Required";
+            errors.approvedToken = 'Required';
           }
           if (!values.periodDuration) {
-            errors.periodDuration = "Required";
+            errors.periodDuration = 'Required';
           }
           if (!values.votingPeriodLength) {
-            errors.votingPeriodLength = "Required";
+            errors.votingPeriodLength = 'Required';
           }
           if (!values.gracePeriodLength) {
-            errors.gracePeriodLength = "Required";
+            errors.gracePeriodLength = 'Required';
           }
           if (!values.abortWindow) {
-            errors.abortWindow = "Required";
+            errors.abortWindow = 'Required';
           }
           if (!values.proposalDeposit) {
-            errors.proposalDeposit = "Required";
+            errors.proposalDeposit = 'Required';
           }
           if (!values.processingReward) {
-            errors.processingReward = "Required";
+            errors.processingReward = 'Required';
           }
           if (!values.dilutionBound) {
-            errors.dilutionBound = "Required";
+            errors.dilutionBound = 'Required';
           }
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-
           setLoading(true);
           try {
             const cacheMoloch = {
@@ -93,7 +89,7 @@ const SummonAdvForm = (props) => {
 
             const factoryContract = await web3Service.initContract(
               FactoryAbi,
-              process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS
+              process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS,
             );
 
             await factoryContract.methods
@@ -106,29 +102,29 @@ const SummonAdvForm = (props) => {
                 web3Service.toWei(values.proposalDeposit),
                 values.dilutionBound,
                 web3Service.toWei(values.processingReward),
-                values.name.trim()
+                values.name.trim(),
               )
               .send(
                 {
-                  from: context.account
+                  from: context.account,
                 },
                 function(error, transactionHash) {
                   console.log(error, transactionHash);
-                }
+                },
               )
-              .on("error", function(error) {
+              .on('error', function(error) {
                 if (error.code === 4001) {
                   //remove from cache
                   remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
                     console.log('dao rejected, remove cache');
                   });
-                } 
+                }
                 console.log(error);
               })
-              .on("transactionHash", function(transactionHash) {
+              .on('transactionHash', function(transactionHash) {
                 console.log(transactionHash);
               })
-              .on("receipt", function(receipt) {
+              .on('receipt', function(receipt) {
                 console.log(receipt.events.Register); // contains the new contract address
                 const contractAddress =
                   receipt.events.Register.returnValues.moloch;
@@ -138,29 +134,28 @@ const SummonAdvForm = (props) => {
                   contractAddress: contractAddress,
                   name: values.name.trim(),
                   minimumTribute: values.minimumTribute,
-                  description: values.description
+                  description: values.description,
                 };
 
-                post("moloch", newMoloch)
+                post('moloch', newMoloch)
                   .then(newMolochRes => {
-
-
-                      //remove from cache and redirect
-                      remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-                        props.history.push(`/doa/${contractAddress.toLowerCase()}`);
-                      });
-
+                    //remove from cache and redirect
+                    remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
+                      props.history.push(
+                        `/doa/${contractAddress.toLowerCase()}`,
+                      );
+                    });
                   })
                   .catch(err => {
                     setLoading(false);
-                    console.log("moloch creation error", err);
+                    console.log('moloch creation error', err);
                   });
 
                 resetForm();
                 setLoading(false);
                 setSubmitting(false);
               })
-              .on("confirmation", function(confirmationNumber, receipt) {
+              .on('confirmation', function(confirmationNumber, receipt) {
                 console.log(confirmationNumber, receipt);
               })
               .then(function(newContractInstance) {
@@ -178,7 +173,7 @@ const SummonAdvForm = (props) => {
           <Form>
             <Field name="name">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Name</label>
                   <input type="text" {...field} />
                 </div>
@@ -191,7 +186,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="description">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Description</label>
                   <input type="text" {...field} />
                 </div>
@@ -204,7 +199,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="approvedToken">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>
                     Approved Token (ERC-20 Contract Address - needs Approve)
                   </label>
@@ -219,7 +214,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="periodDuration">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Period Duration (Seconds)</label>
                   <input
                     min="0"
@@ -238,7 +233,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="votingPeriodLength">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Voting Period Length (Number of Periods)</label>
                   <input
                     min="0"
@@ -257,7 +252,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="gracePeriodLength">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Grace Period Length (Number of Periods)</label>
                   <input
                     min="0"
@@ -276,7 +271,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="abortWindow">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Abort Window (Number of Periods)</label>
                   <input
                     min="0"
@@ -295,7 +290,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="minumumTribute">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Minumum Tribute (Base Currency)</label>
                   <input
                     min="0"
@@ -314,7 +309,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="proposalDeposit">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Proposal Deposit (Base Currency 18 decimals)</label>
                   <input
                     min="0"
@@ -333,7 +328,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="processingReward">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Processing Reward (Base Currency 18 decimals)</label>
                   <input
                     min="0"
@@ -352,7 +347,7 @@ const SummonAdvForm = (props) => {
 
             <Field name="dilutionBound">
               {({ field, form }) => (
-                <div className={field.value ? "Field HasValue" : "Field "}>
+                <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Dilution Bound (Use 3 if not sure)</label>
                   <input
                     min="0"

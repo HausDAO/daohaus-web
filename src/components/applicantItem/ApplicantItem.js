@@ -7,10 +7,7 @@ import makeBlockie from 'ethereum-blockies-base64';
 import { truncateAddr } from '../../util/helpers';
 
 import './ApplicantItem.scss';
-import {
-  TokenContext,
-  Web3Context,
-} from '../../contexts/ContractContexts';
+import { TokenContext, Web3Context } from '../../contexts/ContractContexts';
 
 const ApplicantItem = props => {
   const { applicant, daoData, contract } = props;
@@ -31,13 +28,13 @@ const ApplicantItem = props => {
         } catch {
           profile = {};
         }
-        
+
         if (daoData.approvedToken && tokenService) {
-          const allowance = await tokenService.methods.allowance(
+          const allowance = await tokenService.allowance(
             _applicant,
             daoData.moloch,
-          ).call();
-          const balanceOf = await tokenService.methods.balanceOf(_applicant).call();
+          );
+          const balanceOf = await tokenService.balanceOf(_applicant);
 
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,
@@ -48,7 +45,6 @@ const ApplicantItem = props => {
               profile: profile,
             },
           ]);
-
         } else {
           setCurrentApplicant(currentApplicant => [
             ...currentApplicant,

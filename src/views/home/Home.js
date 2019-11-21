@@ -13,10 +13,12 @@ import './Home.scss';
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
+
   const filterDaos = daos => {
     return _.sortBy(daos.filter(dao => !dao.apiData.hide), dao => {
       return +dao.tokenInfo.guildBankValue;
     }).reverse();
+
   };
 
   return (

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+
 import { Doughnut } from 'react-chartjs-2';
 
 import { Web3Context } from '../../contexts/ContractContexts';
@@ -12,10 +13,9 @@ const GuildBanks = props => {
   const [web3Service] = useContext(Web3Context);
   const [prices, setPrices] = useState();
   // const [molochOn, setMolochOn] = useState(true);
-  // const [barDaos, setBarDaos] = useState(data.factories);
+
   const [barDaos] = useState(data.factories);
 
-  console.log('data', data);
 
   useEffect(() => {
     const fetchPrices = async () => {

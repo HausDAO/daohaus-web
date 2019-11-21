@@ -27,7 +27,6 @@ const Profile = props => {
       }
 
       const profile = await getProfile(props.match.params.account);
-      console.log('profile', profile);
       setProfile(profile);
     };
 
