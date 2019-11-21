@@ -13,8 +13,7 @@ import {
   MolochContext,
   TokenContext,
 } from '../../contexts/ContractContexts';
-import DaoAbi from '../../contracts/moloch';
-import TokenAbi from '../../contracts/erc20';
+
 import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 
