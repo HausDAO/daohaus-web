@@ -8,7 +8,11 @@ import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
 import ApplicationList from '../../components/applicationList/ApplicationList';
 
-import { Web3Context, MolochContext, TokenContext } from '../../contexts/ContractContexts';
+import {
+  Web3Context,
+  MolochContext,
+  TokenContext,
+} from '../../contexts/ContractContexts';
 import DaoAbi from '../../contracts/moloch';
 import TokenAbi from '../../contracts/erc20';
 import { get } from '../../util/requests';
@@ -42,7 +46,7 @@ const Dao = props => {
   }, [web3Service]);
 
   useEffect(() => {
-    if(!_.isEmpty(daoData)) {
+    if (!_.isEmpty(daoData)) {
       getMembers(daoData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,10 +58,8 @@ const Dao = props => {
         DaoAbi,
         props.match.params.contractAddress,
       );
-      console.log('contract', contract);
-      
-      setMolochContract(contract);
 
+      setMolochContract(contract);
     }
   };
 
@@ -70,8 +72,7 @@ const Dao = props => {
     isLoading && setLoading(loading);
     isError && setError(error);
 
-    if (data && web3Service) { 
-
+    if (data && web3Service) {
       const tokenContract = await web3Service.initContract(
         TokenAbi,
         data.factories[0].tokenInfo.address,

@@ -5,9 +5,9 @@ import IconEthereum from '../../assets/icon__ethereum.png';
 
 import './ActivateButton.scss';
 
-const ActivateButton = () => {
+const ActivateButton = props => {
+  const msg = props.msg || '';
   const context = useWeb3Context();
-  console.log(context);
 
   const activate = async () => {
     await context.setConnector('MetaMask');
@@ -36,7 +36,13 @@ const ActivateButton = () => {
       )}
       {!context.active && !context.error && (
         <button className="AuthButton" onClick={() => activate()}>
-          <img src={IconEthereum} alt="eth logo" /> Sign in<span> with Ethereum</span>
+          {msg ? (
+            <span>{msg}</span>
+          ) : (
+            <span>
+              <img src={IconEthereum} alt="eth logo" /> Sign in with Ethereum
+            </span>
+          )}
         </button>
       )}
     </>

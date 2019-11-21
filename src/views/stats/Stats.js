@@ -11,7 +11,7 @@ import GuildBanks from '../../components/stats/GuildBank';
 const Stats = props => {
   const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
 
-  console.log('data', data);
+  // console.log('data', data);
 
   const totalDaos = () => {
     return data.factories.length;

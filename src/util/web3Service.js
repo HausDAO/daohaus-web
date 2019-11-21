@@ -1,24 +1,21 @@
-
 export default class Web3Service {
   constructor(web3) {
     console.log('init web3');
-    
     this.web3 = web3;
     // this.web3.currentProvider.setMaxListeners(300); kills mobile
   }
 
-  createContract(abi) {
-    let contract = new this.web3.eth.Contract(abi);
+  initContract(abi, address) {
+    let contract = new this.web3.eth.Contract(abi, address);
     return contract;
-
   }
 
-  getKeyStore(privateKey, password){
+  getKeyStore(privateKey, password) {
     return this.web3.eth.accounts.encrypt(privateKey, password);
   }
 
-  async latestBlock(){
-    return await this.web3.eth.getBlock("latest");
+  async latestBlock() {
+    return await this.web3.eth.getBlock('latest');
   }
 
   fromWei(amount) {
@@ -33,7 +30,7 @@ export default class Web3Service {
     return this.web3.utils.toWei(amount.toString(), 'ether');
   }
 
-  toUtf8(hexString){
+  toUtf8(hexString) {
     return this.web3.utils.hexToUtf8(hexString);
   }
 
@@ -43,10 +40,6 @@ export default class Web3Service {
 
   getTransaction(hash) {
     return this.web3.eth.getTransaction(hash);
-  }
-
-  initContract(abi, addr) {
-    return new this.web3.eth.Contract(abi, addr);
   }
 
   getBalance(addr) {

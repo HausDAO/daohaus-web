@@ -26,7 +26,6 @@ const ContractContexts = ({ children }) => {
         //   _web3 = new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI)
 
         // }
-        console.log(_web3);
       } else {
         console.log('net web3');
         _web3 = new Web3(
@@ -34,7 +33,6 @@ const ContractContexts = ({ children }) => {
         );
       }
       const web3Service = new Web3Service(_web3);
-      console.log('web3service', web3Service);
       setWeb3(web3Service);
     };
     setUp();

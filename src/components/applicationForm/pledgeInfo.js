@@ -1,19 +1,17 @@
 import { FastField, useFormikContext } from 'formik';
 import React, { useState, useEffect, useContext } from 'react';
-import { MolochContext } from '../../contexts/ContractContexts';
+import { TokenContext } from '../../contexts/ContractContexts';
 
 import { withRouter } from 'react-router-dom';
-import { addressToToken } from '../../util/constants';
 
-function PledgeInfo(props) {
+function PledgeInfo() {
   const { errors, touched } = useFormikContext();
   const [contractData, setContractData] = useState({});
-  const [molochContext] = useContext(MolochContext);
+  const [tokenContext] = useContext(TokenContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = await molochContext.methods.approvedToken().call();
-      const tokenSymbol = "ERC20";
+      const tokenSymbol = await tokenContext.getSymbol();
       setContractData({ tokenSymbol });
     };
 
