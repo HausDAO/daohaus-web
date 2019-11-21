@@ -41,6 +41,7 @@ const SummonWizard = props => {
   const [loading, setLoading] = useState(false);
   const [runOnce, setRunOnce] = useState(false);
   const [formError, setformError] = useState('');
+  const [txHash, setTxHash] = useState();
 
   const [web3Service] = useContext(Web3Context);
 
@@ -90,20 +91,29 @@ const SummonWizard = props => {
           },
           function(error, transactionHash) {
             console.log(error, transactionHash);
+            setTxHash(transactionHash);
           },
         )
-        .on('error', function(error) {
+        .on('error', function(err) {
           setLoading(false);
-          if (error.code === 4001) {
+          if (err.code === 4001) {
             //remove from cache
             remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
               console.log('dao rejected, remove cache');
             });
             setformError(`User Rejected. please try again`);
+          } else if (
+            err.indexOf('Error: Transaction was not mined within 50 blocks') >
+            -1
+          ) {
+            setformError(
+              `rejected transaction is taking a long time. tx hash: ${txHash}`,
+            );
+            return { error: err };
           } else {
             setformError(`Something went wrong. please try again`);
           }
-          console.log('moloch creation error', error);
+          console.log('moloch creation error', err);
         })
         .on('transactionHash', function(transactionHash) {
           console.log(transactionHash);

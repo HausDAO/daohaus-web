@@ -19,6 +19,8 @@ import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 
 import './Dao.scss';
+import TokenService from '../../util/tokenService';
+import MolochService from '../../util/molochService';
 
 const Dao = props => {
   const context = useWeb3Context();
@@ -30,8 +32,8 @@ const Dao = props => {
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
-  const [molochContract, setMolochContract] = useContext(MolochContext);
-  const [, setTokenContract] = useContext(TokenContext);
+  const [molochService, setMolochService] = useContext(MolochContext);
+  const [, setTokenService] = useContext(TokenContext);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -54,12 +56,10 @@ const Dao = props => {
 
   const setUpContract = async () => {
     if (web3Service) {
-      const contract = await web3Service.initContract(
-        DaoAbi,
-        props.match.params.contractAddress,
-      );
+      const molochService = new MolochService(props.match.params.contractAddress, web3Service);
+      await molochService.initContract();
 
-      setMolochContract(contract);
+      setMolochService(molochService);
     }
   };
 
@@ -73,13 +73,16 @@ const Dao = props => {
     isError && setError(error);
 
     if (data && web3Service) {
-      const tokenContract = await web3Service.initContract(
-        TokenAbi,
+
+      const tokenService = new TokenService(
         data.factories[0].tokenInfo.address,
+        web3Service,
       );
+      await tokenService.initContract();
+
 
       setDaoData(data.factories[0]);
-      setTokenContract(tokenContract);
+      setTokenService(tokenService);
       getMembers(data.factories[0]);
     }
   };
@@ -115,6 +118,8 @@ const Dao = props => {
     });
 
     checkIfMemberOrApplicant(memberAddresses, members);
+    console.log('members', members);
+    
     setMemberData(members);
   };
 
@@ -136,10 +141,10 @@ const Dao = props => {
       {loading ? <p>THE HAUS IS LOADING THE DAO</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}
 
-      {updateDelegateView ? (
-        <UpdateDelegate contract={molochContract} />
+      {updateDelegateView && molochService ? (
+        <UpdateDelegate contract={molochService.contract} />
       ) : updateRageView ? (
-        <RageQuit contract={molochContract} />
+        <RageQuit contract={molochService.contract} />
       ) : (
         <>
           {daoData.id ? (
@@ -178,11 +183,11 @@ const Dao = props => {
             <>{<ApplyButton contractAddress={daoData.id} />}</>
           )}
 
-          {memberData ? (
+          {memberData && molochService ? (
             <ApplicationList
               members={memberData}
               daoData={daoData}
-              contract={molochContract}
+              contract={molochService.contract}
             />
           ) : null}
         </>
