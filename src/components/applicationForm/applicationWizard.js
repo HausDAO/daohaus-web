@@ -1,6 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import TokenAbi from '../../contracts/erc20';
 
 import { FormikWizard } from 'formik-wizard';
 
@@ -11,10 +10,15 @@ import Loading from '../loading/Loading';
 
 import {
   Web3Context,
+  TokenContext,
+  MolochContext,
 } from '../../contexts/ContractContexts';
-import { addressToToken } from '../../util/constants';
-import TokenService from '../../util/tokenService';
 
+import TokenService from '../../util/tokenService';
+import MolochService from '../../util/molochService';
+
+import { useApolloClient } from 'react-apollo';
+import { GET_MOLOCH } from '../../util/queries';
 
 function FormWrapper({
   children,
@@ -41,30 +45,54 @@ function FormWrapper({
 }
 
 const ApplicationWizard = props => {
-  const { contractAddress, contract, history } = props;
+  const { contractAddress, history } = props;
+  const client = useApolloClient();
+
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   const [formError, setformError] = useState('');
+  const [, setDaoData] = useState({});
 
   const context = useWeb3Context();
   const [web3Service] = useContext(Web3Context);
+  const [tokenService, setTokenService] = useContext(TokenContext);
+  const [, setMolochService] = useContext(MolochContext);
 
+  useEffect(() => {
+    getDao();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [web3Service]);
 
-  let currency = '';
+  const getDao = async () => {
+    const { isLoading, isError, data } = await client.query({
+      query: GET_MOLOCH,
+      variables: { contractAddr: contractAddress },
+    });
+
+    isLoading && setLoading(loading);
+    isError && setError(error);
+
+    if (data && web3Service) {
+      const molochService = new MolochService(contractAddress, web3Service);
+      await molochService.initContract();
+
+      const tokenService = new TokenService(
+        data.factories[0].tokenInfo.address,
+        web3Service,
+      );
+      await tokenService.initContract();
+
+      setDaoData(data.factories[0]);
+      setTokenService(tokenService);
+      setMolochService(molochService);
+    }
+  };
+
   const handleSubmit = async values => {
     setLoading(true);
 
     try {
-      console.log('contract', contract);
-
-      const daoToken = await contract.methods.approvedToken().call();
-
-      //currency = new TokenService(daoToken, web3Service);
-      currency = await web3Service.initContract(
-        TokenAbi,
-        daoToken,
-      );
-      
-
       const application = {
         name: values.personal.name,
         bio: values.personal.bio,
@@ -75,20 +103,21 @@ const ApplicationWizard = props => {
         status: 'new',
       };
 
-      await currency.methods
+      await tokenService.contract.methods
         .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
         .send({ from: context.account })
         .once('transactionHash', txHash => {
-          post(`moloch/apply`, application).then(()=>{
-            console.log({
-              message: 'thanks for signaling, appoving tokens now',
+          post(`moloch/apply`, application)
+            .then(() => {
+              console.log({
+                message: 'thanks for signaling, appoving tokens now',
+              });
+            })
+            .catch(err => {
+              console.log({
+                message: err,
+              });
             });
-          }).catch((err) => {
-            console.log({
-              message: err,
-            });
-          });
-
         })
         .on('receipt', async receipt => {
           console.log(receipt);
@@ -102,7 +131,11 @@ const ApplicationWizard = props => {
         .catch(err => {
           setLoading(false);
           console.log(err);
-          setformError(`Something went wrong. please try again`);
+          if (err.code === 4001) {
+            setformError(`Approval rejected by user. Please try again.`);
+          } else {
+            setformError(`Something went wrong. Please try again.`);
+          }
 
           return { error: 'rejected transaction' };
         });
@@ -120,7 +153,7 @@ const ApplicationWizard = props => {
         <>
           {!loading ? (
             <>
-              {formError && <p>{formError}</p>}
+              {formError && <small style={{ color: 'red' }}>{formError}</small>}
               <FormikWizard
                 steps={steps}
                 onSubmit={handleSubmit}
@@ -128,7 +161,7 @@ const ApplicationWizard = props => {
               />
             </>
           ) : (
-            <Loading />
+            <Loading msg={'Pledging'} />
           )}
         </>
       ) : (

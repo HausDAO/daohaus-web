@@ -2,18 +2,16 @@ import { useFormikWizard } from 'formik-wizard';
 import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { MolochContext } from '../../contexts/ContractContexts';
-import { addressToToken } from '../../util/constants';
+import { TokenContext } from '../../contexts/ContractContexts';
 
 function Summary(props) {
   const { values } = useFormikWizard();
   const [contractData, setContractData] = useState({});
-  const [molochContext] = useContext(MolochContext);
+  const [tokenContext] = useContext(TokenContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = await molochContext.methods.approvedToken().call();
-      const tokenSymbol = "ERC20";
+      const tokenSymbol = await tokenContext.getSymbol();
       setContractData({ tokenSymbol });
     };
 

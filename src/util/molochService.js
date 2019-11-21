@@ -1,5 +1,4 @@
 import DaoAbi from '../contracts/moloch';
-import { addressToToken } from './constants';
 
 export default class MolochService {
   contractAddr;
@@ -19,6 +18,7 @@ export default class MolochService {
       this.daoAbi,
       this.contractAddr,
     );
+    return this.contract;
   }
 
   async getAllEvents() {
@@ -201,7 +201,6 @@ export default class MolochService {
 
     return info;
   }
-
 
   async processProposal(from, id, encodedPayload) {
     if (!this.contract) {

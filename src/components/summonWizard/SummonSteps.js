@@ -5,7 +5,6 @@ import CurrencyInfo from "./CurrencyInfo";
 import TimingInfo from "./TimingInfo";
 import DepositInfo from "./DepositInfo";
 import SummonSummary from "./SummonSummary";
-import { tokenToAddress } from "../../util/constants";
 
 export default [
   {
@@ -24,7 +23,7 @@ export default [
     id: "currency",
     component: CurrencyInfo,
     initialValues: {
-      approvedToken: tokenToAddress.Dai,
+      approvedToken: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', //WETH
       minimumTribute: ""
     },
     validationSchema: object().shape({
