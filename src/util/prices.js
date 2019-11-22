@@ -20,11 +20,11 @@ export const getPrices = async () => {
     headers: { 'Content-Type': 'application/json' },
   });
 
-  try {
+  
     const eth = await instance.get(`/ethereum`);
     const dai = await instance.get(`/dai`);
-    return { Weth: eth.data.data.priceUsd, Dai: dai.data.data.priceUsd };
-  } catch (err) {
-    throw new Error(err);
-  }
+    return { weth: eth.data.data.priceUsd, dai: dai.data.data.priceUsd };
+  // } catch (err) {
+  //   throw new Error(err);
+  // }
 };

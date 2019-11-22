@@ -1,5 +1,5 @@
 export const formatTotalUsd = (value, prices) => {
-  return (value.Dai * prices.Dai + value.Weth * prices.Weth).toLocaleString(
+  return (value.dai * prices.dai + value.weth * prices.weth).toLocaleString(
     undefined,
     { maximumFractionDigits: 2 },
   );
