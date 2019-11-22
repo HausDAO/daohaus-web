@@ -16,10 +16,10 @@ const GuildBanks = props => {
 
   const [barDaos] = useState(data.factories);
 
-
   useEffect(() => {
     const fetchPrices = async () => {
       const pricesRes = await getPrices();
+
       setPrices(pricesRes);
     };
 
@@ -28,12 +28,16 @@ const GuildBanks = props => {
   }, [web3Service]);
 
   const barData = () => {
+    const bgColors = barDaos.map(dao =>
+      dao.moloch.replace('0x', '#').substring(0, 7),
+    );
+
     let barData = {
       labels: [],
       datasets: [
         {
           label: 'Balance (USD)',
-          backgroundColor: 'rgba(254, 92, 92, 1)',
+          backgroundColor: bgColors,
           hoverBackgroundColor: 'rgba(254, 92, 92,0.4)',
           data: [],
         },
@@ -43,7 +47,7 @@ const GuildBanks = props => {
       if (+dao.tokenInfo.guildBankValue) {
         barData.labels.push(dao.title);
         const value = +web3Service.fromWei(dao.tokenInfo.guildBankValue);
-        const usd = toUsd(dao.approvedToken, value, prices);
+        const usd = toUsd(dao.tokenInfo.symbol.toLowerCase(), value, prices);
         barData.datasets[0].data.push(usd);
       }
     });
@@ -59,10 +63,12 @@ const GuildBanks = props => {
   const totalGuildBank = () => {
     const value = data.factories.reduce(
       (sum, dao) => {
-        sum[dao.approvedToken] += +web3Service.fromWei(dao.tokenInfo.guildBankValue);
+        sum[dao.tokenInfo.symbol.toLowerCase()] += +web3Service.fromWei(
+          dao.tokenInfo.guildBankValue,
+        );
         return sum;
       },
-      { Weth: 0, Dai: 0 },
+      { weth: 0, dai: 0, plr: 0 },
     );
 
     return prices ? (
@@ -76,7 +82,7 @@ const GuildBanks = props => {
             <div className="Stat_group">
               <p className="Label">Total Eth</p>
               <p className="Value">
-                {value.Weth.toLocaleString(undefined, {
+                {value.weth.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
               </p>
@@ -84,7 +90,7 @@ const GuildBanks = props => {
             <div className="Stat_group">
               <p className="Label">Total Dai</p>
               <p className="Value">
-                {value.Dai.toLocaleString(undefined, {
+                {value.dai.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}
               </p>
@@ -101,9 +107,7 @@ const GuildBanks = props => {
               /> */}
             </div>
 
-            <Doughnut 
-              data={barData(data.factories)} 
-            />
+            <Doughnut data={barData(data.factories)} />
           </div>
         </div>
       </>
