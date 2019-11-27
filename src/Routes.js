@@ -12,10 +12,10 @@ import FourOhFour from './views/fourOhFour/FourOhFour';
 const Routes = () => (
   <Switch>
     <Route path="/" exact component={Home} />
-    <Route path="/dao/:contractAddress" exact component={Dao} />
-    <Route path="/apply/:contractAddress" exact component={Apply} />
+    <Route path="/dao/:contractAddress(\b0x[0-9a-f]{10,40}\b)" exact component={Dao} />
+    <Route path="/apply/:contractAddress(\b0x[0-9a-f]{10,40}\b)" exact component={Apply} />
     <Route path="/summon" exact component={Summon} />
-    <Route path="/profile/:account" exact component={Profile} />
+    <Route path="/profile/:account(\b0x[0-9a-f]{10,40}\b)" exact component={Profile} />
     <Route path="/stats" exact component={Stats} />
     <Route path="*" component={FourOhFour} />
   </Switch>

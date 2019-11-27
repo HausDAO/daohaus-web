@@ -36,6 +36,7 @@ const Dao = props => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
     getDao();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,7 +73,10 @@ const Dao = props => {
     isError && setError(error);
 
     if (data && web3Service) {
-
+      if (!data.factories[0]) {
+        props.history.push(`/DaoProcessingOrLost`);
+        return false;
+      }
       const tokenService = new TokenService(
         data.factories[0].tokenInfo.address,
         web3Service,

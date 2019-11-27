@@ -5,26 +5,32 @@ import { useWeb3Context } from 'web3-react';
 import { get } from '../../util/requests';
 import DaoList from '../../components/daoList/DaoList';
 import ApplicationShortList from '../../components/applicationList/ApplicationShortList';
+import { useQuery } from 'react-apollo';
+import { GET_MOLOCHES } from '../../util/queries';
 
 const Profile = props => {
   const context = useWeb3Context();
-  const [molochs, setMolochs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [profile, setProfile] = useState({});
+  const { loading, error, data } = useQuery(GET_MOLOCHES);
+
+  const filterDaos = daos => {
+    return daos
+      .filter(
+        dao =>
+          !dao.apiData.hide &&
+          dao.summoner.toLowerCase() ===
+            props.match.params.account.toLowerCase(),
+      )
+      .reverse();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      if (context.account === props.match.params.account) {
-        const daoRes = await get(`moloch/`);
-        setMolochs(
-          daoRes.data.filter(moloch => {
-            return moloch.summonerAddress === context.account;
-          }),
-        );
-
-        const applicationRes = await get(`applications/${context.account}`);
-        setApplications(applicationRes.data);
-      }
+      const applicationRes = await get(
+        `applications/${props.match.params.account}`,
+      );
+      setApplications(applicationRes.data);
 
       const profile = await getProfile(props.match.params.account);
       setProfile(profile);
@@ -75,17 +81,18 @@ const Profile = props => {
           {profile.website}
         </a>
       ) : null}
-
-      {molochs.length ? (
+      {loading ? <p>THE HAUS IS LOADING THE DAOS</p> : null}
+      {error ? <p>Error - are you on mainnet?</p> : null}
+      {data ? (
         <div className="Section">
-          <h2>I am the Summoner of these Molochs</h2>
-          <DaoList daos={molochs} />
+          <h2>Summoner of these Molochs</h2>
+          <DaoList daos={filterDaos(data.factories)} />
         </div>
       ) : null}
 
       {applications.length ? (
         <>
-          <h2>I have pledged to these Molochs</h2>
+          <h2>Pledged to these Molochs</h2>
           <ApplicationShortList applications={applications} />
         </>
       ) : null}
