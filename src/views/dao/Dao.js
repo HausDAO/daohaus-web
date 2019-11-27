@@ -121,7 +121,6 @@ const Dao = props => {
     });
 
     checkIfMemberOrApplicant(memberAddresses, members);
-    console.log('members', members);
     
     setMemberData(members);
   };
