@@ -6,6 +6,7 @@ import './DaoList.scss';
 
 const DaoList = props => {
   const { daos } = props;
+  console.log('list daos', daos)
 
   const daoList = daos.map(dao => {
     return (
