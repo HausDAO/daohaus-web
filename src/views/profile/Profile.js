@@ -7,6 +7,7 @@ import DaoList from '../../components/daoList/DaoList';
 import ApplicationShortList from '../../components/applicationList/ApplicationShortList';
 import { useQuery } from 'react-apollo';
 import { GET_MOLOCHES } from '../../util/queries';
+import ApplicationMolochList from '../../components/applicationList/ApplicationMolochList';
 
 const Profile = props => {
   const context = useWeb3Context();
@@ -31,7 +32,7 @@ const Profile = props => {
         `applications/${props.match.params.account}`,
       );
       setApplications(applicationRes.data);
-
+        
       const profile = await getProfile(props.match.params.account);
       setProfile(profile);
     };
@@ -93,7 +94,7 @@ const Profile = props => {
       {applications.length ? (
         <>
           <h2>Pledged to these Molochs</h2>
-          <ApplicationShortList applications={applications} />
+          <ApplicationMolochList applications={applications} />
         </>
       ) : null}
     </div>
