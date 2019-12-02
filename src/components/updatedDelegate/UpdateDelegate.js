@@ -34,7 +34,7 @@ const UpdateDelegate = ({ contract }) => {
               .updateDelegateKey(values.address)
               .send({ from: context.account })
               .once('transactionHash', txHash => {
-                setformError(`transaction sent hash: `, txHash);
+                setformError(`transaction sent hash: ` + txHash);
               })
               .on('receipt', async receipt => {
                 console.log('receipt', receipt);

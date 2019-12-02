@@ -36,7 +36,7 @@ const RageQuit = ({ contract }) => {
               .send({ from: context.account })
               .once('transactionHash', txHash => {
                 console.log('txHash', txHash);
-                setformError(`transaction sent hash: `, txHash);
+                setformError(`transaction sent hash: ` + txHash);
                 resetForm();
               })
               .on('receipt', async receipt => {
