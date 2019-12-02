@@ -18,13 +18,13 @@ const RageQuit = ({ contract }) => {
 
       <Formik
         initialValues={{
-          ammount: 0,
+          amount: 0,
         }}
         validate={values => {
           let errors = {};
 
-          if (!values.ammount) {
-            errors.ammount = 'Required';
+          if (!values.amount) {
+            errors.amount = 'Required';
           }
           return errors;
         }}
@@ -32,10 +32,12 @@ const RageQuit = ({ contract }) => {
           // setLoading(true);
           try {
             await contract.methods
-              .RageQuit(values.ammount)
+              .ragequit(values.amount)
               .send({ from: context.account })
               .once('transactionHash', txHash => {
+                console.log('txHash', txHash);
                 setformError(`transaction sent hash: `, txHash);
+                resetForm();
               })
               .on('receipt', async receipt => {
                 console.log('receipt', receipt);
@@ -60,7 +62,7 @@ const RageQuit = ({ contract }) => {
       >
         {({ isSubmitting }) => (
           <Form className="Form">
-            <Field name="ammount">
+            <Field name="amount">
               {({ field, form }) => (
                 <div className={field.value ? 'Field HasValue' : 'Field '}>
                   <label>Shares</label>
@@ -69,7 +71,7 @@ const RageQuit = ({ contract }) => {
               )}
             </Field>
             <ErrorMessage
-              name="ammount"
+              name="amount"
               render={msg => <div className="Error">{msg}</div>}
             />
 
