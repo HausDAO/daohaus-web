@@ -24,7 +24,6 @@ export const GET_MOLOCHES = gql`
       moloch
       summoner
       tokenInfo @client
-
       apiData @client
     }
   }

@@ -18,7 +18,14 @@ const ContractContexts = ({ children }) => {
   useEffect(() => {
     const setUp = async () => {
       let _web3;
-      if (Web3.givenProvider && Web3.givenProvider.networkVersion === '1') {
+      console.log(
+        'Web3.givenProvider.networkVersion',
+        Web3.givenProvider.networkVersion,
+      );
+      if (
+        Web3.givenProvider &&
+        Web3.givenProvider.networkVersion === process.env.REACT_APP_NETWORK_ID
+      ) {
         console.log('reg web3', Web3.givenProvider);
 
         _web3 = new Web3(Web3.givenProvider);

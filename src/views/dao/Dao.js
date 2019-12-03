@@ -36,7 +36,6 @@ const Dao = props => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     getDao();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,7 +55,10 @@ const Dao = props => {
 
   const setUpContract = async () => {
     if (web3Service) {
-      const molochService = new MolochService(props.match.params.contractAddress, web3Service);
+      const molochService = new MolochService(
+        props.match.params.contractAddress,
+        web3Service,
+      );
       await molochService.initContract();
 
       setMolochService(molochService);
@@ -74,7 +76,9 @@ const Dao = props => {
 
     if (data && web3Service) {
       if (!data.factories[0]) {
-        props.history.push(`/DaoProcessingOrLost`);
+        props.history.push(
+          `/building-dao/${props.match.params.contractAddress}`,
+        );
         return false;
       }
       const tokenService = new TokenService(
@@ -82,7 +86,6 @@ const Dao = props => {
         web3Service,
       );
       await tokenService.initContract();
-
 
       setDaoData(data.factories[0]);
       setTokenService(tokenService);
@@ -121,7 +124,7 @@ const Dao = props => {
     });
 
     checkIfMemberOrApplicant(memberAddresses, members);
-    
+
     setMemberData(members);
   };
 
@@ -170,6 +173,16 @@ const Dao = props => {
               <p className="Value Data">
                 {daoData.apiData.minimumTribute} {daoData.tokenInfo.symbol}
               </p>
+              <p className="Label">DAO Contract Address</p>
+              <p className="Value Data">{molochService.contractAddr}</p>
+              <div>
+                <p className="Label">Proposal and Voting dApp</p>
+                <a
+                  className="Value Data" href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
+                >
+                  {daoData.apiData.name} Pokemol
+                </a>
+              </div>
             </div>
           ) : null}
           {isMemberOrApplicant ? (
