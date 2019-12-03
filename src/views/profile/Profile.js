@@ -3,10 +3,9 @@ import { getProfile } from '3box/lib/api';
 import { useWeb3Context } from 'web3-react';
 
 import { get } from '../../util/requests';
-import DaoList from '../../components/daoList/DaoList';
-import ApplicationShortList from '../../components/applicationList/ApplicationShortList';
 import { useQuery } from 'react-apollo';
 import { GET_MOLOCHES } from '../../util/queries';
+import DaoList from '../../components/daoList/DaoList';
 import ApplicationMolochList from '../../components/applicationList/ApplicationMolochList';
 
 const Profile = props => {
