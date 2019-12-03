@@ -1,4 +1,7 @@
 @import 'variables';
+
+// Typography
+
 h1,
 h2,
 h3,
@@ -6,10 +9,37 @@ h4,
 h5,
 h6 {
     font-weight: 400;
+    margin: 15px 0px 15px 0px;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.75em;
+}
+
+h4 {
+    font-size: 1.35em;
+}
+
+h5 { 
+    font-size: 1em; 
+}
+
+h6 { 
+    font-size: 0.85em; 
 }
 
 p {
     max-width: 800px;
+    margin: 10px 0px 10px 0px;
+    color: darken($tertiary, 25%);
 }
 
 body {
@@ -25,9 +55,16 @@ a {
     color: $primary;
     text-decoration: none;
     cursor: pointer;
-    display: block;
     transition: all .15s linear;
 }
+
+// Typography Utils
+.Data {
+    font-family: 'Roboto Mono', monospace;
+    word-break: break-all;
+}
+
+// Elements
 
 button,
 .Button {
@@ -42,12 +79,6 @@ button,
     padding: 15px 25px;
     font-size: 1em;
     cursor: pointer;
-}
-
-// Typography
-.Data {
-    font-family: 'Roboto Mono', monospace;
-    word-break: break-all;
 }
 
 .AuthButton {
@@ -277,4 +308,12 @@ select {
 
 .Section {
     margin-top: 50px;
+}
+
+.Form { max-width: 600px; }
+
+.HideMobile {
+    @media (max-width: $mobile) {
+        display: none;
+    }
 }
