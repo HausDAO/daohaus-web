@@ -174,7 +174,7 @@ const SummonWizard = props => {
               />
             </>
           ) : (
-            <Loading msg={'Summoning'} />
+            <Loading msg={'Summoning'} txHash={txHash} />
           )}
         </>
       ) : (
