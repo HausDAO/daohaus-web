@@ -122,14 +122,16 @@ const SummonAdvForm = props => {
                     },
                   )
                   .on('error', function(err) {
-                    if (err.code === 4001) {
+                    console.log(err);
+                    
+                    if (err && err.code === 4001) {
                       //remove from cache
                       remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
                         console.log('dao rejected, remove cache');
                         setformError('Transaction Rejected by user.');
                       });
                       if (
-                        err.indexOf(
+                        err.message.indexOf(
                           'Error: Transaction was not mined within 50 blocks',
                         ) > -1
                       ) {
@@ -179,11 +181,11 @@ const SummonAdvForm = props => {
                     console.log(confirmationNumber, receipt);
                   })
                   .then(function(newContractInstance) {
-                    console.log(newContractInstance.options.address); // instance with the new contract address
+                    console.log(newContractInstance); // instance with the new contract address
                   });
               } catch (err) {
                 console.log(err);
-                alert(`Something went wrong. please try again`);
+                // alert(`Something went wrong. please try again`);
                 setformError(`Something went wrong. please try again`);
 
                 setLoading(false);
