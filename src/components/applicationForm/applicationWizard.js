@@ -143,14 +143,14 @@ const ApplicationWizard = props => {
             -1
           ) {
             setformError(
-              `rejected transaction is taking a long time. tx hash: ${txHash}`,
+              `Rejected transaction is taking a long time. TX hash: ${txHash}`,
             );
             return { error: err };
           }
 
           setformError(`Something went wrong. Please try again.`);
 
-          return { error: 'rejected transaction is taking a long time. ' };
+          return { error: 'Rejected transaction is taking a long time. ' };
         });
     } catch (err) {
       setLoading(false);

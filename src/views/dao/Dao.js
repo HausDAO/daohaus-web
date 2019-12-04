@@ -33,7 +33,7 @@ const Dao = props => {
 
   const successMessage = successMessagesText(params.successMessage);
 
-  const [message] = useState(successMessage);
+  const [message, setMessage] = useState(successMessage);
   const [daoData, setDaoData] = useState({});
   const [memberData, setMemberData] = useState();
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
@@ -60,6 +60,10 @@ const Dao = props => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context]);
+
+  const closeMessage = () => {
+    setMessage(null);
+  };
 
   const setUpContract = async () => {
     if (web3Service) {
@@ -155,14 +159,22 @@ const Dao = props => {
       {error ? <p>Error - are you on mainnet?</p> : null}
 
       {updateDelegateView && molochService ? (
-        <UpdateDelegate contract={molochService.contract} />
+        <UpdateDelegate
+          contract={molochService.contract}
+          contractAddress={daoData.id}
+          complete={setUpdateDelegateView}
+        />
       ) : updateRageView ? (
         <RageQuit contract={molochService.contract} />
       ) : (
         <>
           {daoData.id ? (
             <div>
-              {message ? <p>{message}</p> : null}
+              {message ? (
+                <p>
+                  {message} <span onClick={() => closeMessage()}>x</span>
+                </p>
+              ) : null}
 
               <h2 className="DaoName">{daoData.apiData.name}</h2>
               <p className="Large">{daoData.apiData.description}</p>

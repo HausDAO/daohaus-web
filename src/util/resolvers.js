@@ -90,7 +90,6 @@ export const resolvers = (() => {
           molochService = molochs[moloch.moloch];
         }
         const address = await molochService.approvedToken();
-        console.log('address', address);
         const guildBankAddr = await molochService.getGuildBankAddr();
         let tokenService;
         if (tokens.hasOwnProperty(address)) {
@@ -99,7 +98,6 @@ export const resolvers = (() => {
           tokens[address] = new TokenService(address, web3Service);
           tokenService = tokens[address];
         }
-        // console.log('molochs', molochs);
         let symbol;
         let guildBankValue;
 
@@ -111,9 +109,6 @@ export const resolvers = (() => {
           symbol = 'ERR';
           guildBankValue = '0';
         }
-        console.log('moloch', moloch);
-        console.log('symbol', symbol);
-        console.log('guildBankValue', guildBankValue);
 
         return {
           guildBankValue,
