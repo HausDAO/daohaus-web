@@ -88,6 +88,8 @@ const Dao = props => {
     isError && setError(error);
 
     if (data && web3Service) {
+      console.log('data.factories[0]', data.factories[0]);
+      
       if (!data.factories[0]) {
         props.history.push(
           `/building-dao/${props.match.params.contractAddress}`,

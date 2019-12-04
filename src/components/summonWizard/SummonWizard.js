@@ -138,7 +138,7 @@ const SummonWizard = props => {
               .then(newMolochRes => {
                 //remove from cache and redirect
                 remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-                  props.history.push(`/doa/${contractAddress.toLowerCase()}`);
+                  props.history.push(`/building-dao/${contractAddress.toLowerCase()}`);
                 });
               })
               .catch(err => {
@@ -174,7 +174,7 @@ const SummonWizard = props => {
               />
             </>
           ) : (
-            <Loading msg={'Summoning'} />
+            <Loading msg={'Summoning'} txHash={txHash} />
           )}
         </>
       ) : (
