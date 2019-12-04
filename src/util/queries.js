@@ -16,6 +16,14 @@ export const GET_MEMBERDATA_LEGACY = {
   query: 'query members { members { id delegateKey shares }}',
 };
 
+export const GET_MOLOCHES_POST = {
+  query: `  query {
+    factories(orderBy: count) {
+      id
+    }
+  }`,
+};
+
 export const GET_MOLOCHES = gql`
   query {
     factories(orderBy: count) {

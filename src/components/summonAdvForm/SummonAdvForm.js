@@ -164,7 +164,7 @@ const SummonAdvForm = props => {
                         //remove from cache and redirect
                         remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
                           props.history.push(
-                            `/doa/${contractAddress.toLowerCase()}`,
+                            `/building-dao/${contractAddress.toLowerCase()}`,
                           );
                         });
                       })
