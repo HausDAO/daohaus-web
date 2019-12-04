@@ -400,7 +400,7 @@ const SummonAdvForm = props => {
           </Formik>
         </>
       ) : (
-        loading && <Loading msg={'Summoning'} />
+        loading && <Loading msg={'Summoning'} txHash={txHash} />
       )}
     </>
   );
