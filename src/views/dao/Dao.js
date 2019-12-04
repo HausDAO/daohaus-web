@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
+import queryString from 'query-string';
 
 import ApplyButton from '../../components/applyButton/applyButton';
 import RageQuit from '../../components/rageQuit/RageQuit';
@@ -16,16 +17,23 @@ import {
 
 import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
-
-import './Dao.scss';
+import { successMessagesText } from '../../util/helpers';
 import TokenService from '../../util/tokenService';
 import MolochService from '../../util/molochService';
 
+import './Dao.scss';
+
 const Dao = props => {
+  const params = queryString.parse(props.location.search);
+  console.log('messageParam', params);
+
   const context = useWeb3Context();
   const client = useApolloClient();
   const [web3Service] = useContext(Web3Context);
 
+  const successMessage = successMessagesText(params.successMessage);
+
+  const [message] = useState(successMessage);
   const [daoData, setDaoData] = useState({});
   const [memberData, setMemberData] = useState();
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
@@ -154,6 +162,8 @@ const Dao = props => {
         <>
           {daoData.id ? (
             <div>
+              {message ? <p>{message}</p> : null}
+
               <h2 className="DaoName">{daoData.apiData.name}</h2>
               <p className="Large">{daoData.apiData.description}</p>
               {daoData.apiData.daoUrl && (
@@ -178,7 +188,8 @@ const Dao = props => {
               <div>
                 <p className="Label">Proposal and Voting dApp</p>
                 <a
-                  className="Value Data" href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
+                  className="Value Data"
+                  href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
                 >
                   {daoData.apiData.name} Pokemol
                 </a>
