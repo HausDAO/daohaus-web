@@ -139,7 +139,7 @@ const ApplicationWizard = props => {
           }
 
           if (
-            err.indexOf('Error: Transaction was not mined within 50 blocks') >
+            err.message.indexOf('Error: Transaction was not mined within 50 blocks') >
             -1
           ) {
             setformError(
