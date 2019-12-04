@@ -112,7 +112,7 @@ const ApplicationWizard = props => {
           post(`moloch/apply`, application)
             .then(() => {
               console.log({
-                message: 'thanks for signaling, appoving tokens now',
+                message: 'thanks for signaling, approving tokens now',
               });
             })
             .catch(err => {
@@ -122,10 +122,10 @@ const ApplicationWizard = props => {
             });
         })
         .on('receipt', async receipt => {
-          console.log(receipt);
+          console.log('receipt', receipt);
 
           setLoading(false);
-          history.push(`/dao/${contractAddress}`);
+          history.push(`/dao/${contractAddress}?successMessage=pledge`);
         })
         .then(resp => {
           return resp;
@@ -143,14 +143,14 @@ const ApplicationWizard = props => {
             -1
           ) {
             setformError(
-              `rejected transaction is taking a long time. tx hash: ${txHash}`,
+              `Rejected transaction is taking a long time. TX hash: ${txHash}`,
             );
             return { error: err };
           }
 
           setformError(`Something went wrong. Please try again.`);
 
-          return { error: 'rejected transaction is taking a long time. ' };
+          return { error: 'Rejected transaction is taking a long time. ' };
         });
     } catch (err) {
       setLoading(false);
@@ -174,7 +174,7 @@ const ApplicationWizard = props => {
               />
             </>
           ) : (
-            <Loading msg={'Pledging'} />
+            <Loading msg={'Pledging'} txHash={txHash} />
           )}
         </>
       ) : (
