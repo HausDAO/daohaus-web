@@ -9,6 +9,9 @@ export const successMessagesText = messageType => {
     case 'delegate': {
       return "You've set up your delegate";
     }
+    case 'rage': {
+      return 'Nice Rage Quit!';
+    }
     default: {
       return null;
     }

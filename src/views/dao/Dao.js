@@ -24,16 +24,11 @@ import MolochService from '../../util/molochService';
 import './Dao.scss';
 
 const Dao = props => {
-  const params = queryString.parse(props.location.search);
-  console.log('messageParam', params);
-
   const context = useWeb3Context();
   const client = useApolloClient();
   const [web3Service] = useContext(Web3Context);
 
-  const successMessage = successMessagesText(params.successMessage);
-
-  const [message, setMessage] = useState(successMessage);
+  const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
   const [memberData, setMemberData] = useState();
   const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
@@ -43,6 +38,12 @@ const Dao = props => {
   const [, setTokenService] = useContext(TokenContext);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const params = queryString.parse(props.location.search);
+    const successMessage = successMessagesText(params.successMessage);
+    setMessage(successMessage);
+  }, [props.location.search]);
 
   useEffect(() => {
     getDao();
@@ -162,10 +163,14 @@ const Dao = props => {
         <UpdateDelegate
           contract={molochService.contract}
           contractAddress={daoData.id}
-          complete={setUpdateDelegateView}
+          setComplete={setUpdateDelegateView}
         />
       ) : updateRageView ? (
-        <RageQuit contract={molochService.contract} />
+        <RageQuit
+          contract={molochService.contract}
+          contractAddress={daoData.id}
+          setComplete={setUpdateDelegateView}
+        />
       ) : (
         <>
           {daoData.id ? (
