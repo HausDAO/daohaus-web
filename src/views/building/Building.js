@@ -3,6 +3,8 @@ import useInterval from '../../util/PollingUtil';
 import { legacyGraph } from '../../util/legacyGraphService';
 import { GET_MOLOCHES_POST } from '../../util/queries';
 
+import './Building.scss';
+
 const Building = props => {
   const { match, history } = props;
   const [daoReady, setDaoReady] = useState(false);
@@ -28,15 +30,17 @@ const Building = props => {
     <div className="View">
       <h1>Your DAO is generating</h1>
       <p>And so is your Pokemol!</p>
-      {daoReady && (
-        <button
-          onClick={() =>
-            history.push(`/dao/${match.params.contractAddress}`)
-          }
-        >
-          Go to my dao page
-        </button>
-      )}
+      <button
+        onClick={() => history.push(`/dao/${match.params.contractAddress}`)}
+        disabled={!daoReady}
+        className="Building__button"
+      >
+        {daoReady ? 'Go to my dao page' : 'processing'}
+      </button>
+
+      <div>
+        <h2>HELP DOCUMENTATION COMING SOON!</h2>
+      </div>
     </div>
   );
 };
