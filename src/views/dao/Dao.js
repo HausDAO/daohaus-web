@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
 import queryString from 'query-string';
 
-import ApplyButton from '../../components/applyButton/applyButton';
+// import ApplyButton from '../../components/applyButton/applyButton';
 import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
 import ApplicationList from '../../components/applicationList/ApplicationList';
@@ -20,6 +21,7 @@ import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import TokenService from '../../util/tokenService';
 import MolochService from '../../util/molochService';
+import ActivateButton from '../../components/activateButton/ActivateButton';
 
 import './Dao.scss';
 
@@ -31,7 +33,11 @@ const Dao = props => {
   const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
   const [memberData, setMemberData] = useState();
-  const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
+  // const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
+  const [visitor, setVisitor] = useState({
+    isMember: false,
+    isApplicant: false,
+  });
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
   const [molochService, setMolochService] = useContext(MolochContext);
@@ -89,7 +95,7 @@ const Dao = props => {
 
     if (data && web3Service) {
       console.log('data.factories[0]', data.factories[0]);
-      
+
       if (!data.factories[0]) {
         props.history.push(
           `/building-dao/${props.match.params.contractAddress}`,
@@ -153,13 +159,14 @@ const Dao = props => {
       context.active &&
       applicantAddresses.includes(context.account.toLowerCase());
 
-    setIsMemberOrApplicant(isMember || isApplicant);
+    // setIsMemberOrApplicant(isMember || isApplicant);
+    setVisitor({ isMember, isApplicant });
   };
 
   return (
     <div className="View">
-      {loading ? <p>THE HAUS IS LOADING THE DAO</p> : null}
-      {error ? <p>Error - are you on mainnet?</p> : null}
+      {loading ? <p>Loading the DAO</p> : null}
+      {error ? <p>Sorry there's been an error</p> : null}
 
       {updateDelegateView && molochService ? (
         <UpdateDelegate
@@ -215,18 +222,43 @@ const Dao = props => {
               </div>
             </div>
           ) : null}
-          {isMemberOrApplicant ? (
-            <>
-              <p>You are a member or applicant.</p>
-              <button onClick={() => setUpdateDelegateView(true)}>
-                Update Delegate
-              </button>
-              <br />
-              <button onClick={() => setUpdateRageView(true)}>Rage Quit</button>
-            </>
-          ) : (
-            <>{<ApplyButton contractAddress={daoData.id} />}</>
-          )}
+
+          <div className="Dao__actions">
+            <h4 className="Label">Things to DAO</h4>
+            {context.active ? (
+              <>
+                {visitor.isMember ? (
+                  <>
+                    <p>Hello Member!</p>
+                    <button onClick={() => setUpdateDelegateView(true)}>
+                      Update Delegate
+                    </button>
+                    <br />
+                    <button onClick={() => setUpdateRageView(true)}>
+                      Rage Quit
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    {visitor.isApplicant ? (
+                      <p>Hello Applicant!</p>
+                    ) : (
+                      <>
+                        <Link to={`/apply/${molochService.contractAddr}`}>
+                          <button>Pledge to Join</button>
+                        </Link>
+                      </>
+                    )}
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                <p>You need to sign in with Ethereum first</p>
+                <ActivateButton msg={'Sign in'} />
+              </>
+            )}
+          </div>
 
           {memberData && molochService ? (
             <ApplicationList
