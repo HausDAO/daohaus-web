@@ -8,7 +8,7 @@ const EtherscanLink = ({ txHash }) => {
 
   return (
     <div className="EtherscanLink">
-      <a href={`${uri}/${txHash}`} target="_blank" rel="noopener noreferrer">
+      <a href={`${uri}${txHash}`} target="_blank" rel="noopener noreferrer">
         View on Etherscan
       </a>
     </div>
