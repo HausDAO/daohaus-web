@@ -39,8 +39,8 @@ const Home = () => {
         {context.active && !context.error && <SummonButton />}
       </div>
       <div className="View">
-        {loading ? <p>THE HAUS IS LOADING THE DAOS</p> : null}
-        {error ? <p>Error - are you on mainnet?</p> : null}
+        {loading ? <p>Loading DAOS</p> : null}
+        {error ? <p>Sorry there's been an error</p> : null}
         {data ? <DaoList daos={filterDaos(data.factories)} /> : null}
       </div>
     </>

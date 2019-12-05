@@ -6,7 +6,7 @@ import { useWeb3Context } from 'web3-react';
 import Loading from '../loading/Loading';
 
 const UpdateDelegate = props => {
-  const { contract, contractAddress, setUpdateDelegateView, history } = props;
+  const { contract, contractAddress, setComplete, history } = props;
 
   const context = useWeb3Context();
 
@@ -43,7 +43,6 @@ const UpdateDelegate = props => {
                   .send({ from: context.account })
                   .once('transactionHash', txHash => {
                     settxHash(txHash);
-                    // setformError(`transaction sent hash: ` + txHash);
                   })
                   .on('receipt', async receipt => {
                     console.log('receipt', receipt);
@@ -52,7 +51,7 @@ const UpdateDelegate = props => {
                     history.push(
                       `/dao/${contractAddress}?successMessage=delegate`,
                     );
-                    // setUpdateDelegateView(false);
+                    setComplete(false);
                   })
                   .then(resp => {
                     return resp;
@@ -72,7 +71,7 @@ const UpdateDelegate = props => {
                       ) > -1
                     ) {
                       setformError(
-                        `rejected transaction is taking a long time. tx hash: ${txHash}`,
+                        `Rejected transaction is taking a long time. tx hash: ${txHash}`,
                       );
                       return { error: err };
                     }
@@ -80,7 +79,7 @@ const UpdateDelegate = props => {
                     setformError(`Something went wrong. Please try again.`);
 
                     return {
-                      error: 'rejected transaction is taking a long time. ',
+                      error: 'Rejected transaction is taking a long time. ',
                     };
                   });
               } catch (err) {
