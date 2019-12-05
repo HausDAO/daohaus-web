@@ -31,7 +31,7 @@ const Profile = props => {
         `applications/${props.match.params.account}`,
       );
       setApplications(applicationRes.data);
-        
+
       const profile = await getProfile(props.match.params.account);
       setProfile(profile);
     };
@@ -77,9 +77,19 @@ const Profile = props => {
       {profile.description ? <p>{profile.description}</p> : null}
 
       {profile.website ? (
-        <a href={profile.website} target="_blank" rel="noreferrer noopener">
-          {profile.website}
-        </a>
+        <>
+          {profile.website.indexOf('http') > 0 ? (
+            <a
+              href={profile.website.match}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {profile.website}
+            </a>
+          ) : (
+            <p>{profile.website}</p>
+          )}
+        </>
       ) : null}
       {loading ? <p>THE HAUS IS LOADING THE DAOS</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}

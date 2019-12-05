@@ -163,6 +163,10 @@ const Dao = props => {
     setVisitor({ isMember, isApplicant });
   };
 
+  if (!molochService) {
+    return <p>Loading the DAO</p>;
+  }
+
   return (
     <div className="View">
       {loading ? <p>Loading the DAO</p> : null}
@@ -174,7 +178,7 @@ const Dao = props => {
           contractAddress={daoData.id}
           setComplete={setUpdateDelegateView}
         />
-      ) : updateRageView ? (
+      ) : updateRageView && molochService ? (
         <RageQuit
           contract={molochService.contract}
           contractAddress={daoData.id}
@@ -216,6 +220,8 @@ const Dao = props => {
                 <a
                   className="Value Data"
                   href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
                 >
                   {daoData.apiData.name} Pokemol
                 </a>
@@ -223,43 +229,44 @@ const Dao = props => {
             </div>
           ) : null}
 
-          <div className="Dao__actions">
-            <h4 className="Label">Things to DAO</h4>
-            {context.active ? (
-              <>
-                {visitor.isMember ? (
-                  <>
-                    <p>Hello Member!</p>
-                    <button onClick={() => setUpdateDelegateView(true)}>
-                      Update Delegate
-                    </button>
-                    <br />
-                    <button onClick={() => setUpdateRageView(true)}>
-                      Rage Quit
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    {visitor.isApplicant ? (
-                      <p>Hello Applicant!</p>
-                    ) : (
-                      <>
-                        <Link to={`/apply/${molochService.contractAddr}`}>
-                          <button>Pledge to Join</button>
-                        </Link>
-                      </>
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                <p>You need to sign in with Ethereum first</p>
-                <ActivateButton msg={'Sign in'} />
-              </>
-            )}
-          </div>
-
+          {daoData.id ? (
+            <div className="Dao__actions">
+              <h4 className="Label">Things to DAO</h4>
+              {context.active ? (
+                <>
+                  {visitor.isMember ? (
+                    <>
+                      <p>Hello Member!</p>
+                      <button onClick={() => setUpdateDelegateView(true)}>
+                        Update Delegate
+                      </button>
+                      <br />
+                      <button onClick={() => setUpdateRageView(true)}>
+                        Rage Quit
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {visitor.isApplicant ? (
+                        <p>Hello Applicant!</p>
+                      ) : (
+                        <>
+                          <Link to={`/apply/${molochService.contractAddr}`}>
+                            <button>Pledge to Join</button>
+                          </Link>
+                        </>
+                      )}
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <p>You need to sign in with Ethereum first</p>
+                  <ActivateButton msg={'Sign in'} />
+                </>
+              )}
+            </div>
+          ) : null}
           {memberData && molochService ? (
             <ApplicationList
               members={memberData}
