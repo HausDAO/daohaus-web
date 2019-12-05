@@ -163,6 +163,10 @@ const Dao = props => {
     setVisitor({ isMember, isApplicant });
   };
 
+  if (!molochService) {
+    return <p>Loading the DAO</p>;
+  }
+
   return (
     <div className="View">
       {loading ? <p>Loading the DAO</p> : null}
@@ -174,7 +178,7 @@ const Dao = props => {
           contractAddress={daoData.id}
           setComplete={setUpdateDelegateView}
         />
-      ) : updateRageView ? (
+      ) : updateRageView && molochService ? (
         <RageQuit
           contract={molochService.contract}
           contractAddress={daoData.id}
