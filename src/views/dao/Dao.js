@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
+import queryString from 'query-string';
 
-import ApplyButton from '../../components/applyButton/applyButton';
+// import ApplyButton from '../../components/applyButton/applyButton';
 import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
 import ApplicationList from '../../components/applicationList/ApplicationList';
@@ -16,19 +18,26 @@ import {
 
 import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
-
-import './Dao.scss';
+import { successMessagesText } from '../../util/helpers';
 import TokenService from '../../util/tokenService';
 import MolochService from '../../util/molochService';
+import ActivateButton from '../../components/activateButton/ActivateButton';
+
+import './Dao.scss';
 
 const Dao = props => {
   const context = useWeb3Context();
   const client = useApolloClient();
   const [web3Service] = useContext(Web3Context);
 
+  const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
   const [memberData, setMemberData] = useState();
-  const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
+  // const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
+  const [visitor, setVisitor] = useState({
+    isMember: false,
+    isApplicant: false,
+  });
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
   const [molochService, setMolochService] = useContext(MolochContext);
@@ -36,6 +45,11 @@ const Dao = props => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const params = queryString.parse(props.location.search);
+    const successMessage = successMessagesText(params.successMessage);
+    setMessage(successMessage);
+  }, [props.location.search]);
 
   useEffect(() => {
     getDao();
@@ -54,9 +68,16 @@ const Dao = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context]);
 
+  const closeMessage = () => {
+    setMessage(null);
+  };
+
   const setUpContract = async () => {
     if (web3Service) {
-      const molochService = new MolochService(props.match.params.contractAddress, web3Service);
+      const molochService = new MolochService(
+        props.match.params.contractAddress,
+        web3Service,
+      );
       await molochService.initContract();
 
       setMolochService(molochService);
@@ -73,8 +94,12 @@ const Dao = props => {
     isError && setError(error);
 
     if (data && web3Service) {
+      console.log('data.factories[0]', data.factories[0]);
+
       if (!data.factories[0]) {
-        props.history.push(`/DaoProcessingOrLost`);
+        props.history.push(
+          `/building-dao/${props.match.params.contractAddress}`,
+        );
         return false;
       }
       const tokenService = new TokenService(
@@ -82,7 +107,6 @@ const Dao = props => {
         web3Service,
       );
       await tokenService.initContract();
-
 
       setDaoData(data.factories[0]);
       setTokenService(tokenService);
@@ -121,7 +145,7 @@ const Dao = props => {
     });
 
     checkIfMemberOrApplicant(memberAddresses, members);
-    
+
     setMemberData(members);
   };
 
@@ -135,22 +159,41 @@ const Dao = props => {
       context.active &&
       applicantAddresses.includes(context.account.toLowerCase());
 
-    setIsMemberOrApplicant(isMember || isApplicant);
+    // setIsMemberOrApplicant(isMember || isApplicant);
+    setVisitor({ isMember, isApplicant });
   };
+
+  if (!molochService) {
+    return <p>Loading the DAO</p>;
+  }
 
   return (
     <div className="View">
-      {loading ? <p>THE HAUS IS LOADING THE DAO</p> : null}
-      {error ? <p>Error - are you on mainnet?</p> : null}
+      {loading ? <p>Loading the DAO</p> : null}
+      {error ? <p>Sorry there's been an error</p> : null}
 
       {updateDelegateView && molochService ? (
-        <UpdateDelegate contract={molochService.contract} />
-      ) : updateRageView ? (
-        <RageQuit contract={molochService.contract} />
+        <UpdateDelegate
+          contract={molochService.contract}
+          contractAddress={daoData.id}
+          setComplete={setUpdateDelegateView}
+        />
+      ) : updateRageView && molochService ? (
+        <RageQuit
+          contract={molochService.contract}
+          contractAddress={daoData.id}
+          setComplete={setUpdateDelegateView}
+        />
       ) : (
         <>
           {daoData.id ? (
             <div>
+              {message ? (
+                <p>
+                  {message} <span onClick={() => closeMessage()}>x</span>
+                </p>
+              ) : null}
+
               <h2 className="DaoName">{daoData.apiData.name}</h2>
               <p className="Large">{daoData.apiData.description}</p>
               {daoData.apiData.daoUrl && (
@@ -170,21 +213,60 @@ const Dao = props => {
               <p className="Value Data">
                 {daoData.apiData.minimumTribute} {daoData.tokenInfo.symbol}
               </p>
+              <p className="Label">DAO Contract Address</p>
+              <p className="Value Data">{molochService.contractAddr}</p>
+              <div>
+                <p className="Label">Proposal and Voting dApp</p>
+                <a
+                  className="Value Data"
+                  href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {daoData.apiData.name} Pokemol
+                </a>
+              </div>
             </div>
           ) : null}
-          {isMemberOrApplicant ? (
-            <>
-              <p>You are a member or applicant.</p>
-              <button onClick={() => setUpdateDelegateView(true)}>
-                Update Delegate
-              </button>
-              <br />
-              <button onClick={() => setUpdateRageView(true)}>Rage Quit</button>
-            </>
-          ) : (
-            <>{<ApplyButton contractAddress={daoData.id} />}</>
-          )}
 
+          {daoData.id ? (
+            <div className="Dao__actions">
+              <h4 className="Label">Things to DAO</h4>
+              {context.active ? (
+                <>
+                  {visitor.isMember ? (
+                    <>
+                      <p>Hello Member!</p>
+                      <button onClick={() => setUpdateDelegateView(true)}>
+                        Update Delegate
+                      </button>
+                      <br />
+                      <button onClick={() => setUpdateRageView(true)}>
+                        Rage Quit
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {visitor.isApplicant ? (
+                        <p>Hello Applicant!</p>
+                      ) : (
+                        <>
+                          <Link to={`/apply/${molochService.contractAddr}`}>
+                            <button>Pledge to Join</button>
+                          </Link>
+                        </>
+                      )}
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <p>You need to sign in with Ethereum first</p>
+                  <ActivateButton msg={'Sign in'} />
+                </>
+              )}
+            </div>
+          ) : null}
           {memberData && molochService ? (
             <ApplicationList
               members={memberData}

@@ -14,11 +14,12 @@ const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
 
+  console.log('error', error);
+
   const filterDaos = daos => {
     return _.sortBy(daos.filter(dao => !dao.apiData.hide), dao => {
       return +dao.tokenInfo.guildBankValue;
     }).reverse();
-
   };
 
   return (
@@ -38,8 +39,8 @@ const Home = () => {
         {context.active && !context.error && <SummonButton />}
       </div>
       <div className="View">
-        {loading ? <p>THE HAUS IS LOADING THE DAOS</p> : null}
-        {error ? <p>Error - are you on mainnet?</p> : null}
+        {loading ? <p>Loading DAOs</p> : null}
+        {error ? <p>Sorry there's been an error</p> : null}
         {data ? <DaoList daos={filterDaos(data.factories)} /> : null}
       </div>
     </>

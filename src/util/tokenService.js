@@ -25,13 +25,11 @@ export default class TokenService {
     try {
       if (!this.contract) {
         this.contract = await this.initContract(Erc20Abi);
-        // console.log('this.contract', this.contract);
       }
       symbol = await this.contract.methods.symbol().call();
     } catch {
       if (!this.contract32) {
         this.contract32 = await this.initContract(Erc20Bytes32Abi);
-        // console.log('this.contract32', this.contract32);
       }
       symbol = await this.contract32.methods.symbol().call();
     }

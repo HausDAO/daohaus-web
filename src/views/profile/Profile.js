@@ -3,15 +3,15 @@ import { getProfile } from '3box/lib/api';
 import { useWeb3Context } from 'web3-react';
 
 import { get } from '../../util/requests';
-import DaoList from '../../components/daoList/DaoList';
-import ApplicationShortList from '../../components/applicationList/ApplicationShortList';
 import { useQuery } from 'react-apollo';
 import { GET_MOLOCHES } from '../../util/queries';
+import DaoList from '../../components/daoList/DaoList';
 import ApplicationMolochList from '../../components/applicationList/ApplicationMolochList';
 
 const Profile = props => {
   const context = useWeb3Context();
   const [applications, setApplications] = useState([]);
+  const [summonedDaos, setSummonedDaos] = useState([]);
   const [profile, setProfile] = useState({});
   const { loading, error, data } = useQuery(GET_MOLOCHES);
 
@@ -32,7 +32,7 @@ const Profile = props => {
         `applications/${props.match.params.account}`,
       );
       setApplications(applicationRes.data);
-        
+
       const profile = await getProfile(props.match.params.account);
       setProfile(profile);
     };
@@ -40,6 +40,14 @@ const Profile = props => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      setSummonedDaos(filterDaos(data.factories));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   return (
     <div className="View">
       <div className="Row">
@@ -78,16 +86,26 @@ const Profile = props => {
       {profile.description ? <p>{profile.description}</p> : null}
 
       {profile.website ? (
-        <a href={profile.website} target="_blank" rel="noreferrer noopener">
-          {profile.website}
-        </a>
+        <>
+          {profile.website.indexOf('http') > 0 ? (
+            <a
+              href={profile.website.match}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {profile.website}
+            </a>
+          ) : (
+            <p>{profile.website}</p>
+          )}
+        </>
       ) : null}
-      {loading ? <p>THE HAUS IS LOADING THE DAOS</p> : null}
+      {loading ? <p>Loading</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}
-      {data ? (
+      {data && summonedDaos.length ? (
         <div className="Section">
           <h2>Summoner of these Molochs</h2>
-          <DaoList daos={filterDaos(data.factories)} />
+          <DaoList daos={summonedDaos} />
         </div>
       ) : null}
 

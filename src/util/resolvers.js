@@ -14,7 +14,11 @@ import {
 } from './queries';
 
 let _web3;
-if (Web3.givenProvider && Web3.givenProvider.networkVersion === '1') {
+if (
+  Web3.givenProvider &&
+  Web3.givenProvider.networkVersion === process.env.REACT_APP_NETWORK_ID
+) {
+  console.log('reg web3 IN RESOLVER', Web3.givenProvider);
   _web3 = new Web3(Web3.givenProvider);
 } else {
   _web3 = new Web3(
@@ -56,55 +60,60 @@ export const resolvers = (() => {
           console.log('error on dao api call', e);
         }
 
-      if (apiData.isLegacy && apiData.graphNodeUri) {
-        let legacyData = await legacyGraph(
-          apiData.graphNodeUri,
-          GET_MEMBERDATA_LEGACY,
-        );
-        apiData.legacyData = legacyData.data.data;
+        if (apiData.isLegacy && apiData.graphNodeUri) {
+          let legacyData = await legacyGraph(
+            apiData.graphNodeUri,
+            GET_MEMBERDATA_LEGACY,
+          );
+          apiData.legacyData = legacyData.data.data;
 
-        let legacyProposals = await legacyGraph(
-          apiData.graphNodeUri,
-          GET_PROPOSALS_LEGACY,
-        );
+          let legacyProposals = await legacyGraph(
+            apiData.graphNodeUri,
+            GET_PROPOSALS_LEGACY,
+          );
 
-        apiData.legacyData.proposals = legacyProposals.data.data.proposals;
-      }
+          apiData.legacyData.proposals = legacyProposals.data.data.proposals;
+        }
 
         return apiData;
       },
       tokenInfo: async (moloch, _args, _context) => {
-
         let molochService;
 
-        if(molochs.hasOwnProperty(moloch.moloch)){
-          molochService = molochs[moloch.moloch]
-        }else {
-          molochs[moloch.moloch]= new MolochService(moloch.moloch, web3Service);
-          molochService = molochs[moloch.moloch]
+        if (molochs.hasOwnProperty(moloch.moloch)) {
+          molochService = molochs[moloch.moloch];
+        } else {
+          molochs[moloch.moloch] = new MolochService(
+            moloch.moloch,
+            web3Service,
+          );
+          molochService = molochs[moloch.moloch];
         }
         const address = await molochService.approvedToken();
         const guildBankAddr = await molochService.getGuildBankAddr();
         let tokenService;
-        if(tokens.hasOwnProperty(address)){
-          tokenService = tokens[address]
-        }else {
-          tokens[address]= new TokenService(address, web3Service);
-          tokenService = tokens[address]
+        if (tokens.hasOwnProperty(address)) {
+          tokenService = tokens[address];
+        } else {
+          tokens[address] = new TokenService(address, web3Service);
+          tokenService = tokens[address];
         }
-        // console.log('tokens', tokens);
-        // console.log('molochs', molochs);
-        
-        const symbol = await tokenService.getSymbol();
-        const guildBankValue = await tokenService.balanceOf(guildBankAddr);
-        //console.log(guildbankValue);
-        
-        // console.log({
-        //   guildbankValue,
-        //   symbol,
-        //   address,
-        // });
-        
+        let symbol;
+        let guildBankValue;
+
+        try {
+          const daoRes = await get(`moloch/${moloch.moloch}`);
+          if (daoRes.data.hide) {
+            throw new Error({ err: 'token error' });
+          }
+          symbol = await tokenService.getSymbol();
+          guildBankValue = await tokenService.balanceOf(guildBankAddr);
+        } catch (err) {
+          console.log('symbol or guildbank error', err);
+          symbol = 'ERR';
+          guildBankValue = '0';
+        }
+
         return {
           guildBankValue,
           symbol,
@@ -113,11 +122,14 @@ export const resolvers = (() => {
       },
       totalShares: async (moloch, _args) => {
         let molochService;
-        if(molochs.hasOwnProperty(moloch.moloch)){
-          molochService = molochs[moloch.moloch]
-        }else {
-          molochs[moloch.moloch]= new MolochService(moloch.moloch, web3Service);
-          molochService = molochs[moloch.moloch]
+        if (molochs.hasOwnProperty(moloch.moloch)) {
+          molochService = molochs[moloch.moloch];
+        } else {
+          molochs[moloch.moloch] = new MolochService(
+            moloch.moloch,
+            web3Service,
+          );
+          molochService = molochs[moloch.moloch];
         }
         return await molochService.getTotalShares();
       },
@@ -157,4 +169,3 @@ export const resolvers = (() => {
     },
   };
 })();
-

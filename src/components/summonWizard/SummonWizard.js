@@ -25,9 +25,18 @@ function FormWrapper({
       {children}
       {status && <div className="Status">{status.message}</div>}
       <div className="ButtonGroup">
-        <button type="button" onClick={goToPreviousStep} disabled={!canGoBack}>
-          Previous
-        </button>
+        {canGoBack ? (
+          <button
+            type="button"
+            onClick={goToPreviousStep}
+            disabled={!canGoBack}
+          >
+            Previous
+          </button>
+        ) : (
+          <div> </div>
+        )}
+
         <button type="submit">
           {actionLabel || (isLastStep ? 'Summon!' : 'Next step')}
         </button>
@@ -73,6 +82,8 @@ const SummonWizard = props => {
         process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS,
       );
 
+      console.log('factoryContract', factoryContract);
+
       await factoryContract.methods
         .newDao(
           values.currency.approvedToken,
@@ -96,6 +107,7 @@ const SummonWizard = props => {
         )
         .on('error', function(err) {
           setLoading(false);
+          console.log('err', err);
           if (err.code === 4001) {
             //remove from cache
             remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
@@ -135,7 +147,9 @@ const SummonWizard = props => {
               .then(newMolochRes => {
                 //remove from cache and redirect
                 remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-                  props.history.push(`/doa/${contractAddress.toLowerCase()}`);
+                  props.history.push(
+                    `/building-dao/${contractAddress.toLowerCase()}`,
+                  );
                 });
               })
               .catch(err => {
@@ -148,7 +162,7 @@ const SummonWizard = props => {
           console.log(confirmationNumber, receipt);
         })
         .then(function(newContractInstance) {
-          console.log(newContractInstance.options.address); // instance with the new contract address
+          console.log(newContractInstance); // instance with the new contract address
         });
     } catch (err) {
       console.log(err);
@@ -171,7 +185,7 @@ const SummonWizard = props => {
               />
             </>
           ) : (
-            <Loading msg={'Summoning'} />
+            <Loading msg={'Summoning'} txHash={txHash} />
           )}
         </>
       ) : (
