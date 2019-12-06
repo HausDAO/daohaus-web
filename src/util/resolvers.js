@@ -102,19 +102,19 @@ export const resolvers = (() => {
         let guildBankValue;
 
         try {
-          // const daoRes = await get(`moloch/${moloch.moloch}`);
-          // if (daoRes.data.hide) {
-          //   // throw new Error({ err: 'token error' });
+          const daoRes = await get(`moloch/${moloch.moloch}`);
+          if (daoRes.data.hide) {
+            // throw new Error({ err: 'token error' });
 
-          //   symbol = 'ERR';
-          //   guildBankValue = '0';
+            symbol = 'ERR';
+            guildBankValue = '0';
 
-          //   return {
-          //     guildBankValue,
-          //     symbol,
-          //     address,
-          //   };
-          // }
+            return {
+              guildBankValue,
+              symbol,
+              address,
+            };
+          }
           symbol = await tokenService.getSymbol();
           guildBankValue = await tokenService.balanceOf(guildBankAddr);
         } catch (err) {
