@@ -25,9 +25,18 @@ function FormWrapper({
       {children}
       {status && <div className="Status">{status.message}</div>}
       <div className="ButtonGroup">
-        <button type="button" onClick={goToPreviousStep} disabled={!canGoBack}>
-          Previous
-        </button>
+        {canGoBack ? (
+          <button
+            type="button"
+            onClick={goToPreviousStep}
+            disabled={!canGoBack}
+          >
+            Previous
+          </button>
+        ) : (
+          <div> </div>
+        )}
+
         <button type="submit">
           {actionLabel || (isLastStep ? 'Summon!' : 'Next step')}
         </button>
@@ -138,7 +147,9 @@ const SummonWizard = props => {
               .then(newMolochRes => {
                 //remove from cache and redirect
                 remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-                  props.history.push(`/building-dao/${contractAddress.toLowerCase()}`);
+                  props.history.push(
+                    `/building-dao/${contractAddress.toLowerCase()}`,
+                  );
                 });
               })
               .catch(err => {
