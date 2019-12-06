@@ -29,14 +29,13 @@ const ActivateButton = props => {
           )}
         </>
       )}
-      {(context.active || (context.error && context.connectorName)) && (
+      {context.active && (
         <>
           <Link to={`/profile/${context.account}`}>Profile</Link>
         </>
       )}
       {!context.active && !context.error && (
         <button className="AuthButton" onClick={() => activate()}>
-
           {msg ? (
             <span>{msg}</span>
           ) : (
@@ -44,7 +43,6 @@ const ActivateButton = props => {
               <img src={IconEthereum} alt="eth logo" /> Sign in with Ethereum
             </span>
           )}
-
         </button>
       )}
     </>
