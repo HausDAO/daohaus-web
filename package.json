@@ -9,6 +9,7 @@
     "axios": "^0.19.0",
     "chart.js": "^2.8.0",
     "dotenv": "^8.1.0",
+    "eth-lib": "0.2.7",
     "ethereum-blockies-base64": "^1.0.2",
     "ethers": "^4.0.36",
     "formik": "^2.0.1-rc.12",
