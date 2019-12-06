@@ -19,11 +19,16 @@ const ContractContexts = ({ children }) => {
     const setUp = async () => {
       let _web3;
 
+      // console.log(
+      //   'Web3.givenProvider.networkVersion',
+      //   Web3.givenProvider.networkVersion,
+      // );
+
       if (
         Web3.givenProvider &&
         Web3.givenProvider.networkVersion === process.env.REACT_APP_NETWORK_ID
       ) {
-        console.log('reg web3', Web3.givenProvider);
+        //console.log('reg web3', Web3.givenProvider);
 
         _web3 = new Web3(Web3.givenProvider);
         // if(_web3.eth.givenProvider){
