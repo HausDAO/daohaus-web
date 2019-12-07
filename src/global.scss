@@ -2,6 +2,11 @@
 
 // Typography
 
+.App {
+    background-color: $background;
+    min-height: 100vh;
+}
+
 h1,
 h2,
 h3,
@@ -258,6 +263,7 @@ textarea {
     outline: none !important;
     padding: 0px 15px;
     font-size: 1em;
+    box-shadow: $shadow;
 }
 
 .InlineLabel {
@@ -301,6 +307,7 @@ select {
     outline: none !important;
     // restyle
     color: $primary;
+    background-color: white;
     position: relative;
     // copied from normal input
     height: 40px;
@@ -308,7 +315,7 @@ select {
     padding: 0px 15px;
     margin: 10px 0px;
     border-radius: 50px;
-    border: 1px solid #efefef;
+    box-shadow: $shadow;
 }
 
 label.Select {
@@ -342,7 +349,7 @@ label.Select {
     align-content: center;
     justify-content: center;
     flex-direction: column;
-    background-color: white;
+    background-color: $background;
     overflow: hidden;
     img {
         display: block;

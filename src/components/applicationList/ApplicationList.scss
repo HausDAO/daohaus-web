@@ -21,9 +21,10 @@
       margin-right: 0px;
     }
     a {
+      background-color: white;
       margin-top: 25px;
       margin-bottom: 25px;
-      border: 2px solid #efefef;
+      box-shadow: $shadow;
       border-radius: 5px;
       display: flex;
       flex-direction: column;
