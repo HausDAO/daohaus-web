@@ -2,15 +2,23 @@
 $primary: #513E97;
 $secondary: #0E99C4;
 $tertiary: #4EBD9E;
+
+// Hovers
+$primary-hover: lighten($primary, 15%);
+$secondary-hover: lighten($secondary, 5%);
+$tertiary-hover: lighten($tertiary, 5%);
+
+// Other Colors
+$primary-background: #020436;
 $blue: #001aff;
-$yellow: #f1fe5c;
+$orange: #EA8923;
 $red: #F05F61;
 $background: black;
 
-$primary-background: #020436;
-
+// Breakpoints
 $mobile: 768px;
 
+// Layout Defaults
 $mobile-padding: 25px;
 $base-padding: 50px;
 $large-padding: 100px;

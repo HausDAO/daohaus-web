@@ -79,10 +79,14 @@ button,
     padding: 15px 25px;
     font-size: 1em;
     cursor: pointer;
+    transition: all .15s linear;
+    &:hover {
+        background-color: $primary-hover;
+    }
 }
 
 .AuthButton {
-    display: block;
+    display: inline-block;
 }
 
 .View {
@@ -90,6 +94,11 @@ button,
     @media (max-width: $mobile) {
         padding: $mobile-padding;
     }
+}
+
+.SmallContainer {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .Value {
@@ -127,6 +136,18 @@ p.Large {
     width: 100%;
     button {
         display: inline-block;
+    }
+}
+
+.Summary {
+    p:first-child {
+        font-size: 1.35em;
+    }
+    .Value {
+        margin-bottom: 25px;
+    }
+    .Label {
+
     }
 }
 
@@ -206,6 +227,11 @@ label {
     color: $primary;
     padding-left: 0px;
     padding-right: 0px;
+    font-weight: 700;
+    &:hover { 
+        color: $primary-hover;
+        background-color: transparent;
+    }
 }
 
 select {
@@ -213,19 +239,36 @@ select {
     border: none;
     background-color: transparent;
     font-size: 2em;
-    outline: none;
+    outline: none !important;
+    // restyle
+    color: $primary;
+    position: relative;
+    // copied from normal input
+    height: 40px;
+    width: 100%;
+    padding: 0px 15px;
+    margin: 10px 0px;
+    border-radius: 50px;
+    border: 1px solid #efefef;
 }
 
-.Select {
+label.Select {
     position: relative;
-    svg {
+    width: 100%;
+    &::after {
+        content: '';
+        background-image: url('./assets/icon__dropdown-arrow.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
         width: 36px;
         height: 36px;
-        fill: #000;
-        display: inline-block;
+        fill: $primary;
+        display: block;
         position: absolute;
-        top: 3px;
-        right: 70px;
+        right: 10px;
+        bottom: 12px;
+        pointer-events: none;
     }
 }
 

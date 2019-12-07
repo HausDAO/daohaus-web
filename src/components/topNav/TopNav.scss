@@ -116,6 +116,7 @@
     right: 25px;
     z-index: 2;
     cursor: pointer;
+    &:hover { background-color: transparent; }
 }
 
 // Hamburger - RF af
@@ -182,7 +183,7 @@ $hamburger-hover-filter    : none !default;
       .hamburger-inner {
         &,
         &::before,
-        &::after {background-color: $primary;}
+        &::after {background-color: $primary-hover;}
       }
     }
   }
