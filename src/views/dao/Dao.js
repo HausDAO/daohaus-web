@@ -182,7 +182,9 @@ const Dao = props => {
         <RageQuit
           contract={molochService.contract}
           contractAddress={daoData.id}
-          setComplete={setUpdateDelegateView}
+          setComplete={setUpdateRageView}
+          memberData={memberData}
+          account={context.account.toLowerCase()}
         />
       ) : (
         <>
