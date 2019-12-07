@@ -68,7 +68,7 @@ a {
 
 button,
 .Button {
-    display: block;
+    display: inline-block;
     appearance: none;
     outline: none;
     background-color: $primary;
@@ -86,11 +86,55 @@ button,
 }
 
 .AuthButton {
-    display: inline-block;
+    img { margin-top: -2px; }
+}
+
+// Layout
+
+.Contain {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.Row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.Column {
+    display: flex;
+    flex-direction: column;
+    &--33 {
+        width: 30%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--50 {
+        width: 45%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--66 {
+        width: 60%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+}
+
+.Section {
+    margin-top: 50px;
 }
 
 .View {
     padding: $base-padding;
+    max-width: $grid;
+    margin: 0 auto;
     @media (max-width: $mobile) {
         padding: $mobile-padding;
     }
@@ -112,6 +156,20 @@ p.Large {
 
 .Danger { color: $red; }
 .Success { color: lime-green; }
+
+.SuccessMessage {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 120px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $tertiary;
+    p { color: white; width: 75% }
+    .CloseFlash { width: 25%; position: absolute; right: 0; cursor: pointer; font-weight: 900; }
+}
 
 // Wizard
 .Wizard {
@@ -172,6 +230,7 @@ p.Large {
     flex-direction: column;
     min-height: 50vh;
     padding: $base-padding;
+    max-width: 600px;
     button {
         margin: 0 auto;
     }
@@ -311,49 +370,8 @@ label.Select {
     }
 }
 
-// Utils
 
-.Contain {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.Row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.Column {
-    display: flex;
-    flex-direction: column;
-    &--33 {
-        width: 30%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
-    }
-    &--50 {
-        width: 45%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
-    }
-    &--66 {
-        width: 60%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
-    }
-}
-
-.Section {
-    margin-top: 50px;
-}
-
-.Form { max-width: 600px; }
+// Breakpoint Utils
 
 .HideMobile {
     @media (max-width: $mobile) {

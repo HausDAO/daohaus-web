@@ -5,8 +5,8 @@ $tertiary: #4EBD9E;
 
 // Hovers
 $primary-hover: lighten($primary, 15%);
-$secondary-hover: lighten($secondary, 5%);
-$tertiary-hover: lighten($tertiary, 5%);
+$secondary-hover: lighten($secondary, 15%);
+$tertiary-hover: lighten($tertiary, 15%);
 
 // Other Colors
 $primary-background: #020436;
@@ -14,11 +14,55 @@ $blue: #001aff;
 $orange: #EA8923;
 $red: #F05F61;
 $background: black;
+$pokemol: #AA174C;
+$pokemol-hover: lighten($pokemol, 5%);
 
 // Breakpoints
 $mobile: 768px;
+$grid: 1200px;
 
 // Layout Defaults
 $mobile-padding: 25px;
 $base-padding: 50px;
 $large-padding: 100px;
+
+// Animations
+
+@keyframes fadeIn { from { opacity:0; top: -50px; pointer-events: none; } to { opacity:1; top: 0px; pointer-events: all; } }
+@keyframes fadeOut { from { opacity:1; top: 0px; pointer-events: all; } to { opacity:0; top: -50px; pointer-events: none; } }
+
+.FadeIn {
+    opacity:0;  /* make things invisible upon start */
+    top: 0px;
+    animation:fadeIn;
+    animation-fill-mode:forwards;
+    animation-timing-function: ease-in;
+    animation-duration: .25s;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+}
+
+.FadeOut {
+    opacity:0;  /* make things invisible upon start */
+    top: 0px;
+    animation:fadeOut;
+    animation-fill-mode:forwards;
+    animation-timing-function: ease-out;
+    animation-duration: .25s;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+}
+
+.Flash {
+    // animation in/out settings
+    opacity:0;  /* make things invisible upon start */
+    top: 0px;
+    animation:fadeIn, fadeOut;
+    animation-fill-mode:forwards, forwards;
+    animation-timing-function: ease-in, ease-out;
+    animation-duration: .15s, .15s;
+    animation-delay: 0s, 3s;
+    animation-iteration-count: 1, 1;
+    // specific styles
+    z-index: 99;
+}

@@ -4,15 +4,21 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: flex-start; 
   @media (max-width: $mobile) {
     flex-direction: column;
   }
   &__Item {
     width: 30%;
+    margin-right: 25px;
+    @media (max-width: $grid) {
+      width: 45%;
+      margin-right: 25px;
+    }
     
     @media (max-width: $mobile) {
       width: 100%;
+      margin-right: 0px;
     }
     a {
       margin-top: 25px;
