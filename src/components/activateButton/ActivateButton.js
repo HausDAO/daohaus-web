@@ -39,9 +39,9 @@ const ActivateButton = props => {
           {msg ? (
             <span>{msg}</span>
           ) : (
-            <span>
-              <img src={IconEthereum} alt="eth logo" /> Sign in with Ethereum
-            </span>
+            <>
+              <img src={IconEthereum} alt="eth logo" /> Sign in<span className="HideMobile">{' '}with Ethereum</span>
+            </>
           )}
         </button>
       )}

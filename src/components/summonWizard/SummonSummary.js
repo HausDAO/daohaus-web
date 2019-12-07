@@ -5,9 +5,9 @@ function SummonSummary() {
   const { values } = useFormikWizard();
 
   return (
-    <div>
-      <h3>Summon your DAO!</h3>
-      <p>Does this look right?</p>
+    <div className="Summary">
+      <h3>Review & Summon</h3>
+      <h4>Review your dao settings. If all looks good, summon away!</h4>
       <p className="Label">Name</p>
       <p className="Value">{values.dao.name}</p>
       <p className="Label">Description</p><p className="Value">{values.dao.description}</p>

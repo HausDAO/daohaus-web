@@ -1,4 +1,7 @@
 @import 'variables';
+
+// Typography
+
 h1,
 h2,
 h3,
@@ -6,10 +9,37 @@ h4,
 h5,
 h6 {
     font-weight: 400;
+    margin: 15px 0px 15px 0px;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.75em;
+}
+
+h4 {
+    font-size: 1.35em;
+}
+
+h5 { 
+    font-size: 1em; 
+}
+
+h6 { 
+    font-size: 0.85em; 
 }
 
 p {
     max-width: 800px;
+    margin: 10px 0px 10px 0px;
+    color: darken($tertiary, 25%);
 }
 
 body {
@@ -25,13 +55,20 @@ a {
     color: $primary;
     text-decoration: none;
     cursor: pointer;
-    display: block;
     transition: all .15s linear;
 }
 
+// Typography Utils
+.Data {
+    font-family: 'Roboto Mono', monospace;
+    word-break: break-all;
+}
+
+// Elements
+
 button,
 .Button {
-    display: block;
+    display: inline-block;
     appearance: none;
     outline: none;
     background-color: $primary;
@@ -42,23 +79,70 @@ button,
     padding: 15px 25px;
     font-size: 1em;
     cursor: pointer;
-}
-
-// Typography
-.Data {
-    font-family: 'Roboto Mono', monospace;
-    word-break: break-all;
+    transition: all .15s linear;
+    &:hover {
+        background-color: $primary-hover;
+    }
 }
 
 .AuthButton {
-    display: block;
+    img { margin-top: -2px; }
+}
+
+// Layout
+
+.Contain {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.Row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.Column {
+    display: flex;
+    flex-direction: column;
+    &--33 {
+        width: 30%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--50 {
+        width: 45%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--66 {
+        width: 60%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+}
+
+.Section {
+    margin-top: 50px;
 }
 
 .View {
     padding: $base-padding;
+    max-width: $grid;
+    margin: 0 auto;
     @media (max-width: $mobile) {
         padding: $mobile-padding;
     }
+}
+
+.SmallContainer {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .Value {
@@ -72,6 +156,20 @@ p.Large {
 
 .Danger { color: $red; }
 .Success { color: lime-green; }
+
+.SuccessMessage {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 120px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $tertiary;
+    p { color: white; width: 75% }
+    .CloseFlash { width: 25%; position: absolute; right: 0; cursor: pointer; font-weight: 900; }
+}
 
 // Wizard
 .Wizard {
@@ -99,6 +197,18 @@ p.Large {
     }
 }
 
+.Summary {
+    p:first-child {
+        font-size: 1.35em;
+    }
+    .Value {
+        margin-bottom: 25px;
+    }
+    .Label {
+
+    }
+}
+
 // Profile
 .ProfileImg {
     width: 150px;
@@ -120,6 +230,7 @@ p.Large {
     flex-direction: column;
     min-height: 50vh;
     padding: $base-padding;
+    max-width: 600px;
     button {
         margin: 0 auto;
     }
@@ -175,6 +286,11 @@ label {
     color: $primary;
     padding-left: 0px;
     padding-right: 0px;
+    font-weight: 700;
+    &:hover { 
+        color: $primary-hover;
+        background-color: transparent;
+    }
 }
 
 select {
@@ -182,19 +298,36 @@ select {
     border: none;
     background-color: transparent;
     font-size: 2em;
-    outline: none;
+    outline: none !important;
+    // restyle
+    color: $primary;
+    position: relative;
+    // copied from normal input
+    height: 40px;
+    width: 100%;
+    padding: 0px 15px;
+    margin: 10px 0px;
+    border-radius: 50px;
+    border: 1px solid #efefef;
 }
 
-.Select {
+label.Select {
     position: relative;
-    svg {
+    width: 100%;
+    &::after {
+        content: '';
+        background-image: url('./assets/icon__dropdown-arrow.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
         width: 36px;
         height: 36px;
-        fill: #000;
-        display: inline-block;
+        fill: $primary;
+        display: block;
         position: absolute;
-        top: 3px;
-        right: 70px;
+        right: 10px;
+        bottom: 12px;
+        pointer-events: none;
     }
 }
 
@@ -237,44 +370,11 @@ select {
     }
 }
 
-// Utils
 
-.Contain {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+// Breakpoint Utils
 
-.Row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.Column {
-    display: flex;
-    flex-direction: column;
-    &--33 {
-        width: 30%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
+.HideMobile {
+    @media (max-width: $mobile) {
+        display: none;
     }
-    &--50 {
-        width: 45%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
-    }
-    &--66 {
-        width: 60%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
-    }
-}
-
-.Section {
-    margin-top: 50px;
 }

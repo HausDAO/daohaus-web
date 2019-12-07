@@ -15,7 +15,7 @@ const Summon = () => {
   return (
     <>
       {context.account ? (
-        <div className="View">
+        <div className="View SmallContainer">
           <div className="Row">
           <p>{wizardForm ? "Summon (Easy Mode)" : "Summon (Hard Mode)"}</p>
           <button className="TabButton" onClick={toggleForm}>

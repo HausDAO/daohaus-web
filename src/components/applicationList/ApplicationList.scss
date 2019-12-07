@@ -4,15 +4,21 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: flex-start; 
   @media (max-width: $mobile) {
     flex-direction: column;
   }
   &__Item {
     width: 30%;
+    margin-right: 25px;
+    @media (max-width: $grid) {
+      width: 45%;
+      margin-right: 25px;
+    }
     
     @media (max-width: $mobile) {
       width: 100%;
+      margin-right: 0px;
     }
     a {
       margin-top: 25px;
@@ -37,7 +43,7 @@
       align-content: center;
       font-size: 0.85em;
       color: black;
-      h2 { margin: 15px 0px 0px 0px; }
+      h2 { margin: 15px 0px 0px 0px; font-size: 1.25em; }
       p { margin: 0 0 15px 0; }
       :nth-child(1) { margin-right: 10px; }
     }
