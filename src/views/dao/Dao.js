@@ -182,7 +182,9 @@ const Dao = props => {
         <RageQuit
           contract={molochService.contract}
           contractAddress={daoData.id}
-          setComplete={setUpdateDelegateView}
+          setComplete={setUpdateRageView}
+          memberData={memberData}
+          account={context.account.toLowerCase()}
         />
       ) : (
         <>
@@ -215,17 +217,19 @@ const Dao = props => {
               </p>
               <p className="Label">DAO Contract Address</p>
               <p className="Value Data">{molochService.contractAddr}</p>
-              <div>
-                <p className="Label">Proposal and Voting dApp</p>
-                <a
-                  className="Value Data"
-                  href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  {daoData.apiData.name} Pokemol
-                </a>
-              </div>
+              {!daoData.apiData.hidePokemol ? (
+                <div>
+                  <p className="Label">Proposal and Voting dApp</p>
+                  <a
+                    className="Value Data"
+                    href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    {daoData.apiData.name} Pokemol
+                  </a>
+                </div>
+              ) : null}
             </div>
           ) : null}
 
