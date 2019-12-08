@@ -195,10 +195,10 @@ const Dao = props => {
             <>
               {message ? (
                 <div className="SuccessMessage Flash">
-                  <p>
-                    {message} 
-                  </p>
-                  <div className="CloseFlash" onClick={() => closeMessage()}>x</div>
+                  <p>{message}</p>
+                  <div className="CloseFlash" onClick={() => closeMessage()}>
+                    x
+                  </div>
                 </div>
               ) : null}
               <div className="Hero DaoInfo">
@@ -222,7 +222,9 @@ const Dao = props => {
                           {visitor.isMember ? (
                             <>
                               <p>Hello Member!</p>
-                              <button onClick={() => setUpdateDelegateView(true)}>
+                              <button
+                                onClick={() => setUpdateDelegateView(true)}
+                              >
                                 Update Delegate
                               </button>
                               <br />
@@ -235,11 +237,16 @@ const Dao = props => {
                               {visitor.isApplicant ? (
                                 <>
                                   <p>Hello Applicant!</p>
-                                  <p>If/when you become a Member, you'll see Member functions here.</p>
+                                  <p>
+                                    If/when you become a Member, you'll see
+                                    Member functions here.
+                                  </p>
                                 </>
                               ) : (
                                 <>
-                                  <Link to={`/apply/${molochService.contractAddr}`}>
+                                  <Link
+                                    to={`/apply/${molochService.contractAddr}`}
+                                  >
                                     <button>Pledge to Join</button>
                                   </Link>
                                 </>
@@ -262,36 +269,59 @@ const Dao = props => {
                             target="_blank"
                             rel="noreferrer noopener"
                           >
-                            <img src={PokemolBrand} />
+                            <img src={PokemolBrand} alt="pokemol" />
                           </a>
                         </div>
                       ) : null}
                     </div>
                   </div>
-                
-                <div className="Dao">
-                  <div className="Details">
-                    <h4>Dao Details</h4>
-                    <p className="Label">Bank</p>
-                    <p className="Value Data">{daoData.tokenInfo.guildBankValue} {daoData.tokenInfo.symbol}</p>
-                    <p className="Label">Members</p>
-                    <p className="Value Data">
-                      daoData.apiData.members.length
-                    </p>
-                    <p className="Label">Minimum Tribute</p>
-                    <p className="Value Data">
-                      {daoData.apiData.minimumTribute} {daoData.tokenInfo.symbol}
-                    </p>
-                    <p className="Label">Total Shares</p>
-                    <p className="Value Data">{daoData.totalShares}</p>
-                    <p className="Label">DAO Contract Address (Do NOT send funds here)</p>
-                    <p className="Value Data"><a href={'https://etherscan.io/address/' + molochService.contractAddr} rel="noopener noreferrer">{molochService.contractAddr}</a></p>
-                    <p className="Label">Summoner</p>
-                    <p className="Value Data"><a href={'https://etherscan.io/address/' + daoData.summoner} rel="noopener noreferrer">{daoData.summoner}</a></p>
+
+                  <div className="Dao">
+                    <div className="Details">
+                      <h4>Dao Details</h4>
+                      <p className="Label">Bank</p>
+                      <p className="Value Data">
+                        {daoData.tokenInfo.guildBankValue}{' '}
+                        {daoData.tokenInfo.symbol}
+                      </p>
+                      <p className="Label">Members</p>
+                      <p className="Value Data">
+                        {memberData && memberData.active.length}
+                      </p>
+                      <p className="Label">Minimum Tribute</p>
+                      <p className="Value Data">
+                        {daoData.apiData.minimumTribute}{' '}
+                        {daoData.tokenInfo.symbol}
+                      </p>
+                      <p className="Label">Total Shares</p>
+                      <p className="Value Data">{daoData.totalShares}</p>
+                      <p className="Label">
+                        DAO Contract Address (Do NOT send funds here)
+                      </p>
+                      <p className="Value Data">
+                        <a
+                          href={
+                            'https://etherscan.io/address/' +
+                            molochService.contractAddr
+                          }
+                          rel="noopener noreferrer"
+                        >
+                          {molochService.contractAddr}
+                        </a>
+                      </p>
+                      <p className="Label">Summoner</p>
+                      <p className="Value Data">
+                        <a
+                          href={
+                            'https://etherscan.io/address/' + daoData.summoner
+                          }
+                          rel="noopener noreferrer"
+                        >
+                          {daoData.summoner}
+                        </a>
+                      </p>
+                    </div>
                   </div>
-                </div>
-
-
                 </div>
               </div>
             </>
