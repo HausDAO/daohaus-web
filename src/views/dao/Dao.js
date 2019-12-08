@@ -29,6 +29,7 @@ import ActivateButton from '../../components/activateButton/ActivateButton';
 import './Dao.scss';
 
 const Dao = props => {
+
   const context = useWeb3Context();
   const client = useApolloClient();
   const [web3Service] = useContext(Web3Context);
@@ -166,6 +167,11 @@ const Dao = props => {
     setVisitor({ isMember, isApplicant });
   };
 
+  const bankValue = value => {
+    const amt = web3Service.fromWei(value);
+    return parseFloat(amt).toFixed(2);
+  };
+
   if (!molochService) {
     return <p>Loading the DAO</p>;
   }
@@ -281,7 +287,7 @@ const Dao = props => {
                       <h4>Dao Details</h4>
                       <p className="Label">Bank</p>
                       <p className="Value Data">
-                        {daoData.tokenInfo.guildBankValue}{' '}
+                        {bankValue(daoData.tokenInfo.guildBankValue)}{' '}
                         {daoData.tokenInfo.symbol}
                       </p>
                       <p className="Label">Members</p>

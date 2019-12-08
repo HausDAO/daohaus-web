@@ -46,7 +46,6 @@ const About = () =>
                 <h2>History</h2>
                 <p>Daohaus was built at EthBerlin in about a day.</p>
                 <p>You can read our introduction article on <a href="https://medium.com/odyssy/daohaus-bauhaus-b855cd9db19e" rel="noopener noreferrer">Medium</a>.</p>
-                <h3>Roadmap</h3>
                 <p className="Label">June 2019</p>
                 <p className="Value">MetaCartel clones Moloch. Odyssy builds Pokemol v0.5.</p>
                 <p className="Label">July 2019</p>
@@ -57,6 +56,7 @@ const About = () =>
                 <p className="Value">Pokemol v0.7 is released at DevCon V in Osaka</p>
                 <p className="Label">December 2019</p>
                 <p className="Value">All daos get a Pokemol automatically and Pokemol.com is born, uniting all Pokemols into one interface.</p>
+                <h3>Roadmap</h3>
                 <p className="Label">February 2020</p>
                 <p className="Value">Our next epic milestone is EthDenver 2020, and we'll have loads of updates.</p>
             </div>

@@ -96,12 +96,6 @@ button,
     }
 }
 
-.AuthButton {
-    img { margin-top: -4px; }
-    font-weight: 700;
-    &:hover { background-color: $orange; }
-}
-
 // Layout
 
 .Hero {
@@ -123,7 +117,11 @@ button,
         margin: 0 auto;
         max-width: 1200px;
     }
-    button { margin: 15px 0px; }
+    button { 
+        margin: 15px 0px; 
+        max-width: 280px;
+        &:hover { background-color: $orange; }
+    }
     @media (max-width: $mobile) {
         padding-left: 50px;
     }

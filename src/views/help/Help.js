@@ -10,6 +10,7 @@ const  Help = () =>
                 <div className="Index">
                     <h2>Index</h2>
                     <ul>
+                        <li><a href="#Support">Support</a></li>
                         <li><a href="#WTF-Moloch">WTF is a Moloch</a></li>
                         <li><a href="#Summon">Summon a Dao</a></li>
                         <li><a href="#Pledge">Pledge to join a Dao</a></li>
@@ -18,7 +19,6 @@ const  Help = () =>
                         <li><a href="#Proposals">Submit a Proposal</a></li>
                         <li><a href="#Periods">Voting and Periods</a></li>
                         <li><a href="#Rage">Ragequit</a></li>
-                        <li><a href="#Support">Support</a></li>
                     </ul>
                 </div>
                 <div className="Sections">

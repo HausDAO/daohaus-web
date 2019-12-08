@@ -14,11 +14,20 @@
         position: sticky;
         top: 60px;
         float: left;
-        h2 { margin-top: 0px; }
+        h2 { 
+            margin-top: 0px; 
+            
+        }
         ul {
             margin-left: 25px;
             padding: 0px;
-            li { margin-top: 15px; }
+            list-style: decimal;
+            li { 
+                margin-top: 15px; 
+                appearance: none;
+                font-weight: 700;
+                font-size: 1.15em;
+            }
         }
         @media (max-width: $grid){
             width: 100%;
@@ -34,7 +43,10 @@
         margin-left: 420px;
         margin-top: 25px;
         .Section {
-            margin-top: 75px;
+            margin-bottom: 50px;
+            padding-bottom: 50px;
+            border-bottom: 2px solid lighten($tertiary-hover, 15%);
+            h2 {font-weight: 700;}
         }
         @media (max-width: $grid){
             margin-top: 75px;

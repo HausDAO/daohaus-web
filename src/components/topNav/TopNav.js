@@ -23,13 +23,18 @@ const TopNav = () => {
         <img src={Brand} alt="DAOHAUS" />
       </Link>
       <nav className="TopNav__Desktop">
+        <Link to={`/`} alt="DAOHaus Home">
+          Home
+        </Link>
         <Link to={`/about`} alt="DAOHaus About">
           About
         </Link>
         <Link to={`/help`} alt="DAOHaus Help">
           Help
         </Link>
-        <ActivateButton />
+        <div className="AuthButton">
+          <ActivateButton />
+        </div>
       </nav>
       {/* Start Hamburger */}
       <button
@@ -43,6 +48,9 @@ const TopNav = () => {
         </button>
         <div className={mobileNavClass}>
           <div className="TopNav__Mobile--Contents">
+            <Link to={`/`} alt="DAOHaus Home" onClick={toggleNav}>
+              Home
+            </Link>
             <Link to="/" onClick={toggleNav}>
               Home
             </Link>
