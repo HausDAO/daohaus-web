@@ -1,12 +1,15 @@
 @import '../../variables';
 .DaoCard {
-  background-color: white;
+  background-color: $primary;
   padding: 25px;
   border-radius: 10px;
   margin-bottom: 50px;
+  box-shadow: $shadow;
   h4 {
-    font-size: 32px;
+    font-size: 28px;
     margin: 0px;
+    font-weight: 400;
+    color: white !important;
   }
   p:nth-child(3) {
     font-size: 0.85em;
@@ -15,6 +18,7 @@
   span.Data {
     margin-top: 5px;
   }
+  p { color: white !important; }
 }
 
 .DaoName {

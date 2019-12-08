@@ -15,11 +15,9 @@
     transition: all .15s linear; 
     height: auto; 
     min-height: 200px; 
-    
-    
   }
   a:hover .DaoCard { 
-    background-color: $primary; 
+    background-color: $primary-background; 
     scale: 1.05;
     h4, p { color: white !important; }
   }
