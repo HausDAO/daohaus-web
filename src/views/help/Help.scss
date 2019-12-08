@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .Intro {
     width: 100%;
 }
@@ -6,13 +8,37 @@
     position: relative;
     .Index {
         width: 320px;
-        position: fixed;
-        top: 102px;
         left: 0;
         padding-left: 25px;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 60px;
+        float: left;
+        h2 { margin-top: 0px; }
+        ul {
+            margin-left: 25px;
+            padding: 0px;
+            li { margin-top: 15px; }
+        }
+        @media (max-width: $grid){
+            width: 100%;
+            position: relative;
+            float: none;
+            padding-left: 0px;
+            top: 0;
+        } 
     }
     .Sections {
         max-width: 600px;
         width: calc(100%);
+        margin-left: 420px;
+        margin-top: 25px;
+        .Section {
+            margin-top: 75px;
+        }
+        @media (max-width: $grid){
+            margin-top: 75px;
+            margin-left: 0px;
+        } 
     }
 }
