@@ -276,7 +276,7 @@ const Dao = props => {
                     <p className="Value Data">{daoData.tokenInfo.guildBankValue} {daoData.tokenInfo.symbol}</p>
                     <p className="Label">Members</p>
                     <p className="Value Data">
-                      daoData.apiData.members.length
+                      memberData.active.length
                     </p>
                     <p className="Label">Minimum Tribute</p>
                     <p className="Value Data">

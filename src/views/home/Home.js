@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import DaoList from '../../components/daoList/DaoList';
 import SummonButton from '../../components/summonButton/summonButton';
+import ActivateButton from '../../components/activateButton/ActivateButton';
 import { GET_MOLOCHES } from '../../util/queries';
 import HeroBackground from '../../assets/daohaus__hero--falling.png';
 
@@ -36,7 +37,7 @@ const Home = () => {
         <h2>
           Discover and Pledge to existing Moloch DAOs, or summon your own.
         </h2>
-        {context.active && !context.error && <SummonButton />}
+        {context.active && !context.error ? (<SummonButton />):(<ActivateButton msg={'Sign in to Summon'} />) }
       </div>
       <div className="View">
         {loading ? <p>Loading DAOs</p> : null}
