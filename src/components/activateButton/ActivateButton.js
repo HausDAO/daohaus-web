@@ -35,7 +35,7 @@ const ActivateButton = props => {
         </>
       )}
       {!context.active && !context.error && (
-        <button className="AuthButton" onClick={() => activate()}>
+        <button onClick={() => activate()}>
           {msg ? (
             <span>{msg}</span>
           ) : (

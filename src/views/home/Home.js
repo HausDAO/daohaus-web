@@ -35,9 +35,9 @@ const Home = () => {
           Haus of Moloch
         </h1>
         <h2>
-          Discover and Pledge to existing Moloch DAOs, or summon your own.
+          Discover and Pledge to existing Moloch daos, or summon your own.
         </h2>
-        {context.active && !context.error ? (<SummonButton />):(<ActivateButton msg={'Sign in to Summon'} />) }
+        {context.active && !context.error ? (<SummonButton />):(<ActivateButton msg={'Sign in'} />) }
       </div>
       <div className="View">
         {loading ? <p>Loading DAOs</p> : null}

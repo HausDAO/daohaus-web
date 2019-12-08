@@ -4,9 +4,12 @@
     color: white;
 }
 
-.AuthButton {
+.AuthButton button {
     img {
         width: 28px;
         vertical-align: middle;
+        margin-top: -4px;
     }
+    font-weight: 700;
+    &:hover { background-color: $orange; }
 }
