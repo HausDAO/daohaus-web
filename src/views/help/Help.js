@@ -22,6 +22,10 @@ const  Help = () =>
                     </ul>
                 </div>
                 <div className="Sections">
+                    <div className="Section" id="Support">
+                        <h2>Support</h2>
+                        <p>Feel free to hit us up in our Support Group on Telegram. Ask us anything about daos. Let us know about bugs and features for improvement.</p>
+                    </div>
                     <div className="Intro Section" id="WTF-Moloch">
                         <h2>WTF is a Moloch?</h2>
                         <p>For a brief introduction daos and Molochs specifically, you can catch up via the Moloch Primer for Humans on Medium</p>
@@ -147,10 +151,6 @@ const  Help = () =>
                         <p>Typically, you should Ragequit all of your Shares. Depending on the dao, they might appreciate it if you leave some Shares in to use for voting/signaling, in which case you can remain as an ongoing Member. You should ask the dao how they feel about that first.</p>
                         <h4>For Members</h4>
                         <p>If a Member strongly disagrees with a proposal, and as long as they don’t have a ‘Yes’ vote on any open proposals, they can ragequit during this period to burn their Shares and withdraw their remaining Tribute before the proposal can be processed. You can Ragequit any amount. If you Ragequit ALL Shares, you’ll no longer be able to vote or submit proposals, essentially leaving the dao.</p>
-                    </div>
-                    <div className="Section" id="Support">
-                        <h2>Support</h2>
-                        <p>Feel free to hit us up in our Support Group on Telegram. Ask us anything about daos.</p>
                     </div>
                 </div>
             </div>

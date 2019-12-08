@@ -61,6 +61,12 @@ a {
     text-decoration: none;
     cursor: pointer;
     transition: all .15s linear;
+    &:hover { color: $primary-hover; }
+}
+
+img {
+    max-width: 100%;
+    display: inline-block;
 }
 
 // Typography Utils
@@ -91,27 +97,99 @@ button,
 }
 
 .AuthButton {
-    img { margin-top: -2px; }
+    img { margin-top: -4px; }
+    font-weight: 700;
+    &:hover { background-color: $orange; }
 }
 
 // Layout
 
-.Contain {
-    max-width: 1200px;
-    margin: 0 auto;
+.Hero {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 50vh;
+    padding: 50px;
+    padding-bottom: 250px;
+    padding-left: 150px;
+    text-align: left;
+    background-color: $primary-background;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    color: #fff;
+    &__Contents {
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+    button { margin: 15px 0px; }
+    @media (max-width: $mobile) {
+        padding-left: 50px;
+    }
+    h1 { 
+        font-size: 3em;
+        margin: 0px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        @media (max-width: $mobile){
+            font-size: 2.25em;
+        }
+        color: white;
+    }
+    h2 { 
+        font-size: 1.75em;
+        max-width: 320px;
+        margin: 15px 0px;
+        font-weight: 100;
+    }
+    @media (max-width: $mobile) {
+        button { position: relative; }
+    }
+}
+
+.Block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 50vh;
+    padding: 75px 0px;
+    h1, h2 { font-weight: 700; }
+    p { 
+        font-size: 1.35em; 
+    }
+    &__Contents {
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+    &.Primary {
+        background-color: $primary;
+        p { color: white; }
+        a { color: $orange; &:hover { color: $secondary; }}
+    }
+    &.Secondary {
+        background-color: $secondary;
+        p { color: white; }
+    }
+    &.Tertiary {
+        background-color: $tertiary;
+        p { color: white; }
+    }
 }
 
 .Row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
 }
 
 .Column {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     &--33 {
         width: 30%;
         @media (max-width: $mobile) {
@@ -134,6 +212,11 @@ button,
 
 .Section {
     margin-top: 50px;
+}
+
+.Contain {
+    max-width: $grid;
+    margin: 0 auto;
 }
 
 .View {
