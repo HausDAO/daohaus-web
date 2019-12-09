@@ -154,7 +154,9 @@ button,
     padding: 125px 0px;
     &__Contents {
         margin: 0 auto;
-        max-width: 1200px;
+        width: 100%;
+        max-width: 1100px;
+        padding: 50px;
         > h1, h2 { font-weight: 700; }
         > p { 
             font-size: 1.35em; 

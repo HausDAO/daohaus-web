@@ -48,10 +48,7 @@ const TopNav = () => {
         </button>
         <div className={mobileNavClass}>
           <div className="TopNav__Mobile--Contents">
-            <Link to={`/`} alt="DAOHaus Home" onClick={toggleNav}>
-              Home
-            </Link>
-            <Link to="/" onClick={toggleNav}>
+            <Link to={`/`} onClick={toggleNav}>
               Home
             </Link>
             <Link to="/about" onClick={toggleNav}>
