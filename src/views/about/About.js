@@ -56,6 +56,7 @@ const About = () => {
             <a
               href="https://medium.com/odyssy/moloch-primer-for-humans-9e6a4f258f78"
               rel="noopener noreferrer"
+              target="_blank"
             >
               Moloch Primer for Humans
             </a>
@@ -105,6 +106,7 @@ const About = () => {
             <a
               href="https://medium.com/odyssy/daohaus-bauhaus-b855cd9db19e"
               rel="noopener noreferrer"
+              target="_blank"
             >
               Medium
             </a>

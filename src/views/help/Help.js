@@ -56,6 +56,7 @@ const Help = () => (
             <a
               href="https://medium.com/odyssy/moloch-primer-for-humans-9e6a4f258f78"
               rel="noopener noreferrer"
+              target="_blank"
             >
               Read on Medium
             </a>
