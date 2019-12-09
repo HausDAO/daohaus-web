@@ -18,8 +18,8 @@ const DaoList = props => {
   });
 
   return (
-    <div>
-      <h3>DAOs</h3>
+    <div className="View">
+      <h3>All Daos</h3>
       <div className="DaoList">{daoList}</div>
     </div>
   );
