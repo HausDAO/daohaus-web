@@ -14,13 +14,13 @@ import './Home.scss';
 const Home = () => {
   const context = useWeb3Context();
   const { loading, error, data } = useQuery(GET_MOLOCHES);
-
-  console.log('error', error);
-
   const filterDaos = daos => {
-    return _.sortBy(daos.filter(dao => !dao.apiData.hide), dao => {
-      return +dao.tokenInfo.guildBankValue;
-    }).reverse();
+    return _.sortBy(
+      daos.filter(dao => !dao.apiData.hide),
+      dao => {
+        return +dao.tokenInfo.guildBankValue;
+      },
+    ).reverse();
   };
 
   return (
@@ -32,12 +32,19 @@ const Home = () => {
         <h1>
           Explore the
           <br />
-          Haus of Moloch
+          Haus of Daos
         </h1>
         <h2>
-          Discover and Pledge to existing Moloch daos, or summon your own.
+          Discover and pledge to join existing daos.
         </h2>
-        {context.active && !context.error ? (<SummonButton />):(<ActivateButton msg={'Sign in'} />) }
+        <h2>
+          Or summon your own.
+        </h2>
+        {context.active && !context.error ? (
+          <SummonButton />
+        ) : (
+          <ActivateButton msg={'Sign in'} />
+        )}
       </div>
       <div className="View">
         {loading ? <p>Loading DAOs</p> : null}

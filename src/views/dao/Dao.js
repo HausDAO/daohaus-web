@@ -29,7 +29,6 @@ import ActivateButton from '../../components/activateButton/ActivateButton';
 import './Dao.scss';
 
 const Dao = props => {
-
   const context = useWeb3Context();
   const client = useApolloClient();
   const [web3Service] = useContext(Web3Context);
@@ -98,8 +97,6 @@ const Dao = props => {
     isError && setError(error);
 
     if (data && web3Service) {
-      console.log('data.factories[0]', data.factories[0]);
-
       if (!data.factories[0]) {
         props.history.push(
           `/building-dao/${props.match.params.contractAddress}`,
