@@ -81,7 +81,7 @@ const MemberItem = props => {
             {''}
           </div>
         )}
-        <div>
+        <div className="ProfileInfo__Pseudo">
           {applicantProfile &&
           applicantProfile.profile &&
           applicantProfile.profile.name ? (

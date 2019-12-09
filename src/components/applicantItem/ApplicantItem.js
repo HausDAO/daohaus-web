@@ -102,14 +102,14 @@ const ApplicantItem = props => {
             {''}
           </div>
         )}
-        <div>
+        <div className="ProfileInfo__Pseudo">
           {applicantProfile &&
           applicantProfile.profile &&
           applicantProfile.profile.name ? (
             <h2>
               {applicantProfile.profile.name}{' '}
               {applicantProfile.profile.emoji ? (
-                <span>{applicantProfile.profile.emoji} </span>
+                <span>{applicantProfile.profile.emoji}</span>
               ) : null}
             </h2>
           ) : null}

@@ -28,6 +28,9 @@ const Help = () => (
               <a href="#Pokemol-Setup">Pokemol Account</a>
             </li>
             <li>
+              <a href="#FirstProposal">First Proposal</a>
+            </li>
+            <li>
               <a href="#Proposals">Submit a Proposal</a>
             </li>
             <li>
@@ -42,24 +45,33 @@ const Help = () => (
           <div className="Section" id="Support">
             <h2>Support</h2>
             <p>
-              Feel free to hit us up in our Support Group on Telegram. Ask us
-              anything about daos. Let us know about bugs and features for
-              improvement.
+              Feel free to hit us up in our Support Group on Telegram. Let us know about any bugs or feature requests. Or just ask us
+              anything about daos.
+            </p>
+            <p> 
+              <a
+                href="https://t.me/joinchat/IJqu9xPa0xzYLN1mmFKo8g"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Support Group on Telegram
+              </a>
             </p>
           </div>
           <div className="Intro Section" id="WTF-Moloch">
             <h2>WTF is a Moloch?</h2>
             <p>
-              For a brief introduction daos and Molochs specifically, you can
-              catch up via the Moloch Primer for Humans on Medium
-            </p>
-            <a
+              For a brief introduction to daos and Molochs specifically, you can
+              catch up via the{' '}
+              <a
               href="https://medium.com/odyssy/moloch-primer-for-humans-9e6a4f258f78"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Read on Medium
-            </a>
+              Moloch Primer for Humans
+            </a>{' '}on Medium.
+            </p>
+            
           </div>
           <div className="Section" id="Summon">
             <h2>Summon a Dao</h2>
@@ -137,7 +149,7 @@ const Help = () => (
             </p>
           </div>
           <div className="Section" id="Pokemol-Intro">
-            <h2>WTF is Pokemol?</h2>
+            <h2>Pokemol Introduction</h2>
             <p>
               A few minutes after a dao is initially summoned on Daohaus, your
               Pokemol should be available at:
@@ -210,8 +222,8 @@ const Help = () => (
               use your Shares to submit votes and proposals.
             </p>
           </div>
-          <div className="Section" id="Proposal">
-            <h2>Submitting a Proposal</h2>
+          <div className="Section" id="FirstProposal">
+            <h2>First Member Proposal</h2>
             <p>
               When someone Pledges to join your dao at Daohaus, their pledge
               will be displayed on the dao’s page. This Pledges let you know the
@@ -229,12 +241,12 @@ const Help = () => (
                 Pledger’s card to go to their profile to get their full address)
               </li>
               {/* Commented out until showing to the user
-                            <li>Also a Name and a Note to reference for more information to dao members.</li>
-                            */}
+              <li>Also a Name and a Note to reference for more information to dao members.</li>
+              */}
             </ul>
           </div>
           <div className="Section" id="Proposals">
-            <h2>Submit a Proposal</h2>
+            <h2>Submitting Proposals</h2>
             <h4>Requirements</h4>
             <p>
               To submit a proposal, you need enough dao Tokens (depending on the

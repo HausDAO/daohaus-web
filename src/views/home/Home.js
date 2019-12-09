@@ -32,10 +32,13 @@ const Home = () => {
         <h1>
           Explore the
           <br />
-          Haus of Moloch
+          Haus of Daos
         </h1>
         <h2>
-          Discover and Pledge to existing Moloch daos, or summon your own.
+          Discover and pledge to join existing daos.
+        </h2>
+        <h2>
+          Or summon your own.
         </h2>
         {context.active && !context.error ? (
           <SummonButton />

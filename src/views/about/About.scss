@@ -1,7 +1,32 @@
-.Hero {
-    padding: 0px;
+.About .Hero {
+    padding: 50px 0px;
+    min-height: 75vh;
+    h2 { max-width: 600px; }
+
 }
 
 .PokemolBrand {
-    max-width: 200px;
+    height: 60px;
+}
+
+.ThreeBoxBrand {
+    max-width: 120px;
+}
+
+.History {
+    .Value { margin-bottom: 25px; }
+}
+
+.About {
+    ul { 
+        list-style: square;
+        margin: 0;
+        padding: 0px;
+        padding-left: 25px;
+        li {
+            margin-bottom: 15px;
+            color: white;
+            padding: 0px;
+        }
+    }
 }
