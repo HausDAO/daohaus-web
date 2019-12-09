@@ -108,7 +108,7 @@ export const resolvers = (() => {
           symbol = await tokenService.getSymbol();
           guildBankValue = await tokenService.balanceOf(guildBankAddr);
         } catch (err) {
-          console.log('symbol or guildbank error', err);
+          // console.log('symbol or guildbank error', err);
           symbol = 'ERR';
           guildBankValue = '0';
         }
