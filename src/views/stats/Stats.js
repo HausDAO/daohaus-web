@@ -12,8 +12,6 @@ import ProposalStats from '../../components/stats/ProposalStats';
 const Stats = props => {
   const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
 
-  // console.log('data', data);
-
   const totalDaos = () => {
     return data.factories.length;
   };

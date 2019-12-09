@@ -23,11 +23,8 @@ const ContractContexts = ({ children }) => {
         Web3.givenProvider &&
         Web3.givenProvider.networkVersion === process.env.REACT_APP_NETWORK_ID
       ) {
-        console.log('reg web3', Web3.givenProvider);
-
         _web3 = new Web3(Web3.givenProvider);
       } else {
-        console.log('net web3');
         _web3 = new Web3(
           new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI),
         );

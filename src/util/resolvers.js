@@ -18,7 +18,6 @@ if (
   Web3.givenProvider &&
   Web3.givenProvider.networkVersion === process.env.REACT_APP_NETWORK_ID
 ) {
-  console.log('reg web3 IN RESOLVER', Web3.givenProvider);
   _web3 = new Web3(Web3.givenProvider);
 } else {
   _web3 = new Web3(

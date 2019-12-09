@@ -8,12 +8,12 @@ import { truncateAddr } from '../../util/helpers';
 import './MemberItem.scss';
 
 const MemberItem = props => {
-  const { applicant, applicantAddress, daoData, contract } = props;
+  const { applicant, applicantAddress, daoData } = props;
   const [currentApplicant, setCurrentApplicant] = useState([]);
 
   useEffect(() => {
     const setup = async () => {
-      if (applicantAddress && contract) {
+      if (applicantAddress) {
         const _applicant = applicantAddress;
 
         let profile;
