@@ -25,7 +25,7 @@ const DaoCard = props => {
   return (
     <>
       {dao.id ? (
-        <div className="DaoCard" style={{backgroundColor: dao.moloch.replace('0x', '#').substring(0, 7)}}>
+        <div className="DaoCard">
           <h4 className="DaoName">{dao.apiData.name || dao.title}</h4>
           <p>{dao.apiData.description}</p>
           <div className="Row">
