@@ -19,7 +19,7 @@ const DepositInfo = () => {
             <input
               min="0"
               type="number"
-              inputMode="numeric"
+              inputMode="decimal"
               step="any"
               {...field}
             />
@@ -38,7 +38,7 @@ const DepositInfo = () => {
             <input
               min="0"
               type="number"
-              inputMode="numeric"
+              inputMode="decimal"
               step="any"
               {...field}
             />
