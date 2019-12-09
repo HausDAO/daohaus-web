@@ -171,7 +171,7 @@ const ApplicationWizard = props => {
   };
 
   return (
-    <div className="Wizard">
+    <div className="Wizard SmallContainer">
       {context.account ? (
         <>
           {!loading ? (

@@ -15,11 +15,8 @@ import './App.css';
 
 const { InjectedConnector, NetworkOnlyConnector } = Connectors;
 
-// const MetaMask = new InjectedConnector({ supportedNetworks: [1, 42] });
-console.log('REACT_APP_NETWORK_ID', process.env.REACT_APP_NETWORK_ID);
 const MetaMask = new InjectedConnector({
   supportedNetworks: [+process.env.REACT_APP_NETWORK_ID],
-  // supportedNetworks: [42],
 });
 
 const Infura = new NetworkOnlyConnector({

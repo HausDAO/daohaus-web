@@ -29,7 +29,6 @@ const ApplicationList = props => {
               applicant={member}
               applicantAddress={applicantAddress}
               daoData={daoData}
-              contract={contract}
             />
           </div>
         );

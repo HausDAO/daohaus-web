@@ -1,32 +1,242 @@
 @import '../../variables';
+
 .TopNav {
-    background-color: $primary-background;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-content: center;
-    height: auto;
-    width: calc(100% - 150px);
-    padding: 25px 75px;
-    @media (max-width: $mobile) {
+    align-items: center;
+    position: relative;
+    padding: 15px 50px;
+    width: calc(100% - 100px);
+    background-color: $primary-background;
+    @media (max-width:$mobile) {
+        padding: 15px 25px;
         width: calc(100% - 50px);
-        padding: 25px;
     }
-    .Brand {
+    &__Brand {
         font-size: 36px;
         margin: 0;
         img {
             margin: 0;
-            display: block;
+            display: inline-block;
             max-width: 200px;
             @media (max-width: $mobile) {
                 max-width: 160px;
             }
         }
     }
-    button {
-        font-size: 0.85em;
-        padding: 5px 20px;
-        font-weight: 600;
+    &__Desktop {
+        margin-left: auto;
+        display: none;
+        @media (min-width: 890px) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            height: auto;
+            margin-right: 50px;
+            color: $secondary;
+            font-size: 1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            &:hover { color: $orange; }
+        }
     }
+}
+
+.TopNav__Mobile {
+    position: fixed;
+    padding: 75px 25px 25px 25px;
+    top: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100vh;
+    background: $tertiary;
+    opacity: 0;
+    z-index: -1;
+    transition: all .1s linear;
+    &--Contents {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        a {
+            font-size: 1.25em;
+            margin-top: 25px;
+            color: $primary;
+        }
+        button {
+            margin-top: 25px;
+        }
+    }
+    &--Open {
+        opacity: 1;
+        z-index: 1;
+        pointer-events: all;
+    }
+}
+
+// Old -- Refactoring
+
+.navbar__hamburger {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 25px;
+    z-index: 2;
+    cursor: pointer;
+    &:hover { background-color: transparent; }
+}
+
+// Hamburger - RF af
+
+@charset "UTF-8";
+/*!
+ * Hamburgers
+ * @description Tasty CSS-animated hamburgers
+ * @author Jonathan Suh @jonsuh
+ * @site https://jonsuh.com/hamburgers
+ * @link https://github.com/jonsuh/hamburgers
+ */
+
+// Settings
+// ==================================================
+$hamburger-padding-x                       : 0px !default;
+$hamburger-padding-y                       : 0px !default;
+$hamburger-layer-width                     : 28px !default;
+$hamburger-layer-height                    : 3px !default;
+$hamburger-layer-spacing                   : 6px !default;
+$hamburger-layer-color                     : $primary !default;
+$hamburger-layer-border-radius             : 2px !default;
+$hamburger-hover-opacity                   : 1 !default;
+$hamburger-hover-transition-duration       : 0.15s !default;
+$hamburger-hover-transition-timing-function: linear !default;
+
+// To use CSS filters as the hover effect instead of opacity,
+// set $hamburger-hover-use-filter as true and
+// change the value of $hamburger-hover-filter accordingly.
+$hamburger-hover-use-filter: false !default;
+$hamburger-hover-filter    : none !default;
+
+// Hamburger
+// ==================================================
+.hamburger {
+  padding: $hamburger-padding-y $hamburger-padding-x;
+  @media (min-width: $mobile) {
+    display: none;
+  }
+  @media (max-width: $mobile) {
+    display: inline-block;
+  }
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: $hamburger-hover-transition-duration;
+  transition-timing-function: $hamburger-hover-transition-timing-function;
+
+  // Normalize (<button>)
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+
+  &:hover {
+    @if $hamburger-hover-use-filter == true {
+      filter: $hamburger-hover-filter;
+    }
+    @else {
+      opacity: $hamburger-hover-opacity;
+      .hamburger-inner {
+        &,
+        &::before,
+        &::after {background-color: $primary-hover;}
+      }
+    }
+  }
+}
+
+.hamburger-box {
+  width: $hamburger-layer-width;
+  height: $hamburger-layer-height * 3 + $hamburger-layer-spacing * 2;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: $hamburger-layer-height / -2;
+
+  &,
+  &::before,
+  &::after {
+    width: $hamburger-layer-width;
+    height: $hamburger-layer-height;
+    background-color: $hamburger-layer-color;
+    border-radius: $hamburger-layer-border-radius;
+    position: absolute;
+    transition-property: transform;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+  }
+
+  &::before {
+    top: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+  }
+
+  &::after {
+    bottom: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+  }
+}
+
+// Spin animation
+.hamburger--spin {
+  .hamburger-inner {
+    transition-duration: 0.22s;
+    transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+    &::before {
+      transition: top 0.1s 0.25s ease-in,
+                  opacity 0.1s ease-in;
+    }
+
+    &::after {
+      transition: bottom 0.1s 0.25s ease-in,
+      transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+  }
+
+  &.is-active {
+    .hamburger-inner {
+      transform: rotate(225deg);
+      transition-delay: 0.12s;
+      transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+      &::before {
+        top: 0;
+        opacity: 0;
+        transition: top 0.1s ease-out,
+                    opacity 0.1s 0.12s ease-out;
+      }
+
+      &::after {
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition: bottom 0.1s ease-out,
+        transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+    }
+  }
 }
