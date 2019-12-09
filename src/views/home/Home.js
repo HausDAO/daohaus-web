@@ -46,9 +46,9 @@ const Home = () => {
           <ActivateButton msg={'Sign in'} />
         )}
       </div>
-      <div className="View">
-        {loading ? <p>Loading DAOs</p> : null}
-        {error ? <p>Sorry there's been an error</p> : null}
+      <div className="Block Primary">
+        {loading ? <p className="View">Loading DAOs</p> : null}
+        {error ? <p className="View">Sorry there's been an error</p> : null}
         {data ? <DaoList daos={filterDaos(data.factories)} /> : null}
       </div>
     </>
