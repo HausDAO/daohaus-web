@@ -20,11 +20,13 @@ const RageQuit = props => {
   const [formError, setformError] = useState('');
   const [txHash, settxHash] = useState('');
   const [loading, setLoading] = useState(false);
-  console.log('memberData', memberData);
 
-  const activeMember = memberData.active.find(
-    member => member.memberId === account,
+  let activeMember = memberData.active.find(
+    member => member.id.indexOf(account) > -1,
   );
+
+  console.log('activeMember', activeMember);
+
 
   return (
     <>
