@@ -20,9 +20,6 @@ const ContractContexts = ({ children }) => {
   useEffect(() => {
     const setUp = async () => {
 
-
-      console.log('context.library', context.library);
-      
       const web3Service = new Web3Service(context.library || new Web3(
             new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI),
           ));
