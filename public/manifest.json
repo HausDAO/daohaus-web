@@ -1,8 +1,8 @@
 {
-  "name": "DAOHaus",
-  "short_name": "DAOHaus",
-  "theme_color": "#020436",
-  "background_color": "#ec891d",
+  "name": "Daohaus",
+  "short_name": "Daohaus",
+  "theme_color": "#513E97",
+  "background_color": "#4EBD9E",
   "display": "minimal-ui",
   "Scope": "/",
   "start_url": "/",
