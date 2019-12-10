@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 
 import Web3 from 'web3';
+import { useWeb3Context } from 'web3-react';
 
 import Web3Service from '../util/web3Service';
 
@@ -14,26 +15,21 @@ const ContractContexts = ({ children }) => {
   const [web3, setWeb3] = useState();
   const [token, setToken] = useState();
   const [moloch, setMoloch] = useState();
-
+  const context = useWeb3Context();
+  
   useEffect(() => {
     const setUp = async () => {
-      let _web3;
 
-      if (
-        Web3.givenProvider &&
-        Web3.givenProvider.networkVersion === process.env.REACT_APP_NETWORK_ID
-      ) {
-        _web3 = new Web3(Web3.givenProvider);
-      } else {
-        _web3 = new Web3(
-          new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI),
-        );
-      }
-      const web3Service = new Web3Service(_web3);
+
+      console.log('context.library', context.library);
+      
+      const web3Service = new Web3Service(context.library || new Web3(
+            new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_URI),
+          ));
       setWeb3(web3Service);
     };
     setUp();
-  }, []);
+  }, [context]);
   return (
     <Web3Context.Provider value={[web3, setWeb3]}>
       <MolochContext.Provider value={[moloch, setMoloch]}>
