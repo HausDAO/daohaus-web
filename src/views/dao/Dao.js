@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
 import queryString from 'query-string';
+import { Helmet } from 'react-helmet';
 
 import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 
@@ -175,6 +176,32 @@ const Dao = props => {
 
   return (
     <div>
+      <Helmet>
+        <title>{`Daohaus ${
+          daoData.id ? `- ${daoData.apiData.name}` : ''
+        }`}</title>
+        <meta
+          property="og:url"
+          content={
+            daoData.id
+              ? `https://daohaus.club/dao/${daoData.id}`
+              : `https://daohaus.club`
+          }
+        />
+        <meta
+          property="og:title"
+          content={daoData.id ? daoData.apiData.name : 'Daohaus'}
+        />
+        <meta
+          property="og:description"
+          content={
+            daoData.id
+              ? daoData.apiData.description
+              : 'Explore the Haus of Daos. Discover and pledge to join existing daos. Or summon your own.'
+          }
+        />
+      </Helmet>
+
       {loading ? <p>Loading the DAO</p> : null}
       {error ? <p>Sorry there's been an error</p> : null}
 
