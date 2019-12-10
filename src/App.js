@@ -12,6 +12,7 @@ import { resolvers } from './util/resolvers';
 
 import './global.scss';
 import './App.css';
+import Web3 from 'web3';
 
 const { InjectedConnector, NetworkOnlyConnector } = Connectors;
 
@@ -36,7 +37,8 @@ function App() {
   return (
     <Web3Provider
       connectors={connectors}
-      libraryName={'ethers.js' | 'web3.js' | null}
+      libraryName={'web3.js' }
+      web3Api={Web3}
     >
       <ApolloProvider client={client}>
         <ContractContexts>
