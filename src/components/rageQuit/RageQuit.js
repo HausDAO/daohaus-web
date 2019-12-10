@@ -62,7 +62,8 @@ const RageQuit = props => {
                   })
                   .catch(err => {
                     setLoading(false);
-
+                    console.log('err', err);
+                    
                     if (err.code === 4001) {
                       setformError(
                         `Approval rejected by user. Please try again.`,
@@ -70,6 +71,8 @@ const RageQuit = props => {
                       return { error: err };
                     }
                     if (
+                      err &&
+                      err.isArray() &&
                       err.indexOf(
                         'Error: Transaction was not mined within 50 blocks',
                       ) > -1
