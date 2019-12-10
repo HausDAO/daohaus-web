@@ -4,29 +4,24 @@ import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
 import queryString from 'query-string';
-import { Helmet } from 'react-helmet';
-
-import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
-
-// import ApplyButton from '../../components/applyButton/applyButton';
-
-import RageQuit from '../../components/rageQuit/RageQuit';
-import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
-import ApplicationList from '../../components/applicationList/ApplicationList';
+import { get } from '../../util/requests';
 
 import {
   Web3Context,
   MolochContext,
   TokenContext,
 } from '../../contexts/ContractContexts';
-
-import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
+import RageQuit from '../../components/rageQuit/RageQuit';
+import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
+import ApplicationList from '../../components/applicationList/ApplicationList';
 import TokenService from '../../util/tokenService';
 import MolochService from '../../util/molochService';
 import ActivateButton from '../../components/activateButton/ActivateButton';
+import HeadTags from '../../components/headTags/HeadTags';
 
+import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 import './Dao.scss';
 
 const Dao = props => {
@@ -37,7 +32,6 @@ const Dao = props => {
   const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
   const [memberData, setMemberData] = useState();
-  // const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
   const [visitor, setVisitor] = useState({
     isMember: false,
     isApplicant: false,
@@ -161,7 +155,6 @@ const Dao = props => {
       context.active &&
       applicantAddresses.includes(context.account.toLowerCase());
 
-    // setIsMemberOrApplicant(isMember || isApplicant);
     setVisitor({ isMember, isApplicant });
   };
 
@@ -176,31 +169,7 @@ const Dao = props => {
 
   return (
     <div>
-      <Helmet>
-        <title>{`Daohaus ${
-          daoData.id ? `- ${daoData.apiData.name}` : ''
-        }`}</title>
-        <meta
-          property="og:url"
-          content={
-            daoData.id
-              ? `https://daohaus.club/dao/${daoData.id}`
-              : `https://daohaus.club`
-          }
-        />
-        <meta
-          property="og:title"
-          content={daoData.id ? daoData.apiData.name : 'Daohaus'}
-        />
-        <meta
-          property="og:description"
-          content={
-            daoData.id
-              ? daoData.apiData.description
-              : 'Explore the Haus of Daos. Discover and pledge to join existing daos. Or summon your own.'
-          }
-        />
-      </Helmet>
+      {daoData.id ? <HeadTags daoData={daoData} /> : null}
 
       {loading ? <p>Loading the DAO</p> : null}
       {error ? <p>Sorry there's been an error</p> : null}
