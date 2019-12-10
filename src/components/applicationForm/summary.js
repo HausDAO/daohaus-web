@@ -27,8 +27,8 @@ function Summary(props) {
       <p className="Label">Bio</p>
       <p className="Value Data">{values.personal.bio}</p>
       <p className="Value">
-        You are pledging {values.pledge.pledge} {contractData.token} in tribute
-        and requesting {values.shares.shares} shares
+        You are pledging {values.pledge.pledge} {contractData.token} in Tribute
+        and requesting {values.shares.shares} Shares
       </p>
       <p>
         After pledging a sponsoring member can now make a proposal for your

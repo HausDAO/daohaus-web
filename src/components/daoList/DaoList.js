@@ -6,7 +6,6 @@ import './DaoList.scss';
 
 const DaoList = props => {
   const { daos } = props;
-  console.log('list daos', daos)
 
   const daoList = daos.map(dao => {
     return (
@@ -19,8 +18,8 @@ const DaoList = props => {
   });
 
   return (
-    <div>
-      <h3>DAOs</h3>
+    <div className="View">
+      <h3>All Daos</h3>
       <div className="DaoList">{daoList}</div>
     </div>
   );

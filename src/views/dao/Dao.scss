@@ -1,7 +1,82 @@
-.DaoName {
-  font-size: 2em;
+@import '../../variables';
+
+.Hero.DaoInfo {display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  .Contents {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    max-width: $grid;
+    width: 100%;
+  }
 }
 
-.Dao__actions {
-  padding: 10px 0px 10px 0;
+.Basics {
+  width: 60%;
+  @media (max-width: $grid) {
+    width: 100%;
+  }
+  .DaoName {
+    font-size: 3.5em;
+    margin: 25px 0px;
+  }
+  .Description {
+    font-size: 1.75em;
+    margin: 15px 0px 25px;
+    max-width: 600px;
+    color: rgba(255,255,255,0.65);
+  }
+  .Dao__actions {
+    padding: 10px 0px 10px 0;
+    .Label { color: white; }
+    p { color: rgba(255,255,255,0.65); }
+  }
+  .Dapp {
+    margin-top: 25px;
+  }
+}
+
+.Dao {
+  width: 40%;
+  @media (max-width: $grid) {
+    margin-top: 50px;
+    width: 100%;
+  }
+  display: flex;
+  flex-wrap: wrap;
+  background-color: $primary;
+  border-radius: 10px;
+  .Details {
+    padding: 30px;
+    h4 { font-weight: 700;}
+    color: white; 
+    .Label, a { color: white; }
+    .Value { margin-bottom: 25px; font-size: 1em; color: white; }
+    a:hover {
+      color: $primary-background;
+
+    }
+  }
+}
+
+.Pokemol.Button {
+  background-color: $pokemol;
+  height: 50px;
+  width: 200px;
+  padding: 0px;
+  margin: 15px 0px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: $pokemol-hover;
+  }
+  img {
+    height: 36px;
+    vertical-align: middle;
+  }
 }

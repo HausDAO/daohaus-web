@@ -9,6 +9,8 @@ import Profile from './views/profile/Profile';
 import Stats from './views/stats/Stats';
 import Building from './views/building/Building';
 import FourOhFour from './views/fourOhFour/FourOhFour';
+import About from './views/about/About';
+import Help from './views/help/Help';
 
 const Routes = () => (
   <Switch>
@@ -24,11 +26,9 @@ const Routes = () => (
       component={Apply}
     />
     <Route path="/summon" exact component={Summon} />
-    <Route
-      path="/profile/:account(\b0x[0-9a-f]{10,40}\b)"
-      exact
-      component={Profile}
-    />
+    <Route path="/profile/:account(\b0x[0-9a-f]{10,40}\b)" exact component={Profile} />
+    <Route path="/help" exact component={Help} />
+    <Route path="/about" exact component={About} />
     <Route path="/stats" exact component={Stats} />
     <Route
       path="/building-dao/:contractAddress(\b0x[0-9a-f]{10,40}\b)"

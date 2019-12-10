@@ -4,25 +4,24 @@ import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
 import queryString from 'query-string';
-
-// import ApplyButton from '../../components/applyButton/applyButton';
-import RageQuit from '../../components/rageQuit/RageQuit';
-import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
-import ApplicationList from '../../components/applicationList/ApplicationList';
+import { get } from '../../util/requests';
 
 import {
   Web3Context,
   MolochContext,
   TokenContext,
 } from '../../contexts/ContractContexts';
-
-import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
+import RageQuit from '../../components/rageQuit/RageQuit';
+import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
+import ApplicationList from '../../components/applicationList/ApplicationList';
 import TokenService from '../../util/tokenService';
 import MolochService from '../../util/molochService';
 import ActivateButton from '../../components/activateButton/ActivateButton';
+import HeadTags from '../../components/headTags/HeadTags';
 
+import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 import './Dao.scss';
 
 const Dao = props => {
@@ -33,7 +32,6 @@ const Dao = props => {
   const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
   const [memberData, setMemberData] = useState();
-  // const [isMemberOrApplicant, setIsMemberOrApplicant] = useState(false);
   const [visitor, setVisitor] = useState({
     isMember: false,
     isApplicant: false,
@@ -94,8 +92,6 @@ const Dao = props => {
     isError && setError(error);
 
     if (data && web3Service) {
-      console.log('data.factories[0]', data.factories[0]);
-
       if (!data.factories[0]) {
         props.history.push(
           `/building-dao/${props.match.params.contractAddress}`,
@@ -159,8 +155,12 @@ const Dao = props => {
       context.active &&
       applicantAddresses.includes(context.account.toLowerCase());
 
-    // setIsMemberOrApplicant(isMember || isApplicant);
     setVisitor({ isMember, isApplicant });
+  };
+
+  const bankValue = value => {
+    const amt = web3Service.fromWei(value);
+    return parseFloat(amt).toFixed(2);
   };
 
   if (!molochService) {
@@ -168,7 +168,9 @@ const Dao = props => {
   }
 
   return (
-    <div className="View">
+    <div>
+      {daoData.id ? <HeadTags daoData={daoData} /> : null}
+
       {loading ? <p>Loading the DAO</p> : null}
       {error ? <p>Sorry there's been an error</p> : null}
 
@@ -182,97 +184,155 @@ const Dao = props => {
         <RageQuit
           contract={molochService.contract}
           contractAddress={daoData.id}
-          setComplete={setUpdateDelegateView}
+          setComplete={setUpdateRageView}
+          memberData={memberData}
+          account={context.account.toLowerCase()}
         />
       ) : (
         <>
           {daoData.id ? (
-            <div>
+            <>
               {message ? (
-                <p>
-                  {message} <span onClick={() => closeMessage()}>x</span>
-                </p>
+                <div className="SuccessMessage Flash">
+                  <p>{message}</p>
+                  <div className="CloseFlash" onClick={() => closeMessage()}>
+                    x
+                  </div>
+                </div>
               ) : null}
-
-              <h2 className="DaoName">{daoData.apiData.name}</h2>
-              <p className="Large">{daoData.apiData.description}</p>
-              {daoData.apiData.daoUrl && (
-                <a
-                  className="small"
-                  href={daoData.apiData.daoUrl}
-                  alt="link to dao site"
-                >
-                  {daoData.apiData.daoUrl}
-                </a>
-              )}
-              <p className="Label">Shares</p>
-              <p className="Value Data">{daoData.totalShares}</p>
-              <p className="Label">Summoner</p>
-              <p className="Value Data">{daoData.summoner}</p>
-              <p className="Label">Minimum Tribute</p>
-              <p className="Value Data">
-                {daoData.apiData.minimumTribute} {daoData.tokenInfo.symbol}
-              </p>
-              <p className="Label">DAO Contract Address</p>
-              <p className="Value Data">{molochService.contractAddr}</p>
-              <div>
-                <p className="Label">Proposal and Voting dApp</p>
-                <a
-                  className="Value Data"
-                  href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  {daoData.apiData.name} Pokemol
-                </a>
-              </div>
-            </div>
-          ) : null}
-
-          {daoData.id ? (
-            <div className="Dao__actions">
-              <h4 className="Label">Things to DAO</h4>
-              {context.active ? (
-                <>
-                  {visitor.isMember ? (
-                    <>
-                      <p>Hello Member!</p>
-                      <button onClick={() => setUpdateDelegateView(true)}>
-                        Update Delegate
-                      </button>
-                      <br />
-                      <button onClick={() => setUpdateRageView(true)}>
-                        Rage Quit
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      {visitor.isApplicant ? (
-                        <p>Hello Applicant!</p>
+              <div className="Hero DaoInfo">
+                <div className="Contents">
+                  <div className="Basics">
+                    <h1 className="DaoName">{daoData.apiData.name}</h1>
+                    <p className="Description">{daoData.apiData.description}</p>
+                    {daoData.apiData.daoUrl && (
+                      <a
+                        className="small"
+                        href={daoData.apiData.daoUrl}
+                        alt="link to dao site"
+                      >
+                        {daoData.apiData.daoUrl}
+                      </a>
+                    )}
+                    <div className="Dao__actions">
+                      <h4 className="Label">Things to DAO</h4>
+                      {context.active ? (
+                        <>
+                          {visitor.isMember ? (
+                            <>
+                              <p>Hello Member!</p>
+                              <button
+                                onClick={() => setUpdateDelegateView(true)}
+                              >
+                                Update Delegate
+                              </button>
+                              <br />
+                              <button onClick={() => setUpdateRageView(true)}>
+                                Rage Quit
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              {visitor.isApplicant ? (
+                                <>
+                                  <p>Hello Applicant!</p>
+                                  <p>
+                                    If/when you become a Member, you'll see
+                                    Member functions here.
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <Link
+                                    to={`/apply/${molochService.contractAddr}`}
+                                  >
+                                    <button>Pledge to Join</button>
+                                  </Link>
+                                </>
+                              )}
+                            </>
+                          )}
+                        </>
                       ) : (
                         <>
-                          <Link to={`/apply/${molochService.contractAddr}`}>
-                            <button>Pledge to Join</button>
-                          </Link>
+                          <p>You need to sign in with Ethereum first</p>
+                          <ActivateButton msg={'Sign in'} />
                         </>
                       )}
-                    </>
-                  )}
-                </>
-              ) : (
-                <>
-                  <p>You need to sign in with Ethereum first</p>
-                  <ActivateButton msg={'Sign in'} />
-                </>
-              )}
-            </div>
+                      {!daoData.apiData.hidePokemol ? (
+                        <div className="Dapp">
+                          <p className="Label">Proposal and Voting dApp</p>
+                          <a
+                            className="Button Pokemol"
+                            href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                          >
+                            <img src={PokemolBrand} alt="pokemol" />
+                          </a>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+
+                  <div className="Dao">
+                    <div className="Details">
+                      <h4>Dao Details</h4>
+                      <p className="Label">Bank</p>
+                      <p className="Value Data">
+                        {bankValue(daoData.tokenInfo.guildBankValue)}{' '}
+                        {daoData.tokenInfo.symbol}
+                      </p>
+                      <p className="Label">Members</p>
+                      <p className="Value Data">
+                        {memberData && memberData.active.length}
+                      </p>
+                      <p className="Label">Minimum Tribute</p>
+                      <p className="Value Data">
+                        {daoData.apiData.minimumTribute}{' '}
+                        {daoData.tokenInfo.symbol}
+                      </p>
+                      <p className="Label">Total Shares</p>
+                      <p className="Value Data">{daoData.totalShares}</p>
+                      <p className="Label">
+                        DAO Contract Address (Do NOT send funds here)
+                      </p>
+                      <p className="Value Data">
+                        <a
+                          href={
+                            'https://etherscan.io/address/' +
+                            molochService.contractAddr
+                          }
+                          rel="noopener noreferrer"
+                        >
+                          {molochService.contractAddr}
+                        </a>
+                      </p>
+                      <p className="Label">Summoner</p>
+                      <p className="Value Data">
+                        <a
+                          href={
+                            'https://etherscan.io/address/' + daoData.summoner
+                          }
+                          rel="noopener noreferrer"
+                        >
+                          {daoData.summoner}
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
           ) : null}
           {memberData && molochService ? (
-            <ApplicationList
-              members={memberData}
-              daoData={daoData}
-              contract={molochService.contract}
-            />
+            <div className="View">
+              <ApplicationList
+                members={memberData}
+                daoData={daoData}
+                contract={molochService.contract}
+              />
+            </div>
           ) : null}
         </>
       )}

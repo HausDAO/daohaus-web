@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useWeb3Context } from 'web3-react';
 
 import Loading from '../loading/Loading';
 
 const RageQuit = props => {
-  const { contract, contractAddress, setComplete, history } = props;
+  const { contract, contractAddress, setComplete, history, memberData,account } = props;
 
   const context = useWeb3Context();
   const [formError, setformError] = useState('');
   const [txHash, settxHash] = useState('');
   const [loading, setLoading] = useState(false);
+  const shares = memberData.active.find(member => member.memberId===account).shares;
 
   return (
     <>
@@ -30,6 +33,9 @@ const RageQuit = props => {
 
               if (!values.amount) {
                 errors.amount = 'Required';
+              }
+              if (values.amount > shares) {
+                errors.amount = 'Can not rage more that you have';
               }
               return errors;
             }}
@@ -56,7 +62,8 @@ const RageQuit = props => {
                   })
                   .catch(err => {
                     setLoading(false);
-
+                    console.log('err', err);
+                    
                     if (err.code === 4001) {
                       setformError(
                         `Approval rejected by user. Please try again.`,
@@ -64,6 +71,8 @@ const RageQuit = props => {
                       return { error: err };
                     }
                     if (
+                      err &&
+                      err.isArray() &&
                       err.indexOf(
                         'Error: Transaction was not mined within 50 blocks',
                       ) > -1
@@ -95,8 +104,8 @@ const RageQuit = props => {
                 <Field name="amount">
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
-                      <label>Shares</label>
-                      <input type="text" {...field} />
+                      <label>Shares <small>max: {shares}</small></label>
+                      <input type="number" min="1" max={shares} {...field} />
                     </div>
                   )}
                 </Field>
@@ -117,4 +126,4 @@ const RageQuit = props => {
   );
 };
 
-export default RageQuit;
+export default withRouter(RageQuit);

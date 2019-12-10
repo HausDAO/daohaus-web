@@ -1,8 +1,7 @@
 export default class Web3Service {
   constructor(web3) {
-    console.log('init web3');
+    
     this.web3 = web3;
-    // this.web3.currentProvider.setMaxListeners(300); kills mobile
   }
 
   initContract(abi, address) {

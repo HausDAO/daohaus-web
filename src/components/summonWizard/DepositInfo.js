@@ -9,7 +9,7 @@ const DepositInfo = () => {
       <h3>Deposit Info</h3>
       <h4>
         Members must post a deposit when submitting a proposal, and the
-        processing reward goes to the processor. Values are in chosen currency.
+        processing reward goes to the processor. Values are in the currency you selected for your dao. If WETH, for example, proposal deposit would typically be 1 WETH and reward would be 0.1 WETH.  
       </h4>
 
       <Field name="proposalDeposit">
@@ -19,7 +19,7 @@ const DepositInfo = () => {
             <input
               min="0"
               type="number"
-              inputMode="numeric"
+              inputMode="decimal"
               step="any"
               {...field}
             />
@@ -38,7 +38,7 @@ const DepositInfo = () => {
             <input
               min="0"
               type="number"
-              inputMode="numeric"
+              inputMode="decimal"
               step="any"
               {...field}
             />

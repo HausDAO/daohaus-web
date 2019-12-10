@@ -33,9 +33,18 @@ function FormWrapper({
       {children}
       {status && <div>{status.message}</div>}
       <div className="ButtonGroup">
-        <button type="button" onClick={goToPreviousStep} disabled={!canGoBack}>
-          Previous
-        </button>
+        {canGoBack ? (
+          <button
+            type="button"
+            onClick={goToPreviousStep}
+            disabled={!canGoBack}
+          >
+            Previous
+          </button>
+        ) : (
+          <div> </div>
+        )}
+
         <button type="submit">
           {actionLabel || (isLastStep ? 'Pledge' : 'Next step')}
         </button>
@@ -139,8 +148,9 @@ const ApplicationWizard = props => {
           }
 
           if (
-            err.message.indexOf('Error: Transaction was not mined within 50 blocks') >
-            -1
+            err.message.indexOf(
+              'Error: Transaction was not mined within 50 blocks',
+            ) > -1
           ) {
             setformError(
               `Rejected transaction is taking a long time. TX hash: ${txHash}`,
@@ -161,7 +171,7 @@ const ApplicationWizard = props => {
   };
 
   return (
-    <div className="Wizard">
+    <div className="Wizard SmallContainer">
       {context.account ? (
         <>
           {!loading ? (

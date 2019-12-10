@@ -1,4 +1,12 @@
 @import 'variables';
+
+// Typography
+
+.App {
+    background-color: $background;
+    min-height: 100vh;
+}
+
 h1,
 h2,
 h3,
@@ -6,10 +14,37 @@ h4,
 h5,
 h6 {
     font-weight: 400;
+    margin: 15px 0px 15px 0px;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.75em;
+}
+
+h4 {
+    font-size: 1.35em;
+}
+
+h5 { 
+    font-size: 1em; 
+}
+
+h6 { 
+    font-size: 0.85em; 
 }
 
 p {
     max-width: 800px;
+    margin: 10px 0px 10px 0px;
+    color: darken($tertiary, 25%);
 }
 
 body {
@@ -25,13 +60,26 @@ a {
     color: $primary;
     text-decoration: none;
     cursor: pointer;
-    display: block;
     transition: all .15s linear;
+    &:hover { color: $primary-hover; }
 }
+
+img {
+    max-width: 100%;
+    display: inline-block;
+}
+
+// Typography Utils
+.Data {
+    font-family: 'Roboto Mono', monospace;
+    word-break: break-all;
+}
+
+// Elements
 
 button,
 .Button {
-    display: block;
+    display: inline-block;
     appearance: none;
     outline: none;
     background-color: $primary;
@@ -42,23 +90,146 @@ button,
     padding: 15px 25px;
     font-size: 1em;
     cursor: pointer;
+    transition: all .15s linear;
+    &:hover {
+        background-color: $primary-hover;
+    }
 }
 
-// Typography
-.Data {
-    font-family: 'Roboto Mono', monospace;
-    word-break: break-all;
+// Layout
+
+.Hero {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 50vh;
+    padding: 50px;
+    padding-bottom: 250px;
+    padding-left: 150px;
+    text-align: left;
+    background-color: $primary-background;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    color: #fff;
+    &__Contents {
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+    button { 
+        margin: 15px 0px; 
+        max-width: 280px;
+        &:hover { background-color: $orange; }
+    }
+    @media (max-width: $mobile) {
+        padding-left: 50px;
+    }
+    h1 { 
+        font-size: 3em;
+        margin: 0px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        @media (max-width: $mobile){
+            font-size: 2.25em;
+        }
+        color: white;
+    }
+    h2 { 
+        font-size: 1.75em;
+        margin: 15px 0px;
+        font-weight: 100;
+    }
+    @media (max-width: $mobile) {
+        button { position: relative; }
+    }
 }
 
-.AuthButton {
-    display: block;
+.Block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 50vh;
+    padding: 125px 0px;
+    &__Contents {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1100px;
+        padding: 50px;
+        > h1, h2 { font-weight: 700; }
+        > p { 
+            font-size: 1.35em; 
+        }
+    }
+    &.Primary {
+        background-color: $primary;
+        p { color: white; }
+        a { color: $orange; &:hover { color: $secondary; }}
+    }
+    &.Secondary {
+        background-color: $secondary;
+        p { color: white; }
+    }
+    &.Tertiary {
+        background-color: $tertiary;
+        p { color: white; }
+    }
+}
+
+.Row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.Column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    &--33 {
+        width: 30%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--50 {
+        width: 45%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+    &--66 {
+        width: 60%;
+        @media (max-width: $mobile) {
+            width: 100%;
+        }
+    }
+}
+
+.Section {
+    margin-top: 50px;
+}
+
+.Contain {
+    max-width: $grid;
+    margin: 0 auto;
 }
 
 .View {
     padding: $base-padding;
+    max-width: $grid;
+    margin: 0 auto;
     @media (max-width: $mobile) {
         padding: $mobile-padding;
     }
+}
+
+.SmallContainer {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .Value {
@@ -72,6 +243,21 @@ p.Large {
 
 .Danger { color: $red; }
 .Success { color: lime-green; }
+
+.SuccessMessage {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: auto;
+    padding: 15px;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $tertiary;
+    p { color: white; width: 75% }
+    .CloseFlash { width: 25%; position: absolute; right: 0; top: 0; cursor: pointer; font-weight: 900; }
+}
 
 // Wizard
 .Wizard {
@@ -99,6 +285,80 @@ p.Large {
     }
 }
 
+.Summary {
+    p:first-child {
+        font-size: 1.35em;
+    }
+    .Value {
+        margin-bottom: 25px;
+    }
+    .Label {
+
+    }
+}
+
+// Application List
+.ApplicationList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start; 
+    @media (max-width: $mobile) {
+      flex-direction: column;
+    }
+    &__Item {
+      width: 30%;
+      margin-right: 25px;
+      @media (max-width: $grid) {
+        width: 45%;
+        margin-right: 25px;
+      }
+      
+      @media (max-width: $mobile) {
+        width: 100%;
+        margin-right: 0px;
+      }
+      a {
+        background-color: white;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        box-shadow: $shadow;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        transition: all .15s linear;
+        min-height: 103px;
+        &:hover { scale: 1.05; }
+      }
+      .MemberInfo {
+        justify-content: space-between;
+        font-size: 0.85em;
+        color: black;
+        p { margin: 0 0 15px 0; color: black; }
+        :nth-child(1) { margin-right: 10px; }
+      }
+      .ProfileInfo {
+        justify-content: flex-start;
+        align-content: center;
+        font-size: 0.85em;
+        color: black;
+        &__Pseudo { height: 50px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+        h2 { margin: 0px 0px 0px 0px; font-size: 1.25em; }
+        p { margin: 0 0 0px 0; color: black; }
+        :nth-child(1) { margin-right: 10px; }
+      }
+      .PledgeInfo {
+        justify-content: space-between;
+        font-size: 0.85em;
+        color: black;
+        p { margin: 15px 0 0 0; color: black; }
+        :nth-child(1) { margin-right: 10px; }
+      }
+    }
+  }
+
 // Profile
 .ProfileImg {
     width: 150px;
@@ -120,6 +380,7 @@ p.Large {
     flex-direction: column;
     min-height: 50vh;
     padding: $base-padding;
+    max-width: 600px;
     button {
         margin: 0 auto;
     }
@@ -147,12 +408,13 @@ textarea {
     outline: none !important;
     padding: 0px 15px;
     font-size: 1em;
+    box-shadow: $shadow;
 }
 
 .InlineLabel {
     position: absolute;
-    top: 20px;
-    right: 10px;
+    top: 25px;
+    right: 15px;
 }
 
 textarea {
@@ -175,6 +437,11 @@ label {
     color: $primary;
     padding-left: 0px;
     padding-right: 0px;
+    font-weight: 700;
+    &:hover { 
+        color: $primary-hover;
+        background-color: transparent;
+    }
 }
 
 select {
@@ -182,19 +449,37 @@ select {
     border: none;
     background-color: transparent;
     font-size: 2em;
-    outline: none;
+    outline: none !important;
+    // restyle
+    color: $primary;
+    background-color: white;
+    position: relative;
+    // copied from normal input
+    height: 40px;
+    width: 100%;
+    padding: 0px 15px;
+    margin: 10px 0px;
+    border-radius: 50px;
+    box-shadow: $shadow;
 }
 
-.Select {
+label.Select {
     position: relative;
-    svg {
+    width: 100%;
+    &::after {
+        content: '';
+        background-image: url('./assets/icon__dropdown-arrow.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
         width: 36px;
         height: 36px;
-        fill: #000;
-        display: inline-block;
+        fill: $primary;
+        display: block;
         position: absolute;
-        top: 3px;
-        right: 70px;
+        right: 10px;
+        bottom: 12px;
+        pointer-events: none;
     }
 }
 
@@ -209,7 +494,7 @@ select {
     align-content: center;
     justify-content: center;
     flex-direction: column;
-    background-color: white;
+    background-color: $background;
     overflow: hidden;
     img {
         display: block;
@@ -237,44 +522,11 @@ select {
     }
 }
 
-// Utils
 
-.Contain {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+// Breakpoint Utils
 
-.Row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.Column {
-    display: flex;
-    flex-direction: column;
-    &--33 {
-        width: 30%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
+.HideMobile {
+    @media (max-width: $mobile) {
+        display: none;
     }
-    &--50 {
-        width: 45%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
-    }
-    &--66 {
-        width: 60%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
-    }
-}
-
-.Section {
-    margin-top: 50px;
 }

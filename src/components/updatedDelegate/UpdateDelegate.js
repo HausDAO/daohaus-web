@@ -19,10 +19,7 @@ const UpdateDelegate = props => {
       {loading ? (
         <Loading msg={'Updating Delegate'} txHash={txHash} />
       ) : (
-        <>
-          <h2>Update Delegate Form</h2>
-          {formError && <small>{formError}</small>}
-
+        <div className="View SmallContainer">
           <Formik
             initialValues={{
               address: '',
@@ -94,6 +91,8 @@ const UpdateDelegate = props => {
           >
             {({ isSubmitting }) => (
               <Form className="Form">
+                <h2>Update Delegate Form</h2>
+                {formError && <small>{formError}</small>}
                 <Field name="address">
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
@@ -113,7 +112,7 @@ const UpdateDelegate = props => {
               </Form>
             )}
           </Formik>
-        </>
+        </div>
       )}
     </>
   );
