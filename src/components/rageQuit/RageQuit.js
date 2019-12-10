@@ -7,13 +7,24 @@ import { useWeb3Context } from 'web3-react';
 import Loading from '../loading/Loading';
 
 const RageQuit = props => {
-  const { contract, contractAddress, setComplete, history, memberData,account } = props;
+  const {
+    contract,
+    contractAddress,
+    setComplete,
+    history,
+    memberData,
+    account,
+  } = props;
 
   const context = useWeb3Context();
   const [formError, setformError] = useState('');
   const [txHash, settxHash] = useState('');
   const [loading, setLoading] = useState(false);
-  const shares = memberData.active.find(member => member.memberId===account).shares;
+  console.log('memberData', memberData);
+
+  const activeMember = memberData.active.find(
+    member => member.memberId === account,
+  );
 
   return (
     <>
@@ -34,7 +45,7 @@ const RageQuit = props => {
               if (!values.amount) {
                 errors.amount = 'Required';
               }
-              if (values.amount > shares) {
+              if (activeMember && values.amount > activeMember.shares) {
                 errors.amount = 'Can not rage more that you have';
               }
               return errors;
@@ -63,7 +74,7 @@ const RageQuit = props => {
                   .catch(err => {
                     setLoading(false);
                     console.log('err', err);
-                    
+
                     if (err.code === 4001) {
                       setformError(
                         `Approval rejected by user. Please try again.`,
@@ -104,8 +115,18 @@ const RageQuit = props => {
                 <Field name="amount">
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
-                      <label>Shares <small>max: {shares}</small></label>
-                      <input type="number" min="1" max={shares} {...field} />
+                      <label>
+                        Shares{' '}
+                        <small>
+                          max: {activeMember && activeMember.shares}
+                        </small>
+                      </label>
+                      <input
+                        type="number"
+                        min="1"
+                        max={(activeMember && activeMember.shares) || 100000}
+                        {...field}
+                      />
                     </div>
                   )}
                 </Field>
