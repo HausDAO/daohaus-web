@@ -1,5 +1,14 @@
 @import '../../variables';
 
+iframe {
+  width: 100%;
+  border: none;
+  min-height: 600px;
+  form {
+    background-color: transparent !important;
+  }
+}
+
 .Hero.DaoInfo {display: flex;
   flex-direction: row;
   align-items: center;

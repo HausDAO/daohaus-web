@@ -15,6 +15,7 @@ import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
+import EmailSignup from '../../components/emailSignup/EmailSignup';
 import ApplicationList from '../../components/applicationList/ApplicationList';
 import TokenService from '../../util/tokenService';
 import MolochService from '../../util/molochService';
@@ -38,6 +39,7 @@ const Dao = props => {
   });
   const [updateDelegateView, setUpdateDelegateView] = useState(false);
   const [updateRageView, setUpdateRageView] = useState(false);
+  const [emailSignupView, setEmailSignupView] = useState(false);
   const [molochService, setMolochService] = useContext(MolochContext);
   const [, setTokenService] = useContext(TokenContext);
   const [error, setError] = useState(false);
@@ -188,6 +190,8 @@ const Dao = props => {
           memberData={memberData}
           account={context.account.toLowerCase()}
         />
+      ) : emailSignupView && molochService ? (
+        <EmailSignup />
       ) : (
         <>
           {daoData.id ? (
@@ -216,6 +220,13 @@ const Dao = props => {
                     )}
                     <div className="Dao__actions">
                       <h4 className="Label">Things to DAO</h4>
+                      { molochService.contractAddr === '0x1fd169a4f5c59acf79d0fd5d91d1201ef1bce9f1' && (
+                        <button
+                          onClick={() => setEmailSignupView(true)}
+                        >
+                          Get Email Updates
+                        </button>
+                      )}
                       {context.active ? (
                         <>
                           {visitor.isMember ? (
