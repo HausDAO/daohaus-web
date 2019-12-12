@@ -191,7 +191,10 @@ const Dao = props => {
           account={context.account.toLowerCase()}
         />
       ) : emailSignupView && molochService ? (
+        <div className="View__EmailSignup">
+        <button onClick={() => setEmailSignupView(false)}>{'<= '}Back</button>
         <EmailSignup />
+        </div>
       ) : (
         <>
           {daoData.id ? (

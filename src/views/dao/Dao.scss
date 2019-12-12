@@ -1,8 +1,18 @@
 @import '../../variables';
 
+
+.View__EmailSignup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%; 
+  button { margin-top: 50px; }
+}
 iframe {
   width: 100%;
   border: none;
+  width: 360px;
   min-height: 600px;
   form {
     background-color: transparent !important;
