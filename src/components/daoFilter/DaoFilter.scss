@@ -1,0 +1,15 @@
+.DaoFilter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  & .input {
+    width: 80%;
+  }
+}
+
+.DaoFilter__title {
+}
+
+.DaoFilter__search {
+}
