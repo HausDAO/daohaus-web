@@ -1,5 +1,13 @@
 @import '../../variables';
 
 .daoList {
-    padding: $base-padding;
+  padding: $base-padding;
+}
+
+.Search {
+  background-color: $primary;
+}
+
+.Block.Primary.Home__Daolist {
+  padding-top: 0px;
 }
