@@ -28,18 +28,26 @@ const Profile = props => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const applicationRes = await get(
-        `applications/${props.match.params.account}`,
-      );
-      setApplications(applicationRes.data);
+      if (data) {
+        const applicationRes = await get(
+          `applications/${props.match.params.account}`,
+        );
 
-      const profile = await getProfile(props.match.params.account);
-      setProfile(profile);
+        const validApplications = applicationRes.data.filter(app => {
+          return !data.factories.find(
+            dao => dao.moloch === app.molochContractAddress,
+          ).apiData.hide;
+        });
+        setApplications(validApplications);
+
+        const profile = await getProfile(props.match.params.account);
+        setProfile(profile);
+      }
     };
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     if (data) {
