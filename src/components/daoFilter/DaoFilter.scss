@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-content: center;
 
   & .input {
-    width: 80%;
+    width: 200px;
   }
 }
 
