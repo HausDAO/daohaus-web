@@ -19,7 +19,6 @@ const DaoList = props => {
 
   return (
     <div className="View">
-      <h3>All Daos</h3>
       <div className="DaoList">{daoList}</div>
     </div>
   );

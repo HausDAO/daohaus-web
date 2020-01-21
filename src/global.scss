@@ -3,8 +3,8 @@
 // Typography
 
 .App {
-    background-color: $background;
-    min-height: 100vh;
+  background-color: $background;
+  min-height: 100vh;
 }
 
 h1,
@@ -13,520 +13,582 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 400;
-    margin: 15px 0px 15px 0px;
+  font-weight: 400;
+  margin: 15px 0px 15px 0px;
 }
 
 h1 {
-    font-size: 2.5em;
+  font-size: 2.5em;
 }
 
 h2 {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 h3 {
-    font-size: 1.75em;
+  font-size: 1.75em;
 }
 
 h4 {
-    font-size: 1.35em;
+  font-size: 1.35em;
 }
 
-h5 { 
-    font-size: 1em; 
+h5 {
+  font-size: 1em;
 }
 
-h6 { 
-    font-size: 0.85em; 
+h6 {
+  font-size: 0.85em;
 }
 
 p {
-    max-width: 800px;
-    margin: 10px 0px 10px 0px;
-    color: darken($tertiary, 25%);
+  max-width: 800px;
+  margin: 10px 0px 10px 0px;
+  color: darken($tertiary, 25%);
 }
 
 body {
-    font-size: 16px;
-    font-family: 'Futura', sans-serif;
-    font-weight: 400;
-    width: 100%;
-    text-align: left;
-    word-wrap: pre-line;
+  font-size: 16px;
+  font-family: 'Futura', sans-serif;
+  font-weight: 400;
+  width: 100%;
+  text-align: left;
+  word-wrap: pre-line;
 }
 
 a {
-    color: $primary;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all .15s linear;
-    &:hover { color: $primary-hover; }
+  color: $primary;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s linear;
+  &:hover {
+    color: $primary-hover;
+  }
 }
 
 img {
-    max-width: 100%;
-    display: inline-block;
+  max-width: 100%;
+  display: inline-block;
 }
 
 // Typography Utils
 .Data {
-    font-family: 'Roboto Mono', monospace;
-    word-break: break-all;
+  font-family: 'Roboto Mono', monospace;
+  word-break: break-all;
 }
 
 // Elements
 
 button,
 .Button {
-    display: inline-block;
-    appearance: none;
-    outline: none;
-    background-color: $primary;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    height: 50px;
-    padding: 15px 25px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: all .15s linear;
-    &:hover {
-        background-color: $primary-hover;
-    }
+  display: inline-block;
+  appearance: none;
+  outline: none;
+  background-color: $primary;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  height: 50px;
+  padding: 15px 25px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.15s linear;
+  &:hover {
+    background-color: $primary-hover;
+  }
 }
 
 // Layout
 
 .Hero {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex-direction: column;
-    min-height: 50vh;
-    padding: 50px;
-    padding-bottom: 250px;
-    padding-left: 150px;
-    text-align: left;
-    background-color: $primary-background;
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    color: #fff;
-    &__Contents {
-        margin: 0 auto;
-        max-width: 1200px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 50vh;
+  padding: 50px;
+  padding-bottom: 250px;
+  padding-left: 150px;
+  text-align: left;
+  background-color: $primary-background;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  color: #fff;
+  &__Contents {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  button {
+    margin: 15px 0px;
+    max-width: 280px;
+    &:hover {
+      background-color: $orange;
     }
-    button { 
-        margin: 15px 0px; 
-        max-width: 280px;
-        &:hover { background-color: $orange; }
-    }
+  }
+  @media (max-width: $mobile) {
+    padding-left: 50px;
+  }
+  h1 {
+    font-size: 3em;
+    margin: 0px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     @media (max-width: $mobile) {
-        padding-left: 50px;
+      font-size: 2.25em;
     }
-    h1 { 
-        font-size: 3em;
-        margin: 0px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        @media (max-width: $mobile){
-            font-size: 2.25em;
-        }
-        color: white;
+    color: white;
+  }
+  h2 {
+    font-size: 1.75em;
+    margin: 15px 0px;
+    font-weight: 100;
+  }
+  @media (max-width: $mobile) {
+    button {
+      position: relative;
     }
-    h2 { 
-        font-size: 1.75em;
-        margin: 15px 0px;
-        font-weight: 100;
-    }
-    @media (max-width: $mobile) {
-        button { position: relative; }
-    }
+  }
 }
 
 .Block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 50vh;
+  padding: 125px 0px;
+  &__Contents {
+    margin: 0 auto;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 50vh;
-    padding: 125px 0px;
-    &__Contents {
-        margin: 0 auto;
-        width: 100%;
-        max-width: 1100px;
-        padding: 50px;
-        > h1, h2 { font-weight: 700; }
-        > p { 
-            font-size: 1.35em; 
-        }
+    max-width: 1100px;
+    padding: 50px;
+    > h1,
+    h2 {
+      font-weight: 700;
     }
-    &.Primary {
-        background-color: $primary;
-        p { color: white; }
-        a { color: $orange; &:hover { color: $secondary; }}
+    > p {
+      font-size: 1.35em;
     }
-    &.Secondary {
-        background-color: $secondary;
-        p { color: white; }
+  }
+  &.Primary {
+    background-color: $primary;
+    p {
+      color: white;
     }
-    &.Tertiary {
-        background-color: $tertiary;
-        p { color: white; }
+    a {
+      color: $orange;
+      &:hover {
+        color: $secondary;
+      }
     }
+  }
+  &.Secondary {
+    background-color: $secondary;
+    p {
+      color: white;
+    }
+  }
+  &.Tertiary {
+    background-color: $tertiary;
+    p {
+      color: white;
+    }
+  }
 }
 
 .Row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .Column {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    &--33 {
-        width: 30%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  &--33 {
+    width: 30%;
+    @media (max-width: $mobile) {
+      width: 100%;
     }
-    &--50 {
-        width: 45%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
+  }
+  &--50 {
+    width: 45%;
+    @media (max-width: $mobile) {
+      width: 100%;
     }
-    &--66 {
-        width: 60%;
-        @media (max-width: $mobile) {
-            width: 100%;
-        }
+  }
+  &--66 {
+    width: 60%;
+    @media (max-width: $mobile) {
+      width: 100%;
     }
+  }
 }
 
 .Section {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .Contain {
-    max-width: $grid;
-    margin: 0 auto;
+  max-width: $grid;
+  margin: 0 auto;
 }
 
 .View {
-    padding: $base-padding;
-    max-width: $grid;
-    margin: 0 auto;
-    @media (max-width: $mobile) {
-        padding: $mobile-padding;
-    }
+  padding: $base-padding;
+  max-width: $grid;
+  margin: 0 auto;
+  width: calc(100% - 100px);
+  @media (max-width: $mobile) {
+    padding: $mobile-padding;
+    width: calc(100% - 100px);
+  }
 }
 
 .SmallContainer {
-    max-width: 600px;
-    margin: 0 auto;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .Value {
-    margin-top: 5px;
-    font-size: 1.35em;
+  margin-top: 5px;
+  font-size: 1.35em;
 }
 
 p.Large {
-    font-size: 1.35em;
+  font-size: 1.35em;
 }
 
-.Danger { color: $red; }
-.Success { color: lime-green; }
+.Danger {
+  color: $red;
+}
+.Success {
+  color: lime-green;
+}
 
 .SuccessMessage {
-    position: fixed;
-    top: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: auto;
+  padding: 15px;
+  width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $tertiary;
+  p {
+    color: white;
+    width: 75%;
+  }
+  .CloseFlash {
+    width: 25%;
+    position: absolute;
     right: 0;
-    height: auto;
-    padding: 15px;
-    width: 240px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: $tertiary;
-    p { color: white; width: 75% }
-    .CloseFlash { width: 25%; position: absolute; right: 0; top: 0; cursor: pointer; font-weight: 900; }
+    top: 0;
+    cursor: pointer;
+    font-weight: 900;
+  }
 }
 
 // Wizard
 .Wizard {
-    h3 {
-        font-size: 2em;
-    }
-    p:first-child {
-        font-size: 1.5em;
-    }
+  h3 {
+    font-size: 2em;
+  }
+  p:first-child {
+    font-size: 1.5em;
+  }
 }
 
 .Step {
-    position: relative;
+  position: relative;
 }
 
 .ButtonGroup {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: center;
-    margin: 25px 0px;
-    width: 100%;
-    button {
-        display: inline-block;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  margin: 25px 0px;
+  width: 100%;
+  button {
+    display: inline-block;
+  }
 }
 
 .Summary {
-    p:first-child {
-        font-size: 1.35em;
-    }
-    .Value {
-        margin-bottom: 25px;
-    }
-    .Label {
-
-    }
+  p:first-child {
+    font-size: 1.35em;
+  }
+  .Value {
+    margin-bottom: 25px;
+  }
+  .Label {
+  }
 }
 
 // Application List
 .ApplicationList {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start; 
-    @media (max-width: $mobile) {
-      flex-direction: column;
-    }
-    &__Item {
-      width: 30%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+  &__Item {
+    width: 30%;
+    margin-right: 25px;
+    @media (max-width: $grid) {
+      width: 45%;
       margin-right: 25px;
-      @media (max-width: $grid) {
-        width: 45%;
-        margin-right: 25px;
+    }
+
+    @media (max-width: $mobile) {
+      width: 100%;
+      margin-right: 0px;
+    }
+    a {
+      background-color: white;
+      margin-top: 25px;
+      margin-bottom: 25px;
+      box-shadow: $shadow;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      transition: all 0.15s linear;
+      min-height: 103px;
+      &:hover {
+        scale: 1.05;
       }
-      
-      @media (max-width: $mobile) {
-        width: 100%;
-        margin-right: 0px;
+    }
+    .MemberInfo {
+      justify-content: space-between;
+      font-size: 0.85em;
+      color: black;
+      p {
+        margin: 0 0 15px 0;
+        color: black;
       }
-      a {
-        background-color: white;
-        margin-top: 25px;
-        margin-bottom: 25px;
-        box-shadow: $shadow;
-        border-radius: 5px;
+      :nth-child(1) {
+        margin-right: 10px;
+      }
+    }
+    .ProfileInfo {
+      justify-content: flex-start;
+      align-content: center;
+      font-size: 0.85em;
+      color: black;
+      &__Pseudo {
+        height: 50px;
         display: flex;
         flex-direction: column;
-        padding: 15px;
-        transition: all .15s linear;
-        min-height: 103px;
-        &:hover { scale: 1.05; }
+        align-items: flex-start;
+        justify-content: center;
       }
-      .MemberInfo {
-        justify-content: space-between;
-        font-size: 0.85em;
-        color: black;
-        p { margin: 0 0 15px 0; color: black; }
-        :nth-child(1) { margin-right: 10px; }
+      h2 {
+        margin: 0px 0px 0px 0px;
+        font-size: 1.25em;
       }
-      .ProfileInfo {
-        justify-content: flex-start;
-        align-content: center;
-        font-size: 0.85em;
+      p {
+        margin: 0 0 0px 0;
         color: black;
-        &__Pseudo { height: 50px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
-        h2 { margin: 0px 0px 0px 0px; font-size: 1.25em; }
-        p { margin: 0 0 0px 0; color: black; }
-        :nth-child(1) { margin-right: 10px; }
       }
-      .PledgeInfo {
-        justify-content: space-between;
-        font-size: 0.85em;
+      :nth-child(1) {
+        margin-right: 10px;
+      }
+    }
+    .PledgeInfo {
+      justify-content: space-between;
+      font-size: 0.85em;
+      color: black;
+      p {
+        margin: 15px 0 0 0;
         color: black;
-        p { margin: 15px 0 0 0; color: black; }
-        :nth-child(1) { margin-right: 10px; }
+      }
+      :nth-child(1) {
+        margin-right: 10px;
       }
     }
   }
+}
 
 // Profile
 .ProfileImg {
-    width: 150px;
-    height: 150px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    @media (max-width: $mobile) {
-        margin: 25px auto;
-    }
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  @media (max-width: $mobile) {
+    margin: 25px auto;
+  }
 }
 
 // Forms
 
 .Form {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex-direction: column;
-    min-height: 50vh;
-    padding: $base-padding;
-    max-width: 600px;
-    button {
-        margin: 0 auto;
-    }
-    width: calc(100% - 100px);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 50vh;
+  padding: $base-padding;
+  max-width: 600px;
+  button {
+    margin: 0 auto;
+  }
+  width: calc(100% - 100px);
 }
 
 .Label {
-    font-size: 0.85em;
-    margin-bottom: 0px;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+  font-size: 0.85em;
+  margin-bottom: 0px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 .Field {
-    position: relative; 
+  position: relative;
 }
 
 input,
 textarea {
-    height: 40px;
-    border-radius: 50px;
-    border: 1px solid #efefef;
-    width: calc(100% - 30px);
-    margin: 10px 0px;
-    outline: none !important;
-    padding: 0px 15px;
-    font-size: 1em;
-    box-shadow: $shadow;
+  height: 40px;
+  border-radius: 50px;
+  border: 1px solid #efefef;
+  width: calc(100% - 30px);
+  margin: 10px 0px;
+  outline: none !important;
+  padding: 0px 15px;
+  font-size: 1em;
+  box-shadow: $shadow;
 }
 
 .InlineLabel {
-    position: absolute;
-    top: 25px;
-    right: 15px;
+  position: absolute;
+  top: 25px;
+  right: 15px;
 }
 
 textarea {
-    padding: 15px;
-    border-radius: 5px;
+  padding: 15px;
+  border-radius: 5px;
 }
 
 label {
-    margin-top: 25px;
-    font-size: 0.75em;
-    display: block;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+  margin-top: 25px;
+  font-size: 0.75em;
+  display: block;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .TabButton {
-    position: relative;
+  position: relative;
+  background-color: transparent;
+  color: $primary;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-weight: 700;
+  &:hover {
+    color: $primary-hover;
     background-color: transparent;
-    color: $primary;
-    padding-left: 0px;
-    padding-right: 0px;
-    font-weight: 700;
-    &:hover { 
-        color: $primary-hover;
-        background-color: transparent;
-    }
+  }
 }
 
 select {
-    appearance: none;
-    border: none;
-    background-color: transparent;
-    font-size: 2em;
-    outline: none !important;
-    // restyle
-    color: $primary;
-    background-color: white;
-    position: relative;
-    // copied from normal input
-    height: 40px;
-    width: 100%;
-    padding: 0px 15px;
-    margin: 10px 0px;
-    border-radius: 50px;
-    box-shadow: $shadow;
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  font-size: 2em;
+  outline: none !important;
+  // restyle
+  color: $primary;
+  background-color: white;
+  position: relative;
+  // copied from normal input
+  height: 40px;
+  width: 100%;
+  padding: 0px 15px;
+  margin: 10px 0px;
+  border-radius: 50px;
+  box-shadow: $shadow;
 }
 
 label.Select {
-    position: relative;
-    width: 100%;
-    &::after {
-        content: '';
-        background-image: url('./assets/icon__dropdown-arrow.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center center;
-        width: 36px;
-        height: 36px;
-        fill: $primary;
-        display: block;
-        position: absolute;
-        right: 10px;
-        bottom: 12px;
-        pointer-events: none;
-    }
+  position: relative;
+  width: 100%;
+  &::after {
+    content: '';
+    background-image: url('./assets/icon__dropdown-arrow.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 36px;
+    height: 36px;
+    fill: $primary;
+    display: block;
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+    pointer-events: none;
+  }
 }
 
 // Loader
 .Loading {
-    position: absolute;
-    top: 110px;
-    left: 0;
-    width: 100vw;
-    height: calc(100vh - 110px);
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: $background;
+  position: absolute;
+  top: 110px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 110px);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: $background;
+  overflow: hidden;
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
     overflow: hidden;
-    img {
-        display: block;
-        margin: 0 auto;
-        max-width: 600px;
-        width: 100%;
-        overflow: hidden;
-    }
-    h5 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 2em;
-    }
+  }
+  h5 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+  }
 }
 
 .Applicant__List {
-    display: block;
-    width: 100%; 
-    * { float: none; }
-    .List--Item { 
-        margin: 25px 0px;
-        font-size: 1.5em;
-    }
+  display: block;
+  width: 100%;
+  * {
+    float: none;
+  }
+  .List--Item {
+    margin: 25px 0px;
+    font-size: 1.5em;
+  }
 }
-
 
 // Breakpoint Utils
 
 .HideMobile {
-    @media (max-width: $mobile) {
-        display: none;
-    }
+  @media (max-width: $mobile) {
+    display: none;
+  }
 }
