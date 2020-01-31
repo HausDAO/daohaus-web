@@ -25,14 +25,28 @@ export const GET_MOLOCHES_POST = {
 };
 
 export const GET_MOLOCHES = gql`
-  query {
-    factories(orderBy: count) {
+  query factories($skip: Int) {
+    factories(orderBy: count, first: 100, skip: $skip) {
       apiData @client
       id
       title
       moloch
       summoner
       tokenInfo @client
+    }
+  }
+`;
+
+export const GET_V2_MOLOCHES = gql`
+  query molochV2S($skip: Int) {
+    factories(orderBy: count, first: 100, skip: $skip) {
+      id
+      index
+      count
+      moloch
+      summoner
+      newContract
+      version
     }
   }
 `;

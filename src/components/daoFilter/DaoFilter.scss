@@ -1,0 +1,19 @@
+@import '../../variables';
+
+.DaoFilter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+
+  & .input {
+    width: 100%;
+  }
+}
+
+.DaoFilter__title {
+}
+
+.DaoFilter__search {
+}

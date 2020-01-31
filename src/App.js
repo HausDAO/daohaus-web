@@ -37,7 +37,7 @@ function App() {
   return (
     <Web3Provider
       connectors={connectors}
-      libraryName={'web3.js' }
+      libraryName={'web3.js'}
       web3Api={Web3}
     >
       <ApolloProvider client={client}>

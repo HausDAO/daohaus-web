@@ -4,28 +4,44 @@
   flex-wrap: wrap;
   align-content: center;
   justify-content: flex-start;
+  @media (min-width: $mobile + 1px) {
+    margin-right: -25px;
+  }
   &__Item {
-    width: 30%;
-    max-width: 420px;
-    margin-right: 25px;
-      @media (max-width: $grid) {
-        width: 45%;
-        margin-right: 25px;
-      }
-      @media (max-width: $mobile) {
-        width: 100%;
+    @media (min-width: $grid + 1px) {
+      width: calc(33% - 25px);
+      max-width: 420px;
+      margin-right: 25px;
+      &:nth-of-type(3n) {
+        width: 33%;
         margin-right: 0px;
-        margin: 0 auto;
       }
+    }
+    @media (max-width: $grid) and (min-width: $mobile + 1px) {
+      width: calc(50% - 25px);
+      margin-right: 25px;
+      &:nth-of-type(2n) {
+        margin-right: 0px;
+        width: 50%;
+      }
+    }
+    @media (max-width: $mobile) {
+      width: 100%;
+      margin-right: 0px;
+      margin: 0 auto;
+    }
   }
-  a .DaoCard { 
-    transition: all .15s linear; 
-    height: auto; 
-    min-height: 200px; 
+  a .DaoCard {
+    transition: all 0.15s linear;
+    height: auto;
+    min-height: 200px;
   }
-  a:hover .DaoCard { 
-    background-color: $orange; 
+  a:hover .DaoCard {
+    background-color: $orange;
     scale: 1.05;
-    h4, p { color: white !important; }
+    h4,
+    p {
+      color: white !important;
+    }
   }
 }
