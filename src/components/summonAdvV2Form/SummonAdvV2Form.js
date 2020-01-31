@@ -32,7 +32,7 @@ const SummonAdvV2Form = props => {
             initialValues={{
               name: '',
               description: '',
-              approvedTokens: '["0xd0a1e359811322d97991e03f863a0c30c2cf029c"]',
+              approvedTokens: '0xd0a1e359811322d97991e03f863a0c30c2cf029c',
               periodDuration: '',
               votingPeriodLength: '',
               gracePeriodLength: '',
@@ -100,7 +100,7 @@ const SummonAdvV2Form = props => {
 
                 await factoryContract.methods
                   .newDao(
-                    values.approvedTokens,
+                    values.approvedTokens.split(",").map(item => item.trim()),
                     values.periodDuration,
                     values.votingPeriodLength,
                     values.gracePeriodLength,
@@ -223,7 +223,7 @@ const SummonAdvV2Form = props => {
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
                       <label>
-                        Approved Tokens (Array of ERC-20 Contract Addresses)
+                        Approved Tokens (Comma seperated list of ERC-20 Contract Addresses)
                       </label>
                       <input type="text" {...field} />
                     </div>
