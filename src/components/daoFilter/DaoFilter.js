@@ -10,7 +10,7 @@ const DaoFilter = props => {
   useEffect(() => {
     resetDaos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [daos]);
 
   const resetDaos = () => {
     const unhidden = _.sortBy(
