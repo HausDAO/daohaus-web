@@ -17,7 +17,7 @@ export const GET_MEMBERDATA_LEGACY = {
 };
 
 export const GET_MOLOCHES_POST = {
-  query: `  query {
+  query: `query {
     factories(orderBy: count) {
       id
     }
@@ -37,9 +37,10 @@ export const GET_MOLOCHES = gql`
   }
 `;
 
-export const GET_V2_MOLOCHES = gql`
+export const GET_MOLOCHES_V2 = gql`
   query molochV2S($skip: Int) {
-    factories(orderBy: count, first: 100, skip: $skip) {
+    molochV2S(orderBy: count, first: 100, skip: $skip) {
+      apiData @client
       id
       index
       count
@@ -47,6 +48,8 @@ export const GET_V2_MOLOCHES = gql`
       summoner
       newContract
       version
+      title
+      tokenInfo @client
     }
   }
 `;

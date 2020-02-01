@@ -1,32 +1,22 @@
 import React, { useState, useEffect, createContext } from 'react';
-
 import Web3 from 'web3';
 import { useWeb3Context } from 'web3-react';
 
 import Web3Service from '../util/web3Service';
-import ApolloClient from 'apollo-boost';
 
 export const MolochContext = createContext(null);
 export const Web3Context = createContext();
 export const TokenContext = createContext();
 export const MolochV2Context = createContext();
 
-const ContractContexts = ({ children }) => {
+const ContractContexts = ({ children, v2Client }) => {
   const [web3, setWeb3] = useState();
   const [token, setToken] = useState();
   const [moloch, setMoloch] = useState();
 
-  console.log(
-    'process.env.REACT_APP_GRAPH_V2_URI',
-    process.env.REACT_APP_GRAPH_V2_URI,
-  );
+  console.log('v2Client', v2Client);
   const [MolochV2, setMolochV2] = useState({
-    client: new ApolloClient({
-      uri: process.env.REACT_APP_GRAPH_V2_URI,
-      // clientState: {
-      //   resolvers,
-      // },
-    }),
+    client: v2Client,
   });
 
   const context = useWeb3Context();
