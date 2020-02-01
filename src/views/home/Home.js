@@ -4,7 +4,7 @@ import { useWeb3Context } from 'web3-react';
 import SummonButton from '../../components/summonButton/summonButton';
 import ActivateButton from '../../components/activateButton/ActivateButton';
 import HeroBackground from '../../assets/daohaus__hero--falling.png';
-import DaoFetch from '../../components/daoFetch/DaoFetch';
+import DaoListFetch from '../../components/daoFetch/DaoListFetch';
 
 import './Home.scss';
 
@@ -50,7 +50,7 @@ const Home = () => {
         </div>
       </div>
 
-      <DaoFetch version={molochVersion} />
+      <DaoListFetch version={molochVersion} />
     </>
   );
 };

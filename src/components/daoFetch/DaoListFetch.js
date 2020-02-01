@@ -6,7 +6,7 @@ import { GET_MOLOCHES, GET_MOLOCHES_V2 } from '../../util/queries';
 import DaoFilter from '../daoFilter/DaoFilter';
 import DaoList from '../daoList/DaoList';
 
-const DaoFetch = ({ version }) => {
+const DaoListFetch = ({ version }) => {
   const [MolochV2] = useContext(MolochV2Context);
   const [filteredDaos, setFilteredDaos] = useState();
 
@@ -18,8 +18,6 @@ const DaoFetch = ({ version }) => {
   if (loading) return <p className="View">Loading DAOs</p>;
   if (error) return <p className="View">Sorry there's been an error</p>;
 
-  console.log('daofetch data', data);
-
   fetchMore({
     variables: { skip: data[entityName].length },
     updateQuery: (prev, { fetchMoreResult }) => {
@@ -29,8 +27,6 @@ const DaoFetch = ({ version }) => {
       });
     },
   });
-
-  console.log('fdaofetch filteredDaos', filteredDaos);
 
   return (
     <>
@@ -49,4 +45,4 @@ const DaoFetch = ({ version }) => {
   );
 };
 
-export default DaoFetch;
+export default DaoListFetch;
