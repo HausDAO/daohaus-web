@@ -10,7 +10,11 @@ const DaoList = props => {
   const daoList = daos.map(dao => {
     return (
       <div className="DaoList__Item" key={dao.moloch}>
-        <Link to={`/dao/${dao.moloch}`}>
+        <Link
+          to={
+            dao.version === '2' ? `/dao/v2/${dao.moloch}` : `/dao/${dao.moloch}`
+          }
+        >
           <DaoCard dao={dao} />
         </Link>
       </div>

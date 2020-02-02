@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Home from './views/home/Home';
 import Dao from './views/dao/Dao';
@@ -16,7 +16,12 @@ const Routes = () => (
   <Switch>
     <Route path="/" exact component={Home} />
     <Route
-      path="/dao/:contractAddress(\b0x[0-9a-f]{10,40}\b)"
+      path="/dao/v1/:contractAddress(\b0x[0-9a-f]{10,40}\b)"
+      exact
+      component={Dao}
+    />
+    <Route
+      path="/dao/v2/:contractAddress(\b0x[0-9a-f]{10,40}\b)"
       exact
       component={Dao}
     />
@@ -26,14 +31,23 @@ const Routes = () => (
       component={Apply}
     />
     <Route path="/summon" exact component={Summon} />
-    <Route path="/profile/:account(\b0x[0-9a-f]{10,40}\b)" exact component={Profile} />
+    <Route
+      path="/profile/:account(\b0x[0-9a-f]{10,40}\b)"
+      exact
+      component={Profile}
+    />
     <Route path="/help" exact component={Help} />
     <Route path="/about" exact component={About} />
     <Route path="/stats" exact component={Stats} />
     <Route
-      path="/building-dao/:contractAddress(\b0x[0-9a-f]{10,40}\b)"
+      path="/building-dao/:version/:contractAddress(\b0x[0-9a-f]{10,40}\b)"
       exact
       component={Building}
+    />
+    <Redirect
+      from="/dao/:contractAddress(\b0x[0-9a-f]{10,40}\b)"
+      to="/dao/v1/:contractAddress(\b0x[0-9a-f]{10,40}\b)"
+      exact
     />
     <Route path="*" component={FourOhFour} />
   </Switch>

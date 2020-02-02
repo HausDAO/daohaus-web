@@ -4,13 +4,13 @@ import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
 import queryString from 'query-string';
-import { get } from '../../util/requests';
 
 import {
   Web3Context,
   MolochContext,
   TokenContext,
 } from '../../contexts/ContractContexts';
+import { get } from '../../util/requests';
 import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import RageQuit from '../../components/rageQuit/RageQuit';
@@ -85,6 +85,8 @@ const Dao = props => {
   };
 
   const getDao = async () => {
+    console.log('props', props);
+
     const { isLoading, isError, data } = await client.query({
       query: GET_MOLOCH,
       variables: { contractAddr: props.match.params.contractAddress },
@@ -95,8 +97,9 @@ const Dao = props => {
 
     if (data && web3Service) {
       if (!data.factories[0]) {
+        const versionPath = props.location.pathname.split('/')[2];
         props.history.push(
-          `/building-dao/${props.match.params.contractAddress}`,
+          `/building-dao/${versionPath}/${props.match.params.contractAddress}`,
         );
         return false;
       }
@@ -192,8 +195,8 @@ const Dao = props => {
         />
       ) : emailSignupView && molochService ? (
         <div className="View__EmailSignup">
-        <button onClick={() => setEmailSignupView(false)}>{'<= '}Back</button>
-        <EmailSignup />
+          <button onClick={() => setEmailSignupView(false)}>{'<= '}Back</button>
+          <EmailSignup />
         </div>
       ) : (
         <>
@@ -223,10 +226,9 @@ const Dao = props => {
                     )}
                     <div className="Dao__actions">
                       <h4 className="Label">Things to DAO</h4>
-                      { molochService.contractAddr === '0x1fd169a4f5c59acf79d0fd5d91d1201ef1bce9f1' && (
-                        <button
-                          onClick={() => setEmailSignupView(true)}
-                        >
+                      {molochService.contractAddr ===
+                        '0x1fd169a4f5c59acf79d0fd5d91d1201ef1bce9f1' && (
+                        <button onClick={() => setEmailSignupView(true)}>
                           Get Email Updates
                         </button>
                       )}
