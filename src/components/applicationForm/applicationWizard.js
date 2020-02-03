@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { FormikWizard } from 'formik-wizard';
 
 import { post } from '../../util/requests';
-import steps from './steps';
+import { getSteps } from './steps';
 import { useWeb3Context } from 'web3-react';
 import Loading from '../loading/Loading';
 
@@ -62,7 +62,7 @@ const ApplicationWizard = props => {
 
   const [txHash, settxHash] = useState('');
   const [formError, setformError] = useState('');
-  const [, setDaoData] = useState({});
+  const [daoData, setDaoData] = useState({});
 
   const context = useWeb3Context();
   const [web3Service] = useContext(Web3Context);
@@ -80,8 +80,8 @@ const ApplicationWizard = props => {
       variables: { contractAddr: contractAddress },
     });
 
-    isLoading && setLoading(loading);
-    isError && setError(error);
+    isLoading && setLoading(isLoading);
+    isError && setError(isError);
 
     if (data && web3Service) {
       const molochService = new MolochService(contractAddress, web3Service);
@@ -172,11 +172,11 @@ const ApplicationWizard = props => {
     <div className="Wizard SmallContainer">
       {context.account ? (
         <>
-          {!loading ? (
+          {!loading && daoData.apiData ? (
             <>
               {formError && <small style={{ color: 'red' }}>{formError}</small>}
               <FormikWizard
-                steps={steps}
+                steps={getSteps(daoData.apiData.isEuma)}
                 onSubmit={handleSubmit}
                 render={FormWrapper}
               />

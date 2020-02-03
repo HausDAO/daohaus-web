@@ -1,4 +1,4 @@
-import { FastField, useFormikContext } from 'formik';
+import { Field, useFormikContext } from 'formik';
 import React from 'react';
 import EumaDoc from './eumaDoc';
 
@@ -13,10 +13,19 @@ function Euma() {
         <EumaDoc />
         <label>
           I accept
-          <input type="checkbox"></input>
+          <Field
+            name="eumaChecked"
+            render={({ field, form }) => {
+              console.log('in render', field);
+              console.log(' errors', errors);
+              return <input {...field} type="checkbox" checked={field.value} />;
+            }}
+          />
         </label>
       </div>
-      <small style={{ color: 'red' }}>Please accept the EUMA</small>
+      {!touched.eumaChecked || errors.eumaChecked ? (
+        <small style={{ color: 'red' }}>Please accept the EUMA</small>
+      ) : null}
     </div>
   );
 }
