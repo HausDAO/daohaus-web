@@ -1,6 +1,7 @@
 import { object, number, string } from 'yup';
 import PledgeInfo from './pledgeInfo';
 import Summary from './summary';
+import Euma from './euma';
 
 export default [
   {
@@ -14,6 +15,13 @@ export default [
       pledge: number().required(),
       shares: number().required(),
     }),
+  },
+  {
+    id: 'euma',
+    component: Euma,
+    initialValue: {
+      checked: false,
+    },
   },
   {
     id: 'summary',
