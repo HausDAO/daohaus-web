@@ -22,16 +22,12 @@ function Summary(props) {
   return (
     <div className="Step Summary">
       <h3>Pledge to the DAO!</h3>
-      <p className="Label">Name</p>
-      <p className="Value Data">{values.personal.name}</p>
-      <p className="Label">Bio</p>
-      <p className="Value Data">{values.personal.bio}</p>
       <p className="Value">
         You are pledging {values.pledge.pledge} {contractData.token} in Tribute
-        and requesting {values.shares.shares} Shares
+        and requesting {values.pledge.shares} Shares
       </p>
       <p>
-        After pledging a sponsoring member can now make a proposal for your
+        After pledging, a sponsoring member can now make a proposal for your
         application. You have not been accepted yet and have only approved the
         DAO to hold your funds during the proposal period. You must have these
         funds available in your wallet for a proposal to begin..

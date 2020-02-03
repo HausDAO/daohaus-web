@@ -104,10 +104,8 @@ const ApplicationWizard = props => {
 
     try {
       const application = {
-        name: values.personal.name,
-        bio: values.personal.bio,
         pledge: values.pledge.pledge,
-        shares: values.shares.shares,
+        shares: values.pledge.shares,
         applicantAddress: context.account,
         molochContractAddress: contractAddress,
         status: 'new',
