@@ -28,22 +28,25 @@ const DaoCard = props => {
         <div className="DaoCard">
           <h4 className="DaoName">{dao.apiData.name || dao.title}</h4>
           <p>{dao.apiData.description}</p>
-          <div className="Row">
-            <div className="Column">
-              <p className="Label">Bank</p>
-              <p className="Data">
-                {bankValue(dao.tokenInfo.guildBankValue)} {dao.tokenInfo.symbol}
-              </p>
+          {dao.version !== '2' ? (
+            <div className="Row">
+              <div className="Column">
+                <p className="Label">Bank</p>
+                <p className="Data">
+                  {bankValue(dao.tokenInfo.guildBankValue)}{' '}
+                  {dao.tokenInfo.symbol}
+                </p>
+              </div>
+              <div className="Column">
+                <p className="Label">Members</p>
+                <p className="Data">
+                  {dao.apiData.legacyData
+                    ? dao.apiData.legacyData.members.length
+                    : data.members.length}
+                </p>
+              </div>
             </div>
-            <div className="Column">
-              <p className="Label">Members</p>
-              <p className="Data">
-                {dao.apiData.legacyData
-                  ? dao.apiData.legacyData.members.length
-                  : data.members.length}
-              </p>
-            </div>
-          </div>
+          ) : null}
         </div>
       ) : (
         <p>LOADING THE DAOs</p>

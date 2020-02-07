@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Home from './views/home/Home';
 import Dao from './views/dao/Dao';
+import DaoV2 from './views/dao/DaoV2';
 import Summon from './views/summon/Summon';
 import Apply from './views/apply/Apply';
 import Profile from './views/profile/Profile';
@@ -23,7 +24,7 @@ const Routes = () => (
     <Route
       path="/dao/v2/:contractAddress(\b0x[0-9a-f]{10,40}\b)"
       exact
-      component={Dao}
+      component={DaoV2}
     />
     <Route
       path="/apply/:contractAddress(\b0x[0-9a-f]{10,40}\b)"

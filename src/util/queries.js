@@ -69,6 +69,22 @@ export const GET_MOLOCH = gql`
   }
 `;
 
+export const GET_MOLOCH_V2 = gql`
+  query molochV2S($contractAddr: String!) {
+    molochV2S(where: { id: $contractAddr }) {
+      apiData @client
+      id
+      title
+      moloch
+      summoner
+      newContract
+      version
+      tokenInfo @client
+      totalShares @client
+    }
+  }
+`;
+
 export const GET_MOLOCHES_STATS = gql`
   query {
     factories(orderBy: count) {

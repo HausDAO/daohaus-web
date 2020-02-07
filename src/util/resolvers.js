@@ -182,6 +182,19 @@ export const resolvers = (() => {
           guildBankValue: 0,
         };
       },
+      totalShares: async (moloch, _args) => {
+        let molochService;
+        if (molochs.hasOwnProperty(moloch.moloch)) {
+          molochService = molochs[moloch.moloch];
+        } else {
+          molochs[moloch.moloch] = new MolochService(
+            moloch.moloch,
+            web3Service,
+          );
+          molochService = molochs[moloch.moloch];
+        }
+        return await molochService.getTotalShares();
+      },
     },
     Member: {
       memberId: async (member, _args) => {
