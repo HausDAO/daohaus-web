@@ -1,0 +1,10 @@
+@import '../../variables';
+
+.EumaContainer {
+  max-height: 400px;
+  overflow: auto;
+  position: relative;
+  @media (max-width: $mobile) {
+    max-height: 320px;
+  }
+}
