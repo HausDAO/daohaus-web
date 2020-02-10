@@ -24,7 +24,9 @@ function Euma() {
         </label>
       </div>
       {!touched.eumaChecked || errors.eumaChecked ? (
-        <small style={{ color: 'red' }}>Please accept the EUMA</small>
+        <small style={{ color: 'red' }}>
+          Please accept the EUMA to continue
+        </small>
       ) : null}
     </div>
   );
