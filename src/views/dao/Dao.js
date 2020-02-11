@@ -23,6 +23,7 @@ import ActivateButton from '../../components/activateButton/ActivateButton';
 import HeadTags from '../../components/headTags/HeadTags';
 
 import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
+
 import './Dao.scss';
 
 const Dao = props => {
