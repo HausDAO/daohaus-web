@@ -73,6 +73,8 @@ const DaoV2 = props => {
     isLoading && setLoading(loading);
     isError && setError(error);
 
+    console.log('data', data);
+
     if (data && web3Service) {
       if (!data.molochV2S[0]) {
         const versionPath = props.location.pathname.split('/')[2];

@@ -22,31 +22,44 @@ const DaoCard = props => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error - use mainnet :(</p>;
 
+  console.log('dao', dao);
+
   return (
     <>
       {dao.id ? (
         <div className="DaoCard">
           <h4 className="DaoName">{dao.apiData.name || dao.title}</h4>
           <p>{dao.apiData.description}</p>
-          {dao.version !== '2' ? (
-            <div className="Row">
-              <div className="Column">
-                <p className="Label">Bank</p>
-                <p className="Data">
-                  {bankValue(dao.tokenInfo.guildBankValue)}{' '}
-                  {dao.tokenInfo.symbol}
-                </p>
-              </div>
-              <div className="Column">
-                <p className="Label">Members</p>
+          <div className="Row">
+            <div className="Column">
+              {dao.version !== '2' ? (
+                <>
+                  <p className="Label">Bank</p>
+                  <p className="Data">
+                    {bankValue(dao.tokenInfo.guildBankValue)}{' '}
+                    {dao.tokenInfo.symbol}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="Label">Shares</p>
+                  <p className="Data">{dao.metadata.totalShares}</p>
+                </>
+              )}
+            </div>
+            <div className="Column">
+              <p className="Label">Members</p>
+              {dao.version !== '2' ? (
                 <p className="Data">
                   {dao.apiData.legacyData
                     ? dao.apiData.legacyData.members.length
                     : data.members.length}
                 </p>
-              </div>
+              ) : (
+                <p className="Data">{dao.metadata.members.length}</p>
+              )}
             </div>
-          ) : null}
+          </div>
         </div>
       ) : (
         <p>LOADING THE DAOs</p>

@@ -11,6 +11,7 @@ import {
   GET_MEMBERDATA,
   GET_PROPOSALS,
   GET_PROPOSALS_LEGACY,
+  GET_MOLOCH_V2_METADATA,
 } from './queries';
 
 let _web3;
@@ -195,6 +196,14 @@ export const resolvers = (() => {
         }
         return await molochService.getTotalShares();
       },
+      // metaData: async (moloch, _args, _context) => {
+      //   let legacyData = await legacyGraph(
+      //     process.env.REACT_APP_GRAPH_V2_URI,
+      //     GET_MOLOCH_V2_METADATA,
+      //     { contractAddr: moloch.moloch },
+      //   );
+      //   return legacyData.data.data;
+      // },
     },
     Member: {
       memberId: async (member, _args) => {

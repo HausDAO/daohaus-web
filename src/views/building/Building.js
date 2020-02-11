@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+
 import useInterval from '../../util/PollingUtil';
 import { legacyGraph } from '../../util/legacyGraphService';
-import { GET_MOLOCHES_POST } from '../../util/queries';
+import { GET_MOLOCHES_POST, GET_MOLOCHES_POST_V2 } from '../../util/queries';
 
 import './Building.scss';
 
@@ -11,14 +12,23 @@ const Building = props => {
   const [delay, setDelay] = useState(2000);
 
   useInterval(async () => {
-    //not actually legacy but some query TODO: rename function
-    let factoryQuery = await legacyGraph(
-      process.env.REACT_APP_GRAPH_URI,
-      GET_MOLOCHES_POST,
-    );
+    let graphUri, query, entity;
+
+    if (match.params.version === 'v1') {
+      graphUri = process.env.REACT_APP_GRAPH_URI;
+      query = GET_MOLOCHES_POST;
+      entity = 'factories';
+    } else {
+      graphUri = process.env.REACT_APP_GRAPH_V2_URI;
+      query = GET_MOLOCHES_POST_V2;
+      entity = 'molochV2S';
+    }
+
+    let factoryQuery = await legacyGraph(graphUri, query);
+
     if (
-      factoryQuery.data.data.factories.some(
-        factory => factory.id === match.params.contractAddress,
+      factoryQuery.data.data[entity].some(
+        dao => dao.id === match.params.contractAddress,
       )
     ) {
       setDaoReady(true);

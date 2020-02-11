@@ -12,7 +12,9 @@ const DaoList = props => {
       <div className="DaoList__Item" key={dao.moloch}>
         <Link
           to={
-            dao.version === '2' ? `/dao/v2/${dao.moloch}` : `/dao/${dao.moloch}`
+            dao.version === '2'
+              ? `/dao/v2/${dao.moloch}`
+              : `/dao/v1/${dao.moloch}`
           }
         >
           <DaoCard dao={dao} />

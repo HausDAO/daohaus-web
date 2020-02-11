@@ -24,6 +24,14 @@ export const GET_MOLOCHES_POST = {
   }`,
 };
 
+export const GET_MOLOCHES_POST_V2 = {
+  query: `query {
+    molochV2S(orderBy: count) {
+      id
+    }
+  }`,
+};
+
 export const GET_MOLOCHES = gql`
   query factories($skip: Int) {
     factories(orderBy: count, first: 100, skip: $skip) {
@@ -50,6 +58,14 @@ export const GET_MOLOCHES_V2 = gql`
       version
       title
       tokenInfo @client
+    }
+    moloches(orderBy: summoningTime, first: 100, skip: $skip) {
+      id
+      totalShares
+      summoningTime
+      members {
+        id
+      }
     }
   }
 `;
@@ -81,6 +97,10 @@ export const GET_MOLOCH_V2 = gql`
       version
       tokenInfo @client
       totalShares @client
+    }
+    moloches(where: { id: $contractAddr }) {
+      id
+      totalShares
     }
   }
 `;
