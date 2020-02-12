@@ -36,17 +36,19 @@ const Home = () => {
         )}
       </div>
       <div className="VersionToggle">
-        <div
-          className={molochVersion === '1' ? 'active' : null}
-          onClick={() => handleVersionChange('1')}
-        >
-          V1
-        </div>
-        <div
-          className={molochVersion === '2' ? 'active' : null}
-          onClick={() => handleVersionChange('2')}
-        >
-          V2
+        <div className="Contents Contain">
+          <div
+            className={molochVersion === '1' ? 'active' : null}
+            onClick={() => handleVersionChange('1')}
+          >
+            Moloch V1 Daos
+          </div>
+          <div
+            className={molochVersion === '2' ? 'active' : null}
+            onClick={() => handleVersionChange('2')}
+          >
+            Moloch V2 Daos
+          </div>
         </div>
       </div>
 

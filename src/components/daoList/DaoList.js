@@ -24,7 +24,7 @@ const DaoList = props => {
   });
 
   return (
-    <div className="View">
+    <div className="Contain">
       <div className="DaoList">{daoList}</div>
     </div>
   );
