@@ -4,6 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { Connectors } from 'web3-react';
 import Web3Provider from 'web3-react';
+import Web3 from 'web3';
 
 import Routes from './Routes';
 import TopNav from './components/topNav/TopNav';
@@ -12,7 +13,6 @@ import { resolvers } from './util/resolvers';
 
 import './global.scss';
 import './App.css';
-import Web3 from 'web3';
 
 const { InjectedConnector, NetworkOnlyConnector } = Connectors;
 
@@ -33,15 +33,22 @@ const client = new ApolloClient({
   },
 });
 
+const v2Client = new ApolloClient({
+  uri: process.env.REACT_APP_GRAPH_V2_URI,
+  clientState: {
+    resolvers,
+  },
+});
+
 function App() {
   return (
     <Web3Provider
       connectors={connectors}
-      libraryName={'web3.js' }
+      libraryName={'web3.js'}
       web3Api={Web3}
     >
       <ApolloProvider client={client}>
-        <ContractContexts>
+        <ContractContexts v2Client={v2Client}>
           {' '}
           <div className="App">
             <Router>

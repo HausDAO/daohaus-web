@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import "./ApplicationList.scss";
+import './ApplicationList.scss';
 
 const ApplicationMolochList = props => {
   const { applications } = props;
@@ -9,7 +9,10 @@ const ApplicationMolochList = props => {
   const applicationList = applications.map((application, i) => {
     return (
       <div key={i} className="Applicant__List">
-        <Link className="List--Item" to={`/dao/${application.molochContractAddress.toLowerCase()}`}>
+        <Link
+          className="List--Item"
+          to={`/dao/v1/${application.molochContractAddress.toLowerCase()}`}
+        >
           {application.moloch.name}
         </Link>
       </div>

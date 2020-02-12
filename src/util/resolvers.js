@@ -11,6 +11,7 @@ import {
   GET_MEMBERDATA,
   GET_PROPOSALS,
   GET_PROPOSALS_LEGACY,
+  GET_MOLOCH_V2_METADATA,
 } from './queries';
 
 let _web3;
@@ -156,6 +157,53 @@ export const resolvers = (() => {
           return [];
         }
       },
+    },
+    MolochV2: {
+      apiData: async (moloch, _args) => {
+        let apiData = [];
+        try {
+          const daoRes = await get(`moloch/${moloch.moloch}`);
+          apiData = daoRes.data;
+        } catch (e) {
+          console.log('error on dao api call', e);
+        }
+
+        if (apiData.isLegacy && apiData.graphNodeUri) {
+          let legacyData = await legacyGraph(
+            apiData.graphNodeUri,
+            GET_MEMBERDATA_LEGACY,
+          );
+          apiData.legacyData = legacyData.data.data;
+        }
+
+        return apiData;
+      },
+      tokenInfo: async (moloch, _args, _context) => {
+        return {
+          guildBankValue: 0,
+        };
+      },
+      totalShares: async (moloch, _args) => {
+        let molochService;
+        if (molochs.hasOwnProperty(moloch.moloch)) {
+          molochService = molochs[moloch.moloch];
+        } else {
+          molochs[moloch.moloch] = new MolochService(
+            moloch.moloch,
+            web3Service,
+          );
+          molochService = molochs[moloch.moloch];
+        }
+        return await molochService.getTotalShares();
+      },
+      // metaData: async (moloch, _args, _context) => {
+      //   let legacyData = await legacyGraph(
+      //     process.env.REACT_APP_GRAPH_V2_URI,
+      //     GET_MOLOCH_V2_METADATA,
+      //     { contractAddr: moloch.moloch },
+      //   );
+      //   return legacyData.data.data;
+      // },
     },
     Member: {
       memberId: async (member, _args) => {

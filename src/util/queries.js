@@ -17,8 +17,16 @@ export const GET_MEMBERDATA_LEGACY = {
 };
 
 export const GET_MOLOCHES_POST = {
-  query: `  query {
+  query: `query {
     factories(orderBy: count) {
+      id
+    }
+  }`,
+};
+
+export const GET_MOLOCHES_POST_V2 = {
+  query: `query {
+    molochV2S(orderBy: count) {
       id
     }
   }`,
@@ -37,6 +45,31 @@ export const GET_MOLOCHES = gql`
   }
 `;
 
+export const GET_MOLOCHES_V2 = gql`
+  query molochV2S($skip: Int) {
+    molochV2S(orderBy: count, first: 100, skip: $skip) {
+      apiData @client
+      id
+      index
+      count
+      moloch
+      summoner
+      newContract
+      version
+      title
+      tokenInfo @client
+    }
+    moloches(orderBy: summoningTime, first: 100, skip: $skip) {
+      id
+      totalShares
+      summoningTime
+      members {
+        id
+      }
+    }
+  }
+`;
+
 export const GET_MOLOCH = gql`
   query factories($contractAddr: String!) {
     factories(where: { id: $contractAddr }) {
@@ -48,6 +81,26 @@ export const GET_MOLOCH = gql`
       newContract
       tokenInfo @client
       totalShares @client
+    }
+  }
+`;
+
+export const GET_MOLOCH_V2 = gql`
+  query molochV2S($contractAddr: String!) {
+    molochV2S(where: { id: $contractAddr }) {
+      apiData @client
+      id
+      title
+      moloch
+      summoner
+      newContract
+      version
+      tokenInfo @client
+      totalShares @client
+    }
+    moloches(where: { id: $contractAddr }) {
+      id
+      totalShares
     }
   }
 `;

@@ -132,7 +132,7 @@ const ApplicationWizard = props => {
           console.log('receipt', receipt);
 
           setLoading(false);
-          history.push(`/dao/${contractAddress}?successMessage=pledge`);
+          history.push(`/dao/v1/${contractAddress}?successMessage=pledge`);
         })
         .then(resp => {
           return resp;
