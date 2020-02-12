@@ -26,7 +26,6 @@ const SummonAdvV2Form = props => {
     <>
       {!loading ? (
         <>
-          <h2>Summon Moloch V2 (Hard Mode)</h2>
           {formError && <small style={{ color: 'red' }}>{formError}</small>}
           <Formik
             initialValues={{

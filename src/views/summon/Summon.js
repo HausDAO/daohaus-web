@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { useWeb3Context } from "web3-react";
+import React, { useState } from 'react';
+import { useWeb3Context } from 'web3-react';
 
-import SummonAdvForm from "../../components/summonAdvForm/SummonAdvForm";
-import SummonWizard from "../../components/summonWizard/SummonWizard";
-import SummonAdvV2Form from "../../components/summonAdvV2Form/SummonAdvV2Form";
+import SummonAdvForm from '../../components/summonAdvForm/SummonAdvForm';
+import SummonWizard from '../../components/summonWizard/SummonWizard';
+import SummonAdvV2Form from '../../components/summonAdvV2Form/SummonAdvV2Form';
+import './Summon.scss';
 
 const Summon = () => {
   const context = useWeb3Context();
@@ -23,25 +24,28 @@ const Summon = () => {
       {context.account ? (
         <div className="View SmallContainer">
           <div className="Row">
+            <p>{wizardForm ? 'Summon (Easy Mode)' : 'Summon (Hard Mode)'}</p>
             <button className="TabButton" onClick={toggleForm}>
-              {wizardForm ? "Hard Mode" : "Easy Mode"}
+              {wizardForm ? 'Hard Mode' : 'Easy Mode'}
             </button>
-            <p>{wizardForm ? "Summon (Easy Mode)" : "Summon (Hard Mode)"}</p>
           </div>
           {wizardForm ? (
             <SummonWizard></SummonWizard>
           ) : (
-              <div>
-                <p>{v2Form ? "Version 2" : "Version 1"}</p>
+            <div className="SummonForm">
+              <h3>{v2Form ? 'Summon Moloch V2' : 'Summon Moloch V1'}</h3>
 
-                <button className="TabButton" onClick={toggleV2}>
-                  Switch to {v2Form ? "Version 1" : "Version 2"}
-                </button>
+              <button className="TabButton Switch" onClick={toggleV2}>
+                Switch to {v2Form ? 'Moloch V1' : 'Moloch V2'}
+              </button>
 
-                {v2Form ? (<SummonAdvV2Form></SummonAdvV2Form>) : (<SummonAdvForm></SummonAdvForm>)}
-
-              </div>
-            )}
+              {v2Form ? (
+                <SummonAdvV2Form></SummonAdvV2Form>
+              ) : (
+                <SummonAdvForm></SummonAdvForm>
+              )}
+            </div>
+          )}
         </div>
       ) : null}
     </>

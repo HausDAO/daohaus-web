@@ -459,7 +459,7 @@ p.Large {
   position: relative;
 }
 
-input,
+input:not([type='checkbox']),
 textarea {
   height: 40px;
   border-radius: 50px;
@@ -470,6 +470,12 @@ textarea {
   padding: 0px 15px;
   font-size: 1em;
   box-shadow: $shadow;
+}
+
+input[type='checkbox'] {
+  float: left;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
 .InlineLabel {
