@@ -26,7 +26,7 @@ export const GET_MOLOCHES_POST = {
 
 export const GET_MOLOCHES_POST_V2 = {
   query: `query {
-    molochV2S(orderBy: count) {
+    daos(orderBy: count) {
       id
     }
   }`,
@@ -46,8 +46,8 @@ export const GET_MOLOCHES = gql`
 `;
 
 export const GET_MOLOCHES_V2 = gql`
-  query molochV2S($skip: Int) {
-    molochV2S(orderBy: count, first: 100, skip: $skip) {
+  query daos($skip: Int) {
+    daos(orderBy: count, first: 100, skip: $skip) {
       apiData @client
       id
       index
@@ -86,8 +86,8 @@ export const GET_MOLOCH = gql`
 `;
 
 export const GET_MOLOCH_V2 = gql`
-  query molochV2S($contractAddr: String!) {
-    molochV2S(where: { id: $contractAddr }) {
+  query daos($contractAddr: String!) {
+    daos(where: { id: $contractAddr }) {
       apiData @client
       id
       title
