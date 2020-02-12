@@ -23,6 +23,10 @@ const ApplicationList = props => {
         let applicantAddress = +daoData.newContract
           ? member['memberId']
           : member['id'];
+
+        if (+daoData.version === 2) {
+          applicantAddress = member.memberAddress;
+        }
         return (
           <div key={i} className="ApplicationList__Item">
             <MemberItem
@@ -53,8 +57,12 @@ const ApplicationList = props => {
     <>
       <h3>Members</h3>
       <div className="ApplicationList">{memberList()}</div>
-      <h3>Pledges</h3>
-      <div className="ApplicationList">{newPledgeList()}</div>
+      {+daoData.version !== 2 ? (
+        <>
+          <h3>Pledges</h3>
+          <div className="ApplicationList">{newPledgeList()}</div>
+        </>
+      ) : null}
     </>
   );
 };

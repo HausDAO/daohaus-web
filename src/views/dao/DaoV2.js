@@ -13,6 +13,7 @@ import { successMessagesText } from '../../util/helpers';
 import MolochService from '../../util/molochService';
 import ActivateButton from '../../components/activateButton/ActivateButton';
 import HeadTags from '../../components/headTags/HeadTags';
+import ApplicationList from '../../components/applicationList/ApplicationList';
 
 import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 import './Dao.scss';
@@ -24,7 +25,7 @@ const DaoV2 = props => {
 
   const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
-  const [visitor, setVisitor] = useState({
+  const [visitor] = useState({
     isMember: false,
     isApplicant: false,
   });
@@ -82,7 +83,7 @@ const DaoV2 = props => {
         return false;
       }
 
-      setDaoData(data.daos[0]);
+      setDaoData({ ...data.daos[0], metadata: data.moloches[0] });
     }
   };
 
@@ -138,14 +139,10 @@ const DaoV2 = props => {
                               </p>
                             </>
                           ) : (
-                            <>
-                              <button>Pledge to Join</button>
-                              <span>will go to pokemol?</span>
-                              {/* 
-                              <Link to={`/apply/${molochService.contractAddr}`}>
-                                <button>Pledge to Join</button>
-                              </Link> */}
-                            </>
+                            <p>
+                              Not much to do here for V2 Moloch daos. Go to
+                              Pokemol.
+                            </p>
                           )}
                         </>
                       )}
@@ -158,7 +155,7 @@ const DaoV2 = props => {
                   )}
                   {!daoData.apiData.hidePokemol ? (
                     <div className="Dapp">
-                      <p className="Label">Proposal and Voting dApp</p>
+                      <p className="Label">Proposal and Voting dApp.</p>
                       <a
                         className="Button Pokemol"
                         href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
@@ -176,21 +173,13 @@ const DaoV2 = props => {
                 <div className="Details">
                   <h4>Dao Details</h4>
                   <p className="Label">Moloch V2 Dao </p>
-                  {/* <p className="Label">Bank</p> */}
+                  <p className="Value Data"></p>
+                  <p className="Label">Members</p>
                   <p className="Value Data">
-                    {/* {bankValue(daoData.tokenInfo.guildBankValue)}{' '}
-                    {daoData.tokenInfo.symbol} */}
-                  </p>
-                  {/* <p className="Label">Members</p> */}
-                  <p className="Value Data">
-                    {/* {memberData && memberData.active.length} */}
-                  </p>
-                  <p className="Label">Minimum Tribute</p>
-                  <p className="Value Data">
-                    {daoData.apiData.minimumTribute} {daoData.tokenInfo.symbol}
+                    {daoData.metadata.members.length}
                   </p>
                   <p className="Label">Total Shares</p>
-                  <p className="Value Data">{daoData.totalShares}</p>
+                  <p className="Value Data">{daoData.metadata.totalShares}</p>
                   <p className="Label">
                     DAO Contract Address (Do NOT send funds here)
                   </p>
@@ -219,6 +208,15 @@ const DaoV2 = props => {
             </div>
           </div>
         </>
+      ) : null}
+      {daoData.metadata && molochService ? (
+        <div className="View">
+          <ApplicationList
+            members={{ active: daoData.metadata.members, applicants: [] }}
+            daoData={daoData}
+            contract={molochService.contract}
+          />
+        </div>
       ) : null}
     </div>
   );
