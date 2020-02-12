@@ -13,7 +13,7 @@ const DaoListFetch = ({ version }) => {
 
   const query = version === '1' ? GET_MOLOCHES : GET_MOLOCHES_V2;
   const options = version === '1' ? {} : { client: MolochV2.client };
-  const entityName = version === '1' ? 'factories' : 'molochV2S';
+  const entityName = version === '1' ? 'factories' : 'daos';
   const { loading, error, data, fetchMore } = useQuery(query, options);
 
   useEffect(() => {

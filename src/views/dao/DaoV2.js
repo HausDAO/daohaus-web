@@ -73,10 +73,8 @@ const DaoV2 = props => {
     isLoading && setLoading(loading);
     isError && setError(error);
 
-    console.log('data', data);
-
     if (data && web3Service) {
-      if (!data.molochV2S[0]) {
+      if (!data.daos[0]) {
         const versionPath = props.location.pathname.split('/')[2];
         props.history.push(
           `/building-dao/${versionPath}/${props.match.params.contractAddress}`,
@@ -84,7 +82,7 @@ const DaoV2 = props => {
         return false;
       }
 
-      setDaoData(data.molochV2S[0]);
+      setDaoData(data.daos[0]);
     }
   };
 
