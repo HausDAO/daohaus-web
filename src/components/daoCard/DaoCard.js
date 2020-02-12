@@ -22,8 +22,6 @@ const DaoCard = props => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error - use mainnet :(</p>;
 
-  console.log('dao', dao);
-
   return (
     <>
       {dao.id ? (

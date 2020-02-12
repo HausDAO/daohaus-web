@@ -57,7 +57,6 @@ export const GET_MOLOCHES_V2 = gql`
       newContract
       version
       title
-      tokenInfo @client
     }
     moloches(orderBy: summoningTime, first: 100, skip: $skip) {
       id
@@ -95,12 +94,21 @@ export const GET_MOLOCH_V2 = gql`
       summoner
       newContract
       version
-      tokenInfo @client
-      totalShares @client
     }
     moloches(where: { id: $contractAddr }) {
       id
       totalShares
+      summoningTime
+      members {
+        id
+        memberAddress
+        delegateKey
+        shares
+        loot
+      }
+      depositToken {
+        tokenAddress
+      }
     }
   }
 `;
