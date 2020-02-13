@@ -1,45 +1,41 @@
-import { object, number, string } from 'yup'
+import { object, number, boolean, bool } from 'yup';
+import PledgeInfo from './pledgeInfo';
+import Summary from './summary';
+import Euma from './euma';
 
-import PersonalInfo from './personalInfo'
-import PledgeInfo from './pledgeInfo'
-import SharesInfo from './sharesInfo'
-import Summary from './summary'
+export const getSteps = isEuma => {
+  console.log('isEuma', isEuma);
+  const steps = [
+    {
+      id: 'pledge',
+      component: PledgeInfo,
+      initialValues: {
+        pledge: '',
+        shares: '',
+      },
+      validationSchema: object().shape({
+        pledge: number().required(),
+        shares: number().required(),
+      }),
+    },
+    {
+      id: 'summary',
+      component: Summary,
+    },
+  ];
 
-export default [
-  {
-    id: 'personal',
-    component: PersonalInfo,
-    initialValues: {
-      name: '',
-      bio: '',
-    },
-    validationSchema: object().shape({
-      name: string().required(),
-      bio: string().required(),
-    }),
-  },
-  {
-    id: 'pledge',
-    component: PledgeInfo,
-    initialValues: {
-      pledge: '',
-    },
-    validationSchema: object().shape({
-      pledge: number().required(),
-    }),
-  },
-  {
-    id: 'shares',
-    component: SharesInfo,
-    initialValues: {
-      shares: '',
-    },
-    validationSchema: object().shape({
-      shares: number().required(),
-    }),
-  },
-  {
-    id: 'summary',
-    component: Summary,
-  },
-]
+  if (isEuma) {
+    steps.splice(1, 0, {
+      id: 'euma',
+      component: Euma,
+      initialValues: {
+        eumaChecked: false,
+      },
+      validationSchema: object().shape({
+        eumaChecked: bool().oneOf([true]),
+      }),
+    });
+  }
+
+  return steps;
+};

@@ -26,7 +26,6 @@ const SummonAdvV2Form = props => {
     <>
       {!loading ? (
         <>
-          <h2>Summon Moloch V2 (Hard Mode)</h2>
           {formError && <small style={{ color: 'red' }}>{formError}</small>}
           <Formik
             initialValues={{
@@ -88,7 +87,7 @@ const SummonAdvV2Form = props => {
                   name: values.name.trim(),
                   minimumTribute: values.minimumTribute,
                   description: values.description,
-                  version: 2
+                  version: 2,
                 };
                 // cache dao incase of web3 timeout timeout
                 const cacheId = await post('moloch/orphan', cacheMoloch);
@@ -100,25 +99,25 @@ const SummonAdvV2Form = props => {
 
                 await factoryContract.methods
                   .newDao(
-                    values.approvedTokens.split(",").map(item => item.trim()),
+                    values.approvedTokens.split(',').map(item => item.trim()),
                     values.periodDuration,
                     values.votingPeriodLength,
                     values.gracePeriodLength,
-                    "" + values.proposalDeposit,
+                    '' + values.proposalDeposit,
                     values.dilutionBound,
-                    "" + values.processingReward,
+                    '' + values.processingReward,
                     values.name.trim(),
                   )
                   .send(
                     {
                       from: context.account,
                     },
-                    function (error, transactionHash) {
+                    function(error, transactionHash) {
                       console.log(error, transactionHash);
                       setTxHash(transactionHash);
                     },
                   )
-                  .on('error', function (err) {
+                  .on('error', function(err) {
                     console.log(err);
 
                     if (err && err.code === 4001) {
@@ -140,10 +139,10 @@ const SummonAdvV2Form = props => {
                     }
                     console.log(err);
                   })
-                  .on('transactionHash', function (transactionHash) {
+                  .on('transactionHash', function(transactionHash) {
                     console.log(transactionHash);
                   })
-                  .on('receipt', function (receipt) {
+                  .on('receipt', function(receipt) {
                     console.log(receipt.events.Register); // contains the new contract address
                     const contractAddress =
                       receipt.events.Register.returnValues.moloch;
@@ -154,7 +153,7 @@ const SummonAdvV2Form = props => {
                       name: values.name.trim(),
                       minimumTribute: values.minimumTribute,
                       description: values.description,
-                      version: 2
+                      version: 2,
                     };
 
                     post('moloch', newMoloch)
@@ -162,7 +161,7 @@ const SummonAdvV2Form = props => {
                         //remove from cache and redirect
                         remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
                           props.history.push(
-                            `/building-dao/${contractAddress.toLowerCase()}`,
+                            `/building-dao/v2/${contractAddress.toLowerCase()}`,
                           );
                         });
                       })
@@ -175,10 +174,10 @@ const SummonAdvV2Form = props => {
                     setLoading(false);
                     setSubmitting(false);
                   })
-                  .on('confirmation', function (confirmationNumber, receipt) {
+                  .on('confirmation', function(confirmationNumber, receipt) {
                     console.log(confirmationNumber, receipt);
                   })
-                  .then(function (newContractInstance) {
+                  .then(function(newContractInstance) {
                     console.log(newContractInstance); // instance with the new contract address
                   });
               } catch (err) {
@@ -223,7 +222,8 @@ const SummonAdvV2Form = props => {
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
                       <label>
-                        Approved Tokens (Comma seperated list of ERC-20 Contract Addresses)
+                        Approved Tokens (Comma seperated list of ERC-20 Contract
+                        Addresses)
                       </label>
                       <input type="text" {...field} />
                     </div>
@@ -379,8 +379,8 @@ const SummonAdvV2Form = props => {
           </Formik>
         </>
       ) : (
-          loading && <Loading msg={'Summoning'} txHash={txHash} />
-        )}
+        loading && <Loading msg={'Summoning'} txHash={txHash} />
+      )}
     </>
   );
 };

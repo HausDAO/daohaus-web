@@ -11,6 +11,7 @@ import {
   GET_MEMBERDATA,
   GET_PROPOSALS,
   GET_PROPOSALS_LEGACY,
+  GET_MOLOCH_V2_METADATA,
 } from './queries';
 
 let _web3;
@@ -157,7 +158,7 @@ export const resolvers = (() => {
         }
       },
     },
-    MolochV2: {
+    Dao: {
       apiData: async (moloch, _args) => {
         let apiData = [];
         try {
@@ -176,11 +177,6 @@ export const resolvers = (() => {
         }
 
         return apiData;
-      },
-      tokenInfo: async (moloch, _args, _context) => {
-        return {
-          guildBankValue: 0,
-        };
       },
     },
     Member: {

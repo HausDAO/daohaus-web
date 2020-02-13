@@ -26,7 +26,6 @@ const SummonAdvForm = props => {
     <>
       {!loading ? (
         <>
-          <h2>Summon Moloch V1 (Hard Mode)</h2>
           {formError && <small style={{ color: 'red' }}>{formError}</small>}
           <Formik
             initialValues={{
@@ -107,9 +106,9 @@ const SummonAdvForm = props => {
                     values.votingPeriodLength,
                     values.gracePeriodLength,
                     values.abortWindow,
-                    ""+values.proposalDeposit,
+                    '' + values.proposalDeposit,
                     values.dilutionBound,
-                    ""+values.processingReward,
+                    '' + values.processingReward,
                     values.name.trim(),
                   )
                   .send(
@@ -123,7 +122,7 @@ const SummonAdvForm = props => {
                   )
                   .on('error', function(err) {
                     console.log(err);
-                    
+
                     if (err && err.code === 4001) {
                       //remove from cache
                       remove(`moloch/orphan/${cacheId.data.id}`).then(() => {

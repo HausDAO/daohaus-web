@@ -24,6 +24,14 @@ export const GET_MOLOCHES_POST = {
   }`,
 };
 
+export const GET_MOLOCHES_POST_V2 = {
+  query: `query {
+    daos(orderBy: count) {
+      id
+    }
+  }`,
+};
+
 export const GET_MOLOCHES = gql`
   query factories($skip: Int) {
     factories(orderBy: count, first: 100, skip: $skip) {
@@ -38,8 +46,8 @@ export const GET_MOLOCHES = gql`
 `;
 
 export const GET_MOLOCHES_V2 = gql`
-  query molochV2S($skip: Int) {
-    molochV2S(orderBy: count, first: 100, skip: $skip) {
+  query daos($skip: Int) {
+    daos(orderBy: count, first: 100, skip: $skip) {
       apiData @client
       id
       index
@@ -49,7 +57,14 @@ export const GET_MOLOCHES_V2 = gql`
       newContract
       version
       title
-      tokenInfo @client
+    }
+    moloches(orderBy: summoningTime, first: 100, skip: $skip) {
+      id
+      totalShares
+      summoningTime
+      members {
+        id
+      }
     }
   }
 `;
@@ -65,6 +80,35 @@ export const GET_MOLOCH = gql`
       newContract
       tokenInfo @client
       totalShares @client
+    }
+  }
+`;
+
+export const GET_MOLOCH_V2 = gql`
+  query daos($contractAddr: String!) {
+    daos(where: { id: $contractAddr }) {
+      apiData @client
+      id
+      title
+      moloch
+      summoner
+      newContract
+      version
+    }
+    moloches(where: { id: $contractAddr }) {
+      id
+      totalShares
+      summoningTime
+      members {
+        id
+        memberAddress
+        delegateKey
+        shares
+        loot
+      }
+      depositToken {
+        tokenAddress
+      }
     }
   }
 `;
