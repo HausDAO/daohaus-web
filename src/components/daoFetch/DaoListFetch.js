@@ -49,6 +49,8 @@ const DaoListFetch = ({ version }) => {
     },
   });
 
+  console.log('mergedData', mergedData);
+
   return (
     <>
       <div className="Search">

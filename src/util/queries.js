@@ -54,7 +54,6 @@ export const GET_MOLOCHES_V2 = gql`
       count
       moloch
       summoner
-      newContract
       version
       title
     }
@@ -92,7 +91,6 @@ export const GET_MOLOCH_V2 = gql`
       title
       moloch
       summoner
-      newContract
       version
     }
     moloches(where: { id: $contractAddr }) {
