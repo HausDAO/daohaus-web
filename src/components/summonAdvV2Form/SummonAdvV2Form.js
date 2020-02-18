@@ -2,8 +2,10 @@ import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import FactoryAbi from '../../contracts/factoryV2.json';
+import MolochV2Abi from '../../contracts/molochV2.json';
+import MolochV2Bytecode from '../../contracts/molochV2Bytecode.json';
 
-import { post, remove } from '../../util/requests';
+import { post, remove, put } from '../../util/requests';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useWeb3Context } from 'web3-react';
@@ -92,32 +94,50 @@ const SummonAdvV2Form = props => {
                 // cache dao incase of web3 timeout timeout
                 const cacheId = await post('moloch/orphan', cacheMoloch);
 
-                const factoryContract = await web3Service.initContract(
-                  FactoryAbi,
-                  process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
-                );
+                // const factoryContract = await web3Service.initContract(
+                //   FactoryAbi,
+                //   process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
+                // );
 
-                await factoryContract.methods
-                  .newDao(
+                const molochV2Contract = await web3Service.createContract(MolochV2Abi);
+
+                // msg.sender,
+                // _approvedTokens,
+                // _periodDuration,
+                // _votingPeriodLength,
+                // _gracePeriodLength,
+                // _proposalDeposit,
+                // _dilutionBound,
+                // _processingReward
+
+                const deployedContract = await molochV2Contract.deploy({
+                  data: MolochV2Bytecode.object,
+                  arguments: [
+                    context.account,
                     values.approvedTokens.split(',').map(item => item.trim()),
                     values.periodDuration,
                     values.votingPeriodLength,
                     values.gracePeriodLength,
                     '' + values.proposalDeposit,
                     values.dilutionBound,
-                    '' + values.processingReward,
-                    values.name.trim(),
-                  )
+                    '' + values.processingReward
+                  ]
+                });
+
+                await deployedContract
                   .send(
                     {
                       from: context.account,
                     },
-                    function(error, transactionHash) {
+                    function (error, transactionHash) {
                       console.log(error, transactionHash);
                       setTxHash(transactionHash);
+                      put(`moloch/orphan/${cacheId.data.id}`, { transactionHash: transactionHash }).then(() => {
+                        console.log('dao txhash updated');
+                      });
                     },
                   )
-                  .on('error', function(err) {
+                  .on('error', function (err) {
                     console.log(err);
 
                     if (err && err.code === 4001) {
@@ -139,13 +159,13 @@ const SummonAdvV2Form = props => {
                     }
                     console.log(err);
                   })
-                  .on('transactionHash', function(transactionHash) {
+                  .on('transactionHash', function (transactionHash) {
                     console.log(transactionHash);
                   })
-                  .on('receipt', function(receipt) {
-                    console.log(receipt.events.Register); // contains the new contract address
+                  .on('receipt', function (receipt) {
+                    console.log(receipt); // contains the new contract address
                     const contractAddress =
-                      receipt.events.Register.returnValues.moloch;
+                      receipt.contractAddress;
 
                     const newMoloch = {
                       summonerAddress: context.account,
@@ -164,6 +184,40 @@ const SummonAdvV2Form = props => {
                             `/building-dao/v2/${contractAddress.toLowerCase()}`,
                           );
                         });
+
+
+                        //welcome to hell
+                        const factoryContract = web3Service.initContract(
+                          FactoryAbi,
+                          process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
+                        )
+
+                        factoryContract.methods
+                          .registerDao(
+                            contractAddress,
+                            values.name.trim(),
+                            2
+                          )
+                          .send(
+                            {
+                              from: context.account,
+                            },
+                            function (error, transactionHash) {
+                              console.log(error, transactionHash);
+                              setTxHash(transactionHash);
+                            },
+                          )
+                          .on('error', function (err) {
+                            setformError(`Something went wrong. ahhhhhhhhhhhh`);
+
+                            setLoading(false);
+                            setSubmitting(false);
+                          });
+
+
+
+
+
                       })
                       .catch(err => {
                         setLoading(false);
@@ -174,10 +228,10 @@ const SummonAdvV2Form = props => {
                     setLoading(false);
                     setSubmitting(false);
                   })
-                  .on('confirmation', function(confirmationNumber, receipt) {
+                  .on('confirmation', function (confirmationNumber, receipt) {
                     console.log(confirmationNumber, receipt);
                   })
-                  .then(function(newContractInstance) {
+                  .then(function (newContractInstance) {
                     console.log(newContractInstance); // instance with the new contract address
                   });
               } catch (err) {
@@ -379,8 +433,8 @@ const SummonAdvV2Form = props => {
           </Formik>
         </>
       ) : (
-        loading && <Loading msg={'Summoning'} txHash={txHash} />
-      )}
+          loading && <Loading msg={'Summoning'} txHash={txHash} />
+        )}
     </>
   );
 };

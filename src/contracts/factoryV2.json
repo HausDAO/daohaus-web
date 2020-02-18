@@ -3,39 +3,11 @@
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_approvedTokens",
-				"type": "address[]"
-			},
-			{
-				"name": "_periodDuration",
-				"type": "uint256"
-			},
-			{
-				"name": "_votingPeriodLength",
-				"type": "uint256"
-			},
-			{
-				"name": "_gracePeriodLength",
-				"type": "uint256"
-			},
-			{
-				"name": "_proposalDeposit",
-				"type": "uint256"
-			},
-			{
-				"name": "_dilutionBound",
-				"type": "uint256"
-			},
-			{
-				"name": "_processingReward",
-				"type": "uint256"
-			},
-			{
-				"name": "_daoTitle",
-				"type": "string"
+				"name": "_daoAdress",
+				"type": "address"
 			}
 		],
-		"name": "newDao",
+		"name": "deleteDao",
 		"outputs": [
 			{
 				"name": "",
@@ -54,12 +26,12 @@
 				"type": "address"
 			},
 			{
-				"name": "_summoner",
-				"type": "address"
-			},
-			{
 				"name": "_daoTitle",
 				"type": "string"
+			},
+			{
+				"name": "_version",
+				"type": "uint256"
 			}
 		],
 		"name": "registerDao",
@@ -74,6 +46,25 @@
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "daos",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -82,6 +73,11 @@
 	{
 		"anonymous": false,
 		"inputs": [
+			{
+				"indexed": false,
+				"name": "daoIdx",
+				"type": "uint256"
+			},
 			{
 				"indexed": false,
 				"name": "moloch",
@@ -94,7 +90,42 @@
 			},
 			{
 				"indexed": false,
-				"name": "daoIdx",
+				"name": "tokens",
+				"type": "address[]"
+			},
+			{
+				"indexed": false,
+				"name": "_summoningTime",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_periodDuration",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_votingPeriodLength",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_gracePeriodLength",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_proposalDeposit",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_dilutionBound",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_processingReward",
 				"type": "uint256"
 			},
 			{
@@ -104,16 +135,23 @@
 			},
 			{
 				"indexed": false,
-				"name": "newContract",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
 				"name": "version",
 				"type": "uint256"
 			}
 		],
 		"name": "Register",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "moloch",
+				"type": "address"
+			}
+		],
+		"name": "Delete",
 		"type": "event"
 	}
 ]

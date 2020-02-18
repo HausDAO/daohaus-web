@@ -9,6 +9,11 @@ export default class Web3Service {
     return contract;
   }
 
+  createContract(abi) {
+    let contract = new this.web3.eth.Contract(abi);
+    return contract;
+  }
+
   getKeyStore(privateKey, password) {
     return this.web3.eth.accounts.encrypt(privateKey, password);
   }
