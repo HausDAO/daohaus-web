@@ -18,7 +18,7 @@ export const GET_MEMBERDATA_LEGACY = {
 
 export const GET_MOLOCHES_POST = {
   query: `query {
-    factories(orderBy: count) {
+    factories(orderBy: index) {
       id
     }
   }`,
@@ -26,7 +26,7 @@ export const GET_MOLOCHES_POST = {
 
 export const GET_MOLOCHES_POST_V2 = {
   query: `query {
-    daos(orderBy: count) {
+    daos(orderBy: index) {
       id
     }
   }`,
@@ -34,7 +34,7 @@ export const GET_MOLOCHES_POST_V2 = {
 
 export const GET_MOLOCHES = gql`
   query factories($skip: Int) {
-    factories(orderBy: count, first: 100, skip: $skip) {
+    factories(orderBy: index, first: 100, skip: $skip) {
       apiData @client
       id
       title
@@ -47,14 +47,12 @@ export const GET_MOLOCHES = gql`
 
 export const GET_MOLOCHES_V2 = gql`
   query daos($skip: Int) {
-    daos(orderBy: count, first: 100, skip: $skip) {
+    daos(orderBy: index, first: 100, skip: $skip) {
       apiData @client
       id
       index
-      count
       moloch
       summoner
-      newContract
       version
       title
     }
@@ -92,7 +90,6 @@ export const GET_MOLOCH_V2 = gql`
       title
       moloch
       summoner
-      newContract
       version
     }
     moloches(where: { id: $contractAddr }) {
@@ -115,7 +112,7 @@ export const GET_MOLOCH_V2 = gql`
 
 export const GET_MOLOCHES_STATS = gql`
   query {
-    factories(orderBy: count) {
+    factories(orderBy: index) {
       apiDataStats @client
       title
       moloch

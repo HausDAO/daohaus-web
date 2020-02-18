@@ -9,7 +9,7 @@ import './Summon.scss';
 const Summon = () => {
   const context = useWeb3Context();
   const [wizardForm, setWizardForm] = useState(true);
-  const [v2Form, setV2Form] = useState(true);
+  const [v2Form, setV2Form] = useState(false);
 
   const toggleForm = () => {
     setWizardForm(!wizardForm);

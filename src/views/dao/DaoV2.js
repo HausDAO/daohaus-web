@@ -140,8 +140,8 @@ const DaoV2 = props => {
                             </>
                           ) : (
                             <p>
-                              Not much to do here for V2 Moloch daos. Go to
-                              Pokemol.
+                              PSYCH!! Not much to do here for V2 Moloch daos
+                              yet.
                             </p>
                           )}
                         </>
@@ -155,15 +155,17 @@ const DaoV2 = props => {
                   )}
                   {!daoData.apiData.hidePokemol ? (
                     <div className="Dapp">
-                      <p className="Label">Proposal and Voting dApp.</p>
-                      <a
+                      <p className="Label">
+                        Proposal and Voting dApp coming soon.
+                      </p>
+                      {/* <a
                         className="Button Pokemol"
                         href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
                         <img src={PokemolBrand} alt="pokemol" />
-                      </a>
+                      </a> */}
                     </div>
                   ) : null}
                 </div>
