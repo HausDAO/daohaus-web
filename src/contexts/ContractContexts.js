@@ -14,7 +14,6 @@ const ContractContexts = ({ children, v2Client }) => {
   const [token, setToken] = useState();
   const [moloch, setMoloch] = useState();
 
-  console.log('v2Client', v2Client);
   const [MolochV2, setMolochV2] = useState({
     client: v2Client,
   });

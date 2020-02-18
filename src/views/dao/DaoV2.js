@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import _ from 'lodash';
 import { useWeb3Context } from 'web3-react';
 import queryString from 'query-string';
 
@@ -15,7 +14,7 @@ import ActivateButton from '../../components/activateButton/ActivateButton';
 import HeadTags from '../../components/headTags/HeadTags';
 import ApplicationList from '../../components/applicationList/ApplicationList';
 
-import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
+// import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 import './Dao.scss';
 
 const DaoV2 = props => {

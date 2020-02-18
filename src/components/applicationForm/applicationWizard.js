@@ -58,7 +58,7 @@ const ApplicationWizard = props => {
   const client = useApolloClient();
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
 
   const [txHash, settxHash] = useState('');
   const [formError, setformError] = useState('');
