@@ -33,6 +33,13 @@ const Profile = props => {
           `applications/${props.match.params.account}`,
         );
 
+        const orphans = await get(
+          `moloch/orphans/${props.match.params.account}`,
+        );
+        // TODO: only display if the propfile page is the same as the logged in user
+        // context.account === props.match.params.account
+        console.log('orphans', orphans);
+
         const validApplications = applicationRes.data.filter(app => {
           return !data.factories.find(
             dao => dao.moloch === app.molochContractAddress,
