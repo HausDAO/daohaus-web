@@ -7,11 +7,14 @@ import { useQuery } from 'react-apollo';
 import { GET_MOLOCHES } from '../../util/queries';
 import DaoList from '../../components/daoList/DaoList';
 import ApplicationMolochList from '../../components/applicationList/ApplicationMolochList';
+import { Link } from 'react-router-dom';
 
 const Profile = props => {
   const context = useWeb3Context();
   const [applications, setApplications] = useState([]);
   const [summonedDaos, setSummonedDaos] = useState([]);
+  const [unregisteredDaos, setUnregisteredDaos] = useState([]);
+
   const [profile, setProfile] = useState({});
   const { loading, error, data } = useQuery(GET_MOLOCHES);
 
@@ -32,13 +35,6 @@ const Profile = props => {
         const applicationRes = await get(
           `applications/${props.match.params.account}`,
         );
-
-        const orphans = await get(
-          `moloch/orphans/${props.match.params.account}`,
-        );
-        // TODO: only display if the propfile page is the same as the logged in user
-        // context.account === props.match.params.account
-        console.log('orphans', orphans);
 
         const validApplications = applicationRes.data.filter(app => {
           return !data.factories.find(
@@ -62,6 +58,59 @@ const Profile = props => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    const fetchOrphans = async () => {
+      if (context.account) {
+        const orphans = await get(
+          `moloch/orphans/${props.match.params.account}`,
+        );
+        // TODO: only display if the propfile page is the same as the logged in user
+        // context.account === props.match.params.account
+        // also check on the contract?
+        console.log('orphans', orphans);
+        console.log('context.account', context.account);
+        const unregistered = orphans.data.filter(orphan => {
+          return orphan.summonerAddress === context.account.toLowerCase();
+        });
+
+        console.log('unregistered', unregistered);
+        setUnregisteredDaos(unregistered);
+      }
+    };
+    fetchOrphans();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [context.account]);
+
+  const renderUnregisteredList = () => {
+    return unregisteredDaos.map((dao, i) => {
+      if (dao.contractAddress !== '0x0') {
+        return (
+          <div key={i}>
+            <h4>{dao.name}</h4>
+            <p>
+              We found a dao that you tried to summon but it's not registered
+              with Daohaus yet.
+            </p>
+            <Link to={`/building-dao/v2/${dao.contractAddress.toLowerCase()}`}>
+              Go here to register
+            </Link>
+          </div>
+        );
+      } else {
+        return (
+          <div key={i}>
+            <h4>{dao.name}</h4>
+            <p>
+              We found a dao that you tried to summon but we can't find the
+              contract address
+            </p>
+            <p>There was probably an error during the summoning.</p>
+          </div>
+        );
+      }
+    });
+  };
 
   return (
     <div className="View">
@@ -117,6 +166,14 @@ const Profile = props => {
       ) : null}
       {loading ? <p>Loading</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}
+
+      {unregisteredDaos.length ? (
+        <div className="Section">
+          <h2>Unregistered Moloch V2 Daos</h2>
+          {renderUnregisteredList()}
+        </div>
+      ) : null}
+
       {data && summonedDaos.length ? (
         <div className="Section">
           <h2>Summoner of these Molochs</h2>
