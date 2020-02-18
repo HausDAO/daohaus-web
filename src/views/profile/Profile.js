@@ -65,19 +65,14 @@ const Profile = props => {
         const orphans = await get(
           `moloch/orphans/${props.match.params.account}`,
         );
-        // TODO: only display if the propfile page is the same as the logged in user
-        // context.account === props.match.params.account
-        // also check on the contract?
-        console.log('orphans', orphans);
-        console.log('context.account', context.account);
-        const unregistered = orphans.data.filter(orphan => {
-          return orphan.summonerAddress === context.account.toLowerCase();
-        });
-
-        console.log('unregistered', unregistered);
-        setUnregisteredDaos(unregistered);
+        setUnregisteredDaos(
+          orphans.data.filter(orphan => {
+            return orphan.summonerAddress === context.account.toLowerCase();
+          }),
+        );
       }
     };
+
     fetchOrphans();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.account]);

@@ -11,7 +11,6 @@ import {
   GET_MEMBERDATA,
   GET_PROPOSALS,
   GET_PROPOSALS_LEGACY,
-  GET_MOLOCH_V2_METADATA,
 } from './queries';
 
 let _web3;
