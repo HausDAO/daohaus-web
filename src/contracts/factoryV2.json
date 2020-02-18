@@ -1,157 +1,157 @@
 [
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_daoAdress",
-                "type": "address"
-            }
-        ],
-        "name": "deleteDao",
-        "outputs": [
-            {
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_daoAdress",
-                "type": "address"
-            },
-            {
-                "name": "_daoTitle",
-                "type": "string"
-            },
-            {
-                "name": "_version",
-                "type": "uint256"
-            }
-        ],
-        "name": "registerDao",
-        "outputs": [
-            {
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "daos",
-        "outputs": [
-            {
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "name": "daoIdx",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "moloch",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "name": "summoner",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "name": "tokens",
-                "type": "address[]"
-            },
-            {
-                "indexed": false,
-                "name": "_summoningTime",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "_periodDuration",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "_votingPeriodLength",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "_gracePeriodLength",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "_proposalDeposit",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "_dilutionBound",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "_processingReward",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "title",
-                "type": "string"
-            },
-            {
-                "indexed": false,
-                "name": "version",
-                "type": "uint256"
-            }
-        ],
-        "name": "Register",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "name": "moloch",
-                "type": "address"
-            }
-        ],
-        "name": "Delete",
-        "type": "event"
-    }
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_daoAdress",
+				"type": "address"
+			}
+		],
+		"name": "deleteDao",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_daoAdress",
+				"type": "address"
+			},
+			{
+				"name": "_daoTitle",
+				"type": "string"
+			},
+			{
+				"name": "_version",
+				"type": "uint256"
+			}
+		],
+		"name": "registerDao",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "daos",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "daoIdx",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "moloch",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "summoner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tokens",
+				"type": "address[]"
+			},
+			{
+				"indexed": false,
+				"name": "_summoningTime",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_periodDuration",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_votingPeriodLength",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_gracePeriodLength",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_proposalDeposit",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_dilutionBound",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_processingReward",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "version",
+				"type": "uint256"
+			}
+		],
+		"name": "Register",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "moloch",
+				"type": "address"
+			}
+		],
+		"name": "Delete",
+		"type": "event"
+	}
 ]

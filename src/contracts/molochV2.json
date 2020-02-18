@@ -1219,11 +1219,6 @@
 			},
 			{
 				"indexed": false,
-				"name": "memberAddress",
-				"type": "address"
-			},
-			{
-				"indexed": false,
 				"name": "applicantAddress",
 				"type": "address"
 			}
