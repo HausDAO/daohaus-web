@@ -27,7 +27,7 @@ const SummonAdvV2Form = props => {
     <>
       {!loading ? (
         <>
-          {formError && <small style={{ color: 'red' }}>{formError}</small>}
+          {formError && <small style={{ color: 'red' }}> {formError}</small>}
           <Formik
             initialValues={{
               name: '',
@@ -129,11 +129,9 @@ const SummonAdvV2Form = props => {
                       from: context.account,
                     },
                     function (error, transactionHash) {
-                      console.log(error, transactionHash);
+                      console.log('any error?: ', error, 'tx: ', transactionHash);
                       setTxHash(transactionHash);
-                      put(`moloch/orphan/${cacheId.data.id}`, { transactionHash: transactionHash }).then(() => {
-                        console.log('dao txhash updated');
-                      });
+
                     },
                   )
                   .on('error', function (err) {
@@ -159,38 +157,19 @@ const SummonAdvV2Form = props => {
                     console.log(err);
                   })
                   .on('transactionHash', function (transactionHash) {
-                    console.log(transactionHash);
+                    put(`moloch/orphan/${cacheId.data.id}`, { transactionHash: transactionHash }).then(() => {
+                      console.log('dao txhash updated');
+                    });
+                    console.log('on transactionHash', transactionHash);
+
                   })
                   .on('receipt', function (receipt) {
                     console.log(receipt); // contains the new contract address
                     const contractAddress =
                       receipt.contractAddress;
 
-                    const newMoloch = {
-                      summonerAddress: context.account,
-                      contractAddress: contractAddress,
-                      name: values.name.trim(),
-                      minimumTribute: values.minimumTribute,
-                      description: values.description,
-                      version: 2,
-                    };
-
-                    // post('moloch', newMoloch)
-                    //   .then(newMolochRes => {
-                    //     //remove from cache and redirect
-                    //     remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-                    //       props.history.push(
-                    //         `/building-dao/v2/${contractAddress.toLowerCase()}`,
-                    //       );
-                    //     });
-
-
-                    //   })
-                    //   .catch(err => {
-                    //     setLoading(false);
-                    //     console.log('moloch creation error', err);
-                    //   });
-
+                    console.log('on receipt');
+                    
                     put(`moloch/orphan/${cacheId.data.id}`, { contractAddress: contractAddress }).then(() => {
                       console.log('dao txhash updated');
                     }).then(orphanRes => {
@@ -208,10 +187,9 @@ const SummonAdvV2Form = props => {
                     setLoading(false);
                     setSubmitting(false);
                   })
-                  .on('confirmation', function (confirmationNumber, receipt) {
-                    console.log(confirmationNumber, receipt);
-                  })
                   .then(function (newContractInstance) {
+                    console.log('final then');
+                    
                     console.log(newContractInstance); // instance with the new contract address
                   });
               } catch (err) {

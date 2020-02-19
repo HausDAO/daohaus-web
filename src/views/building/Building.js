@@ -7,7 +7,7 @@ import { GET_MOLOCHES_POST, GET_MOLOCHES_POST_V2 } from '../../util/queries';
 import './Building.scss';
 import { Web3Context } from '../../contexts/ContractContexts';
 import { useWeb3Context } from 'web3-react';
-import { get } from '../../util/requests';
+import { get, post, remove } from '../../util/requests';
 
 import FactoryAbi from '../../contracts/factoryV2.json';
 
@@ -16,11 +16,10 @@ const Building = props => {
   const { match, history } = props;
   const [daoReady, setDaoReady] = useState(false);
   const [daoValid, setDaoValid] = useState(false);
-  const [daoData, setDaoData] = useState();
   const [loading, setLoading] = useState(false);
   const [formError, setformError] = useState('');
   const [txHash, setTxHash] = useState();
-  const [unregisteredDao, setUnregisteredDao] = useState([]);
+  const [unregisteredDao, setUnregisteredDao] = useState();
   const [delay, setDelay] = useState(2000);
   const context = useWeb3Context();
   const [web3Service] = useContext(Web3Context);
@@ -50,11 +49,10 @@ const Building = props => {
       entity = 'daos';
       await fetchOrphan();
 
-      const dao = unregisteredDao.find((dao) => dao.id === match.params.contractAddress.toLowerCase())
-      setDaoData(dao);
-      console.log(dao);
+      console.log(unregisteredDao);
+      console.log('', unregisteredDao);
 
-      if (dao) {
+      if (unregisteredDao) {
         setDaoReady(true);
         setDelay(null);
       }
@@ -70,19 +68,19 @@ const Building = props => {
       console.log('run');
 
       const orphan = await get(
-        `moloch/orphans/${match.params.contractAddress.toLowerCase()}`,
+        `moloch/orphans/contract/${match.params.contractAddress.toLowerCase()}`,
       );
-      console.log(orphan);
+      console.log('orphan', orphan);
 
       setUnregisteredDao(
-        orphan
+        orphan.data
       );
     }
   };
 
 
   const registerDao = async () => {
-    if (!daoData) {
+    if (!unregisteredDao) {
       return
     }
     setLoading(true);
@@ -98,7 +96,7 @@ const Building = props => {
     factoryContract.methods
       .registerDao(
         match.params.contractAddress,
-        daoData.title,
+        unregisteredDao.name,
         2
       )
       .send(
@@ -110,21 +108,24 @@ const Building = props => {
           setTxHash(transactionHash);
         },
       )
-      .on('recipt', function () {
+      .on('receipt', function () {
+        console.log('on receipt start');
 
         const newMoloch = {
           summonerAddress: context.account,
           contractAddress: match.params.contractAddress,
-          name: unregisteredDao.title,
+          name: unregisteredDao.name,
           minimumTribute: unregisteredDao.minimumTribute,
           description: unregisteredDao.description,
           version: 2,
         };
+        console.log('post new moloch', newMoloch);
+
 
         post('moloch', newMoloch)
           .then(newMolochRes => {
             //remove from cache and redirect
-            remove(`moloch/orphan/${match.params.contractAddress.toLowerCase()}`).then(() => {
+            remove(`moloch/orphan/${unregisteredDao.id}`).then(() => {
               props.history.push(
                 `/building-dao/v2/${match.params.contractAddress.toLowerCase()}`,
               );
@@ -136,6 +137,7 @@ const Building = props => {
             setLoading(false);
             console.log('moloch creation error', err);
           });
+        console.log('on receipt and new moloch');
 
         setDaoValid(true);
       })
@@ -203,7 +205,7 @@ const Building = props => {
 
           {daoReady && match.params.version === 'v2' && (
             <>
-              {!loading && !daoValid ? (<button onclick={() => registerDao()}>Launch V2 Pokemol</button>) : (<p>{!daoValid && "building pokemol"} {txHash}</p>)}
+              {!loading && !daoValid ? (<button onClick={() => registerDao()}>Launch V2 Pokemol</button>) : (<p>{!daoValid && "building pokemol"} {txHash}</p>)}
               {formError && <p>{formError}</p>}
             </>
 
