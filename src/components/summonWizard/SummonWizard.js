@@ -148,7 +148,7 @@ const SummonWizard = props => {
                 //remove from cache and redirect
                 remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
                   props.history.push(
-                    `/building-dao/${contractAddress.toLowerCase()}`,
+                    `/building-dao/v1/${contractAddress.toLowerCase()}`,
                   );
                 });
               })
