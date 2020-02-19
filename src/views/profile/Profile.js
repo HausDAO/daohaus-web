@@ -7,7 +7,7 @@ import { useQuery } from 'react-apollo';
 import { GET_MOLOCHES } from '../../util/queries';
 import DaoList from '../../components/daoList/DaoList';
 import ApplicationMolochList from '../../components/applicationList/ApplicationMolochList';
-import { Link } from 'react-router-dom';
+import UnregisteredList from '../../components/unregisteredList/unregisteredList';
 
 const Profile = props => {
   const context = useWeb3Context();
@@ -79,31 +79,7 @@ const Profile = props => {
 
   const renderUnregisteredList = () => {
     return unregisteredDaos.map((dao, i) => {
-      if (dao.contractAddress !== '0x0') {
-        return (
-          <div key={i}>
-            <h4>{dao.name}</h4>
-            <p>
-              We found a dao that you tried to summon but it's not registered
-              with Daohaus yet.
-            </p>
-            <Link to={`/building-dao/v2/${dao.contractAddress.toLowerCase()}`}>
-              Go here to register
-            </Link>
-          </div>
-        );
-      } else {
-        return (
-          <div key={i}>
-            <h4>{dao.name}</h4>
-            <p>
-              We found a dao that you tried to summon but we can't find the
-              contract address
-            </p>
-            <p>There was probably an error during the summoning.</p>
-          </div>
-        );
-      }
+      return <UnregisteredList dao={dao} key={i} />;
     });
   };
 

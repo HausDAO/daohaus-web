@@ -11,7 +11,6 @@ import { get, post, remove } from '../../util/requests';
 
 import FactoryAbi from '../../contracts/factoryV2.json';
 
-
 const Building = props => {
   const { match, history } = props;
   const [daoReady, setDaoReady] = useState(false);
@@ -42,75 +41,54 @@ const Building = props => {
         setDaoValid(true);
         setDelay(null);
       }
-
     } else {
       graphUri = process.env.REACT_APP_GRAPH_V2_URI;
       query = GET_MOLOCHES_POST_V2;
       entity = 'daos';
       await fetchOrphan();
 
-      console.log(unregisteredDao);
-      console.log('', unregisteredDao);
-
       if (unregisteredDao) {
         setDaoReady(true);
         setDelay(null);
       }
-
     }
-
-
   }, delay);
 
   const fetchOrphan = async () => {
-
     if (context.account) {
-      console.log('run');
-
       const orphan = await get(
         `moloch/orphans/contract/${match.params.contractAddress.toLowerCase()}`,
       );
-      console.log('orphan', orphan);
 
-      setUnregisteredDao(
-        orphan.data
-      );
+      setUnregisteredDao(orphan.data);
     }
   };
 
-
   const registerDao = async () => {
     if (!unregisteredDao) {
-      return
+      return;
     }
     setLoading(true);
 
     //get all events of this moloch should not be more than one
-    // user should be summonor 
-
+    // user should be summonor
     const factoryContract = web3Service.initContract(
       FactoryAbi,
       process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
-    )
+    );
 
     factoryContract.methods
-      .registerDao(
-        match.params.contractAddress,
-        unregisteredDao.name,
-        2
-      )
+      .registerDao(match.params.contractAddress, unregisteredDao.name, 2)
       .send(
         {
           from: context.account,
         },
-        function (error, transactionHash) {
+        function(error, transactionHash) {
           console.log(error, transactionHash);
           setTxHash(transactionHash);
         },
       )
-      .on('receipt', function () {
-        console.log('on receipt start');
-
+      .on('receipt', function() {
         const newMoloch = {
           summonerAddress: context.account,
           contractAddress: match.params.contractAddress,
@@ -119,8 +97,6 @@ const Building = props => {
           description: unregisteredDao.description,
           version: 2,
         };
-        console.log('post new moloch', newMoloch);
-
 
         post('moloch', newMoloch)
           .then(newMolochRes => {
@@ -130,26 +106,20 @@ const Building = props => {
                 `/building-dao/v2/${match.params.contractAddress.toLowerCase()}`,
               );
             });
-
-
           })
           .catch(err => {
             setLoading(false);
             console.log('moloch creation error', err);
           });
-        console.log('on receipt and new moloch');
 
         setDaoValid(true);
       })
-      .on('error', function (err) {
+      .on('error', function(err) {
         setformError(`Something went wrong. ahhhhhhhhhhhh`);
 
         setLoading(false);
       });
-
-
-
-  }
+  };
 
   return (
     <div className="View SmallContainer">
@@ -184,36 +154,38 @@ const Building = props => {
             </circle>
           </svg>
         ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-            >
-              <path fill="none" d="M0 0h24v24H0V0z" />
-              <path
-                fill="#4EBD9E"
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"
-              />
-            </svg>
-          )}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+          >
+            <path fill="none" d="M0 0h24v24H0V0z" />
+            <path
+              fill="#4EBD9E"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"
+            />
+          </svg>
+        )}
 
         <div>
-          {!daoReady && (
-            <h4>Tidying up and preparing your Pokemol.</h4>
-          )}
+          {!daoReady && <h4>Tidying up and preparing your Pokemol.</h4>}
 
           {daoReady && match.params.version === 'v2' && (
             <>
-              {!loading && !daoValid ? (<button onClick={() => registerDao()}>Launch V2 Pokemol</button>) : (<p>{!daoValid && "building pokemol"} {txHash}</p>)}
+              {!loading && !daoValid ? (
+                <button onClick={() => registerDao()}>Launch V2 Pokemol</button>
+              ) : (
+                <p>
+                  {!daoValid && 'building pokemol'} {txHash}
+                </p>
+              )}
               {formError && <p>{formError}</p>}
             </>
-
           )}
           {daoReady && match.params.version === 'v1' && (
             <h4>Tidied up and Pokemol is ready.</h4>
           )}
-
         </div>
       </div>
       <p>
