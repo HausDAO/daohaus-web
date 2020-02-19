@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import FactoryAbi from '../../contracts/factoryV2.json';
 import MolochV2Abi from '../../contracts/molochV2.json';
 import MolochV2Bytecode from '../../contracts/molochV2Bytecode.json';
 
@@ -184,38 +183,6 @@ const SummonAdvV2Form = props => {
                             `/building-dao/v2/${contractAddress.toLowerCase()}`,
                           );
                         });
-
-
-                        //welcome to hell
-                        const factoryContract = web3Service.initContract(
-                          FactoryAbi,
-                          process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
-                        )
-
-                        factoryContract.methods
-                          .registerDao(
-                            contractAddress,
-                            values.name.trim(),
-                            2
-                          )
-                          .send(
-                            {
-                              from: context.account,
-                            },
-                            function (error, transactionHash) {
-                              console.log(error, transactionHash);
-                              setTxHash(transactionHash);
-                            },
-                          )
-                          .on('error', function (err) {
-                            setformError(`Something went wrong. ahhhhhhhhhhhh`);
-
-                            setLoading(false);
-                            setSubmitting(false);
-                          });
-
-
-
 
 
                       })
