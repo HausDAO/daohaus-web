@@ -175,21 +175,34 @@ const SummonAdvV2Form = props => {
                       version: 2,
                     };
 
-                    post('moloch', newMoloch)
-                      .then(newMolochRes => {
-                        //remove from cache and redirect
-                        remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-                          props.history.push(
-                            `/building-dao/v2/${contractAddress.toLowerCase()}`,
-                          );
-                        });
+                    // post('moloch', newMoloch)
+                    //   .then(newMolochRes => {
+                    //     //remove from cache and redirect
+                    //     remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
+                    //       props.history.push(
+                    //         `/building-dao/v2/${contractAddress.toLowerCase()}`,
+                    //       );
+                    //     });
 
 
-                      })
-                      .catch(err => {
-                        setLoading(false);
-                        console.log('moloch creation error', err);
-                      });
+                    //   })
+                    //   .catch(err => {
+                    //     setLoading(false);
+                    //     console.log('moloch creation error', err);
+                    //   });
+
+                    put(`moloch/orphan/${cacheId.data.id}`, { contractAddress: contractAddress }).then(() => {
+                      console.log('dao txhash updated');
+                    }).then(orphanRes => {
+                      props.history.push(
+                        `/building-dao/v2/${contractAddress.toLowerCase()}`,
+                      );
+                    })
+                    .catch(err => {
+                      setLoading(false);
+                      console.log('orphan update error', err);
+                    });;
+
 
                     resetForm();
                     setLoading(false);

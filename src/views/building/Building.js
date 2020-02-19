@@ -20,7 +20,7 @@ const Building = props => {
   const [loading, setLoading] = useState(false);
   const [formError, setformError] = useState('');
   const [txHash, setTxHash] = useState();
-  const [unregisteredDaos, setUnregisteredDaos] = useState([]);
+  const [unregisteredDao, setUnregisteredDao] = useState([]);
   const [delay, setDelay] = useState(2000);
   const context = useWeb3Context();
   const [web3Service] = useContext(Web3Context);
@@ -47,10 +47,10 @@ const Building = props => {
     } else {
       graphUri = process.env.REACT_APP_GRAPH_V2_URI;
       query = GET_MOLOCHES_POST_V2;
-      entity = 'molochV2S';
-      await fetchOrphans();
+      entity = 'daos';
+      await fetchOrphan();
 
-      const dao = unregisteredDaos.find((dao) => dao.id === match.params.contractAddress.toLowerCase())
+      const dao = unregisteredDao.find((dao) => dao.id === match.params.contractAddress.toLowerCase())
       setDaoData(dao);
       console.log(dao);
 
@@ -64,23 +64,18 @@ const Building = props => {
 
   }, delay);
 
-  const fetchOrphans = async () => {
+  const fetchOrphan = async () => {
 
     if (context.account) {
       console.log('run');
 
-      const orphans = await get(
-        `moloch/orphans/${context.account}`,
+      const orphan = await get(
+        `moloch/orphans/${match.params.contractAddress.toLowerCase()}`,
       );
-      console.log(orphans);
+      console.log(orphan);
 
-      const unDao = orphans.data.filter(orphan => {
-        return orphan.summonerAddress === context.account.toLowerCase();
-      });
-      console.log('unDao', unDao);
-
-      setUnregisteredDaos(
-        unDao
+      setUnregisteredDao(
+        orphan
       );
     }
   };
@@ -91,6 +86,9 @@ const Building = props => {
       return
     }
     setLoading(true);
+
+    //get all events of this moloch should not be more than one
+    // user should be summonor 
 
     const factoryContract = web3Service.initContract(
       FactoryAbi,
@@ -113,6 +111,32 @@ const Building = props => {
         },
       )
       .on('recipt', function () {
+
+        const newMoloch = {
+          summonerAddress: context.account,
+          contractAddress: match.params.contractAddress,
+          name: unregisteredDao.title,
+          minimumTribute: unregisteredDao.minimumTribute,
+          description: unregisteredDao.description,
+          version: 2,
+        };
+
+        post('moloch', newMoloch)
+          .then(newMolochRes => {
+            //remove from cache and redirect
+            remove(`moloch/orphan/${match.params.contractAddress.toLowerCase()}`).then(() => {
+              props.history.push(
+                `/building-dao/v2/${match.params.contractAddress.toLowerCase()}`,
+              );
+            });
+
+
+          })
+          .catch(err => {
+            setLoading(false);
+            console.log('moloch creation error', err);
+          });
+
         setDaoValid(true);
       })
       .on('error', function (err) {
