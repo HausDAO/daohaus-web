@@ -13,28 +13,26 @@
 }
 
 .VersionToggle {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  height: 100px;
-}
-
-.VersionToggle div {
-  border: 1px solid $primary;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  cursor: pointer;
-}
-
-.VersionToggle div:hover {
-  background-color: $secondary-hover;
-}
-
-.VersionToggle div.active {
-  background-color: $secondary;
+  background-color: $primary;
+  .Contents {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 60px;
+    > div {
+      font-size: 1.35em;
+      cursor: pointer;
+      transition: all 0.15s linear;
+      color: $secondary;
+      &:first-child {
+        margin-right: 15px;
+      }
+      &:hover {
+        color: $primary-background;
+      }
+      &.active {
+        color: $primary-background;
+      }
+    }
+  }
 }
