@@ -10,24 +10,18 @@ import {
 import { GET_MOLOCH_V2 } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import MolochService from '../../util/molochService';
-import ActivateButton from '../../components/activateButton/ActivateButton';
 import HeadTags from '../../components/headTags/HeadTags';
 import ApplicationList from '../../components/applicationList/ApplicationList';
 
-// import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
+import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 import './Dao.scss';
 
 const DaoV2 = props => {
-  const context = useWeb3Context();
   const [MolochV2] = useContext(MolochV2Context);
   const [web3Service] = useContext(Web3Context);
 
   const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
-  const [visitor] = useState({
-    isMember: false,
-    isApplicant: false,
-  });
   const [molochService, setMolochService] = useContext(MolochContext);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -123,48 +117,17 @@ const DaoV2 = props => {
                 )}
                 <div className="Dao__actions">
                   <h4 className="Label">Things to DAO</h4>
-                  {context.active ? (
-                    <>
-                      {visitor.isMember ? (
-                        <p>Hello Member</p>
-                      ) : (
-                        <>
-                          {visitor.isApplicant ? (
-                            <>
-                              <p>Hello Applicant!</p>
-                              <p>
-                                If/when you become a Member, you'll see Member
-                                functions here.
-                              </p>
-                            </>
-                          ) : (
-                            <p>
-                              PSYCH!! Not much to do here for V2 Moloch daos
-                              yet.
-                            </p>
-                          )}
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      <p>You need to sign in with Ethereum first</p>
-                      <ActivateButton msg={'Sign in'} />
-                    </>
-                  )}
                   {!daoData.apiData.hidePokemol ? (
                     <div className="Dapp">
-                      <p className="Label">
-                        Proposal and Voting dApp coming soon.
-                      </p>
-                      {/* <a
+                      <p className="Label">Proposal and Voting dApp</p>
+                      <a
                         className="Button Pokemol"
                         href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
                         <img src={PokemolBrand} alt="pokemol" />
-                      </a> */}
+                      </a>
                     </div>
                   ) : null}
                 </div>
