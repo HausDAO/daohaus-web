@@ -46,7 +46,7 @@ const UpdateDelegate = props => {
 
                     setLoading(false);
                     history.push(
-                      `/dao/${contractAddress}?successMessage=delegate`,
+                      `/dao/v1/${contractAddress}?successMessage=delegate`,
                     );
                     setComplete(false);
                   })

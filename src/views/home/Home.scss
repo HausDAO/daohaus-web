@@ -11,3 +11,28 @@
 .Block.Primary.Home__Daolist {
   padding-top: 0px;
 }
+
+.VersionToggle {
+  background-color: $primary;
+  .Contents {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 60px;
+    > div {
+      font-size: 1.35em;
+      cursor: pointer;
+      transition: all 0.15s linear;
+      color: $secondary;
+      &:first-child {
+        margin-right: 15px;
+      }
+      &:hover {
+        color: $primary-background;
+      }
+      &.active {
+        color: $primary-background;
+      }
+    }
+  }
+}

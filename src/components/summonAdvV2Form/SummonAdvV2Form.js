@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import FactoryAbi from '../../contracts/factory.json';
+import MolochV2Abi from '../../contracts/molochV2.json';
+import MolochV2Bytecode from '../../contracts/molochV2Bytecode.json';
 
-import { post, remove } from '../../util/requests';
+import { post, remove, put } from '../../util/requests';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useWeb3Context } from 'web3-react';
@@ -11,11 +12,11 @@ import Loading from '../loading/Loading';
 
 import { Web3Context } from '../../contexts/ContractContexts';
 
-import './SummonAdvForm.scss';
+import './SummonAdvV2Form.scss';
 
 // import Loading from '../shared/Loading';
 
-const SummonAdvForm = props => {
+const SummonAdvV2Form = props => {
   const [loading, setLoading] = useState(false);
   const [formError, setformError] = useState('');
   const [txHash, setTxHash] = useState();
@@ -26,16 +27,15 @@ const SummonAdvForm = props => {
     <>
       {!loading ? (
         <>
-          {formError && <small style={{ color: 'red' }}>{formError}</small>}
+          {formError && <small style={{ color: 'red' }}> {formError}</small>}
           <Formik
             initialValues={{
               name: '',
               description: '',
-              approvedToken: '',
+              approvedTokens: '0xd0a1e359811322d97991e03f863a0c30c2cf029c',
               periodDuration: '',
               votingPeriodLength: '',
               gracePeriodLength: '',
-              abortWindow: '',
               minimumTribute: '',
               proposalDeposit: '',
               processingReward: '',
@@ -50,8 +50,8 @@ const SummonAdvForm = props => {
               if (!values.description) {
                 errors.description = 'Required';
               }
-              if (!values.approvedToken) {
-                errors.approvedToken = 'Required';
+              if (!values.approvedTokens) {
+                errors.approvedTokens = 'Required';
               }
               if (!values.periodDuration) {
                 errors.periodDuration = 'Required';
@@ -65,9 +65,7 @@ const SummonAdvForm = props => {
               if (!values.minimumTribute) {
                 errors.minimumTribute = 'Required';
               }
-              if (!values.abortWindow) {
-                errors.abortWindow = 'Required';
-              }
+
               if (!values.proposalDeposit) {
                 errors.proposalDeposit = 'Required';
               }
@@ -90,37 +88,53 @@ const SummonAdvForm = props => {
                   name: values.name.trim(),
                   minimumTribute: values.minimumTribute,
                   description: values.description,
+                  version: 2,
                 };
                 // cache dao incase of web3 timeout timeout
                 const cacheId = await post('moloch/orphan', cacheMoloch);
 
-                const factoryContract = await web3Service.initContract(
-                  FactoryAbi,
-                  process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS,
-                );
+                // const factoryContract = await web3Service.initContract(
+                //   FactoryAbi,
+                //   process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
+                // );
 
-                await factoryContract.methods
-                  .newDao(
-                    values.approvedToken,
+                const molochV2Contract = await web3Service.createContract(MolochV2Abi);
+
+                // msg.sender,
+                // _approvedTokens,
+                // _periodDuration,
+                // _votingPeriodLength,
+                // _gracePeriodLength,
+                // _proposalDeposit,
+                // _dilutionBound,
+                // _processingReward
+
+                const deployedContract = await molochV2Contract.deploy({
+                  data: MolochV2Bytecode.object,
+                  arguments: [
+                    context.account,
+                    values.approvedTokens.split(',').map(item => item.trim()),
                     values.periodDuration,
                     values.votingPeriodLength,
                     values.gracePeriodLength,
-                    values.abortWindow,
                     '' + values.proposalDeposit,
                     values.dilutionBound,
-                    '' + values.processingReward,
-                    values.name.trim(),
-                  )
+                    '' + values.processingReward
+                  ]
+                });
+
+                await deployedContract
                   .send(
                     {
                       from: context.account,
                     },
-                    function(error, transactionHash) {
-                      console.log(error, transactionHash);
+                    function (error, transactionHash) {
+                      console.log('any error?: ', error, 'tx: ', transactionHash);
                       setTxHash(transactionHash);
+
                     },
                   )
-                  .on('error', function(err) {
+                  .on('error', function (err) {
                     console.log(err);
 
                     if (err && err.code === 4001) {
@@ -142,44 +156,40 @@ const SummonAdvForm = props => {
                     }
                     console.log(err);
                   })
-                  .on('transactionHash', function(transactionHash) {
-                    console.log(transactionHash);
+                  .on('transactionHash', function (transactionHash) {
+                    put(`moloch/orphan/${cacheId.data.id}`, { transactionHash: transactionHash }).then(() => {
+                      console.log('dao txhash updated');
+                    });
+                    console.log('on transactionHash', transactionHash);
+
                   })
-                  .on('receipt', function(receipt) {
-                    console.log(receipt.events.Register); // contains the new contract address
+                  .on('receipt', function (receipt) {
+                    console.log(receipt); // contains the new contract address
                     const contractAddress =
-                      receipt.events.Register.returnValues.moloch;
+                      receipt.contractAddress;
 
-                    const newMoloch = {
-                      summonerAddress: context.account,
-                      contractAddress: contractAddress,
-                      name: values.name.trim(),
-                      minimumTribute: values.minimumTribute,
-                      description: values.description,
-                    };
+                    console.log('on receipt');
+                    
+                    put(`moloch/orphan/${cacheId.data.id}`, { contractAddress: contractAddress }).then(() => {
+                      console.log('dao txhash updated');
+                    }).then(orphanRes => {
+                      props.history.push(
+                        `/building-dao/v2/${contractAddress.toLowerCase()}`,
+                      );
+                    })
+                    .catch(err => {
+                      setLoading(false);
+                      console.log('orphan update error', err);
+                    });;
 
-                    post('moloch', newMoloch)
-                      .then(newMolochRes => {
-                        //remove from cache and redirect
-                        remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-                          props.history.push(
-                            `/building-dao/v1/${contractAddress.toLowerCase()}`,
-                          );
-                        });
-                      })
-                      .catch(err => {
-                        setLoading(false);
-                        console.log('moloch creation error', err);
-                      });
 
                     resetForm();
                     setLoading(false);
                     setSubmitting(false);
                   })
-                  .on('confirmation', function(confirmationNumber, receipt) {
-                    console.log(confirmationNumber, receipt);
-                  })
-                  .then(function(newContractInstance) {
+                  .then(function (newContractInstance) {
+                    console.log('final then');
+                    
                     console.log(newContractInstance); // instance with the new contract address
                   });
               } catch (err) {
@@ -220,18 +230,19 @@ const SummonAdvForm = props => {
                   render={msg => <div className="Error">{msg}</div>}
                 />
 
-                <Field name="approvedToken">
+                <Field name="approvedTokens">
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
                       <label>
-                        Approved Token (ERC-20 Contract Address - needs Approve)
+                        Approved Tokens (Comma seperated list of ERC-20 Contract
+                        Addresses)
                       </label>
                       <input type="text" {...field} />
                     </div>
                   )}
                 </Field>
                 <ErrorMessage
-                  name="approvedToken"
+                  name="approvedTokens"
                   render={msg => <div className="Error">{msg}</div>}
                 />
 
@@ -289,25 +300,6 @@ const SummonAdvForm = props => {
                 </Field>
                 <ErrorMessage
                   name="gracePeriodLength"
-                  render={msg => <div className="Error">{msg}</div>}
-                />
-
-                <Field name="abortWindow">
-                  {({ field, form }) => (
-                    <div className={field.value ? 'Field HasValue' : 'Field '}>
-                      <label>Abort Window (Number of Periods)</label>
-                      <input
-                        min="0"
-                        type="number"
-                        inputMode="numeric"
-                        step="any"
-                        {...field}
-                      />
-                    </div>
-                  )}
-                </Field>
-                <ErrorMessage
-                  name="abortWindow"
                   render={msg => <div className="Error">{msg}</div>}
                 />
 
@@ -399,10 +391,10 @@ const SummonAdvForm = props => {
           </Formik>
         </>
       ) : (
-        loading && <Loading msg={'Summoning'} txHash={txHash} />
-      )}
+          loading && <Loading msg={'Summoning'} txHash={txHash} />
+        )}
     </>
   );
 };
 
-export default withRouter(SummonAdvForm);
+export default withRouter(SummonAdvV2Form);

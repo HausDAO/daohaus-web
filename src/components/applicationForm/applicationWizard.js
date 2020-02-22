@@ -58,7 +58,7 @@ const ApplicationWizard = props => {
   const client = useApolloClient();
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
 
   const [txHash, settxHash] = useState('');
   const [formError, setformError] = useState('');
@@ -132,7 +132,7 @@ const ApplicationWizard = props => {
           console.log('receipt', receipt);
 
           setLoading(false);
-          history.push(`/dao/${contractAddress}?successMessage=pledge`);
+          history.push(`/dao/v1/${contractAddress}?successMessage=pledge`);
         })
         .then(resp => {
           return resp;

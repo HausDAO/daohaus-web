@@ -7,11 +7,14 @@ import { useQuery } from 'react-apollo';
 import { GET_MOLOCHES } from '../../util/queries';
 import DaoList from '../../components/daoList/DaoList';
 import ApplicationMolochList from '../../components/applicationList/ApplicationMolochList';
+import UnregisteredList from '../../components/unregisteredList/unregisteredList';
 
 const Profile = props => {
   const context = useWeb3Context();
   const [applications, setApplications] = useState([]);
   const [summonedDaos, setSummonedDaos] = useState([]);
+  const [unregisteredDaos, setUnregisteredDaos] = useState([]);
+
   const [profile, setProfile] = useState({});
   const { loading, error, data } = useQuery(GET_MOLOCHES);
 
@@ -55,6 +58,30 @@ const Profile = props => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    const fetchOrphans = async () => {
+      if (context.account) {
+        const orphans = await get(
+          `moloch/orphans/${props.match.params.account}`,
+        );
+        setUnregisteredDaos(
+          orphans.data.filter(orphan => {
+            return orphan.summonerAddress === context.account.toLowerCase();
+          }),
+        );
+      }
+    };
+
+    fetchOrphans();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [context.account]);
+
+  const renderUnregisteredList = () => {
+    return unregisteredDaos.map((dao, i) => {
+      return <UnregisteredList dao={dao} key={i} />;
+    });
+  };
 
   return (
     <div className="View">
@@ -110,6 +137,14 @@ const Profile = props => {
       ) : null}
       {loading ? <p>Loading</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}
+
+      {unregisteredDaos.length ? (
+        <div className="Section">
+          <h2>Unregistered Moloch V2 Daos</h2>
+          {renderUnregisteredList()}
+        </div>
+      ) : null}
+
       {data && summonedDaos.length ? (
         <div className="Section">
           <h2>Summoner of these Molochs</h2>

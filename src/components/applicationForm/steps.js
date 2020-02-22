@@ -1,10 +1,9 @@
-import { object, number, boolean, bool } from 'yup';
+import { object, number, bool } from 'yup';
 import PledgeInfo from './pledgeInfo';
 import Summary from './summary';
 import Euma from './euma';
 
 export const getSteps = isEuma => {
-  console.log('isEuma', isEuma);
   const steps = [
     {
       id: 'pledge',

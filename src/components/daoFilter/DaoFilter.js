@@ -10,13 +10,15 @@ const DaoFilter = props => {
   useEffect(() => {
     resetDaos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [daos]);
 
   const resetDaos = () => {
     const unhidden = _.sortBy(
       daos.filter(dao => !dao.apiData.hide),
       dao => {
-        return +dao.tokenInfo.guildBankValue;
+        return +dao.apiData.version === 2
+          ? dao.totalShares
+          : +dao.tokenInfo.guildBankValue;
       },
     ).reverse();
 
@@ -35,7 +37,9 @@ const DaoFilter = props => {
           );
         }),
         dao => {
-          return +dao.tokenInfo.guildBankValue;
+          return +dao.apiData.version === 2
+            ? dao.totalShares
+            : +dao.tokenInfo.guildBankValue;
         },
       ).reverse();
 

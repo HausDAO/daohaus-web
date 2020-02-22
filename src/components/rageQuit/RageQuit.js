@@ -27,7 +27,6 @@ const RageQuit = props => {
 
   console.log('activeMember', activeMember);
 
-
   return (
     <>
       {loading ? (
@@ -67,7 +66,9 @@ const RageQuit = props => {
                     console.log('receipt', receipt);
 
                     setLoading(false);
-                    history.push(`/dao/${contractAddress}?successMessage=rage`);
+                    history.push(
+                      `/dao/v1/${contractAddress}?successMessage=rage`,
+                    );
                     setComplete(false);
                   })
                   .then(resp => {
