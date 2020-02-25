@@ -13,9 +13,14 @@ const UnregisteredList = ({ dao, history }) => {
     setLoading(true);
 
     console.log('dao', dao);
+    console.log('dao.transactionHash', dao.transactionHash);
+
     const txRes = await web3Service.web3.eth.getTransaction(
       dao.transactionHash,
     );
+
+    console.log('web3Service', web3Service);
+    console.log('txRes', txRes);
 
     if (txRes.creates) {
       await put(`moloch/orphan/${dao.id}`, {
