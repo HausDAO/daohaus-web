@@ -11,6 +11,8 @@ const UnregisteredList = ({ dao, history }) => {
 
   const handleStatusCheck = async () => {
     setLoading(true);
+
+    console.log('dao', dao);
     const txRes = await web3Service.web3.eth.getTransaction(
       dao.transactionHash,
     );
