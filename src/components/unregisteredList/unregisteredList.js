@@ -15,7 +15,7 @@ const UnregisteredList = ({ dao, history }) => {
     console.log('dao', dao);
     console.log('dao.transactionHash', dao.transactionHash);
 
-    const txRes = await web3Service.web3.eth.getTransaction(
+    const txRes = await web3Service.web3.eth.getTransactionReceipt(
       dao.transactionHash,
     );
 
