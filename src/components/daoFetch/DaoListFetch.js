@@ -18,6 +18,7 @@ const DaoListFetch = ({ version }) => {
 
   useEffect(() => {
     if (data) {
+      console.log('data', data);
       setMergedData(
         version === '1'
           ? data[entityName]
