@@ -4,8 +4,10 @@
   flex-wrap: wrap;
   align-content: center;
   justify-content: flex-start;
-  @media (min-width: $mobile + 1px) {
-    margin-right: -25px;
+  width: 100%;
+  @media (max-width: $grid) {
+    width: calc(100% - 50px);
+    padding: 25px;
   }
   &__Item {
     @media (min-width: $grid + 1px) {
@@ -27,7 +29,7 @@
     }
     @media (max-width: $mobile) {
       width: 100%;
-      margin-right: 0px;
+      margin: 0px;
       margin: 0 auto;
     }
   }
@@ -35,6 +37,7 @@
     transition: all 0.15s linear;
     height: auto;
     min-height: 200px;
+    min-width: 320px;
   }
   a:hover .DaoCard {
     background-color: $orange;

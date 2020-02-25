@@ -14,6 +14,8 @@
 
 .VersionToggle {
   background-color: $primary;
+  padding: 25px;
+  width: calc(100% - 50px);
   .Contents {
     display: flex;
     align-items: center;
@@ -24,14 +26,18 @@
       cursor: pointer;
       transition: all 0.15s linear;
       color: $secondary;
+      padding-bottom: 5px;
+      border-bottom: 4px solid transparent;
       &:first-child {
-        margin-right: 15px;
+        margin-right: 50px;
       }
       &:hover {
         color: $primary-background;
+        border-bottom: 4px solid $primary-background;
       }
       &.active {
         color: $primary-background;
+        border-bottom: 4px solid $primary-background;
       }
     }
   }
