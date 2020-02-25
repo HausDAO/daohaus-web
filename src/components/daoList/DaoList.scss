@@ -37,6 +37,7 @@
     transition: all 0.15s linear;
     height: auto;
     min-height: 200px;
+    min-width: 320px;
   }
   a:hover .DaoCard {
     background-color: $orange;
