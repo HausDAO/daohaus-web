@@ -37,9 +37,11 @@ const Profile = props => {
         );
 
         const validApplications = applicationRes.data.filter(app => {
-          return !data.factories.find(
+          const appliedDao = !data.factories.find(
             dao => dao.moloch === app.molochContractAddress,
-          ).apiData.hide;
+          );
+
+          return appliedDao && !appliedDao.hide;
         });
         setApplications(validApplications);
 

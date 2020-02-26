@@ -4,10 +4,13 @@
   flex-wrap: wrap;
   align-content: center;
   justify-content: flex-start;
-  @media (min-width: $mobile + 1px) {
-    margin-right: -25px;
+  width: 100%;
+  @media (max-width: $grid) {
+    width: calc(100% - 50px);
+    padding: 25px;
   }
   &__Item {
+    min-width: 320px;
     @media (min-width: $grid + 1px) {
       width: calc(33% - 25px);
       max-width: 420px;
@@ -27,7 +30,7 @@
     }
     @media (max-width: $mobile) {
       width: 100%;
-      margin-right: 0px;
+      margin: 0px;
       margin: 0 auto;
     }
   }

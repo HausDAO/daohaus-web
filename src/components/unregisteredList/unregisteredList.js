@@ -11,16 +11,22 @@ const UnregisteredList = ({ dao, history }) => {
 
   const handleStatusCheck = async () => {
     setLoading(true);
-    const txRes = await web3Service.web3.eth.getTransaction(
+
+    console.log('dao', dao);
+
+    const txRes = await web3Service.web3.eth.getTransactionReceipt(
       dao.transactionHash,
     );
 
-    if (txRes.creates) {
+    console.log('web3Service', web3Service);
+    console.log('txRes', txRes);
+
+    if (txRes.logs && txRes.logs.length && txRes.logs[0].address) {
       await put(`moloch/orphan/${dao.id}`, {
-        contractAddress: txRes.creates,
+        contractAddress: txRes.logs[0].address,
       });
 
-      history.push(`/building-dao/v2/${txRes.creates.toLowerCase()}`);
+      history.push(`/building-dao/v2/${txRes.logs[0].address.toLowerCase()}`);
     } else {
       setMessage('Contract address not found. Maybe you can try again later?');
     }
