@@ -40,17 +40,17 @@ const Summon = () => {
               </button>
 
               {v2Form ? (
-                // <SummonAdvV2Form></SummonAdvV2Form>
-                <h5>
-                  <span role="img" aria-label="under construction">
-                    🛠️
-                  </span>{' '}
-                  Under Construction. Check back soon.{' '}
-                  <span role="img" aria-label="under construction">
-                    🛠️
-                  </span>{' '}
-                </h5>
+                <SummonAdvV2Form></SummonAdvV2Form>
               ) : (
+                // <h5>
+                //   <span role="img" aria-label="under construction">
+                //     🛠️
+                //   </span>{' '}
+                //   Under Construction. Check back soon.{' '}
+                //   <span role="img" aria-label="under construction">
+                //     🛠️
+                //   </span>{' '}
+                // </h5>
                 <SummonAdvForm></SummonAdvForm>
               )}
             </div>
