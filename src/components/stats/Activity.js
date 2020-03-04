@@ -46,6 +46,15 @@ const Activity = props => {
       groupedProposalData[label] ? groupedProposalData[label].length : 0,
     );
 
+    const voteData = labels.map(label => {
+      return groupedProposalData[label]
+        ? groupedProposalData[label].reduce(
+            (voteSum, prop) => +voteSum + prop.votes.length,
+            0,
+          )
+        : 0;
+    });
+
     let lineData = {
       labels,
       datasets: [
@@ -90,6 +99,27 @@ const Activity = props => {
           pointRadius: 1,
           pointHitRadius: 10,
           data: propData,
+        },
+        {
+          label: 'Votes',
+          fill: true,
+          lineTension: 0.1,
+          backgroundColor: 'rgba(0,204,0,0.4)',
+          borderColor: 'rgba(0,204,0,1)',
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: 'rgba(0,204,0,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(0,204,0,1)',
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: voteData,
         },
       ],
     };
