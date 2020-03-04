@@ -117,6 +117,7 @@ export const GET_MOLOCHES_STATS = gql`
       title
       moloch
       newContract
+      createdAt
       tokenInfo @client
       totalShares @client
       newContractMembers @client
@@ -129,6 +130,7 @@ export const GET_PROPOSALS = gql`
   query proposals($contractAddr: String!) {
     proposals(where: { molochAddress: $contractAddr }) {
       id
+      timestamp
       votes {
         id
       }
@@ -137,5 +139,5 @@ export const GET_PROPOSALS = gql`
 `;
 
 export const GET_PROPOSALS_LEGACY = {
-  query: 'query proposals { proposals { id, votes { id } }}',
+  query: 'query proposals { proposals { id, timestamp, votes { id } }}',
 };
