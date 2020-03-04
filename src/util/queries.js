@@ -131,6 +131,7 @@ export const GET_PROPOSALS = gql`
     proposals(where: { molochAddress: $contractAddr }) {
       id
       timestamp
+      molochAddress
       votes {
         id
       }
