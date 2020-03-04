@@ -38,6 +38,14 @@ const Activity = props => {
     const labels =
       summonMonths.length > propMonths.length ? summonMonths : propMonths;
 
+    const summonData = labels.map(label =>
+      groupedSummonData[label] ? groupedSummonData[label].length : 0,
+    );
+
+    const propData = labels.map(label =>
+      groupedProposalData[label] ? groupedProposalData[label].length : 0,
+    );
+
     let lineData = {
       labels,
       datasets: [
@@ -60,7 +68,7 @@ const Activity = props => {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: _.map(groupedSummonData, 'length'),
+          data: summonData,
         },
         {
           label: 'Proposals',
@@ -81,7 +89,7 @@ const Activity = props => {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: _.map(groupedProposalData, 'length'),
+          data: propData,
         },
       ],
     };
