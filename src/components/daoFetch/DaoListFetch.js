@@ -12,7 +12,10 @@ const DaoListFetch = ({ version }) => {
   const [mergedData, setMergedData] = useState();
 
   const query = version === '1' ? GET_MOLOCHES : GET_MOLOCHES_V2;
-  const options = version === '1' ? {} : { client: MolochV2.client };
+  const options =
+    version === '1'
+      ? { fetchPolicy: 'network-only' }
+      : { client: MolochV2.client, fetchPolicy: 'network-only' };
   const entityName = version === '1' ? 'factories' : 'daos';
   const { loading, error, data, fetchMore } = useQuery(query, options);
 
