@@ -49,14 +49,12 @@ function FormWrapper({
 const SummonWizardV2 = props => {
   const context = useWeb3Context();
   const [loading, setLoading] = useState(false);
-  const [runOnce, setRunOnce] = useState(false);
   const [formError, setformError] = useState('');
   const [txHash, setTxHash] = useState();
 
   const [web3Service] = useContext(Web3Context);
 
   const handleSubmit = async values => {
-
     if (
       parseInt(web3Service.toWei(values.deposit.proposalDeposit)) <
       parseInt(web3Service.toWei(values.deposit.processingReward))
@@ -69,7 +67,6 @@ const SummonWizardV2 = props => {
     setLoading(true);
 
     try {
-      
       const cacheMoloch = {
         summonerAddress: context.account,
         name: values.dao.name.trim(),
@@ -83,7 +80,7 @@ const SummonWizardV2 = props => {
       const molochV2Contract = await web3Service.createContract(MolochV2Abi);
 
       const deployedContract = await molochV2Contract.deploy({
-        data: '0x'+MolochV2Bytecode.object,
+        data: '0x' + MolochV2Bytecode.object,
         arguments: [
           context.account,
           [values.currency.approvedToken],
@@ -92,8 +89,8 @@ const SummonWizardV2 = props => {
           values.timing.gracePeriodLength,
           '' + web3Service.toWei(values.deposit.proposalDeposit),
           values.deposit.dilutionBound,
-          '' + web3Service.toWei(values.deposit.processingReward)
-        ]
+          '' + web3Service.toWei(values.deposit.processingReward),
+        ],
       });
 
       await deployedContract
@@ -101,13 +98,12 @@ const SummonWizardV2 = props => {
           {
             from: context.account,
           },
-          function (error, transactionHash) {
+          function(error, transactionHash) {
             console.log('any error?: ', error, 'tx: ', transactionHash);
             setTxHash(transactionHash);
-
           },
         )
-        .on('error', function (err) {
+        .on('error', function(err) {
           console.log(err);
 
           if (err && err.code === 4001) {
@@ -129,38 +125,41 @@ const SummonWizardV2 = props => {
           }
           console.log(err);
         })
-        .on('transactionHash', function (transactionHash) {
-          put(`moloch/orphan/${cacheId.data.id}`, { transactionHash: transactionHash }).then(() => {
+        .on('transactionHash', function(transactionHash) {
+          put(`moloch/orphan/${cacheId.data.id}`, {
+            transactionHash: transactionHash,
+          }).then(() => {
             console.log('dao txhash updated');
           });
           console.log('on transactionHash', transactionHash);
-
         })
-        .on('receipt', function (receipt) {
+        .on('receipt', function(receipt) {
           console.log(receipt); // contains the new contract address
-          const contractAddress =
-            receipt.contractAddress;
+          const contractAddress = receipt.contractAddress;
 
           console.log('on receipt');
-          
-          put(`moloch/orphan/${cacheId.data.id}`, { contractAddress: contractAddress }).then(() => {
-            console.log('dao txhash updated');
-          }).then(orphanRes => {
-            props.history.push(
-              `/building-dao/v2/${contractAddress.toLowerCase()}`,
-            );
+
+          put(`moloch/orphan/${cacheId.data.id}`, {
+            contractAddress: contractAddress,
           })
-          .catch(err => {
-            setLoading(false);
-            console.log('orphan update error', err);
-          });
+            .then(() => {
+              console.log('dao txhash updated');
+            })
+            .then(orphanRes => {
+              props.history.push(
+                `/building-dao/v2/${contractAddress.toLowerCase()}`,
+              );
+            })
+            .catch(err => {
+              setLoading(false);
+              console.log('orphan update error', err);
+            });
 
           setLoading(false);
-
         })
-        .then(function (newContractInstance) {
+        .then(function(newContractInstance) {
           console.log('final then');
-          
+
           console.log(newContractInstance); // instance with the new contract address
         });
     } catch (err) {
@@ -169,9 +168,7 @@ const SummonWizardV2 = props => {
       setformError(`Something went wrong. please try again`);
 
       setLoading(false);
-
     }
-
   };
 
   return (
