@@ -83,7 +83,7 @@ const SummonWizardV2 = props => {
       const molochV2Contract = await web3Service.createContract(MolochV2Abi);
 
       const deployedContract = await molochV2Contract.deploy({
-        data: MolochV2Bytecode.object,
+        data: '0x'+MolochV2Bytecode.object,
         arguments: [
           context.account,
           [values.currency.approvedToken],
