@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useWeb3Context } from 'web3-react';
 import queryString from 'query-string';
 
 import {
