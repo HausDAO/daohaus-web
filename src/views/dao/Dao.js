@@ -172,7 +172,7 @@ const Dao = props => {
   if (!molochService) {
     return <p>Loading the DAO</p>;
   }
-
+  
   return (
     <div>
       {daoData.id ? <HeadTags daoData={daoData} /> : null}
@@ -319,6 +319,20 @@ const Dao = props => {
                           href={
                             'https://etherscan.io/address/' +
                             molochService.contractAddr
+                          }
+                          rel="noopener noreferrer"
+                        >
+                          {molochService.contractAddr}
+                        </a>
+                      </p>
+                      <p className="Label">
+                        Guild Bank
+                      </p>
+                      <p className="Value Data">
+                        <a
+                          href={
+                            'https://etherscan.io/address/' +
+                            daoData.tokenInfo.guildBankAddr
                           }
                           rel="noopener noreferrer"
                         >

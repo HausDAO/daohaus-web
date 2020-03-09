@@ -114,6 +114,7 @@ export const resolvers = (() => {
         }
 
         return {
+          guildBankAddr,
           guildBankValue,
           symbol,
           address,
