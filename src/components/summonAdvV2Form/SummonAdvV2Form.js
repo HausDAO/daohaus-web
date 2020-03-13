@@ -32,7 +32,7 @@ const SummonAdvV2Form = props => {
             initialValues={{
               name: '',
               description: '',
-              approvedTokens: ''+process.env.REACT_APP_WETH_ADDRESS,
+              approvedTokens: '' + process.env.REACT_APP_WETH_ADDRESS,
               periodDuration: '',
               votingPeriodLength: '',
               gracePeriodLength: '',
@@ -98,7 +98,9 @@ const SummonAdvV2Form = props => {
                 //   process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
                 // );
 
-                const molochV2Contract = await web3Service.createContract(MolochV2Abi);
+                const molochV2Contract = await web3Service.createContract(
+                  MolochV2Abi,
+                );
 
                 // msg.sender,
                 // _approvedTokens,
@@ -119,8 +121,8 @@ const SummonAdvV2Form = props => {
                     values.gracePeriodLength,
                     '' + values.proposalDeposit,
                     values.dilutionBound,
-                    '' + values.processingReward
-                  ]
+                    '' + values.processingReward,
+                  ],
                 });
 
                 await deployedContract
@@ -128,13 +130,17 @@ const SummonAdvV2Form = props => {
                     {
                       from: context.account,
                     },
-                    function (error, transactionHash) {
-                      console.log('any error?: ', error, 'tx: ', transactionHash);
+                    function(error, transactionHash) {
+                      console.log(
+                        'any error?: ',
+                        error,
+                        'tx: ',
+                        transactionHash,
+                      );
                       setTxHash(transactionHash);
-
                     },
                   )
-                  .on('error', function (err) {
+                  .on('error', function(err) {
                     console.log(err);
 
                     if (err && err.code === 4001) {
@@ -156,40 +162,43 @@ const SummonAdvV2Form = props => {
                     }
                     console.log(err);
                   })
-                  .on('transactionHash', function (transactionHash) {
-                    put(`moloch/orphan/${cacheId.data.id}`, { transactionHash: transactionHash }).then(() => {
+                  .on('transactionHash', function(transactionHash) {
+                    put(`moloch/orphan/${cacheId.data.id}`, {
+                      transactionHash: transactionHash,
+                    }).then(() => {
                       console.log('dao txhash updated');
                     });
                     console.log('on transactionHash', transactionHash);
-
                   })
-                  .on('receipt', function (receipt) {
+                  .on('receipt', function(receipt) {
                     console.log(receipt); // contains the new contract address
-                    const contractAddress =
-                      receipt.contractAddress;
+                    const contractAddress = receipt.contractAddress;
 
                     console.log('on receipt');
-                    
-                    put(`moloch/orphan/${cacheId.data.id}`, { contractAddress: contractAddress }).then(() => {
-                      console.log('dao txhash updated');
-                    }).then(orphanRes => {
-                      props.history.push(
-                        `/building-dao/v2/${contractAddress.toLowerCase()}`,
-                      );
-                    })
-                    .catch(err => {
-                      setLoading(false);
-                      console.log('orphan update error', err);
-                    });;
 
+                    put(`moloch/orphan/${cacheId.data.id}`, {
+                      contractAddress: contractAddress,
+                    })
+                      .then(() => {
+                        console.log('dao txhash updated');
+                      })
+                      .then(orphanRes => {
+                        props.history.push(
+                          `/building-dao/v2/${contractAddress.toLowerCase()}`,
+                        );
+                      })
+                      .catch(err => {
+                        setLoading(false);
+                        console.log('orphan update error', err);
+                      });
 
                     resetForm();
                     setLoading(false);
                     setSubmitting(false);
                   })
-                  .then(function (newContractInstance) {
+                  .then(function(newContractInstance) {
                     console.log('final then');
-                    
+
                     console.log(newContractInstance); // instance with the new contract address
                   });
               } catch (err) {
@@ -234,8 +243,9 @@ const SummonAdvV2Form = props => {
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
                       <label>
-                        Approved Tokens (Comma seperated list of ERC-20 Contract
-                        Addresses)
+                        Approved Tokens (Comma separated list of ERC-20 contract
+                        addresses. The 1st token in the list will be your
+                        Deposit Token/Base Currency)
                       </label>
                       <input type="text" {...field} />
                     </div>
@@ -326,7 +336,10 @@ const SummonAdvV2Form = props => {
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
                       <label>
-                        Proposal Deposit (Base Currency 18 decimals)
+                        Proposal Deposit (Should be in your Base Currency units,
+                        often with 18 decimals places. For example if you want
+                        this to be .1 WETH you should enter 1 with 17 zeros
+                        after it: 100000000000000000)
                       </label>
                       <input
                         min="0"
@@ -347,7 +360,10 @@ const SummonAdvV2Form = props => {
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
                       <label>
-                        Processing Reward (Base Currency 18 decimals)
+                        Processing Reward (Should be in your Base Currency
+                        units, often with 18 decimals places. For example if you
+                        want this to be .01 WETH you should enter 1 with 16
+                        zeros after it: 100000000000000000)
                       </label>
                       <input
                         min="0"
@@ -391,8 +407,8 @@ const SummonAdvV2Form = props => {
           </Formik>
         </>
       ) : (
-          loading && <Loading msg={'Summoning'} txHash={txHash} />
-        )}
+        loading && <Loading msg={'Summoning'} txHash={txHash} />
+      )}
     </>
   );
 };
