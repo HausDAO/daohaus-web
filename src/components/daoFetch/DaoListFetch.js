@@ -16,12 +16,20 @@ const DaoListFetch = ({ version }) => {
     version === '1'
       ? { fetchPolicy: 'network-only' }
       : { client: MolochV2.client, fetchPolicy: 'network-only' };
+
+  // const options = version === '1' ? {} : { client: MolochV2.client };
+
   const entityName = version === '1' ? 'factories' : 'daos';
-  const { loading, error, data, fetchMore } = useQuery(query, options);
+
+  // console.log('query', query);
+  // console.log('version', version);
+  // console.log('options', options);
+
+  // const { loading, error, data, fetchMore } = useQuery(query, options);
+  const { loading, error, data } = useQuery(query, options);
 
   useEffect(() => {
     if (data) {
-      console.log('data', data);
       setMergedData(
         version === '1'
           ? data[entityName]
@@ -38,20 +46,20 @@ const DaoListFetch = ({ version }) => {
   if (loading) return <p className="View">Loading DAOs</p>;
   if (error) return <p className="View">Sorry there's been an error</p>;
 
-  fetchMore({
-    variables: { skip: data[entityName].length },
-    updateQuery: (prev, { fetchMoreResult }) => {
-      if (!fetchMoreResult) return;
+  // fetchMore({
+  //   variables: { skip: data[entityName].length },
+  //   updateQuery: (prev, { fetchMoreResult }) => {
+  //     if (!fetchMoreResult) return;
 
-      return Object.assign({}, prev, {
-        factories: [...prev[entityName], ...fetchMoreResult[entityName]],
-        moloches:
-          version === '2'
-            ? [...prev.moloches, ...fetchMoreResult.moloches]
-            : [],
-      });
-    },
-  });
+  //     return Object.assign({}, prev, {
+  //       factories: [...prev[entityName], ...fetchMoreResult[entityName]],
+  //       moloches:
+  //         version === '2'
+  //           ? [...prev.moloches, ...fetchMoreResult.moloches]
+  //           : [],
+  //     });
+  //   },
+  // });
 
   return (
     <>
