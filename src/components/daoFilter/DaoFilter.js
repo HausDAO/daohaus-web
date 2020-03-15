@@ -32,11 +32,7 @@ const DaoFilter = props => {
       dao => {
         return sortAttribute(dao);
       },
-    );
-
-    if (version === 2) {
-      unhidden = unhidden.reverse();
-    }
+    ).reverse();
 
     setMatchingDaos(unhidden);
     setFilteredDaos(unhidden);
