@@ -60,7 +60,7 @@ export const GET_MOLOCHES_V2 = gql`
       id
       totalShares
       summoningTime
-      members {
+      members(where: { exists: true }) {
         id
       }
     }
@@ -96,7 +96,7 @@ export const GET_MOLOCH_V2 = gql`
       id
       totalShares
       summoningTime
-      members {
+      members(where: { exists: true }) {
         id
         memberAddress
         delegateKey

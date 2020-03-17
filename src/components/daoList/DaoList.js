@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import DaoCard from '../daoCard/DaoCard';
 
 import './DaoList.scss';
@@ -14,7 +15,9 @@ const DaoList = props => {
         version === '1'
           ? daos
           : daos.map((dao, i) => {
-              dao.metadata = v2Moloches[i];
+              dao.metadata = v2Moloches.find(v2 => {
+                return v2.id === dao.id;
+              });
               return dao;
             }),
       );
