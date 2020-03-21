@@ -43,6 +43,13 @@ const SummonAdvV2Form = props => {
             }}
             validate={values => {
               let errors = {};
+              
+              if (!(/^[01]+$/).test(values.proposalDeposit)) {
+                errors.proposalDeposit = 'Not a valid number';
+              }
+              if (!(/^[01]+$/).test(values.processingReward)) {
+                errors.processingReward = 'Not a valid number';
+              }
 
               if (!values.name) {
                 errors.name = 'Required';
@@ -119,10 +126,10 @@ const SummonAdvV2Form = props => {
                     values.periodDuration,
                     values.votingPeriodLength,
                     values.gracePeriodLength,
-                    '' + values.proposalDeposit,
+                    values.proposalDeposit,
                     values.dilutionBound,
-                    '' + values.processingReward,
-                  ],
+                    values.processingReward
+                  ]
                 });
 
                 await deployedContract
@@ -342,10 +349,7 @@ const SummonAdvV2Form = props => {
                         after it: 100000000000000000)
                       </label>
                       <input
-                        min="0"
-                        type="number"
-                        inputMode="numeric"
-                        step="any"
+                        type="text"
                         {...field}
                       />
                     </div>
@@ -366,10 +370,7 @@ const SummonAdvV2Form = props => {
                         zeros after it: 100000000000000000)
                       </label>
                       <input
-                        min="0"
-                        type="number"
-                        inputMode="numeric"
-                        step="any"
+                        type="text"
                         {...field}
                       />
                     </div>

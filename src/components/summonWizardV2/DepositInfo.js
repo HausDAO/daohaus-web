@@ -8,7 +8,7 @@ const DepositInfo = () => {
     <div>
       <h3>Deposit Info</h3>
       <h4>
-        Members must post a deposit when sponoring a proposal, and the
+        Members must post a deposit when sponsoring a proposal, and the
         processing reward goes to the processor. Values are in the currency
         you selected for your dao. If WETH, for example, proposal deposit 
         would typically be 1 WETH and reward would be 0.01 WETH.
