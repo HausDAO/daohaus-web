@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 
+import DaoList from '../daoList/DaoList';
+
 import './DaoFilter.scss';
 
 const DaoFilter = props => {
-  const { daos, setFilteredDaos } = props;
+  const { daos, version, v2Moloches } = props;
+
+  const [filteredDaos, setFilteredDaos] = useState();
   const [matchingDaos, setMatchingDaos] = useState();
 
   useEffect(() => {
@@ -12,21 +16,21 @@ const DaoFilter = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [daos]);
 
-  const filterAttribute = dao => {
+  const sortAttribute = dao => {
     if (dao.apiData.length === 0) {
       return 0;
     } else {
       return +dao.apiData.version === 2
-        ? dao.totalShares
+        ? +dao.index
         : +dao.tokenInfo.guildBankValue;
     }
   };
 
   const resetDaos = () => {
-    const unhidden = _.sortBy(
+    let unhidden = _.sortBy(
       daos.filter(dao => !dao.apiData.hide),
       dao => {
-        return filterAttribute(dao);
+        return sortAttribute(dao);
       },
     ).reverse();
 
@@ -45,7 +49,7 @@ const DaoFilter = props => {
           );
         }),
         dao => {
-          return filterAttribute(dao);
+          return sortAttribute(dao);
         },
       ).reverse();
 
@@ -70,6 +74,15 @@ const DaoFilter = props => {
             onChange={e => handleChange(e)}
           />
         </div>
+      </div>
+      <div className="Block Primary Home__Daolist">
+        {filteredDaos ? (
+          <DaoList
+            daos={filteredDaos}
+            version={version}
+            v2Moloches={v2Moloches}
+          />
+        ) : null}
       </div>
     </div>
   );

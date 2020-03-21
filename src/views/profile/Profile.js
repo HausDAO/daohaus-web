@@ -146,13 +146,13 @@ const Profile = props => {
           {renderUnregisteredList()}
         </div>
       ) : null}
-
+      {/* 
       {data && summonedDaos.length ? (
         <div className="Section">
           <h2>Summoner of these Molochs</h2>
           <DaoList daos={summonedDaos} />
         </div>
-      ) : null}
+      ) : null} */}
 
       {applications.length ? (
         <>

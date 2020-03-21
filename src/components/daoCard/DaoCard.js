@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_MEMBERDATA } from '../../util/queries';
+import { Web3Context } from '../../contexts/ContractContexts';
 
 import './DaoCard.scss';
-import { Web3Context } from '../../contexts/ContractContexts';
 
 const DaoCard = props => {
   const { dao } = props;

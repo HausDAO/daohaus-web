@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import DaoCard from '../daoCard/DaoCard';
 
 import './DaoList.scss';
 
 const DaoList = props => {
-  const { daos } = props;
+  const { daos, version, v2Moloches } = props;
+  const [mergedData, setMergedData] = useState([]);
 
-  const daoList = daos.map(dao => {
+  useEffect(() => {
+    if (daos) {
+      setMergedData(
+        version === '1'
+          ? daos
+          : daos.map((dao, i) => {
+              dao.metadata = v2Moloches.find(v2 => {
+                return v2.id === dao.id;
+              });
+              return dao;
+            }),
+      );
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [daos]);
+
+  const daoList = mergedData.map(dao => {
     return (
       <div className="DaoList__Item" key={dao.moloch}>
         <Link
@@ -25,7 +44,7 @@ const DaoList = props => {
 
   return (
     <div className="Contain">
-      <div className="DaoList">{daoList}</div>
+      {mergedData ? <div className="DaoList">{daoList}</div> : null}
     </div>
   );
 };
