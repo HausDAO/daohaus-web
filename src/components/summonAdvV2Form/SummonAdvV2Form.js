@@ -43,6 +43,13 @@ const SummonAdvV2Form = props => {
             }}
             validate={values => {
               let errors = {};
+              
+              if (!(/^[01]+$/).test(values.proposalDeposit)) {
+                errors.proposalDeposit = 'Not a valid number';
+              }
+              if (!(/^[01]+$/).test(values.processingReward)) {
+                errors.processingReward = 'Not a valid number';
+              }
 
               if (!values.name) {
                 errors.name = 'Required';
@@ -117,9 +124,9 @@ const SummonAdvV2Form = props => {
                     values.periodDuration,
                     values.votingPeriodLength,
                     values.gracePeriodLength,
-                    '' + values.proposalDeposit,
+                    values.proposalDeposit,
                     values.dilutionBound,
-                    '' + values.processingReward
+                    values.processingReward
                   ]
                 });
 
@@ -329,10 +336,7 @@ const SummonAdvV2Form = props => {
                         Proposal Deposit (Base Currency 18 decimals)
                       </label>
                       <input
-                        min="0"
-                        type="number"
-                        inputMode="numeric"
-                        step="any"
+                        type="text"
                         {...field}
                       />
                     </div>
@@ -350,10 +354,7 @@ const SummonAdvV2Form = props => {
                         Processing Reward (Base Currency 18 decimals)
                       </label>
                       <input
-                        min="0"
-                        type="number"
-                        inputMode="numeric"
-                        step="any"
+                        type="text"
                         {...field}
                       />
                     </div>

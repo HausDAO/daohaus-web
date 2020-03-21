@@ -44,6 +44,13 @@ const SummonAdvForm = props => {
             validate={values => {
               let errors = {};
 
+              if (!(/^[01]+$/).test(values.proposalDeposit)) {
+                errors.proposalDeposit = 'Not a valid number';
+              }
+              if (!(/^[01]+$/).test(values.processingReward)) {
+                errors.processingReward = 'Not a valid number';
+              }
+
               if (!values.name) {
                 errors.name = 'Required';
               }
@@ -106,9 +113,9 @@ const SummonAdvForm = props => {
                     values.votingPeriodLength,
                     values.gracePeriodLength,
                     values.abortWindow,
-                    '' + values.proposalDeposit,
+                    web3Service.web3.utils.toBN(values.proposalDeposit),
                     values.dilutionBound,
-                    '' + values.processingReward,
+                    web3Service.web3.utils.toBN(values.processingReward),
                     values.name.trim(),
                   )
                   .send(
@@ -358,10 +365,7 @@ const SummonAdvForm = props => {
                         Processing Reward (Base Currency 18 decimals)
                       </label>
                       <input
-                        min="0"
-                        type="number"
-                        inputMode="numeric"
-                        step="any"
+                        type="text"
                         {...field}
                       />
                     </div>
@@ -377,10 +381,7 @@ const SummonAdvForm = props => {
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
                       <label>Dilution Bound (Use 3 if not sure)</label>
                       <input
-                        min="0"
-                        type="number"
-                        inputMode="numeric"
-                        step="any"
+                        type="text"
                         {...field}
                       />
                     </div>
