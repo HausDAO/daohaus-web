@@ -87,7 +87,6 @@ const Dao = props => {
 
   const getDao = async () => {
     const { isLoading, isError, data } = await client.query({
-      // query: GET_MOLOCH,
       query: GET_SUPER_MOLOCH,
       variables: { contractAddr: props.match.params.contractAddress },
     });

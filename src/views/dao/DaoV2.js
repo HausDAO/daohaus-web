@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import queryString from 'query-string';
+import { useApolloClient } from 'react-apollo';
 
-import {
-  Web3Context,
-  MolochContext,
-  MolochV2Context,
-} from '../../contexts/ContractContexts';
-import { GET_MOLOCH_V2 } from '../../util/queries';
+import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
+import { GET_SUPER_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import MolochService from '../../util/molochService';
 import HeadTags from '../../components/headTags/HeadTags';
@@ -16,7 +13,7 @@ import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 import './Dao.scss';
 
 const DaoV2 = props => {
-  const [MolochV2] = useContext(MolochV2Context);
+  const client = useApolloClient();
   const [web3Service] = useContext(Web3Context);
 
   const [message, setMessage] = useState(null);
@@ -58,8 +55,8 @@ const DaoV2 = props => {
   };
 
   const getDao = async () => {
-    const { isLoading, isError, data } = await MolochV2.client.query({
-      query: GET_MOLOCH_V2,
+    const { isLoading, isError, data } = await client.query({
+      query: GET_SUPER_MOLOCH,
       variables: { contractAddr: props.match.params.contractAddress },
     });
 
@@ -67,7 +64,7 @@ const DaoV2 = props => {
     isError && setError(error);
 
     if (data && web3Service) {
-      if (!data.daos[0]) {
+      if (!data.moloch) {
         const versionPath = props.location.pathname.split('/')[2];
         props.history.push(
           `/building-dao/${versionPath}/${props.match.params.contractAddress}`,
@@ -75,7 +72,7 @@ const DaoV2 = props => {
         return false;
       }
 
-      setDaoData({ ...data.daos[0], metadata: data.moloches[0] });
+      setDaoData(data.moloch);
     }
   };
 
@@ -138,14 +135,10 @@ const DaoV2 = props => {
                   <p className="Label">Moloch V2 Dao </p>
                   <p className="Value Data"></p>
                   <p className="Label">Members</p>
-                  <p className="Value Data">
-                    {daoData.metadata.members.length}
-                  </p>
+                  <p className="Value Data">{daoData.members.length}</p>
                   <p className="Label">Total Shares</p>
-                  <p className="Value Data">{daoData.metadata.totalShares}</p>
-                  <p className="Label">
-                    DAO Contract Address (Do NOT send funds here)
-                  </p>
+                  <p className="Value Data">{daoData.totalShares}</p>
+                  <p className="Label">DAO Contract Address</p>
                   <p className="Value Data">
                     <a
                       href={
@@ -172,10 +165,10 @@ const DaoV2 = props => {
           </div>
         </>
       ) : null}
-      {daoData.metadata && molochService ? (
+      {daoData.members && molochService ? (
         <div className="View">
           <ApplicationList
-            members={{ active: daoData.metadata.members, applicants: [] }}
+            members={{ active: daoData.members, applicants: [] }}
             daoData={daoData}
             contract={molochService.contract}
           />

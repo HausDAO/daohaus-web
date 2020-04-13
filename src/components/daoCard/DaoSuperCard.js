@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 
-import { GET_MEMBERDATA } from '../../util/queries';
 import { Web3Context } from '../../contexts/ContractContexts';
 
 import './DaoCard.scss';

@@ -174,15 +174,32 @@ export const GET_SUPER_MOLOCH = gql`
       id
       title
       summoner
+      summoningTime
       newContract
       totalShares
-      members {
+      version
+      members(where: { exists: true }) {
         id
         delegateKey
         molochAddress
         shares
         memberAddress
       }
+      depositToken {
+        tokenAddress
+      }
+    }
+  }
+`;
+
+export const GET_MEMBERS = gql`
+  query members($contractAddr: String!) {
+    members(where: { molochAddress: $contractAddr }) {
+      id
+      delegateKey
+      molochAddress
+      shares
+      memberAddress
     }
   }
 `;
