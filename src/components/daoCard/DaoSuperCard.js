@@ -29,7 +29,7 @@ const DaoSuperCard = ({ dao }) => {
               </>
               {dao.version !== '2' ? (
                 <>
-                  <p className="Label">V1 Bank</p>
+                  <p className="Label">Bank Value</p>
                   <p className="Data">
                     {bankValue(dao.tokenInfo.guildBankValue)}{' '}
                     {dao.tokenInfo.symbol}
@@ -37,7 +37,7 @@ const DaoSuperCard = ({ dao }) => {
                 </>
               ) : (
                 <>
-                  <p className="Label">V2 Bank Tokens</p>
+                  <p className="Label">Bank Tokens</p>
                   <p className="Data">{dao.approvedTokens.length}</p>
                 </>
               )}
