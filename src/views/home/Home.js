@@ -7,6 +7,7 @@ import HeroBackground from '../../assets/daohaus__hero--falling.png';
 import DaoListFetch from '../../components/daoFetch/DaoListFetch';
 
 import './Home.scss';
+import DaoFetcher from '../../components/daoFetch/DaoFetcher';
 
 const Home = () => {
   const context = useWeb3Context();
@@ -52,7 +53,9 @@ const Home = () => {
         </div>
       </div>
 
-      <DaoListFetch version={molochVersion} />
+      {/* <DaoListFetch version={molochVersion} /> */}
+
+      <DaoFetcher />
     </>
   );
 };

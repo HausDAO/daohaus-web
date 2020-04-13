@@ -188,5 +188,71 @@ export const resolvers = (() => {
         return memberId;
       },
     },
+    Moloch: {
+      apiData: async (moloch, _args) => {
+        let apiData = [];
+        try {
+          const daoRes = await get(`moloch/${moloch.id}`);
+          apiData = daoRes.data;
+        } catch (e) {
+          console.log('error on dao api call', e);
+        }
+
+        if (apiData.isLegacy && apiData.graphNodeUri) {
+          let legacyData = await legacyGraph(
+            apiData.graphNodeUri,
+            GET_MEMBERDATA_LEGACY,
+          );
+          apiData.legacyData = legacyData.data.data;
+        }
+
+        return apiData;
+      },
+      tokenInfo: async (moloch, _args, _context) => {
+        let molochService;
+
+        if (moloch.version === '1') {
+          if (molochs.hasOwnProperty(moloch.id)) {
+            molochService = molochs[moloch.id];
+          } else {
+            molochs[moloch.id] = new MolochService(moloch.id, web3Service);
+            molochService = molochs[moloch.id];
+          }
+          const address = await molochService.approvedToken();
+          const guildBankAddr = await molochService.getGuildBankAddr();
+          let tokenService;
+          if (tokens.hasOwnProperty(address)) {
+            tokenService = tokens[address];
+          } else {
+            tokens[address] = new TokenService(address, web3Service);
+            tokenService = tokens[address];
+          }
+          let symbol;
+          let guildBankValue;
+
+          try {
+            const daoRes = await get(`moloch/${moloch.id}`);
+            if (daoRes.data.hide) {
+              throw new Error({ err: 'token error' });
+            }
+            symbol = await tokenService.getSymbol();
+            guildBankValue = await tokenService.balanceOf(guildBankAddr);
+          } catch (err) {
+            // console.log('symbol or guildbank error', err);
+            symbol = 'ERR';
+            guildBankValue = '0';
+          }
+
+          return {
+            guildBankAddr,
+            guildBankValue,
+            symbol,
+            address,
+          };
+        } else {
+          return {};
+        }
+      },
+    },
   };
 })();

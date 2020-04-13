@@ -142,3 +142,28 @@ export const GET_PROPOSALS = gql`
 export const GET_PROPOSALS_LEGACY = {
   query: 'query proposals { proposals { id, timestamp, votes { id } }}',
 };
+
+export const GET_SUPER_MOLOCHES = gql`
+  query moloches($skip: Int) {
+    moloches(orderBy: summoningTime, first: 100, skip: $skip) {
+      apiData @client
+      tokenInfo @client
+      id
+      title
+      summoner
+      version
+      totalShares
+      members {
+        id
+      }
+      proposals {
+        id
+      }
+      approvedTokens {
+        id
+      }
+    }
+  }
+`;
+
+// apiData @client
