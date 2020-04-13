@@ -166,4 +166,23 @@ export const GET_SUPER_MOLOCHES = gql`
   }
 `;
 
-// apiData @client
+export const GET_SUPER_MOLOCH = gql`
+  query moloch($contractAddr: String!) {
+    moloch(id: $contractAddr) {
+      apiData @client
+      tokenInfo @client
+      id
+      title
+      summoner
+      newContract
+      totalShares
+      members {
+        id
+        delegateKey
+        molochAddress
+        shares
+        memberAddress
+      }
+    }
+  }
+`;

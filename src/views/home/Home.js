@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useWeb3Context } from 'web3-react';
 
 import SummonButton from '../../components/summonButton/summonButton';
 import ActivateButton from '../../components/activateButton/ActivateButton';
 import HeroBackground from '../../assets/daohaus__hero--falling.png';
-import DaoListFetch from '../../components/daoFetch/DaoListFetch';
+import DaoFetcher from '../../components/daoFetch/DaoFetcher';
 
 import './Home.scss';
-import DaoFetcher from '../../components/daoFetch/DaoFetcher';
 
 const Home = () => {
   const context = useWeb3Context();
-  const [molochVersion, setMolochVersion] = useState('1');
-
-  const handleVersionChange = version => {
-    setMolochVersion(version);
-  };
 
   return (
     <>
@@ -36,24 +30,6 @@ const Home = () => {
           <ActivateButton msg={'Sign in'} />
         )}
       </div>
-      <div className="VersionToggle">
-        <div className="Contents Contain">
-          <div
-            className={molochVersion === '1' ? 'active' : null}
-            onClick={() => handleVersionChange('1')}
-          >
-            Moloch V1 Daos
-          </div>
-          <div
-            className={molochVersion === '2' ? 'active' : null}
-            onClick={() => handleVersionChange('2')}
-          >
-            Moloch V2 Daos
-          </div>
-        </div>
-      </div>
-
-      {/* <DaoListFetch version={molochVersion} /> */}
 
       <DaoFetcher />
     </>
