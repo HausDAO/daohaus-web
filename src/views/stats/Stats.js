@@ -1,80 +1,85 @@
-import React from 'react';
-// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-// import { useQuery } from '@apollo/react-hooks';
-// import _ from 'lodash';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import _ from 'lodash';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-// import { GET_MOLOCHES_STATS } from '../../util/queries';
+import { GET_MOLOCHES_STATS } from '../../util/queries';
+import Activity from '../../components/stats/Activity';
+import GuildBanks from '../../components/stats/GuildBank';
 
 import './Stats.scss';
-// import GuildBanks from '../../components/stats/GuildBank';
-// import ProposalStats from '../../components/stats/ProposalStats';
-// import Activity from '../../components/stats/Activity';
 
-const Stats = props => {
-  // const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
+const Stats = () => {
+  const [fetching, setFetching] = useState(true);
+  const { loading, error, data, fetchMore } = useQuery(GET_MOLOCHES_STATS);
 
-  // const totalDaos = () => {
-  //   return data.factories.length;
-  // };
+  if (loading) return <p className="View">Loading DAOs</p>;
+  if (error) return <p className="View">Sorry there's been an error</p>;
 
-  // const totalShares = () => {
-  //   return data.factories.reduce((sum, dao) => {
-  //     return sum + +dao.totalShares;
-  //   }, 0);
-  // };
+  fetchMore({
+    variables: { skip: data.moloches.length },
+    updateQuery: (prev, { fetchMoreResult }) => {
+      if (fetchMoreResult.moloches.length === 0) {
+        setFetching(false);
+        return prev;
+      }
 
-  // const totalDoaMemberships = () => {
-  //   const counts = data.factories.reduce(
-  //     (sum, dao) => {
-  //       +dao.newContract
-  //         ? (sum.new += dao.newContractMembers.length)
-  //         : (sum.legacy += dao.apiDataStats.legacyData.members.length);
-  //       return sum;
-  //     },
-  //     { new: 0, legacy: 0 },
-  //   );
+      return Object.assign({}, prev, {
+        moloches: [...prev.moloches, ...fetchMoreResult.moloches],
+      });
+    },
+  });
 
-  //   return counts.new + counts.legacy;
-  // };
+  const totalDaos = () => {
+    return data.moloches.length;
+  };
 
-  // const uniqueDaoMembers = () => {
-  //   const memberIDs = _.flatMap(data.factories, dao => {
-  //     return +dao.newContract
-  //       ? dao.newContractMembers
-  //       : dao.apiDataStats.legacyData.members;
-  //   }).map(member => {
-  //     return member.memberId ? member.memberId : member.id;
-  //   });
+  const totalShares = () => {
+    return data.moloches.reduce((sum, dao) => {
+      return sum + +dao.totalShares;
+    }, 0);
+  };
 
-  //   return _.uniq(memberIDs).length;
-  // };
+  const totalDoaMemberships = () => {
+    return data.moloches.reduce((sum, dao) => {
+      return sum + +dao.members.length;
+    }, 0);
+  };
+
+  const uniqueDaoMembers = () => {
+    const memberIds = _.flatMap(data.moloches, dao => {
+      return dao.members;
+    }).map(member => member.memberAddress);
+
+    return _.uniq(memberIds).length;
+  };
+
+  const totalProposals = () => {
+    return data.moloches.reduce((sum, dao) => {
+      return sum + +dao.proposals.length;
+    }, 0);
+  };
+
+  const totalVotes = () => {
+    return _.flatMap(data.moloches, dao => {
+      return _.flatMap(dao.proposals, prop => prop.votes);
+    }).length;
+  };
 
   return (
     <div className="View Contain">
-      <h1>BIG DAOta</h1>
-
-      <h2>
-        {' '}
-        <span role="img" aria-label="construction">
-          ⚒️
+      <h1>
+        BIG DAOta{' '}
+        <span role="img" aria-label="chart">
+          📈
         </span>
-        Under construction{' '}
-        <span role="img" aria-label="construction">
-          ⚒️
-        </span>
-      </h2>
-      {/* {loading ? <p>Loading stats</p> : null}
-      {error ? <p>Error - are you on mainnet?</p> : null}
-      {data ? (
+      </h1>
+      {data && !fetching ? (
         <div>
           <div className="Stat_overview">
             <div className="Stat_group">
               <p className="Stat__title">Daos summoned</p>
               <p className="Stat__value">{totalDaos()}</p>
-            </div>
-            <div className="Stat_group">
-              <p className="Stat__title">Total Shares Held</p>
-              <p className="Stat__value">{totalShares()}</p>
             </div>
             <div className="Stat_group">
               <p className="Stat__title">Total Dao Memberships</p>
@@ -84,27 +89,34 @@ const Stats = props => {
               <p className="Stat__title">Unique Dao Members</p>
               <p className="Stat__value">{uniqueDaoMembers()}</p>
             </div>
+            <div className="Stat_group">
+              <p className="Stat__title">Total Proposals</p>
+              <p className="Stat__value">{totalProposals()}</p>
+            </div>
+            <div className="Stat_group">
+              <p className="Stat__title">Total Votes</p>
+              <p className="Stat__value">{totalVotes()}</p>
+            </div>
+            <div className="Stat_group">
+              <p className="Stat__title">Total Shares Held</p>
+              <p className="Stat__value">{totalShares()}</p>
+            </div>
           </div>
 
           <Tabs>
             <TabList>
-              <Tab>Guild Banks</Tab>
               <Tab>Activity</Tab>
-              <Tab>Proposals and Votes</Tab>
+              <Tab>V1 Guild Banks</Tab>
             </TabList>
-
-            <TabPanel>
-              <GuildBanks data={data} />
-            </TabPanel>
             <TabPanel>
               <Activity data={data} />
             </TabPanel>
             <TabPanel>
-              <ProposalStats data={data} />
+              <GuildBanks data={data} />
             </TabPanel>
           </Tabs>
         </div>
-      ) : null} */}
+      ) : null}
     </div>
   );
 };

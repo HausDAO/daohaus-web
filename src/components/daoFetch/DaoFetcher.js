@@ -12,6 +12,8 @@ const DaoFetcher = ({ version }) => {
   if (loading) return <p className="View">Loading DAOs</p>;
   if (error) return <p className="View">Sorry there's been an error</p>;
 
+  console.log('data', data);
+
   fetchMore({
     variables: { skip: data.moloches.length },
     updateQuery: (prev, { fetchMoreResult }) => {

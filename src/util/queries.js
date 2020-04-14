@@ -1,20 +1,20 @@
 import { gql } from 'apollo-boost';
 
-export const GET_MOLOCHES_STATS = gql`
-  query {
-    factories(orderBy: index) {
-      apiDataStats @client
-      title
-      moloch
-      newContract
-      createdAt
-      tokenInfo @client
-      totalShares @client
-      newContractMembers @client
-      newContractProposals @client
-    }
-  }
-`;
+// export const GET_MOLOCHES_STATS = gql`
+//   query {
+//     factories(orderBy: index) {
+//       apiDataStats @client
+//       title
+//       moloch
+//       newContract
+//       createdAt
+//       tokenInfo @client
+//       totalShares @client
+//       newContractMembers @client
+//       newContractProposals @client
+//     }
+//   }
+// `;
 
 export const GET_MOLOCHES = gql`
   query moloches($skip: Int) {
@@ -34,6 +34,33 @@ export const GET_MOLOCHES = gql`
       }
       approvedTokens {
         id
+      }
+    }
+  }
+`;
+
+export const GET_MOLOCHES_STATS = gql`
+  query moloches($skip: Int) {
+    moloches(orderBy: summoningTime, first: 100, skip: $skip) {
+      id
+      apiData @client
+      tokenInfo @client
+      version
+      title
+      totalShares
+      summoningTime
+      members {
+        id
+        memberAddress
+        createdAt
+      }
+      proposals {
+        id
+        createdAt
+        votes {
+          id
+          createdAt
+        }
       }
     }
   }

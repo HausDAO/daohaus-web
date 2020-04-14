@@ -18,7 +18,7 @@ const DaoFilter = ({ daos, version }) => {
     if (dao.apiData.length === 0) {
       return 0;
     } else {
-      return +dao.totalShares;
+      return dao.members.length;
     }
   };
 

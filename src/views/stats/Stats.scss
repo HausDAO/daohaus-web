@@ -14,8 +14,12 @@
 .Stat_group {
   text-align: left;
   &--Large {
-    .Label { font-size: 1em; }
-    .Value { font-size: 2.5em; }
+    .Label {
+      font-size: 1em;
+    }
+    .Value {
+      font-size: 2.5em;
+    }
   }
 }
 
@@ -46,4 +50,10 @@ li.react-tabs__tab {
 
 li.react-tabs__tab--selected {
   border-bottom: 2px solid $primary;
+}
+
+.GasBag {
+  margin-top: 30px;
+  width: 100%;
+  text-align: right;
 }
