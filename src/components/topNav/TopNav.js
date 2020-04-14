@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ActivateButton from "../../components/activateButton/ActivateButton";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import ActivateButton from '../../components/activateButton/ActivateButton';
 
-import "./TopNav.scss";
-import Brand from "../../assets/logo.png";
+import Brand from '../../assets/logo.png';
+import './TopNav.scss';
+
 const TopNav = () => {
   const [navOpen, setNavOpen] = useState(false);
 
@@ -37,30 +38,26 @@ const TopNav = () => {
         </div>
       </nav>
       {/* Start Hamburger */}
-      <button
-          className={hamburgerClass}
-          type="button"
-          onClick={toggleNav}
-        >
-          <span className="hamburger-box">
-            <span className="hamburger-inner" />
-          </span>
-        </button>
-        <div className={mobileNavClass}>
-          <div className="TopNav__Mobile--Contents">
-            <Link to={`/`} onClick={toggleNav}>
-              Home
-            </Link>
-            <Link to="/about" onClick={toggleNav}>
-              About
-            </Link>
-            <Link to="/help" onClick={toggleNav}>
-              Help
-            </Link>
-            <ActivateButton msg={'Sign in'} />
-          </div>
+      <button className={hamburgerClass} type="button" onClick={toggleNav}>
+        <span className="hamburger-box">
+          <span className="hamburger-inner" />
+        </span>
+      </button>
+      <div className={mobileNavClass}>
+        <div className="TopNav__Mobile--Contents">
+          <Link to={`/`} onClick={toggleNav}>
+            Home
+          </Link>
+          <Link to="/about" onClick={toggleNav}>
+            About
+          </Link>
+          <Link to="/help" onClick={toggleNav}>
+            Help
+          </Link>
+          <ActivateButton msg={'Sign in'} />
         </div>
-        {/* End Hamburger */}
+      </div>
+      {/* End Hamburger */}
     </header>
   );
 };

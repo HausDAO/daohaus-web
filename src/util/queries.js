@@ -221,3 +221,29 @@ export const GET_MEMBER_GAS = gql`
     }
   }
 `;
+
+export const GET_MEMBER_MOLOCHES = gql`
+  query members($memberAddress: String!) {
+    members(where: { memberAddress: $memberAddress }) {
+      id
+      moloch {
+        apiData @client
+        tokenInfo @client
+        id
+        title
+        summoner
+        version
+        totalShares
+        members {
+          id
+        }
+        proposals {
+          id
+        }
+        approvedTokens {
+          id
+        }
+      }
+    }
+  }
+`;

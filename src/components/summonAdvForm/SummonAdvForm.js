@@ -1,19 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
-
-import FactoryAbi from '../../contracts/factory.json';
-
-import { post, remove } from '../../util/requests';
-
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useWeb3Context } from 'web3-react';
-import Loading from '../loading/Loading';
 
+import FactoryAbi from '../../contracts/factory.json';
+import { post, remove } from '../../util/requests';
+import Loading from '../loading/Loading';
 import { Web3Context } from '../../contexts/ContractContexts';
 
 import './SummonAdvForm.scss';
-
-// import Loading from '../shared/Loading';
 
 const SummonAdvForm = props => {
   const [loading, setLoading] = useState(false);
@@ -44,10 +39,10 @@ const SummonAdvForm = props => {
             validate={values => {
               let errors = {};
 
-              if (!(/^[01]+$/).test(values.proposalDeposit)) {
+              if (!/^[01]+$/.test(values.proposalDeposit)) {
                 errors.proposalDeposit = 'Not a valid number';
               }
-              if (!(/^[01]+$/).test(values.processingReward)) {
+              if (!/^[01]+$/.test(values.processingReward)) {
                 errors.processingReward = 'Not a valid number';
               }
 
@@ -364,10 +359,7 @@ const SummonAdvForm = props => {
                       <label>
                         Processing Reward (Base Currency 18 decimals)
                       </label>
-                      <input
-                        type="text"
-                        {...field}
-                      />
+                      <input type="text" {...field} />
                     </div>
                   )}
                 </Field>
@@ -380,10 +372,7 @@ const SummonAdvForm = props => {
                   {({ field, form }) => (
                     <div className={field.value ? 'Field HasValue' : 'Field '}>
                       <label>Dilution Bound (Use 3 if not sure)</label>
-                      <input
-                        type="text"
-                        {...field}
-                      />
+                      <input type="text" {...field} />
                     </div>
                   )}
                 </Field>

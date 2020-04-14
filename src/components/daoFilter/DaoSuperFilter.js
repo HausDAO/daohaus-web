@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 
-import DaoList from '../daoList/DaoList';
+import DaoSuperList from '../daoList/DaoSuperList';
 
 import './DaoFilter.scss';
-import DaoSuperList from '../daoList/DaoSuperList';
 
 const DaoSuperFilter = ({ daos, version }) => {
   const [filteredDaos, setFilteredDaos] = useState();
   const [matchingDaos, setMatchingDaos] = useState();
 
   useEffect(() => {
-    console.log('verison', version);
     resetDaos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [daos, version]);
@@ -20,7 +18,6 @@ const DaoSuperFilter = ({ daos, version }) => {
     if (dao.apiData.length === 0) {
       return 0;
     } else {
-      //todo: feed this in
       return +dao.totalShares;
     }
   };

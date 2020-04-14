@@ -2,7 +2,11 @@ import React, { useState, useContext } from 'react';
 
 import useInterval from '../../util/PollingUtil';
 import { legacyGraph } from '../../util/legacyGraphService';
-import { GET_MOLOCHES_POST, GET_MOLOCHES_POST_V2 } from '../../util/queries';
+import {
+  GET_MOLOCHES_POST,
+  GET_MOLOCHES_POST_V2,
+  GET_SUPER_MOLOCH,
+} from '../../util/queries';
 
 import './Building.scss';
 import { Web3Context } from '../../contexts/ContractContexts';
@@ -10,6 +14,7 @@ import { useWeb3Context } from 'web3-react';
 import { get, post, remove } from '../../util/requests';
 
 import FactoryAbi from '../../contracts/factoryV2.json';
+import { useApolloClient } from 'react-apollo';
 
 const Building = props => {
   const { match, history } = props;
@@ -22,29 +27,21 @@ const Building = props => {
   const [delay, setDelay] = useState(2000);
   const context = useWeb3Context();
   const [web3Service] = useContext(Web3Context);
+  const client = useApolloClient();
 
   useInterval(async () => {
-    let graphUri, query, entity;
-
     if (match.params.version === 'v1') {
-      graphUri = process.env.REACT_APP_GRAPH_URI;
-      query = GET_MOLOCHES_POST;
-      entity = 'factories';
-      let factoryQuery = await legacyGraph(graphUri, query);
+      const { data } = await client.query({
+        query: GET_SUPER_MOLOCH,
+        variables: { contractAddr: match.params.contractAddress },
+      });
 
-      if (
-        factoryQuery.data.data[entity].some(
-          dao => dao.id === match.params.contractAddress,
-        )
-      ) {
+      if (data.moloch) {
         setDaoReady(true);
         setDaoValid(true);
         setDelay(null);
       }
     } else {
-      graphUri = process.env.REACT_APP_GRAPH_V2_URI;
-      query = GET_MOLOCHES_POST_V2;
-      entity = 'daos';
       await fetchOrphan();
 
       if (unregisteredDao) {
