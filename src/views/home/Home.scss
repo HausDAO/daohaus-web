@@ -28,8 +28,9 @@
       color: $secondary;
       padding-bottom: 5px;
       border-bottom: 4px solid transparent;
+      margin-right: 50px;
       &:first-child {
-        margin-right: 50px;
+        margin-left: 10px;
       }
       &:hover {
         color: $primary-background;

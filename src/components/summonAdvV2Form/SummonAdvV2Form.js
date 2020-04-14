@@ -1,20 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useWeb3Context } from 'web3-react';
 
 import MolochV2Abi from '../../contracts/molochV2.json';
 import MolochV2Bytecode from '../../contracts/molochV2Bytecode.json';
-
 import { post, remove, put } from '../../util/requests';
-
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useWeb3Context } from 'web3-react';
 import Loading from '../loading/Loading';
-
 import { Web3Context } from '../../contexts/ContractContexts';
 
 import './SummonAdvV2Form.scss';
-
-// import Loading from '../shared/Loading';
 
 const SummonAdvV2Form = props => {
   const [loading, setLoading] = useState(false);
@@ -43,11 +38,11 @@ const SummonAdvV2Form = props => {
             }}
             validate={values => {
               let errors = {};
-              
-              if (!(/^[01]+$/).test(values.proposalDeposit)) {
+
+              if (!/^[01]+$/.test(values.proposalDeposit)) {
                 errors.proposalDeposit = 'Not a valid number';
               }
-              if (!(/^[01]+$/).test(values.processingReward)) {
+              if (!/^[01]+$/.test(values.processingReward)) {
                 errors.processingReward = 'Not a valid number';
               }
 
@@ -128,8 +123,8 @@ const SummonAdvV2Form = props => {
                     values.gracePeriodLength,
                     values.proposalDeposit,
                     values.dilutionBound,
-                    values.processingReward
-                  ]
+                    values.processingReward,
+                  ],
                 });
 
                 await deployedContract
@@ -348,10 +343,7 @@ const SummonAdvV2Form = props => {
                         this to be .1 WETH you should enter 1 with 17 zeros
                         after it: 100000000000000000)
                       </label>
-                      <input
-                        type="text"
-                        {...field}
-                      />
+                      <input type="text" {...field} />
                     </div>
                   )}
                 </Field>
@@ -369,10 +361,7 @@ const SummonAdvV2Form = props => {
                         want this to be .01 WETH you should enter 1 with 16
                         zeros after it: 100000000000000000)
                       </label>
-                      <input
-                        type="text"
-                        {...field}
-                      />
+                      <input type="text" {...field} />
                     </div>
                   )}
                 </Field>

@@ -1,0 +1,49 @@
+.Gas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Gas__user {
+  margin-left: 30px;
+
+  p {
+    font-size: 20px;
+  }
+
+  h4 {
+    margin: 30px 0 30px 0;
+  }
+}
+
+.Gas__leader {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 25px;
+
+  p {
+    margin-right: 40px;
+    min-width: 30px;
+    font-size: 20px;
+  }
+
+  p.profileRank {
+    font-size: 50px;
+  }
+
+  .profileColumn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 300px;
+  }
+
+  .profileAddress {
+    margin-left: 20px;
+  }
+}

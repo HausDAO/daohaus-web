@@ -27,7 +27,8 @@ const Infura = new NetworkOnlyConnector({
 const connectors = { MetaMask, Infura };
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPH_URI,
+  // uri: process.env.REACT_APP_GRAPH_URI,
+  uri: process.env.REACT_APP_SUPERGRAPH_URL,
   clientState: {
     resolvers,
   },

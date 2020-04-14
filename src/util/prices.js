@@ -20,10 +20,22 @@ export const getPrices = async () => {
     headers: { 'Content-Type': 'application/json' },
   });
 
-  
-    const eth = await instance.get(`/ethereum`);
-    const dai = await instance.get(`/dai`);
-    return { weth: eth.data.data.priceUsd, dai: dai.data.data.priceUsd };
+  const eth = await instance.get(`/ethereum`);
+  const dai = await instance.get(`/dai`);
+  return { weth: eth.data.data.priceUsd, dai: dai.data.data.priceUsd };
+  // } catch (err) {
+  //   throw new Error(err);
+  // }
+};
+
+export const getEthPrice = async () => {
+  const instance = axios.create({
+    baseURL,
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  const eth = await instance.get(`/ethereum`);
+  return eth.data.data.priceUsd;
   // } catch (err) {
   //   throw new Error(err);
   // }

@@ -1,37 +1,29 @@
 import React from 'react';
 
-import './ApplicationList.scss';
-
 import ApplicantItem from '../applicantItem/ApplicantItem';
 import MemberItem from '../memberItem/MemberItem';
+
+import './ApplicationList.scss';
 
 const ApplicationList = props => {
   const { members, daoData, contract } = props;
 
   const memberList = () => {
     return members.active
-      .sort((a, b) => b.shares - a.shares)
+      .sort((a, b) => +b.shares - +a.shares)
       .sort((a, b) => {
-        let idField = +daoData.newContract ? 'memberId' : 'id';
-        return a[idField] === daoData.summoner
+        return a.memberAddress === daoData.summoner
           ? -1
-          : b[idField] === daoData.summoner
+          : b.memberAddress === daoData.summoner
           ? 1
           : 0;
       })
       .map((member, i) => {
-        let applicantAddress = +daoData.newContract
-          ? member['memberId']
-          : member['id'];
-
-        if (+daoData.version === 2) {
-          applicantAddress = member.memberAddress;
-        }
         return (
           <div key={i} className="ApplicationList__Item">
             <MemberItem
               applicant={member}
-              applicantAddress={applicantAddress}
+              applicantAddress={member.memberAddress}
               daoData={daoData}
             />
           </div>

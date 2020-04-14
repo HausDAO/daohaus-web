@@ -11,7 +11,7 @@ import {
   TokenContext,
 } from '../../contexts/ContractContexts';
 import { get } from '../../util/requests';
-import { GET_MEMBERDATA, GET_MOLOCH } from '../../util/queries';
+import { GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
@@ -86,8 +86,6 @@ const Dao = props => {
   };
 
   const getDao = async () => {
-    console.log('props', props);
-
     const { isLoading, isError, data } = await client.query({
       query: GET_MOLOCH,
       variables: { contractAddr: props.match.params.contractAddress },
@@ -97,7 +95,7 @@ const Dao = props => {
     isError && setError(error);
 
     if (data && web3Service) {
-      if (!data.factories[0]) {
+      if (!data.moloch) {
         const versionPath = props.location.pathname.split('/')[2];
         props.history.push(
           `/building-dao/${versionPath}/${props.match.params.contractAddress}`,
@@ -105,40 +103,25 @@ const Dao = props => {
         return false;
       }
       const tokenService = new TokenService(
-        data.factories[0].tokenInfo.address,
+        data.moloch.tokenInfo.address,
         web3Service,
       );
       await tokenService.initContract();
 
-      setDaoData(data.factories[0]);
+      setDaoData(data.moloch);
       setTokenService(tokenService);
-      getMembers(data.factories[0]);
+      getMembers(data.moloch);
     }
   };
 
   const getMembers = async dao => {
-    let members = {};
-
-    if (+dao.newContract) {
-      const { data } = await client.query({
-        query: GET_MEMBERDATA,
-        variables: { contractAddr: props.match.params.contractAddress },
-      });
-
-      if (data) {
-        members.active = data.members;
-      }
-    } else {
-      members.active = dao.apiData.legacyData.members;
-    }
+    let members = { active: dao.members };
 
     const apiApplicants = await get(
       `moloch/${props.match.params.contractAddress}/applications`,
     );
 
-    const memberAddresses = members.active.map(member => {
-      return +dao.newContract ? member.memberId : member.id;
-    });
+    const memberAddresses = members.active.map(member => member.memberAddress);
 
     members.applicants = apiApplicants.data.filter(applicant => {
       return !memberAddresses.includes(
@@ -147,7 +130,6 @@ const Dao = props => {
     });
 
     checkIfMemberOrApplicant(memberAddresses, members);
-
     setMemberData(members);
   };
 
@@ -172,7 +154,7 @@ const Dao = props => {
   if (!molochService) {
     return <p>Loading the DAO</p>;
   }
-  
+
   return (
     <div>
       {daoData.id ? <HeadTags daoData={daoData} /> : null}
@@ -325,9 +307,7 @@ const Dao = props => {
                           {molochService.contractAddr}
                         </a>
                       </p>
-                      <p className="Label">
-                        Guild Bank
-                      </p>
+                      <p className="Label">Guild Bank</p>
                       <p className="Value Data">
                         <a
                           href={

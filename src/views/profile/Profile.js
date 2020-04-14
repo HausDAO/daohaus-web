@@ -4,59 +4,41 @@ import { useWeb3Context } from 'web3-react';
 
 import { get } from '../../util/requests';
 import { useQuery } from 'react-apollo';
-import { GET_MOLOCHES } from '../../util/queries';
-import DaoList from '../../components/daoList/DaoList';
-import ApplicationMolochList from '../../components/applicationList/ApplicationMolochList';
+import { GET_MEMBER_MOLOCHES } from '../../util/queries';
 import UnregisteredList from '../../components/unregisteredList/unregisteredList';
+import DaoList from '../../components/daoList/DaoList';
 
 const Profile = props => {
   const context = useWeb3Context();
-  const [applications, setApplications] = useState([]);
   const [summonedDaos, setSummonedDaos] = useState([]);
+  const [memberDaos, setMemberDaos] = useState([]);
+
   const [unregisteredDaos, setUnregisteredDaos] = useState([]);
 
   const [profile, setProfile] = useState({});
-  const { loading, error, data } = useQuery(GET_MOLOCHES);
 
-  const filterDaos = daos => {
-    return daos
-      .filter(
-        dao =>
-          !dao.apiData.hide &&
-          dao.summoner.toLowerCase() ===
-            props.match.params.account.toLowerCase(),
-      )
-      .reverse();
-  };
+  const { loading, error, data } = useQuery(GET_MEMBER_MOLOCHES, {
+    variables: { memberAddress: props.match.params.account },
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (data) {
-        const applicationRes = await get(
-          `applications/${props.match.params.account}`,
-        );
-
-        const validApplications = applicationRes.data.filter(app => {
-          const appliedDao = !data.factories.find(
-            dao => dao.moloch === app.molochContractAddress,
-          );
-
-          return appliedDao && !appliedDao.hide;
-        });
-        setApplications(validApplications);
-
-        const profile = await getProfile(props.match.params.account);
-        setProfile(profile);
+    const setup = async () => {
+      let profile;
+      try {
+        profile = await getProfile(props.match.params.account);
+      } catch {
+        profile = {};
       }
+      setProfile(profile);
     };
 
-    fetchData();
+    setup();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, []);
 
   useEffect(() => {
     if (data) {
-      setSummonedDaos(filterDaos(data.factories));
+      filterDaos(data.members);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -67,6 +49,8 @@ const Profile = props => {
         const orphans = await get(
           `moloch/orphans/${props.match.params.account}`,
         );
+
+        console.log('orphans', orphans);
         setUnregisteredDaos(
           orphans.data.filter(orphan => {
             return orphan.summonerAddress === context.account.toLowerCase();
@@ -78,6 +62,26 @@ const Profile = props => {
     fetchOrphans();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.account]);
+
+  const filterDaos = memberships => {
+    let member = [];
+    let summoner = [];
+
+    memberships.forEach(membership => {
+      if (
+        !membership.moloch.apiData.hide &&
+        membership.moloch.summoner.toLowerCase() ===
+          props.match.params.account.toLowerCase()
+      ) {
+        summoner.push(membership.moloch);
+      } else {
+        member.push(membership.moloch);
+      }
+    });
+
+    setSummonedDaos(summoner);
+    setMemberDaos(member);
+  };
 
   const renderUnregisteredList = () => {
     return unregisteredDaos.map((dao, i) => {
@@ -146,19 +150,18 @@ const Profile = props => {
           {renderUnregisteredList()}
         </div>
       ) : null}
-      {/* 
       {data && summonedDaos.length ? (
         <div className="Section">
           <h2>Summoner of these Molochs</h2>
           <DaoList daos={summonedDaos} />
         </div>
-      ) : null} */}
+      ) : null}
 
-      {applications.length ? (
-        <>
-          <h2>Pledged to these Molochs</h2>
-          <ApplicationMolochList applications={applications} />
-        </>
+      {data && memberDaos.length ? (
+        <div className="Section">
+          <h2>Member of these Molochs</h2>
+          <DaoList daos={memberDaos} />
+        </div>
       ) : null}
     </div>
   );
