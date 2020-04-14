@@ -7,34 +7,32 @@ import '../../views/stats/Stats.scss';
 const Activity = props => {
   const { data } = props;
 
+  console.log('data', data);
+
   const lineData = () => {
     const groupedSummonData = _.groupBy(
-      _.sortBy(data.factories, 'createdAt'),
+      _.sortBy(data.moloches, 'summoningTime'),
       dao => {
-        const date = new Date(+dao.createdAt * 1000);
-
+        const date = new Date(+dao.summoningTime * 1000);
         return `${date.getMonth() + 1}/${date.getFullYear()}`;
       },
     );
 
-    const allProposals = _.sortBy(
-      _.flatMap(data.factories, dao => {
-        return +dao.newContract
-          ? dao.newContractProposals
-          : dao.apiDataStats.legacyData.proposals;
-      }),
-      'timestamp',
+    const groupedProposalData = _.groupBy(
+      _.sortBy(
+        _.flatMap(data.moloches, dao => {
+          return dao.proposals;
+        }),
+        'createdAt',
+      ),
+      prop => {
+        const date = new Date(+prop.createdAt * 1000);
+        return `${date.getMonth() + 1}/${date.getFullYear()}`;
+      },
     );
-
-    const groupedProposalData = _.groupBy(allProposals, prop => {
-      const date = new Date(+prop.timestamp * 1000);
-
-      return `${date.getMonth() + 1}/${date.getFullYear()}`;
-    });
 
     const summonMonths = Object.keys(groupedSummonData);
     const propMonths = Object.keys(groupedProposalData);
-
     const labels =
       summonMonths.length > propMonths.length ? summonMonths : propMonths;
 
@@ -55,11 +53,28 @@ const Activity = props => {
         : 0;
     });
 
+    const groupedVoteData = _.groupBy(
+      _.sortBy(
+        _.flatMap(data.moloches, dao => {
+          return dao.members;
+        }),
+        'createdAt',
+      ),
+      prop => {
+        const date = new Date(+prop.createdAt * 1000);
+        return `${date.getMonth() + 1}/${date.getFullYear()}`;
+      },
+    );
+
+    const memberData = labels.map(label =>
+      groupedVoteData[label] ? groupedVoteData[label].length : 0,
+    );
+
     let lineData = {
       labels,
       datasets: [
         {
-          label: 'Daos Summoned',
+          label: 'Summonings',
           fill: true,
           lineTension: 0.1,
           backgroundColor: 'rgba(75,192,192,0.4)',
@@ -120,6 +135,27 @@ const Activity = props => {
           pointRadius: 1,
           pointHitRadius: 10,
           data: voteData,
+        },
+        {
+          label: 'Memberships',
+          fill: true,
+          lineTension: 0.1,
+          backgroundColor: 'rgba(255, 145, 0,0.4)',
+          borderColor: 'rgba(255, 145, 0,1)',
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: 'rgba(255, 145, 0,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(255, 145, 0,1)',
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: memberData,
         },
       ],
     };

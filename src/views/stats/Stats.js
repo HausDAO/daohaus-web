@@ -52,18 +52,13 @@ const Stats = props => {
 
   return (
     <div className="View Contain">
-      <h1>BIG DAOta</h1>
+      <h1>
+        BIG DAOta{' '}
+        <span role="img" aria-label="chart">
+          📈
+        </span>
+      </h1>
 
-      <h2>
-        {' '}
-        <span role="img" aria-label="construction">
-          ⚒️
-        </span>
-        Under construction{' '}
-        <span role="img" aria-label="construction">
-          ⚒️
-        </span>
-      </h2>
       {loading ? <p>Loading stats</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}
       {data ? (
