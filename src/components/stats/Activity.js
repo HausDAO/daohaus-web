@@ -1,13 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import { Line } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 
 import '../../views/stats/Stats.scss';
 
 const Activity = props => {
   const { data } = props;
-
-  console.log('data', data);
 
   const lineData = () => {
     const groupedSummonData = _.groupBy(
@@ -167,6 +166,14 @@ const Activity = props => {
     <>
       <div className="Stat_overview">
         <Line data={lineData()} />
+
+        <div className="GasBag">
+          <Link to="/carbon-footprint">
+            <span role="img" aria-label="gas">
+              ⛽
+            </span>
+          </Link>
+        </div>
       </div>
     </>
   );

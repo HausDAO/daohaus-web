@@ -8,13 +8,17 @@ import { formatTotalUsd, toUsd } from '../../util/statHelpers';
 
 import '../../views/stats/Stats.scss';
 
-const GuildBanks = props => {
-  const { data } = props;
+const GuildBanks = ({ data }) => {
   const [web3Service] = useContext(Web3Context);
   const [prices, setPrices] = useState();
-  // const [molochOn, setMolochOn] = useState(true);
+  const [barDaos, setBarDaos] = useState();
 
-  const [barDaos] = useState(data.factories);
+  useEffect(() => {
+    data.moloches.filter(dao => dao.version === '1');
+
+    setBarDaos(data.moloches.filter(dao => dao.version === '1'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   useEffect(() => {
     const fetchPrices = async () => {
@@ -29,7 +33,7 @@ const GuildBanks = props => {
 
   const barData = () => {
     const bgColors = barDaos.map(dao =>
-      dao.moloch.replace('0x', '#').substring(0, 7),
+      dao.id.replace('0x', '#').substring(0, 7),
     );
 
     let barData = {
@@ -55,13 +59,8 @@ const GuildBanks = props => {
     return barData;
   };
 
-  // const toggleMoloch = () => {
-  //   setMolochOn(!molochOn);
-  //   setBarDaos(barDaos.filter(dao => dao.title !== 'Moloch DAO'));
-  // };
-
   const totalGuildBank = () => {
-    const value = data.factories.reduce(
+    const value = barDaos.reduce(
       (sum, dao) => {
         sum[dao.tokenInfo.symbol.toLowerCase()] += +web3Service.fromWei(
           dao.tokenInfo.guildBankValue,
@@ -97,17 +96,10 @@ const GuildBanks = props => {
             </div>
           </div>
           <div className="Column--66">
-            <h3>Guild Bank Balances</h3>
-            <div>
-              {/* Click to toggle Moloch on and off
-              <input
-                type="checkbox"
-                checked={molochOn}
-                onChange={() => toggleMoloch()}
-              /> */}
-            </div>
+            <h3>V1 Guild Bank Balances</h3>
+            <div></div>
 
-            <Doughnut data={barData(data.factories)} />
+            <Doughnut data={barData(barDaos)} />
           </div>
         </div>
       </>
@@ -116,7 +108,7 @@ const GuildBanks = props => {
     );
   };
 
-  return <div>{data ? <div>{totalGuildBank()}</div> : null}</div>;
+  return <div>{barDaos ? <div>{totalGuildBank()}</div> : null}</div>;
 };
 
 export default GuildBanks;
