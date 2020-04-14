@@ -7,16 +7,11 @@ import Web3Service from '../util/web3Service';
 export const MolochContext = createContext(null);
 export const Web3Context = createContext();
 export const TokenContext = createContext();
-export const MolochV2Context = createContext();
 
-const ContractContexts = ({ children, v2Client }) => {
+const ContractContexts = ({ children }) => {
   const [web3, setWeb3] = useState();
   const [token, setToken] = useState();
   const [moloch, setMoloch] = useState();
-
-  const [MolochV2, setMolochV2] = useState({
-    client: v2Client,
-  });
 
   const context = useWeb3Context();
 
@@ -35,11 +30,9 @@ const ContractContexts = ({ children, v2Client }) => {
   return (
     <Web3Context.Provider value={[web3, setWeb3]}>
       <MolochContext.Provider value={[moloch, setMoloch]}>
-        <MolochV2Context.Provider value={[MolochV2, setMolochV2]}>
-          <TokenContext.Provider value={[token, setToken]}>
-            {children}
-          </TokenContext.Provider>
-        </MolochV2Context.Provider>
+        <TokenContext.Provider value={[token, setToken]}>
+          {children}
+        </TokenContext.Provider>
       </MolochContext.Provider>
     </Web3Context.Provider>
   );
