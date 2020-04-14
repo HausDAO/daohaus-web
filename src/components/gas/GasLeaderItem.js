@@ -8,11 +8,9 @@ import { Web3Context } from '../../contexts/ContractContexts';
 
 import '../../views/gas/Gas.scss';
 
-const GasLeaderItem = ({ leader, i }) => {
+const GasLeaderItem = ({ leader, ethPrice, i }) => {
   const [leaderProfile, setLeaderProfile] = useState();
   const [web3Service] = useContext(Web3Context);
-
-  console.log('leader', leader);
 
   useEffect(() => {
     const setup = async () => {
@@ -20,7 +18,6 @@ const GasLeaderItem = ({ leader, i }) => {
       try {
         profile = await getProfile(leader.memberAddress);
 
-        console.log('profile', profile);
         setLeaderProfile(profile);
       } catch {
         profile = {};
@@ -63,6 +60,9 @@ const GasLeaderItem = ({ leader, i }) => {
       </Link>
 
       <p>{web3Service.fromWei(leader.totalGas)} Ξ</p>
+      {ethPrice ? (
+        <p>(${(web3Service.fromWei(leader.totalGas) * ethPrice).toFixed(2)})</p>
+      ) : null}
     </div>
   );
 };

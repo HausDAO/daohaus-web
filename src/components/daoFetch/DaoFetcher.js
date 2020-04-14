@@ -29,7 +29,9 @@ const DaoFetcher = ({ version }) => {
   return (
     <>
       <div className="Search">
-        {data ? <DaoSuperFilter daos={data.moloches} /> : null}
+        {data ? (
+          <DaoSuperFilter daos={data.moloches} version={version} />
+        ) : null}
       </div>
     </>
   );

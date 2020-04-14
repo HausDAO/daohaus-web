@@ -6,14 +6,15 @@ import DaoList from '../daoList/DaoList';
 import './DaoFilter.scss';
 import DaoSuperList from '../daoList/DaoSuperList';
 
-const DaoSuperFilter = ({ daos }) => {
+const DaoSuperFilter = ({ daos, version }) => {
   const [filteredDaos, setFilteredDaos] = useState();
   const [matchingDaos, setMatchingDaos] = useState();
 
   useEffect(() => {
+    console.log('verison', version);
     resetDaos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [daos]);
+  }, [daos, version]);
 
   const sortAttribute = dao => {
     if (dao.apiData.length === 0) {
@@ -25,25 +26,29 @@ const DaoSuperFilter = ({ daos }) => {
   };
 
   const resetDaos = () => {
-    let unhidden = _.sortBy(
-      daos.filter(dao => !dao.apiData.hide),
-      dao => {
-        return sortAttribute(dao);
-      },
-    ).reverse();
+    let unhidden = _.sortBy(baseFilter(daos), dao => {
+      return sortAttribute(dao);
+    }).reverse();
 
     setMatchingDaos(unhidden);
     setFilteredDaos(unhidden);
   };
 
+  const baseFilter = daos => {
+    return daos.filter(dao => {
+      const notHidden = !dao.apiData.hide;
+      const versionMatch = version === 'all' || +version === +dao.version;
+      return notHidden && versionMatch;
+    });
+  };
+
   const handleChange = event => {
     if (event.target.value) {
       const filtered = _.sortBy(
-        daos.filter(dao => {
+        baseFilter(daos).filter(dao => {
           return (
-            !dao.apiData.hide &&
             dao.title.toLowerCase().indexOf(event.target.value.toLowerCase()) >
-              -1
+            -1
           );
         }),
         dao => {

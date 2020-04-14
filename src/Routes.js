@@ -42,7 +42,7 @@ const Routes = () => (
     <Route path="/help" exact component={Help} />
     <Route path="/about" exact component={About} />
     <Route path="/stats" exact component={Stats} />
-    <Route path="/carbon-footprints" exact component={Gas} />
+    <Route path="/carbon-footprint" exact component={Gas} />
     <Route path="/ethDenver" exact component={EthDenver} />
     <Route
       path="/building-dao/:version/:contractAddress(\b0x[0-9a-f]{10,40}\b)"

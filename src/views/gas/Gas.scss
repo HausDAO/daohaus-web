@@ -1,3 +1,23 @@
+.Gas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Gas__user {
+  margin-left: 30px;
+
+  p {
+    font-size: 20px;
+  }
+
+  h4 {
+    margin: 30px 0 30px 0;
+  }
+}
+
 .Gas__leader {
   display: flex;
   flex-direction: row;

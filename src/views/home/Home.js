@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useWeb3Context } from 'web3-react';
 
 import SummonButton from '../../components/summonButton/summonButton';
@@ -10,6 +10,11 @@ import './Home.scss';
 
 const Home = () => {
   const context = useWeb3Context();
+  const [molochVersion, setMolochVersion] = useState('all');
+
+  const handleVersionChange = version => {
+    setMolochVersion(version);
+  };
 
   return (
     <>
@@ -31,7 +36,30 @@ const Home = () => {
         )}
       </div>
 
-      <DaoFetcher />
+      <div className="VersionToggle">
+        <div className="Contents Contain">
+          <div
+            className={molochVersion === 'all' ? 'active' : null}
+            onClick={() => handleVersionChange('all')}
+          >
+            All Daos
+          </div>
+          <div
+            className={molochVersion === '1' ? 'active' : null}
+            onClick={() => handleVersionChange('1')}
+          >
+            Moloch V1 Daos
+          </div>
+          <div
+            className={molochVersion === '2' ? 'active' : null}
+            onClick={() => handleVersionChange('2')}
+          >
+            Moloch V2 Daos
+          </div>
+        </div>
+      </div>
+
+      <DaoFetcher version={molochVersion} />
     </>
   );
 };

@@ -73,6 +73,21 @@ const DaoFilter = props => {
             placeholder="Search Daos"
             onChange={e => handleChange(e)}
           />
+
+          <div>
+            <label>
+              <input type="radio" value="all" checked={true} />
+              All
+            </label>
+            <label>
+              <input type="radio" value="1" checked={true} />
+              V1
+            </label>
+            <label>
+              <input type="radio" value="2" checked={true} />
+              V2
+            </label>
+          </div>
         </div>
       </div>
       <div className="Block Primary Home__Daolist">
