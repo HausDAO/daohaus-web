@@ -27,15 +27,7 @@ const Infura = new NetworkOnlyConnector({
 const connectors = { MetaMask, Infura };
 
 const client = new ApolloClient({
-  // uri: process.env.REACT_APP_GRAPH_URI,
   uri: process.env.REACT_APP_SUPERGRAPH_URL,
-  clientState: {
-    resolvers,
-  },
-});
-
-const v2Client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPH_V2_URI,
   clientState: {
     resolvers,
   },
@@ -49,8 +41,7 @@ function App() {
       web3Api={Web3}
     >
       <ApolloProvider client={client}>
-        <ContractContexts v2Client={v2Client}>
-          {' '}
+        <ContractContexts>
           <div className="App">
             <Router>
               <TopNav />
