@@ -1,53 +1,54 @@
 import React from 'react';
-// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-// import { useQuery } from '@apollo/react-hooks';
-// import _ from 'lodash';
+import { useQuery } from '@apollo/react-hooks';
+import _ from 'lodash';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-// import { GET_MOLOCHES_STATS } from '../../util/queries';
+import { GET_MOLOCHES_STATS } from '../../util/queries';
 
 import './Stats.scss';
 // import GuildBanks from '../../components/stats/GuildBank';
-// import ProposalStats from '../../components/stats/ProposalStats';
-// import Activity from '../../components/stats/Activity';
+import Activity from '../../components/stats/Activity';
 
 const Stats = props => {
-  // const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
+  const { loading, error, data } = useQuery(GET_MOLOCHES_STATS);
 
-  // const totalDaos = () => {
-  //   return data.factories.length;
-  // };
+  console.log('stats', data);
 
-  // const totalShares = () => {
-  //   return data.factories.reduce((sum, dao) => {
-  //     return sum + +dao.totalShares;
-  //   }, 0);
-  // };
+  const totalDaos = () => {
+    return data.moloches.length;
+  };
 
-  // const totalDoaMemberships = () => {
-  //   const counts = data.factories.reduce(
-  //     (sum, dao) => {
-  //       +dao.newContract
-  //         ? (sum.new += dao.newContractMembers.length)
-  //         : (sum.legacy += dao.apiDataStats.legacyData.members.length);
-  //       return sum;
-  //     },
-  //     { new: 0, legacy: 0 },
-  //   );
+  const totalShares = () => {
+    return data.moloches.reduce((sum, dao) => {
+      return sum + +dao.totalShares;
+    }, 0);
+  };
 
-  //   return counts.new + counts.legacy;
-  // };
+  const totalDoaMemberships = () => {
+    return data.moloches.reduce((sum, dao) => {
+      return sum + +dao.members.length;
+    }, 0);
+  };
 
-  // const uniqueDaoMembers = () => {
-  //   const memberIDs = _.flatMap(data.factories, dao => {
-  //     return +dao.newContract
-  //       ? dao.newContractMembers
-  //       : dao.apiDataStats.legacyData.members;
-  //   }).map(member => {
-  //     return member.memberId ? member.memberId : member.id;
-  //   });
+  const uniqueDaoMembers = () => {
+    const memberIds = _.flatMap(data.moloches, dao => {
+      return dao.members;
+    }).map(member => member.memberAddress);
 
-  //   return _.uniq(memberIDs).length;
-  // };
+    return _.uniq(memberIds).length;
+  };
+
+  const totalProposals = () => {
+    return data.moloches.reduce((sum, dao) => {
+      return sum + +dao.proposals.length;
+    }, 0);
+  };
+
+  const totalVotes = () => {
+    return _.flatMap(data.moloches, dao => {
+      return _.flatMap(dao.proposals, prop => prop.votes);
+    }).length;
+  };
 
   return (
     <div className="View Contain">
@@ -63,7 +64,7 @@ const Stats = props => {
           ⚒️
         </span>
       </h2>
-      {/* {loading ? <p>Loading stats</p> : null}
+      {loading ? <p>Loading stats</p> : null}
       {error ? <p>Error - are you on mainnet?</p> : null}
       {data ? (
         <div>
@@ -84,27 +85,29 @@ const Stats = props => {
               <p className="Stat__title">Unique Dao Members</p>
               <p className="Stat__value">{uniqueDaoMembers()}</p>
             </div>
+            <div className="Stat_group">
+              <p className="Stat__title">Total Proposals</p>
+              <p className="Stat__value">{totalProposals()}</p>
+            </div>
+            <div className="Stat_group">
+              <p className="Stat__title">Total Votes</p>
+              <p className="Stat__value">{totalVotes()}</p>
+            </div>
           </div>
 
           <Tabs>
             <TabList>
-              <Tab>Guild Banks</Tab>
               <Tab>Activity</Tab>
-              <Tab>Proposals and Votes</Tab>
+              <Tab>Guild Banks</Tab>
             </TabList>
 
             <TabPanel>
-              <GuildBanks data={data} />
-            </TabPanel>
-            <TabPanel>
               <Activity data={data} />
             </TabPanel>
-            <TabPanel>
-              <ProposalStats data={data} />
-            </TabPanel>
+            <TabPanel>{/* <GuildBanks data={data} /> */}</TabPanel>
           </Tabs>
         </div>
-      ) : null} */}
+      ) : null}
     </div>
   );
 };
