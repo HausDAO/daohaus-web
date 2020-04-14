@@ -5,47 +5,47 @@ import DaoList from '../daoList/DaoList';
 
 import './DaoFilter.scss';
 
-const DaoFilter = props => {
-  const { daos, version, v2Moloches } = props;
-
+const DaoFilter = ({ daos, version }) => {
   const [filteredDaos, setFilteredDaos] = useState();
   const [matchingDaos, setMatchingDaos] = useState();
 
   useEffect(() => {
     resetDaos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [daos]);
+  }, [daos, version]);
 
   const sortAttribute = dao => {
     if (dao.apiData.length === 0) {
       return 0;
     } else {
-      return +dao.apiData.version === 2
-        ? +dao.index
-        : +dao.tokenInfo.guildBankValue;
+      return +dao.totalShares;
     }
   };
 
   const resetDaos = () => {
-    let unhidden = _.sortBy(
-      daos.filter(dao => !dao.apiData.hide),
-      dao => {
-        return sortAttribute(dao);
-      },
-    ).reverse();
+    let unhidden = _.sortBy(baseFilter(daos), dao => {
+      return sortAttribute(dao);
+    }).reverse();
 
     setMatchingDaos(unhidden);
     setFilteredDaos(unhidden);
   };
 
+  const baseFilter = daos => {
+    return daos.filter(dao => {
+      const notHidden = !dao.apiData.hide;
+      const versionMatch = version === 'all' || +version === +dao.version;
+      return notHidden && versionMatch;
+    });
+  };
+
   const handleChange = event => {
     if (event.target.value) {
       const filtered = _.sortBy(
-        daos.filter(dao => {
+        baseFilter(daos).filter(dao => {
           return (
-            !dao.apiData.hide &&
             dao.title.toLowerCase().indexOf(event.target.value.toLowerCase()) >
-              -1
+            -1
           );
         }),
         dao => {
@@ -73,31 +73,10 @@ const DaoFilter = props => {
             placeholder="Search Daos"
             onChange={e => handleChange(e)}
           />
-
-          <div>
-            <label>
-              <input type="radio" value="all" checked={true} />
-              All
-            </label>
-            <label>
-              <input type="radio" value="1" checked={true} />
-              V1
-            </label>
-            <label>
-              <input type="radio" value="2" checked={true} />
-              V2
-            </label>
-          </div>
         </div>
       </div>
       <div className="Block Primary Home__Daolist">
-        {filteredDaos ? (
-          <DaoList
-            daos={filteredDaos}
-            version={version}
-            v2Moloches={v2Moloches}
-          />
-        ) : null}
+        {filteredDaos ? <DaoList daos={filteredDaos} /> : null}
       </div>
     </div>
   );

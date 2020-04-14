@@ -1,12 +1,11 @@
 import React from 'react';
 import { useQuery } from 'react-apollo';
 
-import { GET_SUPER_MOLOCHES } from '../../util/queries';
-// import DaoFilter from '../daoFilter/DaoFilter';DaoSuperFilter
-import DaoSuperFilter from '../daoFilter/DaoSuperFilter';
+import { GET_MOLOCHES } from '../../util/queries';
+import DaoFilter from '../daoFilter/DaoFilter';
 
 const DaoFetcher = ({ version }) => {
-  const { loading, error, data, fetchMore } = useQuery(GET_SUPER_MOLOCHES, {
+  const { loading, error, data, fetchMore } = useQuery(GET_MOLOCHES, {
     fetchPolicy: 'network-only',
   });
 
@@ -29,9 +28,7 @@ const DaoFetcher = ({ version }) => {
   return (
     <>
       <div className="Search">
-        {data ? (
-          <DaoSuperFilter daos={data.moloches} version={version} />
-        ) : null}
+        {data ? <DaoFilter daos={data.moloches} version={version} /> : null}
       </div>
     </>
   );

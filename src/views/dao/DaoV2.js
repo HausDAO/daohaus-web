@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import { useApolloClient } from 'react-apollo';
 
 import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
-import { GET_SUPER_MOLOCH } from '../../util/queries';
+import { GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import MolochService from '../../util/molochService';
 import HeadTags from '../../components/headTags/HeadTags';
@@ -56,7 +56,7 @@ const DaoV2 = props => {
 
   const getDao = async () => {
     const { isLoading, isError, data } = await client.query({
-      query: GET_SUPER_MOLOCH,
+      query: GET_MOLOCH,
       variables: { contractAddr: props.match.params.contractAddress },
     });
 

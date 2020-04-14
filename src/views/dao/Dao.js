@@ -11,7 +11,7 @@ import {
   TokenContext,
 } from '../../contexts/ContractContexts';
 import { get } from '../../util/requests';
-import { GET_SUPER_MOLOCH } from '../../util/queries';
+import { GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import RageQuit from '../../components/rageQuit/RageQuit';
 import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
@@ -87,7 +87,7 @@ const Dao = props => {
 
   const getDao = async () => {
     const { isLoading, isError, data } = await client.query({
-      query: GET_SUPER_MOLOCH,
+      query: GET_MOLOCH,
       variables: { contractAddr: props.match.params.contractAddress },
     });
 

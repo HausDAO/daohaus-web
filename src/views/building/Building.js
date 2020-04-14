@@ -1,12 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import useInterval from '../../util/PollingUtil';
-import { legacyGraph } from '../../util/legacyGraphService';
-import {
-  GET_MOLOCHES_POST,
-  GET_MOLOCHES_POST_V2,
-  GET_SUPER_MOLOCH,
-} from '../../util/queries';
+import { GET_MOLOCH } from '../../util/queries';
 
 import './Building.scss';
 import { Web3Context } from '../../contexts/ContractContexts';
@@ -32,7 +27,7 @@ const Building = props => {
   useInterval(async () => {
     if (match.params.version === 'v1') {
       const { data } = await client.query({
-        query: GET_SUPER_MOLOCH,
+        query: GET_MOLOCH,
         variables: { contractAddr: match.params.contractAddress },
       });
 

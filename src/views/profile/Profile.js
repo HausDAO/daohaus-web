@@ -6,7 +6,7 @@ import { get } from '../../util/requests';
 import { useQuery } from 'react-apollo';
 import { GET_MEMBER_MOLOCHES } from '../../util/queries';
 import UnregisteredList from '../../components/unregisteredList/unregisteredList';
-import DaoSuperList from '../../components/daoList/DaoSuperList';
+import DaoList from '../../components/daoList/DaoList';
 
 const Profile = props => {
   const context = useWeb3Context();
@@ -20,7 +20,6 @@ const Profile = props => {
   const { loading, error, data } = useQuery(GET_MEMBER_MOLOCHES, {
     variables: { memberAddress: props.match.params.account },
   });
-  console.log('data', data);
 
   useEffect(() => {
     const setup = async () => {
@@ -154,14 +153,14 @@ const Profile = props => {
       {data && summonedDaos.length ? (
         <div className="Section">
           <h2>Summoner of these Molochs</h2>
-          <DaoSuperList daos={summonedDaos} />
+          <DaoList daos={summonedDaos} />
         </div>
       ) : null}
 
       {data && memberDaos.length ? (
         <div className="Section">
           <h2>Member of these Molochs</h2>
-          <DaoSuperList daos={memberDaos} />
+          <DaoList daos={memberDaos} />
         </div>
       ) : null}
     </div>
