@@ -13,6 +13,7 @@ import FourOhFour from './views/fourOhFour/FourOhFour';
 import About from './views/about/About';
 import Help from './views/help/Help';
 import EthDenver from './views/ethDenver/EthDenver';
+import Gas from './views/gas/Gas';
 
 const Routes = () => (
   <Switch>
@@ -41,6 +42,7 @@ const Routes = () => (
     <Route path="/help" exact component={Help} />
     <Route path="/about" exact component={About} />
     <Route path="/stats" exact component={Stats} />
+    <Route path="/carbon-footprints" exact component={Gas} />
     <Route path="/ethDenver" exact component={EthDenver} />
     <Route
       path="/building-dao/:version/:contractAddress(\b0x[0-9a-f]{10,40}\b)"

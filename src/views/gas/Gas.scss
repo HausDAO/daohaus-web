@@ -1,0 +1,29 @@
+.Gas__leader {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 25px;
+
+  p {
+    margin-right: 40px;
+    min-width: 30px;
+    font-size: 20px;
+  }
+
+  p.profileRank {
+    font-size: 50px;
+  }
+
+  .profileColumn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 300px;
+  }
+
+  .profileAddress {
+    margin-left: 20px;
+  }
+}

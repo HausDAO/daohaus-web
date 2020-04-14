@@ -203,3 +203,21 @@ export const GET_MEMBERS = gql`
     }
   }
 `;
+
+export const GET_GASSY = gql`
+  query {
+    gassiest: badges(first: 10, orderBy: totalGas, orderDirection: desc) {
+      memberAddress
+      totalGas
+    }
+  }
+`;
+
+export const GET_MEMBER_GAS = gql`
+  query badges($memberAddress: String!) {
+    badges(where: { memberAddress: $memberAddress }) {
+      memberAddress
+      totalGas
+    }
+  }
+`;
