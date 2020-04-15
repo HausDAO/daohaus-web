@@ -46,7 +46,9 @@ const DaoCard = ({ dao }) => {
               <p className="Data">{dao.members.length}</p>
 
               <p className="Label">Proposals</p>
-              <p className="Data">{dao.proposals.length}</p>
+              <p className="Data">{`${dao.proposals.length} ${
+                dao.proposals.length >= 100 ? '+' : ''
+              }`}</p>
             </div>
           </div>
         </div>
