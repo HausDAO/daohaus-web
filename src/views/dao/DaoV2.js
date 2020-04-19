@@ -8,6 +8,7 @@ import { successMessagesText } from '../../util/helpers';
 import MolochService from '../../util/molochService';
 import HeadTags from '../../components/headTags/HeadTags';
 import ApplicationList from '../../components/applicationList/ApplicationList';
+import Chat from '../../components/chat/Chat';
 
 import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 import './Dao.scss';
@@ -160,6 +161,11 @@ const DaoV2 = props => {
                     </a>
                   </p>
                 </div>
+                <Chat
+                  contract={molochService.contract}
+                  contractAddress={daoData.id}
+                  members={daoData.members}
+                />
               </div>
             </div>
           </div>

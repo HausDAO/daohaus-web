@@ -2,15 +2,21 @@ import React from 'react';
 import ChatRoom from 'smart-chat-react'
 
 const Chat = props => {
-  const { contract, contractAddress, memberData } = props;
+  const { contract, contractAddress } = props;
 
   // Get the Ethereum addresses of the members; we can include applicants if needed
-  const getMemberAddresses = (data) => {
-    return data && data.active && data.active.length > 0
-      ? data.active.map(m => m.memberAddress)
-      : [];
+  const getMemberAddresses = (data, group) => {
+    if (data) {
+      if (group) {
+        data = data[group];
+      }
+      if (data && data.length > 0) {
+        return data.map(m => m.memberAddress);
+      }
+    }
+    return [];
   }
-  const members = getMemberAddresses(memberData);
+  const members = props.memberData ? getMemberAddresses(props.memberData, 'active') : getMemberAddresses(props.members);
 
   // The founder of the DAO will serve as the first moderator of the chat,
   // whose space need to get open first, before allow members to join the chat.
