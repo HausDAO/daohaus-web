@@ -336,6 +336,7 @@ const Dao = props => {
                       contract={molochService.contract}
                       contractAddress={daoData.id}
                       memberData={memberData}
+                      summoner={daoData.summoner}
                     />
                   </div>
                 </div>

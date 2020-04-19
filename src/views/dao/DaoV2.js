@@ -165,6 +165,7 @@ const DaoV2 = props => {
                   contract={molochService.contract}
                   contractAddress={daoData.id}
                   members={daoData.members}
+                  summoner={daoData.summoner}
                 />
               </div>
             </div>
