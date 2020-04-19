@@ -21,6 +21,7 @@ import TokenService from '../../util/tokenService';
 import MolochService from '../../util/molochService';
 import ActivateButton from '../../components/activateButton/ActivateButton';
 import HeadTags from '../../components/headTags/HeadTags';
+import Chat from '../../components/chat/Chat';
 
 import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 
@@ -331,6 +332,11 @@ const Dao = props => {
                         </a>
                       </p>
                     </div>
+                    <Chat
+                      contract={molochService.contract}
+                      contractAddress={daoData.id}
+                      memberData={memberData}
+                    />
                   </div>
                 </div>
               </div>
