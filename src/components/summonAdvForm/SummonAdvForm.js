@@ -39,12 +39,15 @@ const SummonAdvForm = props => {
             validate={values => {
               let errors = {};
 
-              if (!/^[01]+$/.test(values.proposalDeposit)) {
-                errors.proposalDeposit = 'Not a valid number';
-              }
-              if (!/^[01]+$/.test(values.processingReward)) {
-                errors.processingReward = 'Not a valid number';
-              }
+              // this is to check if number is not in sci notation
+              // does not work.
+              // TODO this should be a string to avoid sci notation
+              // if (!/^[01]+$/.test(values.proposalDeposit)) {
+              //   errors.proposalDeposit = 'Not a valid number';
+              // }
+              // if (!/^[01]+$/.test(values.processingReward)) {
+              //   errors.processingReward = 'Not a valid number';
+              // }
 
               if (!values.name) {
                 errors.name = 'Required';
@@ -108,9 +111,9 @@ const SummonAdvForm = props => {
                     values.votingPeriodLength,
                     values.gracePeriodLength,
                     values.abortWindow,
-                    web3Service.web3.utils.toBN(values.proposalDeposit),
+                    web3Service.web3.utils.toBN(values.proposalDeposit).toString(),
                     values.dilutionBound,
-                    web3Service.web3.utils.toBN(values.processingReward),
+                    web3Service.web3.utils.toBN(values.processingReward).toString(),
                     values.name.trim(),
                   )
                   .send(
