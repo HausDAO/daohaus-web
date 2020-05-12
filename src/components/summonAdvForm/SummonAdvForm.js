@@ -108,9 +108,13 @@ const SummonAdvForm = props => {
                     values.votingPeriodLength,
                     values.gracePeriodLength,
                     values.abortWindow,
-                    web3Service.web3.utils.toBN(values.proposalDeposit),
+                    web3Service.web3.utils
+                      .toBN(values.proposalDeposit)
+                      .toString(),
                     values.dilutionBound,
-                    web3Service.web3.utils.toBN(values.processingReward),
+                    web3Service.web3.utils
+                      .toBN(values.processingReward)
+                      .toString(),
                     values.name.trim(),
                   )
                   .send(
