@@ -21,8 +21,14 @@ export const getPrices = async () => {
   });
 
   const eth = await instance.get(`/ethereum`);
-  const dai = await instance.get(`/dai`);
-  return { weth: eth.data.data.priceUsd, dai: dai.data.data.priceUsd };
+  console.log('eth', eth);
+
+  // const dai = await instance.get(`/dai`);
+  // coincap now returns 404 on /dai
+  // return { weth: eth.data.data.priceUsd, dai: dai.data.data.priceUsd };
+
+  return { weth: eth.data.data.priceUsd, dai: '1.0' };
+
   // } catch (err) {
   //   throw new Error(err);
   // }

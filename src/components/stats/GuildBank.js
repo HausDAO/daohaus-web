@@ -14,8 +14,6 @@ const GuildBanks = ({ data }) => {
   const [barDaos, setBarDaos] = useState();
 
   useEffect(() => {
-    data.moloches.filter(dao => dao.version === '1');
-
     setBarDaos(data.moloches.filter(dao => dao.version === '1'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
