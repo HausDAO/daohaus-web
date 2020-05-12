@@ -316,7 +316,7 @@ const Dao = props => {
                           }
                           rel="noopener noreferrer"
                         >
-                          {molochService.contractAddr}
+                          {daoData.tokenInfo.guildBankAddr}
                         </a>
                       </p>
                       <p className="Label">Summoner</p>
