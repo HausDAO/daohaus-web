@@ -5,6 +5,8 @@ import { ApolloProvider } from 'react-apollo';
 import { Connectors } from 'web3-react';
 import Web3Provider from 'web3-react';
 import Web3 from 'web3';
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
 
 import Routes from './Routes';
 import TopNav from './components/topNav/TopNav';
@@ -33,6 +35,17 @@ const client = new ApolloClient({
   },
 });
 
+console.log(process.env.NODE_ENV);
+const history = createBrowserHistory();
+if (process.env.REACT_APP_GA) {
+  const trackingId = 'UA-132344680-2';
+  ReactGA.initialize(trackingId);
+  history.listen(location => {
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
+  });
+}
+
 function App() {
   return (
     <Web3Provider
@@ -43,7 +56,7 @@ function App() {
       <ApolloProvider client={client}>
         <ContractContexts>
           <div className="App">
-            <Router>
+            <Router history={history}>
               <TopNav />
               <Routes />
             </Router>
