@@ -37,7 +37,7 @@ const client = new ApolloClient({
 
 console.log(process.env.NODE_ENV);
 const history = createBrowserHistory();
-if (process.env.REACT_APP_GA) {
+if (process.env.NODE_ENV === 'production') {
   const trackingId = 'UA-132344680-2';
   ReactGA.initialize(trackingId);
   history.listen(location => {
