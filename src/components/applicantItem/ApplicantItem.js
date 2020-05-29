@@ -27,7 +27,7 @@ const ApplicantItem = props => {
           profile = {};
         }
 
-        if (daoData.tokenInfo.address && tokenService) {
+        if (daoData.depositToken.tokenAddress && tokenService) {
           const allowance = await tokenService.allowance(
             _applicant,
             daoData.id,

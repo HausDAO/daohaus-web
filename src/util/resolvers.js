@@ -35,9 +35,8 @@ export const resolvers = (() => {
 
         return apiData;
       },
-      tokenInfo: async (moloch, _args, _context) => {
+      guildBankValue: async (moloch, _args, _context) => {
         let molochService;
-
         if (moloch.version === '1') {
           if (molochs.hasOwnProperty(moloch.id)) {
             molochService = molochs[moloch.id];
@@ -45,39 +44,34 @@ export const resolvers = (() => {
             molochs[moloch.id] = new MolochService(moloch.id, web3Service);
             molochService = molochs[moloch.id];
           }
-          const address = await molochService.approvedToken();
+
           const guildBankAddr = await molochService.getGuildBankAddr();
           let tokenService;
-          if (tokens.hasOwnProperty(address)) {
-            tokenService = tokens[address];
+          if (tokens.hasOwnProperty(moloch.depositToken.tokenAddress)) {
+            tokenService = tokens[moloch.depositToken.tokenAddress];
           } else {
-            tokens[address] = new TokenService(address, web3Service);
-            tokenService = tokens[address];
+            tokens[moloch.depositToken.tokenAddress] = new TokenService(
+              moloch.depositToken.tokenAddress,
+              web3Service,
+            );
+            tokenService = tokens[moloch.depositToken.tokenAddress];
           }
-          let symbol;
-          let guildBankValue;
 
+          let guildBankValue;
           try {
             const daoRes = await get(`moloch/${moloch.id}`);
             if (daoRes.data.hide) {
               throw new Error({ err: 'token error' });
             }
-            symbol = await tokenService.getSymbol();
             guildBankValue = await tokenService.balanceOf(guildBankAddr);
           } catch (err) {
             // console.log('symbol or guildbank error', err);
-            symbol = 'ERR';
             guildBankValue = '0';
           }
 
-          return {
-            guildBankAddr,
-            guildBankValue,
-            symbol,
-            address,
-          };
+          return guildBankValue;
         } else {
-          return {};
+          return null;
         }
       },
     },

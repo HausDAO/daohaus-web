@@ -88,7 +88,7 @@ const ApplicationWizard = props => {
       await molochService.initContract();
 
       const tokenService = new TokenService(
-        data.moloch.tokenInfo.address,
+        data.moloch.depositToken.tokenAddress,
         web3Service,
       );
       await tokenService.initContract();

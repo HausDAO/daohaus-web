@@ -103,7 +103,7 @@ const Dao = props => {
         return false;
       }
       const tokenService = new TokenService(
-        data.moloch.tokenInfo.address,
+        data.moloch.depositToken.tokenAddress,
         web3Service,
       );
       await tokenService.initContract();
@@ -279,8 +279,8 @@ const Dao = props => {
                       <h4>Dao Details</h4>
                       <p className="Label">Bank</p>
                       <p className="Value Data">
-                        {bankValue(daoData.tokenInfo.guildBankValue)}{' '}
-                        {daoData.tokenInfo.symbol}
+                        {bankValue(daoData.guildBankValue)}{' '}
+                        {daoData.depositToken.symbol}
                       </p>
                       <p className="Label">Members</p>
                       <p className="Value Data">
@@ -289,7 +289,7 @@ const Dao = props => {
                       <p className="Label">Minimum Tribute</p>
                       <p className="Value Data">
                         {daoData.apiData.minimumTribute}{' '}
-                        {daoData.tokenInfo.symbol}
+                        {daoData.depositToken.symbol}
                       </p>
                       <p className="Label">Total Shares</p>
                       <p className="Value Data">{daoData.totalShares}</p>
@@ -312,11 +312,11 @@ const Dao = props => {
                         <a
                           href={
                             'https://etherscan.io/address/' +
-                            daoData.tokenInfo.guildBankAddr
+                            daoData.guildBankAddress
                           }
                           rel="noopener noreferrer"
                         >
-                          {daoData.tokenInfo.guildBankAddr}
+                          {daoData.guildBankAddress}
                         </a>
                       </p>
                       <p className="Label">Summoner</p>
