@@ -4,12 +4,13 @@ export const GET_MOLOCHES = gql`
   query moloches($skip: Int) {
     moloches(orderBy: summoningTime, first: 100, skip: $skip) {
       apiData @client
-      tokenInfo @client
+      guildBankValue @client
       id
       title
       summoner
       version
       totalShares
+      guildBankAddress
       members {
         id
       }
@@ -18,6 +19,11 @@ export const GET_MOLOCHES = gql`
       }
       approvedTokens {
         id
+      }
+      depositToken {
+        tokenAddress
+        symbol
+        decimals
       }
     }
   }
@@ -28,11 +34,12 @@ export const GET_MOLOCHES_STATS = gql`
     moloches(orderBy: summoningTime, first: 100, skip: $skip) {
       id
       apiData @client
-      tokenInfo @client
+      guildBankValue @client
       version
       title
       totalShares
       summoningTime
+      guildBankAddress
       members {
         id
         memberAddress
@@ -46,6 +53,11 @@ export const GET_MOLOCHES_STATS = gql`
           createdAt
         }
       }
+      depositToken {
+        tokenAddress
+        symbol
+        decimals
+      }
     }
   }
 `;
@@ -54,13 +66,14 @@ export const GET_MOLOCH = gql`
   query moloch($contractAddr: String!) {
     moloch(id: $contractAddr) {
       apiData @client
-      tokenInfo @client
+      guildBankValue @client
       id
       title
       summoner
       summoningTime
       newContract
       totalShares
+      guildBankAddress
       version
       members(where: { exists: true }) {
         id
@@ -71,6 +84,8 @@ export const GET_MOLOCH = gql`
       }
       depositToken {
         tokenAddress
+        symbol
+        decimals
       }
     }
   }
@@ -112,12 +127,13 @@ export const GET_MEMBER_MOLOCHES = gql`
       id
       moloch {
         apiData @client
-        tokenInfo @client
+        guildBankValue @client
         id
         title
         summoner
         version
         totalShares
+        guildBankAddress
         members {
           id
         }
@@ -126,6 +142,11 @@ export const GET_MEMBER_MOLOCHES = gql`
         }
         approvedTokens {
           id
+        }
+        depositToken {
+          tokenAddress
+          symbol
+          decimals
         }
       }
     }

@@ -30,8 +30,7 @@ const DaoCard = ({ dao }) => {
                 <>
                   <p className="Label">Bank Value</p>
                   <p className="Data">
-                    {bankValue(dao.tokenInfo.guildBankValue)}{' '}
-                    {dao.tokenInfo.symbol}
+                    {bankValue(dao.guildBankValue)} {dao.depositToken.symbol}
                   </p>
                 </>
               ) : (
