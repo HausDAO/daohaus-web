@@ -125,17 +125,39 @@ export const GET_MEMBER_MOLOCHES = gql`
   query members($memberAddress: String!) {
     members(where: { memberAddress: $memberAddress, exists: true }) {
       id
+      memberAddress
       moloch {
         id
         title
         version
-        proposals(where: { processed: false }) {
+        proposals(orderBy: proposalId, orderDirection: desc, first: 20) {
           id
+          createdAt
+          proposalId
           processed
+          sponsored
+          details
+          newMember
+          whitelist
+          guildkick
+          trade
+          cancelled
+          aborted
+          votingPeriodStarts
+          votingPeriodEnds
+          gracePeriodEnds
+          unread @client
+          votes(where: { memberAddress: $memberAddress }) {
+            id
+            memberAddress
+          }
         }
         rageQuits {
           id
           createdAt
+          shares
+          loot
+          memberAddress
         }
       }
     }

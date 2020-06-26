@@ -75,5 +75,22 @@ export const resolvers = (() => {
         }
       },
     },
+    Proposal: {
+      unread: proposal => {
+        const abortedOrCancelled = proposal.aborted || proposal.cancelled;
+        const now = (new Date() / 1000) | 0;
+        const inVotingPeriod =
+          now >= +proposal.votingPeriodStart &&
+          now <= +proposal.votingPeriodEnds;
+        const needsMemberVote = inVotingPeriod && !proposal.votes.length;
+        const needsProcessing =
+          now >= +proposal.gracePeriodEnds && !proposal.processed;
+
+        return (
+          !abortedOrCancelled &&
+          (needsMemberVote || needsProcessing || !proposal.sponsored)
+        );
+      },
+    },
   };
 })();

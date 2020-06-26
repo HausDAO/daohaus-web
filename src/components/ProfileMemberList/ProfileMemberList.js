@@ -14,9 +14,14 @@ const ProfileMemberList = ({ daos }) => {
   const renderDaoAvatar = dao => {
     const recentRages = dao.rageQuits.filter(rage => {
       // 1209600000 === 2 weeks
-      return +rage.createdAt >= Date.now() - 1209600000;
+      const now = (new Date() / 1000) | 0;
+      return +rage.createdAt >= now - 1209600;
     });
-    const healthCount = recentRages.length + dao.proposals.length;
+    const recentProposals = dao.proposals.filter(prop => {
+      return !prop.processed && !prop.aborted && !prop.cancelled;
+    });
+    const healthCount = recentRages.length + recentProposals.length;
+
     return (
       <div key={dao.id}>
         <a

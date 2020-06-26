@@ -9,6 +9,7 @@ import UnregisteredList from '../../components/unregisteredList/unregisteredList
 import ProfileMemberList from '../../components/ProfileMemberList/ProfileMemberList';
 
 import './Profile.scss';
+import ProfileActivityFeed from '../../components/ActivityFeed/ProfileActivityFeed';
 
 const Profile = props => {
   const context = useWeb3Context();
@@ -141,8 +142,7 @@ const Profile = props => {
         {data && memberDaos.length ? (
           <div className="Section">
             <ProfileMemberList daos={memberDaos} />
-
-            {/* <DaoList daos={memberDaos} /> */}
+            <ProfileActivityFeed daos={memberDaos} />
           </div>
         ) : null}
 
