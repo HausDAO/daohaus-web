@@ -1,0 +1,20 @@
+@import '../../variables';
+
+.Profile__id {
+  text-align: left;
+  background-color: $primary-background;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.Profile__balances {
+  background-color: $primary;
+  padding: $base-padding;
+  border-radius: 10px;
+
+  p {
+    color: white;
+  }
+}
