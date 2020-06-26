@@ -6,16 +6,30 @@ const ProfileMemberList = ({ daos }) => {
   const [visibleDaos, setVisibleDaos] = useState([]);
 
   useEffect(() => {
-    const firstDaos = [...daos].slice(0, 4);
+    const firstDaos = [...daos].slice(0, 5);
     setVisibleDaos(firstDaos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderDaoAvatar = dao => {
+    const recentRages = dao.rageQuits.filter(rage => {
+      // 1209600000 === 2 weeks
+      return +rage.createdAt >= Date.now() - 1209600000;
+    });
+    const healthCount = recentRages.length + dao.proposals.length;
     return (
       <div key={dao.id}>
-        <div className="Daolist__avatar"></div>
-        <p>{dao.title}</p>
+        <a
+          href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${dao.id}`}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <div className="Daolist__avatar">
+            {healthCount ? <span>{healthCount}</span> : null}
+            <p>{dao.title.substr(0, 1)}</p>
+          </div>
+          <p>{dao.title}</p>
+        </a>
       </div>
     );
   };

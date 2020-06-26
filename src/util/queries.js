@@ -126,27 +126,16 @@ export const GET_MEMBER_MOLOCHES = gql`
     members(where: { memberAddress: $memberAddress, exists: true }) {
       id
       moloch {
-        apiData @client
-        guildBankValue @client
         id
         title
-        summoner
         version
-        totalShares
-        guildBankAddress
-        members {
+        proposals(where: { processed: false }) {
           id
+          processed
         }
-        proposals {
+        rageQuits {
           id
-        }
-        approvedTokens {
-          id
-        }
-        depositToken {
-          tokenAddress
-          symbol
-          decimals
+          createdAt
         }
       }
     }

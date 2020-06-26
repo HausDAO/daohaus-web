@@ -6,14 +6,12 @@ import { get } from '../../util/requests';
 import { useQuery } from 'react-apollo';
 import { GET_MEMBER_MOLOCHES } from '../../util/queries';
 import UnregisteredList from '../../components/unregisteredList/unregisteredList';
-import DaoList from '../../components/daoList/DaoList';
+import ProfileMemberList from '../../components/ProfileMemberList/ProfileMemberList';
 
 import './Profile.scss';
-import ProfileMemberList from '../../components/ProfileMemberList/ProfileMemberList';
 
 const Profile = props => {
   const context = useWeb3Context();
-  const [summonedDaos, setSummonedDaos] = useState([]);
   const [memberDaos, setMemberDaos] = useState([]);
 
   const [unregisteredDaos, setUnregisteredDaos] = useState([]);
@@ -41,7 +39,9 @@ const Profile = props => {
 
   useEffect(() => {
     if (data) {
-      filterDaos(data.members);
+      console.log('data.members', data);
+      // filterDaos(data.members);
+      setMemberDaos(data.members.map(member => member.moloch));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -65,26 +65,6 @@ const Profile = props => {
     fetchOrphans();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.account]);
-
-  const filterDaos = memberships => {
-    let member = [];
-    let summoner = [];
-
-    memberships.forEach(membership => {
-      if (
-        !membership.moloch.apiData.hide &&
-        membership.moloch.summoner.toLowerCase() ===
-          props.match.params.account.toLowerCase()
-      ) {
-        summoner.push(membership.moloch);
-      } else {
-        member.push(membership.moloch);
-      }
-    });
-
-    setSummonedDaos(summoner);
-    setMemberDaos(member);
-  };
 
   const renderUnregisteredList = () => {
     return unregisteredDaos.map((dao, i) => {
