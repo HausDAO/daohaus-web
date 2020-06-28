@@ -25,10 +25,10 @@ const ActivateButton = props => {
       const w3m = await w3connect(web3Connect);
       console.log(w3m.web3);
 
-      const [user] = await w3m.web3.eth.getAccounts();
+      const [account] = await w3m.web3.eth.getAccounts();
 
       const web3Service = new Web3Service(w3m.web3);
-      setWeb3Service({ web3Service, user });
+      setWeb3Service({ web3Service, account });
       console.log('USER_TYPE.WEB3', w3Service);
 
       localStorage.setItem('loginType', USER_TYPE.WEB3);
@@ -41,9 +41,9 @@ const ActivateButton = props => {
   };
   return (
     <>
-      {w3Service && w3Service.user ? (
+      {w3Service && w3Service.account ? (
         <>
-          <Link to={`/profile/${w3Service.user}`}>Profile</Link>
+          <Link to={`/profile/${w3Service.account}`}>Profile</Link>
         </>
       ) : (
         <button onClick={() => activate()}>

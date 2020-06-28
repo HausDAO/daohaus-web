@@ -31,7 +31,7 @@ const Home = () => {
         </h1>
         <h2>Discover and pledge to join existing daos.</h2>
         <h2>Or summon your own.</h2>
-        {w3context && w3context.user ? (
+        {w3context && w3context.account ? (
           <SummonButton />
         ) : (
           <ActivateButton msg={'Sign in'} />

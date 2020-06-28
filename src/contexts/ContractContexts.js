@@ -30,7 +30,7 @@ const ContractContexts = ({ children }) => {
       }
 
       try {
-        console.log(`Initializing user type: ${loginType || 'read-only'}`);
+        console.log(`Initializing account type: ${loginType || 'read-only'}`);
 
         switch (loginType) {
           case USER_TYPE.WEB3: {
@@ -42,10 +42,10 @@ const ContractContexts = ({ children }) => {
               );
               console.log('web3 modal', w3m);
               
-              const [user] = await w3m.web3.eth.getAccounts();
+              const [account] = await w3m.web3.eth.getAccounts();
 
               const web3Service = new Web3Service(w3m.web3);
-              setW3Context({web3Service, user});
+              setW3Context({web3Service, account});
             } else {
               // read only
               const web3 = new Web3(
@@ -54,7 +54,7 @@ const ContractContexts = ({ children }) => {
                 ),
               );
               const web3Service = new Web3Service(web3);
-              setW3Context({web3Service, user: ""});
+              setW3Context({web3Service, account: ""});
               
             }
             break;
@@ -68,10 +68,10 @@ const ContractContexts = ({ children }) => {
               ),
             );
             const web3Service = new Web3Service(web3);
-            setW3Context({web3Service, user: ""});
+            setW3Context({web3Service, account: ""});
             break;
         }
-        // set user
+        // set account
         localStorage.setItem('loginType', loginType);
       } catch (e) {
         console.error(
@@ -87,7 +87,7 @@ const ContractContexts = ({ children }) => {
           ),
         );
         const web3Service = new Web3Service(web3);
-        setW3Context({web3Service, user: ""});
+        setW3Context({web3Service, account: ""});
       } finally {
         // set dao service
       }
