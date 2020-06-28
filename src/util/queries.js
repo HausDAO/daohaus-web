@@ -11,7 +11,7 @@ export const GET_MOLOCHES = gql`
       version
       totalShares
       guildBankAddress
-      members {
+      members(where: { exists: true }) {
         id
       }
       proposals {
