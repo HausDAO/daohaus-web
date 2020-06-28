@@ -1,5 +1,6 @@
 export default class Web3Service {
   constructor(web3) {
+    console.log('web3 service setup', web3);
     
     this.web3 = web3;
   }

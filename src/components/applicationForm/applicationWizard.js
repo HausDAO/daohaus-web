@@ -5,7 +5,6 @@ import { FormikWizard } from 'formik-wizard';
 
 import { post } from '../../util/requests';
 import { getSteps } from './steps';
-import { useWeb3Context } from 'web3-react';
 import Loading from '../loading/Loading';
 
 import {
@@ -64,15 +63,14 @@ const ApplicationWizard = props => {
   const [formError, setformError] = useState('');
   const [daoData, setDaoData] = useState({});
 
-  const context = useWeb3Context();
-  const [web3Service] = useContext(Web3Context);
+  const [web3Context] = useContext(Web3Context);
   const [tokenService, setTokenService] = useContext(TokenContext);
   const [, setMolochService] = useContext(MolochContext);
 
   useEffect(() => {
     getDao();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [web3Service]);
+  }, [web3Context.web3Service]);
 
   const getDao = async () => {
     const { isLoading, isError, data } = await client.query({
@@ -83,13 +81,16 @@ const ApplicationWizard = props => {
     isLoading && setLoading(isLoading);
     isError && setError(isError);
 
-    if (data && web3Service) {
-      const molochService = new MolochService(contractAddress, web3Service);
+    if (data && web3Context) {
+      const molochService = new MolochService(
+        contractAddress,
+        web3Context.web3Service,
+      );
       await molochService.initContract();
 
       const tokenService = new TokenService(
         data.moloch.depositToken.tokenAddress,
-        web3Service,
+        web3Context.web3Service,
       );
       await tokenService.initContract();
 
@@ -106,14 +107,17 @@ const ApplicationWizard = props => {
       const application = {
         pledge: values.pledge.pledge,
         shares: values.pledge.shares,
-        applicantAddress: context.account,
+        applicantAddress: web3Context.account,
         molochContractAddress: contractAddress,
         status: 'new',
       };
 
       await tokenService.contract.methods
-        .approve(contractAddress, web3Service.toWei(values.pledge.pledge))
-        .send({ from: context.account })
+        .approve(
+          contractAddress,
+          web3Context.web3Service.toWei(values.pledge.pledge),
+        )
+        .send({ from: web3Context.account })
         .once('transactionHash', _txHash => {
           settxHash(_txHash);
           post(`moloch/apply`, application)
@@ -170,7 +174,7 @@ const ApplicationWizard = props => {
 
   return (
     <div className="Wizard SmallContainer">
-      {context.account ? (
+      {web3Context.account ? (
         <>
           {!loading && daoData.apiData ? (
             <>

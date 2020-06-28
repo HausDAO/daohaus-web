@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useWeb3Context } from 'web3-react';
 
 import MolochV2Abi from '../../contracts/molochV2.json';
 import MolochV2Bytecode from '../../contracts/molochV2Bytecode.json';
@@ -15,8 +14,7 @@ const SummonAdvV2Form = props => {
   const [loading, setLoading] = useState(false);
   const [formError, setformError] = useState('');
   const [txHash, setTxHash] = useState();
-  const context = useWeb3Context();
-  const [web3Service] = useContext(Web3Context);
+  const [web3Context] = useContext(Web3Context);
 
   return (
     <>
@@ -86,7 +84,7 @@ const SummonAdvV2Form = props => {
 
               try {
                 const cacheMoloch = {
-                  summonerAddress: context.account,
+                  summonerAddress: web3Context.account,
                   name: values.name.trim(),
                   minimumTribute: values.minimumTribute,
                   description: values.description,
@@ -95,12 +93,12 @@ const SummonAdvV2Form = props => {
                 // cache dao incase of web3 timeout timeout
                 const cacheId = await post('moloch/orphan', cacheMoloch);
 
-                // const factoryContract = await web3Service.initContract(
+                // const factoryContract = await web3Context.web3Service.initContract(
                 //   FactoryAbi,
                 //   process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
                 // );
 
-                const molochV2Contract = await web3Service.createContract(
+                const molochV2Contract = await web3Context.web3Service.createContract(
                   MolochV2Abi,
                 );
 
@@ -116,7 +114,7 @@ const SummonAdvV2Form = props => {
                 const deployedContract = await molochV2Contract.deploy({
                   data: MolochV2Bytecode.object,
                   arguments: [
-                    context.account,
+                    web3Context.account,
                     values.approvedTokens.split(',').map(item => item.trim()),
                     values.periodDuration,
                     values.votingPeriodLength,
@@ -130,7 +128,7 @@ const SummonAdvV2Form = props => {
                 await deployedContract
                   .send(
                     {
-                      from: context.account,
+                      from: web3Context.account,
                     },
                     function(error, transactionHash) {
                       console.log(

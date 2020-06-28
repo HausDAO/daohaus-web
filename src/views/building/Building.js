@@ -5,7 +5,6 @@ import { GET_MOLOCH } from '../../util/queries';
 
 import './Building.scss';
 import { Web3Context } from '../../contexts/ContractContexts';
-import { useWeb3Context } from 'web3-react';
 import { get, post, remove } from '../../util/requests';
 
 import FactoryAbi from '../../contracts/factoryV2.json';
@@ -20,8 +19,8 @@ const Building = props => {
   const [txHash, setTxHash] = useState();
   const [unregisteredDao, setUnregisteredDao] = useState();
   const [delay, setDelay] = useState(2000);
-  const context = useWeb3Context();
-  const [web3Service] = useContext(Web3Context);
+
+  const [web3Context] = useContext(Web3Context);
   const client = useApolloClient();
 
   useInterval(async () => {
@@ -47,7 +46,7 @@ const Building = props => {
   }, delay);
 
   const fetchOrphan = async () => {
-    if (context.account) {
+    if (web3Context.account) {
       const orphan = await get(
         `moloch/orphans/contract/${match.params.contractAddress.toLowerCase()}`,
       );
@@ -64,7 +63,7 @@ const Building = props => {
 
     //get all events of this moloch should not be more than one
     // user should be summonor
-    const factoryContract = web3Service.initContract(
+    const factoryContract = web3Context.web3Service.initContract(
       FactoryAbi,
       process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
     );
@@ -73,7 +72,7 @@ const Building = props => {
       .registerDao(match.params.contractAddress, unregisteredDao.name, 2)
       .send(
         {
-          from: context.account,
+          from: web3Context.account,
         },
         function(error, transactionHash) {
           console.log(error, transactionHash);
@@ -82,7 +81,7 @@ const Building = props => {
       )
       .on('receipt', function() {
         const newMoloch = {
-          summonerAddress: context.account,
+          summonerAddress: web3Context.account,
           contractAddress: match.params.contractAddress,
           name: unregisteredDao.name,
           minimumTribute: unregisteredDao.minimumTribute,

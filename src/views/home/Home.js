@@ -10,7 +10,7 @@ import { Web3Context } from '../../contexts/ContractContexts';
 
 const Home = () => {
   //const context = useWeb3Context();
-  const [w3context] = useContext(Web3Context);
+  const [web3context] = useContext(Web3Context);
 
   const [molochVersion, setMolochVersion] = useState('all');
 
@@ -31,7 +31,7 @@ const Home = () => {
         </h1>
         <h2>Discover and pledge to join existing daos.</h2>
         <h2>Or summon your own.</h2>
-        {w3context && w3context.account ? (
+        {web3context && web3context.account ? (
           <SummonButton />
         ) : (
           <ActivateButton msg={'Sign in'} />

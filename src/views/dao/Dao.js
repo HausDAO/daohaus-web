@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
-import { useWeb3Context } from 'web3-react';
 import { useApolloClient } from '@apollo/react-hooks';
 import queryString from 'query-string';
 
@@ -27,9 +26,8 @@ import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 import './Dao.scss';
 
 const Dao = props => {
-  const context = useWeb3Context();
   const client = useApolloClient();
-  const [web3Service] = useContext(Web3Context);
+  const [web3Context] = useContext(Web3Context);
 
   const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
@@ -55,29 +53,29 @@ const Dao = props => {
   useEffect(() => {
     getDao();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [web3Service]);
+  }, [web3Context.web3Service]);
 
   useEffect(() => {
     setUpContract();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [web3Service]);
+  }, [web3Context.web3Service]);
 
   useEffect(() => {
     if (!_.isEmpty(daoData)) {
       getMembers(daoData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [context]);
+  }, [web3Context]);
 
   const closeMessage = () => {
     setMessage(null);
   };
 
   const setUpContract = async () => {
-    if (web3Service) {
+    if (web3Context.web3Service) {
       const molochService = new MolochService(
         props.match.params.contractAddress,
-        web3Service,
+        web3Context.web3Service,
       );
       await molochService.initContract();
 
@@ -94,7 +92,7 @@ const Dao = props => {
     isLoading && setLoading(loading);
     isError && setError(error);
 
-    if (data && web3Service) {
+    if (data && web3Context.web3Service) {
       if (!data.moloch) {
         const versionPath = props.location.pathname.split('/')[2];
         props.history.push(
@@ -104,7 +102,7 @@ const Dao = props => {
       }
       const tokenService = new TokenService(
         data.moloch.depositToken.tokenAddress,
-        web3Service,
+        web3Context.web3Service,
       );
       await tokenService.initContract();
 
@@ -135,19 +133,19 @@ const Dao = props => {
 
   const checkIfMemberOrApplicant = (memberAddresses, members) => {
     const isMember =
-      context.active && memberAddresses.includes(context.account.toLowerCase());
+      web3Context.account && memberAddresses.includes(web3Context.account.toLowerCase());
     const applicantAddresses = members.applicants.map(app => {
       return app.applicantAddress.toLowerCase();
     });
     const isApplicant =
-      context.active &&
-      applicantAddresses.includes(context.account.toLowerCase());
+      web3Context.account &&
+      applicantAddresses.includes(web3Context.account.toLowerCase());
 
     setVisitor({ isMember, isApplicant });
   };
 
   const bankValue = value => {
-    const amt = web3Service.fromWei(value);
+    const amt = web3Context.web3Service.fromWei(value);
     return parseFloat(amt).toFixed(2);
   };
 
@@ -174,7 +172,7 @@ const Dao = props => {
           contractAddress={daoData.id}
           setComplete={setUpdateRageView}
           memberData={memberData}
-          account={context.account.toLowerCase()}
+          account={web3Context.account.toLowerCase()}
         />
       ) : emailSignupView && molochService ? (
         <div className="View__EmailSignup">
@@ -215,7 +213,7 @@ const Dao = props => {
                           Get Email Updates
                         </button>
                       )}
-                      {context.active ? (
+                      {web3Context.active ? (
                         <>
                           {visitor.isMember ? (
                             <>

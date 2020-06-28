@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useQuery, useApolloClient } from 'react-apollo';
 
 import { GET_GASSY, GET_MEMBER_GAS } from '../../util/queries';
-import { useWeb3Context } from 'web3-react';
 import { Web3Context } from '../../contexts/ContractContexts';
 
 import './Gas.scss';
@@ -11,9 +10,8 @@ import { getEthPrice } from '../../util/prices';
 import ActivateButton from '../../components/activateButton/ActivateButton';
 
 const Gas = () => {
-  const context = useWeb3Context();
   const client = useApolloClient();
-  const [web3Service] = useContext(Web3Context);
+  const [web3Context] = useContext(Web3Context);
   const [yourGas, setYourGas] = useState();
   const [isLeader, setIsLeader] = useState();
   const [ethPrice, setEthPrice] = useState();
@@ -34,25 +32,26 @@ const Gas = () => {
     const getYourGas = async () => {
       const { data } = await client.query({
         query: GET_MEMBER_GAS,
-        variables: { memberAddress: context.account },
+        variables: { memberAddress: web3Context.account },
       });
       const totalGas = data.badges[0].totalGas || 0;
 
-      setYourGas(web3Service.fromWei(totalGas));
+      setYourGas(web3Context.web3Service.fromWei(totalGas));
     };
 
-    if (context.account) {
+    if (web3Context.account) {
       getYourGas();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [context.account]);
+  }, [web3Context.account]);
 
   useEffect(() => {
     if (yourGas) {
       setIsLeader(
         data.gassiest.findIndex(leader => {
           return (
-            leader.memberAddress.toLowerCase() === context.account.toLowerCase()
+            leader.memberAddress.toLowerCase() ===
+            web3Context.account.toLowerCase()
           );
         }),
       );
