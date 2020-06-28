@@ -4,22 +4,28 @@ import Web3Modal from 'web3modal';
 import Web3 from 'web3';
 
 import Web3Service from '../util/web3Service';
-import { USER_TYPE, w3connect, createWeb3User } from '../components/auth/Auth';
+import { USER_TYPE, w3connect, providerOptions } from '../components/auth/Auth';
+import { getChainData } from '../components/auth/chains';
 
 export const MolochContext = createContext(null);
 export const Web3Context = createContext();
 export const TokenContext = createContext();
 
 const ContractContexts = ({ children }) => {
-  const [web3, setWeb3] = useState();
+  const [w3Context, setW3Context] = useState();
   const [token, setToken] = useState();
   const [moloch, setMoloch] = useState();
 
   useEffect(() => {
     const setUp = async () => {
+      const web3Modal = new Web3Modal({
+        network: getChainData(+process.env.REACT_APP_NETWORK_ID).network, // optional
+        providerOptions, // required
+        cacheProvider: true,
+      });
       let loginType = localStorage.getItem('loginType') || USER_TYPE.READ_ONLY;
 
-      if (Web3Modal.cachedProvider) {
+      if (web3Modal.cachedProvider) {
         loginType = USER_TYPE.WEB3;
       }
 
@@ -28,16 +34,18 @@ const ContractContexts = ({ children }) => {
 
         switch (loginType) {
           case USER_TYPE.WEB3: {
-            if (Web3Modal.cachedProvider) {
-              const { Web3Modal: w3c, web3, provider } = await w3connect(
-                Web3Modal,
+            if (web3Modal.cachedProvider) {
+              console.log('cached provider');
+              
+              const w3m = await w3connect(
+                web3Modal,
               );
-              const [account] = await web3.eth.getAccounts();
-              w3c.store = { web3, provider };
+              console.log('web3 modal', w3m);
+              
+              const [user] = await w3m.web3.eth.getAccounts();
 
-              const web3Service = new Web3Service(web3);
-              const user = createWeb3User(account);
-              setWeb3({web3Service, user});
+              const web3Service = new Web3Service(w3m.web3);
+              setW3Context({web3Service, user});
             } else {
               // read only
               const web3 = new Web3(
@@ -46,7 +54,8 @@ const ContractContexts = ({ children }) => {
                 ),
               );
               const web3Service = new Web3Service(web3);
-              setWeb3({web3Service, user: {}});
+              setW3Context({web3Service, user: ""});
+              
             }
             break;
           }
@@ -59,7 +68,7 @@ const ContractContexts = ({ children }) => {
               ),
             );
             const web3Service = new Web3Service(web3);
-            setWeb3({web3Service, user: {}});
+            setW3Context({web3Service, user: ""});
             break;
         }
         // set user
@@ -78,7 +87,7 @@ const ContractContexts = ({ children }) => {
           ),
         );
         const web3Service = new Web3Service(web3);
-        setWeb3({web3Service, user: {}});
+        setW3Context({web3Service, user: ""});
       } finally {
         // set dao service
       }
@@ -86,7 +95,7 @@ const ContractContexts = ({ children }) => {
     setUp();
   }, []);
   return (
-    <Web3Context.Provider value={[web3, setWeb3]}>
+    <Web3Context.Provider value={[w3Context, setW3Context]}>
       <MolochContext.Provider value={[moloch, setMoloch]}>
         <TokenContext.Provider value={[token, setToken]}>
           {children}
