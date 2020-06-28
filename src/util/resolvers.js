@@ -5,6 +5,7 @@ import MolochService from './molochService';
 
 import TokenService from './tokenService';
 import { get } from './requests';
+import { titleMaker, descriptionMaker } from './helpers';
 
 let _web3;
 if (
@@ -90,6 +91,30 @@ export const resolvers = (() => {
           !abortedOrCancelled &&
           (needsMemberVote || needsProcessing || !proposal.sponsored)
         );
+      },
+      proposalType: proposal => {
+        let type;
+        if (proposal.molochVersion === '1') {
+          type = 'V1 Proposal';
+        } else if (proposal.newMember) {
+          return 'Member Proposal';
+        } else if (proposal.whitelist) {
+          return 'Whitelist Token Proposal';
+        } else if (proposal.guildkick) {
+          return 'Guildkick Proposal';
+        } else if (proposal.trade) {
+          return 'Trade Proposal';
+        } else {
+          return 'Funding Proposal';
+        }
+
+        return type;
+      },
+      title: proposal => {
+        return titleMaker(proposal);
+      },
+      description: proposal => {
+        return descriptionMaker(proposal);
       },
     },
   };
