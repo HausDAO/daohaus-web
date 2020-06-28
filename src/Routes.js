@@ -6,9 +6,7 @@ import Dao from './views/dao/Dao';
 import DaoV2 from './views/dao/DaoV2';
 import Summon from './views/summon/Summon';
 import Apply from './views/apply/Apply';
-// import Profile from './views/profile/Profile';
-import Profile from './views/profile/NewProfile';
-
+import Profile from './views/profile/Profile';
 import Stats from './views/stats/Stats';
 import Building from './views/building/Building';
 import FourOhFour from './views/fourOhFour/FourOhFour';

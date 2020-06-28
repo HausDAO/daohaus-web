@@ -18,19 +18,25 @@ const ProfileActivityFeed = ({ daos }) => {
         return prop.unread;
       });
       unreadProposals = [...unreadProposals, ...activeProps];
-      proposalActivities = [...proposalActivities, ...dao.proposals].map(
-        proposal => {
-          return { ...proposal, daoAddress: dao.id, daoTitle: dao.title };
-        },
-      );
-      rageActivities = [...rageActivities, ...dao.rageQuits].map(rage => {
-        return { ...rage, daoAddress: dao.id, daoTitle: dao.title };
-      });
+
+      proposalActivities = [
+        ...proposalActivities,
+        ...activeProps.map(proposal => {
+          return { ...proposal, daoTitle: dao.title };
+        }),
+      ];
+
+      rageActivities = [
+        ...rageActivities,
+        ...dao.rageQuits.map(rage => {
+          return { ...rage, daoTitle: dao.title };
+        }),
+      ];
     });
 
     setActivities(
       [...proposalActivities, ...rageActivities].sort(
-        (a, b) => +a.createdAt - +b.createdAt,
+        (a, b) => +b.createdAt - +a.createdAt,
       ),
     );
     setUnread(unreadProposals.length);

@@ -5,7 +5,6 @@ import ActivityCard from './ActivityCard';
 import './ActivityFeed.scss';
 
 const ActivityFeed = ({ activities }) => {
-  console.log('activities', activities);
   return (
     <div className="ActivityFeed">
       {activities.map(activity => (

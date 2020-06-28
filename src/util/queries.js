@@ -130,10 +130,11 @@ export const GET_MEMBER_MOLOCHES = gql`
         id
         title
         version
-        proposals(orderBy: proposalId, orderDirection: desc, first: 20) {
+        proposals(orderBy: proposalId, orderDirection: desc, first: 10) {
           id
           createdAt
           proposalId
+          proposalIndex
           processed
           sponsored
           details
@@ -146,6 +147,11 @@ export const GET_MEMBER_MOLOCHES = gql`
           votingPeriodStarts
           votingPeriodEnds
           gracePeriodEnds
+          molochAddress
+          molochVersion
+          proposalType @client
+          description @client
+          title @client
           unread @client
           votes(where: { memberAddress: $memberAddress }) {
             id
@@ -158,6 +164,7 @@ export const GET_MEMBER_MOLOCHES = gql`
           shares
           loot
           memberAddress
+          molochAddress
         }
       }
     }
