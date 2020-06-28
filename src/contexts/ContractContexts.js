@@ -35,17 +35,13 @@ const ContractContexts = ({ children }) => {
         switch (loginType) {
           case USER_TYPE.WEB3: {
             if (web3Modal.cachedProvider) {
-              console.log('cached provider');
-              
-              const w3m = await w3connect(
-                web3Modal,
-              );
-              console.log('web3 modal', w3m);
-              
+
+              const w3m = await w3connect(web3Modal);
+
               const [account] = await w3m.web3.eth.getAccounts();
 
               const web3Service = new Web3Service(w3m.web3);
-              setW3Context({web3Service, account});
+              setW3Context({ web3Service, account });
             } else {
               // read only
               const web3 = new Web3(
@@ -54,8 +50,7 @@ const ContractContexts = ({ children }) => {
                 ),
               );
               const web3Service = new Web3Service(web3);
-              setW3Context({web3Service, account: ""});
-              
+              setW3Context({ web3Service, account: '' });
             }
             break;
           }
@@ -68,7 +63,7 @@ const ContractContexts = ({ children }) => {
               ),
             );
             const web3Service = new Web3Service(web3);
-            setW3Context({web3Service, account: ""});
+            setW3Context({ web3Service, account: '' });
             break;
         }
         // set account
@@ -87,7 +82,7 @@ const ContractContexts = ({ children }) => {
           ),
         );
         const web3Service = new Web3Service(web3);
-        setW3Context({web3Service, account: ""});
+        setW3Context({ web3Service, account: '' });
       } finally {
         // set dao service
       }

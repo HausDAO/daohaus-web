@@ -1,0 +1,22 @@
+@import '../../variables';
+
+.ProfileActivityFeed__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.ActivityCard {
+  padding: 20px;
+  background-color: white;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.ActivityCard__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: $tertiary;
+}

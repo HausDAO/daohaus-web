@@ -11,7 +11,7 @@ export const GET_MOLOCHES = gql`
       version
       totalShares
       guildBankAddress
-      members {
+      members(where: { exists: true }) {
         id
       }
       proposals {
@@ -125,28 +125,46 @@ export const GET_MEMBER_MOLOCHES = gql`
   query members($memberAddress: String!) {
     members(where: { memberAddress: $memberAddress, exists: true }) {
       id
+      memberAddress
       moloch {
-        apiData @client
-        guildBankValue @client
         id
         title
-        summoner
         version
-        totalShares
-        guildBankAddress
-        members {
+        proposals(orderBy: proposalId, orderDirection: desc, first: 10) {
           id
+          createdAt
+          proposalId
+          proposalIndex
+          processed
+          sponsored
+          details
+          newMember
+          whitelist
+          guildkick
+          trade
+          cancelled
+          aborted
+          votingPeriodStarts
+          votingPeriodEnds
+          gracePeriodEnds
+          molochAddress
+          molochVersion
+          proposalType @client
+          description @client
+          title @client
+          unread @client
+          votes(where: { memberAddress: $memberAddress }) {
+            id
+            memberAddress
+          }
         }
-        proposals {
+        rageQuits {
           id
-        }
-        approvedTokens {
-          id
-        }
-        depositToken {
-          tokenAddress
-          symbol
-          decimals
+          createdAt
+          shares
+          loot
+          memberAddress
+          molochAddress
         }
       }
     }
