@@ -6,9 +6,10 @@ import './DaoCard.scss';
 
 const DaoCard = ({ dao }) => {
   const [web3Service] = useContext(Web3Context);
+  
 
   const bankValue = value => {
-    const amt = web3Service.fromWei(value);
+    const amt = web3Service.web3Service.fromWei(value);
     return parseFloat(amt).toFixed(2);
   };
 

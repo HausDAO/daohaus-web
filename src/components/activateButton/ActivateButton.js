@@ -1,20 +1,38 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import Web3Modal from 'web3modal';
+
 import { Link } from 'react-router-dom';
-import { useWeb3Context } from 'web3-react';
+
 import IconEthereum from '../../assets/icon__ethereum.png';
 
 import './ActivateButton.scss';
+import { getChainData } from '../auth/chains';
+import { w3connect, providerOptions } from '../auth/Auth';
+import { Web3Context } from '../../contexts/ContractContexts';
 
 const ActivateButton = props => {
   const msg = props.msg || '';
-  const context = useWeb3Context();
+  const [web3Service] = useContext(Web3Context);
+
 
   const activate = async () => {
-    await context.setConnector('MetaMask');
+    const web3Connect = new Web3Modal({
+      network: getChainData(+process.env.REACT_APP_NETWORK_ID).network, // optional
+      providerOptions, // required
+      cacheProvider: true,
+    });
+    try {
+      await w3connect(web3Connect);
+    } catch (err) {
+      console.log('error activating', err);
+      
+    }
+
+    
   };
   return (
     <>
-      {context.error && (
+      {/* {context.error && (
         <>
           <button
             onClick={() =>
@@ -33,8 +51,8 @@ const ActivateButton = props => {
         <>
           <Link to={`/profile/${context.account}`}>Profile</Link>
         </>
-      )}
-      {!context.active && !context.error && (
+      )} */}
+      {true && (
         <button onClick={() => activate()}>
           {msg ? (
             <span>{msg}</span>
