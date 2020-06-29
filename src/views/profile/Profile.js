@@ -12,7 +12,6 @@ import './Profile.scss';
 import ProfileActivityFeed from '../../components/ActivityFeed/ProfileActivityFeed';
 
 const Profile = props => {
-
   const [memberDaos, setMemberDaos] = useState([]);
   const [web3context] = useContext(Web3Context);
 
@@ -129,7 +128,7 @@ const Profile = props => {
           <div className="Profile__balances">
             <p>Boosts</p>
             <p>$Haus</p>
-            <p>Coming soon</p>
+            <p>Coming soon :)</p>
           </div>
         </div>
       </div>
@@ -139,10 +138,10 @@ const Profile = props => {
         {error ? <p>Error - are you on mainnet?</p> : null}
 
         {unregisteredDaos.length ? (
-          <div className="Section">
+          <>
             <h2>Unregistered Moloch V2 Daos</h2>
             {renderUnregisteredList()}
-          </div>
+          </>
         ) : null}
 
         {data && memberDaos.length ? (
