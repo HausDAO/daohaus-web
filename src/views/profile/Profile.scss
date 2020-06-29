@@ -3,18 +3,53 @@
 .Profile__id {
   text-align: left;
   background-color: $primary-background;
-
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  padding: 50px 0px 50px;
+  &--Header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    > .Account {
+      margin-left: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      > h2 {
+        color: white;
+        margin: 0;
+      }
+      > p {
+        width: 120px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 0;
+      }
+    }
+  }
+  p {
+    color: white;
+  }
+  @media (max-width: $grid) {
+    flex-wrap: wrap;
+  }
 }
 
 .Profile__balances {
   background-color: $primary;
   padding: $base-padding;
   border-radius: 10px;
-
-  p {
-    color: white;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  > div {
+    display: flex;
+    flex-direction: column;
+    p {
+      color: white;
+    }
   }
 }

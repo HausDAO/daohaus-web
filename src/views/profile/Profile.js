@@ -75,26 +75,28 @@ const Profile = props => {
     <>
       <div className="Profile__id">
         <div>
-          {profile.image && profile.image[0] ? (
-            <div
-              className="ProfileImg"
-              style={{
-                backgroundImage: `url(${'https://ipfs.infura.io/ipfs/' +
-                  profile.image[0].contentUrl['/']})`,
-              }}
-            >
-              {''}
+          <div className="Profile__id--Header">
+            {profile.image && profile.image[0] ? (
+              <div
+                className="ProfileImg"
+                style={{
+                  backgroundImage: `url(${'https://ipfs.infura.io/ipfs/' +
+                    profile.image[0].contentUrl['/']})`,
+                }}
+              >
+                {''}
+              </div>
+            ) : null}
+            <div className="Account">
+              {profile.name ? (
+                <h2>
+                  {profile.name}{' '}
+                  {profile.emoji ? <span>{profile.emoji} </span> : null}
+                </h2>
+              ) : null}
+              <p className="Data">{props.match.params.account}</p>
             </div>
-          ) : null}
-
-          {profile.name ? (
-            <h2>
-              {profile.name}{' '}
-              {profile.emoji ? <span>{profile.emoji} </span> : null}
-            </h2>
-          ) : null}
-
-          <p className="Data">{props.match.params.account}</p>
+          </div>
 
           {profile.description ? <p>{profile.description}</p> : null}
 
@@ -126,9 +128,14 @@ const Profile = props => {
         </div>
         <div>
           <div className="Profile__balances">
-            <p>Boosts</p>
-            <p>$Haus</p>
-            <p>Coming soon :)</p>
+            <div className="Profile__balances--Boosts">
+              <p>Boosts</p>
+              <p>0</p>
+            </div>
+            <div className="Profile__balances--HAUS">
+              <p>$HAUS</p>
+              <p>Coming soon :)</p>
+            </div>
           </div>
         </div>
       </div>
