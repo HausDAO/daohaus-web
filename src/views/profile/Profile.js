@@ -73,68 +73,70 @@ const Profile = props => {
 
   return (
     <>
-      <div className="Profile__id">
-        <div>
-          <div className="Profile__id--Header">
-            {profile.image && profile.image[0] ? (
-              <div
-                className="ProfileImg"
-                style={{
-                  backgroundImage: `url(${'https://ipfs.infura.io/ipfs/' +
-                    profile.image[0].contentUrl['/']})`,
-                }}
-              >
-                {''}
-              </div>
-            ) : null}
-            <div className="Account">
-              {profile.name ? (
-                <h2>
-                  {profile.name}{' '}
-                  {profile.emoji ? <span>{profile.emoji} </span> : null}
-                </h2>
-              ) : null}
-              <p className="Data">{props.match.params.account}</p>
-            </div>
-          </div>
-
-          {profile.description ? <p>{profile.description}</p> : null}
-
-          {profile.website ? (
-            <>
-              {profile.website.indexOf('http') > 0 ? (
-                <a
-                  href={profile.website.match}
-                  target="_blank"
-                  rel="noreferrer noopener"
+      <div className="ProfileHero">
+        <div className="Profile__id">
+          <div>
+            <div className="Profile__id--Header">
+              {profile.image && profile.image[0] ? (
+                <div
+                  className="ProfileImg"
+                  style={{
+                    backgroundImage: `url(${'https://ipfs.infura.io/ipfs/' +
+                      profile.image[0].contentUrl['/']})`,
+                  }}
                 >
-                  {profile.website}
-                </a>
-              ) : (
-                <p>{profile.website}</p>
-              )}
-            </>
-          ) : null}
-
-          {web3context && web3context.account === props.match.params.account && (
-            <a
-              href="https://3box.io/hub"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Edit Profile on 3Box
-            </a>
-          )}
-        </div>
-        <div>
-          <div className="Profile__balances">
-            <div className="Profile__balances--Boosts">
-              <p>Boosts</p>
-              <p>0</p>
+                  {''}
+                </div>
+              ) : null}
+              <div className="Account">
+                {profile.name ? (
+                  <h2>
+                    {profile.name}{' '}
+                    {profile.emoji ? <span>{profile.emoji} </span> : null}
+                  </h2>
+                ) : null}
+                <p className="Data">{props.match.params.account}</p>
+              </div>
             </div>
-            <div className="Profile__balances--HAUS">
-              <p>$HAUS</p>
-              <p>Coming soon :)</p>
+
+            {profile.description ? <p>{profile.description}</p> : null}
+
+            {profile.website ? (
+              <>
+                {profile.website.indexOf('http') > 0 ? (
+                  <a
+                    href={profile.website.match}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    {profile.website}
+                  </a>
+                ) : (
+                  <p>{profile.website}</p>
+                )}
+              </>
+            ) : null}
+
+            {web3context && web3context.account === props.match.params.account && (
+              <a
+                href="https://3box.io/hub"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Edit Profile on 3Box
+              </a>
+            )}
+          </div>
+          <div>
+            <div className="Profile__balances">
+              <div className="Profile__balances--Boosts">
+                <p>Boosts</p>
+                <p>0</p>
+              </div>
+              <div className="Profile__balances--HAUS">
+                <p>$HAUS</p>
+                <p>Coming soon :)</p>
+              </div>
             </div>
           </div>
         </div>
@@ -152,10 +154,10 @@ const Profile = props => {
         ) : null}
 
         {data && memberDaos.length ? (
-          <div className="Section">
+          <>
             <ProfileMemberList daos={memberDaos} />
             <ProfileActivityFeed daos={memberDaos} />
-          </div>
+          </>
         ) : null}
       </div>
     </>

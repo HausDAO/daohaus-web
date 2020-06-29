@@ -1,12 +1,21 @@
 @import '../../variables';
 
-.Profile__id {
-  text-align: left;
+.ProfileHero {
   background-color: $primary-background;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   padding: 50px 0px 50px;
+}
+
+.Profile__id {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
   &--Header {
     display: flex;
     align-items: center;
@@ -44,7 +53,8 @@
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: calc(100% - 100px);
+  min-width: 220px;
   > div {
     display: flex;
     flex-direction: column;

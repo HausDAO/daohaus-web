@@ -20,7 +20,7 @@ const ActivityCard = ({ activity }) => {
           <div
             className="Daolist__Avatar"
             style={{
-              backgroundImage: `url("${makeBlockie(activity.daoTitle)}")`,
+              backgroundImage: `url("${makeBlockie(activity.molochAddress)}")`,
             }}
           >
             <p className="Daolist__Avatar--Initial">
