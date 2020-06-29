@@ -39,7 +39,7 @@ const Gas = () => {
       setYourGas(web3Context.web3Service.fromWei(totalGas));
     };
 
-    if (web3Context.account) {
+    if (web3Context && web3Context.account) {
       getYourGas();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

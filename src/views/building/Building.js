@@ -46,7 +46,7 @@ const Building = props => {
   }, delay);
 
   const fetchOrphan = async () => {
-    if (web3Context.account) {
+    if (web3Context && web3Context.account) {
       const orphan = await get(
         `moloch/orphans/contract/${match.params.contractAddress.toLowerCase()}`,
       );

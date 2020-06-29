@@ -31,19 +31,19 @@ const DaoV2 = props => {
   useEffect(() => {
     getDao();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [web3Context.web3Service]);
+  }, [web3Context]);
 
   useEffect(() => {
     setUpContract();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [web3Context.web3Service]);
+  }, [web3Context]);
 
   const closeMessage = () => {
     setMessage(null);
   };
 
   const setUpContract = async () => {
-    if (web3Context.web3Service) {
+    if (web3Context && web3Context.web3Service) {
       const molochService = new MolochService(
         props.match.params.contractAddress,
         web3Context.web3Service,
@@ -63,7 +63,7 @@ const DaoV2 = props => {
     isLoading && setLoading(loading);
     isError && setError(error);
 
-    if (data && web3Context.web3Service) {
+    if (data && web3Context && web3Context.web3Service) {
       if (!data.moloch) {
         const versionPath = props.location.pathname.split('/')[2];
         props.history.push(
