@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import makeBlockie from 'ethereum-blockies-base64';
 
 import './ProfileMemberList.scss';
 
@@ -28,17 +29,24 @@ const ProfileMemberList = ({ daos }) => {
     const healthCount = recentRages.length + recentProposals.length;
 
     return (
-      <div key={dao.id}>
+      <div key={dao.id} className="Daolist__Item">
         <a
           href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${dao.id}`}
           target="_blank"
           rel="noreferrer noopener"
         >
-          <div className="Daolist__avatar">
-            {healthCount ? <span>{healthCount}</span> : null}
-            <p>{dao.title.substr(0, 1)}</p>
+          <div
+            className="Daolist__Avatar"
+            style={{
+              backgroundImage: `url("${makeBlockie(dao.id)}")`,
+            }}
+          >
+            {healthCount ? (
+              <span className="NoteCount">{healthCount}</span>
+            ) : null}
+            <p className="Daolist__Avatar--Initial">{dao.title.substr(0, 1)}</p>
           </div>
-          <p>{dao.title}</p>
+          <p className="Daolist__Item--Title">{dao.title}</p>
         </a>
       </div>
     );

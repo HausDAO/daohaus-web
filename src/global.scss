@@ -98,6 +98,27 @@ button,
   }
 }
 
+// Dao/Profile Elements
+
+.Daolist__Header {
+  display: flex;
+  align-items: center;
+  .Daolist__Avatar {
+    margin: 0;
+    margin-right: 15px;
+  }
+}
+
+.NoteCount {
+  background-color: $red;
+  border-radius: 25px;
+  padding: 3px 5px;
+  color: white;
+  font-size: 0.75em;
+  min-width: 11px;
+  text-align: center;
+}
+
 // Layout
 
 .Hero {
