@@ -2,8 +2,6 @@ import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { FormikWizard } from 'formik-wizard';
 
-import { useWeb3Context } from 'web3-react';
-
 import MolochV2Abi from '../../contracts/molochV2.json';
 import MolochV2Bytecode from '../../contracts/molochV2Bytecode.json';
 
@@ -47,17 +45,16 @@ function FormWrapper({
 }
 
 const SummonWizardV2 = props => {
-  const context = useWeb3Context();
   const [loading, setLoading] = useState(false);
   const [formError, setformError] = useState('');
   const [txHash, setTxHash] = useState();
 
-  const [web3Service] = useContext(Web3Context);
+  const [web3Context] = useContext(Web3Context);
 
   const handleSubmit = async values => {
     if (
-      parseInt(web3Service.toWei(values.deposit.proposalDeposit)) <
-      parseInt(web3Service.toWei(values.deposit.processingReward))
+      parseInt(web3Context.web3Service.toWei(values.deposit.proposalDeposit)) <
+      parseInt(web3Context.web3Service.toWei(values.deposit.processingReward))
     ) {
       setformError('Deposit must be greater than reward.');
       setLoading(false);
@@ -68,7 +65,7 @@ const SummonWizardV2 = props => {
 
     try {
       const cacheMoloch = {
-        summonerAddress: context.account,
+        summonerAddress: web3Context.account,
         name: values.dao.name.trim(),
         minimumTribute: values.currency.minimumTribute,
         description: values.dao.description,
@@ -77,26 +74,28 @@ const SummonWizardV2 = props => {
       // cache dao incase of web3 timeout timeout
       const cacheId = await post('moloch/orphan', cacheMoloch);
 
-      const molochV2Contract = await web3Service.createContract(MolochV2Abi);
+      const molochV2Contract = await web3Context.web3Service.createContract(
+        MolochV2Abi,
+      );
 
       const deployedContract = await molochV2Contract.deploy({
         data: '0x' + MolochV2Bytecode.object,
         arguments: [
-          context.account,
+          web3Context.account,
           [values.currency.approvedToken],
           values.timing.periodDuration,
           values.timing.votingPeriodLength,
           values.timing.gracePeriodLength,
-          '' + web3Service.toWei(values.deposit.proposalDeposit),
+          '' + web3Context.web3Service.toWei(values.deposit.proposalDeposit),
           values.deposit.dilutionBound,
-          '' + web3Service.toWei(values.deposit.processingReward),
+          '' + web3Context.web3Service.toWei(values.deposit.processingReward),
         ],
       });
 
       await deployedContract
         .send(
           {
-            from: context.account,
+            from: web3Context.account,
           },
           function(error, transactionHash) {
             console.log('any error?: ', error, 'tx: ', transactionHash);
@@ -173,7 +172,7 @@ const SummonWizardV2 = props => {
 
   return (
     <>
-      {context.account ? (
+      {web3Context.account ? (
         <>
           {!loading ? (
             <>

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useWeb3Context } from 'web3-react';
+import React, { useState, useContext } from 'react';
 
 import SummonButton from '../../components/summonButton/summonButton';
 import ActivateButton from '../../components/activateButton/ActivateButton';
@@ -7,9 +6,12 @@ import HeroBackground from '../../assets/daohaus__hero--falling.png';
 import DaoFetcher from '../../components/daoFetch/DaoFetcher';
 
 import './Home.scss';
+import { Web3Context } from '../../contexts/ContractContexts';
 
 const Home = () => {
-  const context = useWeb3Context();
+  //const context = useWeb3Context();
+  const [web3context] = useContext(Web3Context);
+
   const [molochVersion, setMolochVersion] = useState('all');
 
   const handleVersionChange = version => {
@@ -29,7 +31,7 @@ const Home = () => {
         </h1>
         <h2>Discover and pledge to join existing daos.</h2>
         <h2>Or summon your own.</h2>
-        {context.active && !context.error ? (
+        {web3context && web3context.account ? (
           <SummonButton />
         ) : (
           <ActivateButton msg={'Sign in'} />

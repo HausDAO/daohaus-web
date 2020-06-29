@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useWeb3Context } from 'web3-react';
+import React, { useState, useContext } from 'react';
 
 import SummonAdvForm from '../../components/summonAdvForm/SummonAdvForm';
 import SummonWizard from '../../components/summonWizard/SummonWizard';
@@ -7,9 +6,11 @@ import SummonAdvV2Form from '../../components/summonAdvV2Form/SummonAdvV2Form';
 import SummonWizardV2 from '../../components/summonWizardV2/SummonWizardV2';
 
 import './Summon.scss';
+import { Web3Context } from '../../contexts/ContractContexts';
 
 const Summon = () => {
-  const context = useWeb3Context();
+  const [web3context] = useContext(Web3Context);
+
   const [wizardForm, setWizardForm] = useState(true);
   const [v2Form, setV2Form] = useState(false);
   const [v2Wizard, setV2Wizard] = useState(false);
@@ -28,7 +29,7 @@ const Summon = () => {
 
   return (
     <>
-      {context.account ? (
+      {web3context.account ? (
         <div className="View SmallContainer">
           <div className="Row">
             <p>{wizardForm ? 'Summon (Easy Mode)' : 'Summon (Hard Mode)'}</p>

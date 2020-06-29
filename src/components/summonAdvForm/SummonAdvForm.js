@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useWeb3Context } from 'web3-react';
 
 import FactoryAbi from '../../contracts/factory.json';
 import { post, remove } from '../../util/requests';
@@ -14,8 +13,7 @@ const SummonAdvForm = props => {
   const [loading, setLoading] = useState(false);
   const [formError, setformError] = useState('');
   const [txHash, setTxHash] = useState();
-  const context = useWeb3Context();
-  const [web3Service] = useContext(Web3Context);
+  const [web3Context] = useContext(Web3Context);
 
   return (
     <>
@@ -91,7 +89,7 @@ const SummonAdvForm = props => {
 
               try {
                 const cacheMoloch = {
-                  summonerAddress: context.account,
+                  summonerAddress: web3Context.account,
                   name: values.name.trim(),
                   minimumTribute: values.minimumTribute,
                   description: values.description,
@@ -99,7 +97,7 @@ const SummonAdvForm = props => {
                 // cache dao incase of web3 timeout timeout
                 const cacheId = await post('moloch/orphan', cacheMoloch);
 
-                const factoryContract = await web3Service.initContract(
+                const factoryContract = await web3Context.web3Service.initContract(
                   FactoryAbi,
                   process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS,
                 );
@@ -111,18 +109,18 @@ const SummonAdvForm = props => {
                     values.votingPeriodLength,
                     values.gracePeriodLength,
                     values.abortWindow,
-                    web3Service.web3.utils
+                    web3Context.web3Service.web3.utils
                       .toBN(values.proposalDeposit)
                       .toString(),
                     values.dilutionBound,
-                    web3Service.web3.utils
+                    web3Context.web3Service.web3.utils
                       .toBN(values.processingReward)
                       .toString(),
                     values.name.trim(),
                   )
                   .send(
                     {
-                      from: context.account,
+                      from: web3Context.account,
                     },
                     function(error, transactionHash) {
                       console.log(error, transactionHash);
@@ -160,7 +158,7 @@ const SummonAdvForm = props => {
                       receipt.events.Register.returnValues.moloch;
 
                     const newMoloch = {
-                      summonerAddress: context.account,
+                      summonerAddress: web3Context.account,
                       contractAddress: contractAddress,
                       name: values.name.trim(),
                       minimumTribute: values.minimumTribute,

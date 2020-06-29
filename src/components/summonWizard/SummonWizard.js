@@ -2,8 +2,6 @@ import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { FormikWizard } from 'formik-wizard';
 
-import { useWeb3Context } from 'web3-react';
-
 import FactoryAbi from '../../contracts/factory.json';
 
 import { post, remove } from '../../util/requests';
@@ -46,20 +44,19 @@ function FormWrapper({
 }
 
 const SummonWizard = props => {
-  const context = useWeb3Context();
   const [loading, setLoading] = useState(false);
   const [runOnce, setRunOnce] = useState(false);
   const [formError, setformError] = useState('');
   const [txHash, setTxHash] = useState();
 
-  const [web3Service] = useContext(Web3Context);
+  const [web3Context] = useContext(Web3Context);
 
   const handleSubmit = async values => {
     setLoading(true);
 
     if (
-      parseInt(web3Service.toWei(values.deposit.proposalDeposit)) <
-      parseInt(web3Service.toWei(values.deposit.processingReward))
+      parseInt(web3Context.web3Service.toWei(values.deposit.proposalDeposit)) <
+      parseInt(web3Context.web3Service.toWei(values.deposit.processingReward))
     ) {
       setformError('Deposit must be greater than reward.');
       setLoading(false);
@@ -68,7 +65,7 @@ const SummonWizard = props => {
 
     try {
       const cacheMoloch = {
-        summonerAddress: context.account,
+        summonerAddress: web3Context.account,
         name: values.dao.name.trim(),
         minimumTribute: values.currency.minimumTribute,
         description: values.dao.description,
@@ -77,7 +74,7 @@ const SummonWizard = props => {
       const cacheId = await post('moloch/orphan', cacheMoloch);
       console.log('dao cached', cacheId);
 
-      const factoryContract = await web3Service.initContract(
+      const factoryContract = await web3Context.web3Service.initContract(
         FactoryAbi,
         process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS,
       );
@@ -91,14 +88,14 @@ const SummonWizard = props => {
           values.timing.votingPeriodLength,
           values.timing.gracePeriodLength,
           values.timing.abortWindow,
-          web3Service.toWei(values.deposit.proposalDeposit),
+          web3Context.web3Service.toWei(values.deposit.proposalDeposit),
           values.deposit.dilutionBound,
-          web3Service.toWei(values.deposit.processingReward),
+          web3Context.web3Service.toWei(values.deposit.processingReward),
           values.dao.name.trim(),
         )
         .send(
           {
-            from: context.account,
+            from: web3Context.account,
           },
           function(error, transactionHash) {
             console.log(error, transactionHash);
@@ -136,7 +133,7 @@ const SummonWizard = props => {
           if (!runOnce) {
             setRunOnce(true); // not working
             const newMoloch = {
-              summonerAddress: context.account,
+              summonerAddress: web3Context.account,
               contractAddress: contractAddress,
               name: values.dao.name.trim(),
               minimumTribute: values.currency.minimumTribute,
@@ -173,7 +170,7 @@ const SummonWizard = props => {
 
   return (
     <>
-      {context.account ? (
+      {web3Context.account ? (
         <>
           {!loading ? (
             <>

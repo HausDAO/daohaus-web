@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useWeb3Context } from 'web3-react';
 
 import Loading from '../loading/Loading';
+import { Web3Context } from '../../contexts/ContractContexts';
 
 const UpdateDelegate = props => {
   const { contract, contractAddress, setComplete, history } = props;
 
-  const context = useWeb3Context();
+  const [web3Context] = useContext(Web3Context);
 
   const [loading, setLoading] = useState(false);
   const [txHash, settxHash] = useState('');
@@ -37,7 +37,7 @@ const UpdateDelegate = props => {
               try {
                 await contract.methods
                   .updateDelegateKey(values.address)
-                  .send({ from: context.account })
+                  .send({ from: web3Context.account })
                   .once('transactionHash', txHash => {
                     settxHash(txHash);
                   })

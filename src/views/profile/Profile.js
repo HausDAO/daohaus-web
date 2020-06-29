@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { getProfile } from '3box/lib/api';
-import { useWeb3Context } from 'web3-react';
 
 import { get } from '../../util/requests';
 import { useQuery } from 'react-apollo';
 import { GET_MEMBER_MOLOCHES } from '../../util/queries';
 import UnregisteredList from '../../components/unregisteredList/unregisteredList';
+import { Web3Context } from '../../contexts/ContractContexts';
 import ProfileMemberList from '../../components/ProfileMemberList/ProfileMemberList';
 
 import './Profile.scss';
 import ProfileActivityFeed from '../../components/ActivityFeed/ProfileActivityFeed';
 
 const Profile = props => {
-  const context = useWeb3Context();
+
   const [memberDaos, setMemberDaos] = useState([]);
+  const [web3context] = useContext(Web3Context);
 
   const [unregisteredDaos, setUnregisteredDaos] = useState([]);
 
@@ -47,7 +48,7 @@ const Profile = props => {
 
   useEffect(() => {
     const fetchOrphans = async () => {
-      if (context.account) {
+      if (web3context && web3context.account) {
         const orphans = await get(
           `moloch/orphans/${props.match.params.account}`,
         );
@@ -55,7 +56,7 @@ const Profile = props => {
         console.log('orphans', orphans);
         setUnregisteredDaos(
           orphans.data.filter(orphan => {
-            return orphan.summonerAddress === context.account.toLowerCase();
+            return orphan.summonerAddress === web3context.account.toLowerCase();
           }),
         );
       }
@@ -63,7 +64,7 @@ const Profile = props => {
 
     fetchOrphans();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [context.account]);
+  }, [web3context]);
 
   const renderUnregisteredList = () => {
     return unregisteredDaos.map((dao, i) => {
@@ -114,7 +115,7 @@ const Profile = props => {
             </>
           ) : null}
 
-          {context.account === props.match.params.account && (
+          {web3context && web3context.account === props.match.params.account && (
             <a
               href="https://3box.io/hub"
               target="_blank"
