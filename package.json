@@ -28,6 +28,7 @@
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "react-select": "^3.1.0",
     "react-tabs": "^3.0.0",
     "web3": "^1.2.2",
     "web3modal": "^1.7.0",

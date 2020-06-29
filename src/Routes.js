@@ -14,6 +14,7 @@ import About from './views/about/About';
 import Help from './views/help/Help';
 import EthDenver from './views/ethDenver/EthDenver';
 import Gas from './views/gas/Gas';
+import Explore from './views/explore/Explore';
 
 const Routes = () => (
   <Switch>
@@ -39,6 +40,7 @@ const Routes = () => (
       exact
       component={Profile}
     />
+    <Route path="/explore" exact component={Explore} />
     <Route path="/help" exact component={Help} />
     <Route path="/about" exact component={About} />
     <Route path="/stats" exact component={Stats} />

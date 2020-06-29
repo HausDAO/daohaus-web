@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 import DaoCard from '../daoCard/DaoCard';
+import { ExploreContext } from '../../contexts/ExploreContext';
 
 import './DaoList.scss';
 
-const DaoList = ({ daos }) => {
+const DaoList = () => {
+  const [daos, setDaos] = useState([]);
+  const { state } = useContext(ExploreContext);
+
+  useEffect(() => {
+    const filteredDaos = state.allDaos.filter(dao => {
+      const memberCount = dao.members.length > state.filters.memberCount;
+      const versionMatch = state.filters.versions.includes(dao.version);
+
+      return !dao.apiData.hide && memberCount && versionMatch;
+    });
+
+    const sortedDaos = _.orderBy(
+      filteredDaos,
+      [
+        'dao',
+        dao => {
+          if (state.sort.count) {
+            return dao[state.sort.value].length;
+          } else {
+            return dao[state.sort.value];
+          }
+        },
+      ],
+      ['desc', 'desc'],
+    );
+
+    setDaos(sortedDaos);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.sort, state.filter]);
+
   const daoList = daos.map(dao => {
     return (
       <div className="DaoList__Item" key={dao.id}>
@@ -20,7 +53,7 @@ const DaoList = ({ daos }) => {
 
   return (
     <div className="Contain">
-      {daos ? <div className="DaoList">{daoList}</div> : null}
+      {daos.length ? <div className="DaoList">{daoList}</div> : null}
     </div>
   );
 };

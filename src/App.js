@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
-
 import Routes from './Routes';
 import TopNav from './components/topNav/TopNav';
 import ContractContexts from './contexts/ContractContexts';
@@ -11,6 +10,7 @@ import { resolvers } from './util/resolvers';
 
 import './global.scss';
 import './App.css';
+import { ExploreContextProvider } from './contexts/ExploreContext';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_SUPERGRAPH_URL,
@@ -23,12 +23,14 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <ContractContexts>
-        <div className="App">
-          <Router>
-            <TopNav />
-            <Routes />
-          </Router>
-        </div>
+        <ExploreContextProvider>
+          <div className="App">
+            <Router>
+              <TopNav />
+              <Routes />
+            </Router>
+          </div>
+        </ExploreContextProvider>
       </ContractContexts>
     </ApolloProvider>
   );
