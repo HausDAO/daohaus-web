@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { sortOptions } from '../util/helpers';
+import { SORT_OPTIONS } from '../util/constants';
 
 const ExploreContext = React.createContext();
 
 const initialState = {
   allDaos: [],
-  sort: sortOptions[0],
+  sort: SORT_OPTIONS[0],
   filters: {
-    memberCount: 1,
+    members: ['1'],
     versions: ['1', '2'],
   },
 };
@@ -33,12 +33,15 @@ const reducer = (state, action) => {
     case 'addFilter': {
       return { ...state, filters: { ...state.filters, ...action.payload } };
     }
-    case 'removeFilter': {
-      const updatedFilters = { ...state.filters };
-      delete updatedFilters[action.payload.field];
+    case 'updateFilter': {
+      const updatedFilters = { ...state.filters, ...action.payload };
 
       return { ...state, filters: updatedFilters };
     }
+
+    // case 'removeFilter': {
+    //   const newFilter
+    // }
     default: {
       return initialState;
     }

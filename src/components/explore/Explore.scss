@@ -1,9 +1,21 @@
+@import '../../variables';
+
 .ExploreFilters {
   display: flex;
   flex-direction: row;
   // justify-content: space-between;
 }
 
+.ExploreFilters__filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 .ExploreFilters__sort {
   width: 200px;
+}
+
+.selected {
+  background-color: $primary;
 }

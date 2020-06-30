@@ -13,7 +13,7 @@ const DaoList = () => {
 
   useEffect(() => {
     const filteredDaos = state.allDaos.filter(dao => {
-      const memberCount = dao.members.length > state.filters.memberCount;
+      const memberCount = dao.members.length > (state.filters.members[0] || 0);
       const versionMatch = state.filters.versions.includes(dao.version);
 
       return !dao.apiData.hide && memberCount && versionMatch;
@@ -37,7 +37,7 @@ const DaoList = () => {
     setDaos(sortedDaos);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.sort, state.filter]);
+  }, [state.sort, state.filters]);
 
   const daoList = daos.map(dao => {
     return (

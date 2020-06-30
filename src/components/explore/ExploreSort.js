@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Select from 'react-select';
 
 import { ExploreContext } from '../../contexts/ExploreContext';
-import { sortOptions } from '../../util/helpers';
+import { SORT_OPTIONS } from '../../util/constants';
 
 import './Explore.scss';
 
@@ -18,7 +18,7 @@ const ExploreSort = () => {
       <Select
         value={state.sort}
         onChange={option => handleChange(option)}
-        options={sortOptions}
+        options={SORT_OPTIONS}
       />
     </div>
   );

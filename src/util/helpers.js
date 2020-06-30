@@ -61,24 +61,3 @@ export const descriptionMaker = proposal => {
   }
   return ``;
 };
-
-export const sortOptions = [
-  {
-    value: 'members',
-    label: 'Members',
-    count: true,
-  },
-  {
-    value: 'proposals',
-    label: 'Proposals',
-    count: true,
-  },
-  {
-    value: 'guildBankValue',
-    label: 'Bank Value',
-  },
-  {
-    value: 'summoningTime',
-    label: 'Summoning Time',
-  },
-];
