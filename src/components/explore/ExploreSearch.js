@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 
-import './Explore.scss';
 import { ExploreContext } from '../../contexts/ExploreContext';
+
+import './Explore.scss';
 
 const ExploreSearch = () => {
   const { dispatch } = useContext(ExploreContext);
@@ -12,24 +13,8 @@ const ExploreSearch = () => {
         type: 'setSearchTerm',
         payload: event.target.value.toLowerCase(),
       });
-
-      // const filtered = _.sortBy(
-      //   baseFilter(daos).filter(dao => {
-      //     return (
-      //       dao.title.toLowerCase().indexOf(event.target.value.toLowerCase()) >
-      //       -1
-      //     );
-      //   }),
-      //   dao => {
-      //     return sortAttribute(dao);
-      //   },
-      // ).reverse();
-
-      // setMatchingDaos(filtered);
-      // setFilteredDaos(filtered);
     } else {
       dispatch({ type: 'clearSearchTerm' });
-      // resetDaos();
     }
   };
 
