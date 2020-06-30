@@ -12,10 +12,18 @@ const DaoList = () => {
   const { state } = useContext(ExploreContext);
 
   useEffect(() => {
-    const filteredDaos = state.allDaos.filter(dao => {
+    let searchedDaos;
+    if (state.searchTerm) {
+      searchedDaos = state.allDaos.filter(dao => {
+        return dao.title.toLowerCase().indexOf(state.searchTerm) > -1;
+      });
+    } else {
+      searchedDaos = state.allDaos;
+    }
+
+    const filteredDaos = searchedDaos.filter(dao => {
       const memberCount = dao.members.length > (state.filters.members[0] || 0);
       const versionMatch = state.filters.versions.includes(dao.version);
-
       return !dao.apiData.hide && memberCount && versionMatch;
     });
 
@@ -37,7 +45,7 @@ const DaoList = () => {
     setDaos(sortedDaos);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.sort, state.filters]);
+  }, [state.sort, state.filters, state.searchTerm]);
 
   const daoList = daos.map(dao => {
     return (

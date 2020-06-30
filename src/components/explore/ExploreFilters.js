@@ -1,25 +1,20 @@
 import React from 'react';
 
-import ExploreSort from './ExploreSort';
-import FilterList from './FilterList';
 import {
   MEMBER_FILTER_OPTIONS,
   VERSION_FILTER_OPTIONS,
 } from '../../util/constants';
+import FilterList from './FilterList';
+import ExploreSearch from './ExploreSearch';
+import ExploreSort from './ExploreSort';
 
 import './Explore.scss';
 
 const ExploreFilters = () => {
   return (
     <div className="ExploreFilters">
-      <div>
-        <input
-          type="search"
-          className="input"
-          placeholder="Search Daos"
-          // onChange={e => handleChange(e)}
-        />
-      </div>
+      <ExploreSearch />
+
       <div className="ExploreFilters__sort">
         <p>Sort by</p>
         <ExploreSort />

@@ -11,6 +11,7 @@ const initialState = {
     members: ['1'],
     versions: ['1', '2'],
   },
+  searchTerm: null,
 };
 
 const reducer = (state, action) => {
@@ -38,10 +39,13 @@ const reducer = (state, action) => {
 
       return { ...state, filters: updatedFilters };
     }
+    case 'setSearchTerm': {
+      return { ...state, searchTerm: action.payload };
+    }
+    case 'clearSearchTerm': {
+      return { ...state, searchTerm: initialState.searchTerm };
+    }
 
-    // case 'removeFilter': {
-    //   const newFilter
-    // }
     default: {
       return initialState;
     }

@@ -62,7 +62,11 @@ const FilterList = ({ name, options, filterKey }) => {
         }
       >
         {({ toggle, triggerRef }) => (
-          <div ref={triggerRef} onClick={toggle} style={{}}>
+          <div
+            ref={triggerRef}
+            onClick={toggle}
+            style={{ margin: '10px 10px 20px 20px' }}
+          >
             {name}
           </div>
         )}
