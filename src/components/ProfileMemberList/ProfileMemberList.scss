@@ -43,6 +43,8 @@
   height: 50px;
   border-radius: 50%;
   background-color: $tertiary;
+  background-size: cover;
+  background-repeat: no-repeat;
   margin: 0 auto;
   .NoteCount {
     position: absolute;

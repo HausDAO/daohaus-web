@@ -4,6 +4,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+    .ActivityCard {
+      width: calc(100% - 50px) !important;
+    }
+  }
 }
 
 .ProfileActivityFeed__header {
@@ -23,6 +29,11 @@
   &:not(:nth-child(3n)) {
     margin-right: 15px;
     width: calc(33% - 65px);
+  }
+  > a > p {
+    max-height: 300px;
+    overflow: hidden;
+    word-break: break-all;
   }
 }
 
