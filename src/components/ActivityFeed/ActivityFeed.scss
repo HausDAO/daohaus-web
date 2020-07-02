@@ -1,5 +1,11 @@
 @import '../../variables';
 
+.ActivityFeed {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .ProfileActivityFeed__header {
   display: flex;
   flex-direction: row;
@@ -8,10 +14,16 @@
 }
 
 .ActivityCard {
-  padding: 20px;
+  padding: 25px;
   background-color: white;
   margin-bottom: 20px;
   border-radius: 5px;
+  box-shadow: $shadow;
+  width: calc(33% - 50px);
+  &:not(:nth-child(3n)) {
+    margin-right: 15px;
+    width: calc(33% - 65px);
+  }
 }
 
 .ActivityCard__avatar {

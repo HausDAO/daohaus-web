@@ -1,4 +1,5 @@
 import React from 'react';
+import makeBlockie from 'ethereum-blockies-base64';
 
 import './ActivityFeed.scss';
 
@@ -15,22 +16,31 @@ const ActivityCard = ({ activity }) => {
   return (
     <div className="ActivityCard">
       <a href={url}>
-        <div className="ActivityCard__avatar">
-          <p>{activity.daoTitle.substr(0, 1)}</p>
+        <div className="Daolist__Header">
+          <div
+            className="Daolist__Avatar"
+            style={{
+              backgroundImage: `url("${makeBlockie(activity.molochAddress)}")`,
+            }}
+          >
+            <p className="Daolist__Avatar--Initial">
+              {activity.daoTitle.substr(0, 1)}
+            </p>
+          </div>
+          <p>{activity.daoTitle}</p>
         </div>
-        <p>{activity.daoTitle}</p>
 
         {activity.proposalId ? (
           <>
-            <p>{activity.proposalType}</p>
-            <p>{activity.title}</p>
+            <h6>{activity.proposalType}</h6>
+            <h3>{activity.title}</h3>
             <p>{activity.description}</p>
           </>
         ) : (
           <>
-            <p>Rage Quit</p>
-            <p>shares: {activity.shares}</p>
-            <p>loot: {activity.loot}</p>
+            <h6>Rage Quit</h6>
+            <p>Shares: {activity.shares}</p>
+            <p>Loot: {activity.loot}</p>
             <p>memberAddress: {activity.memberAddress}</p>
           </>
         )}
