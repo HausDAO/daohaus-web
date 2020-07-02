@@ -1,23 +1,109 @@
 @import '../../variables';
 
+.FilterBar {
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 100%;
+}
+
 .ExploreFilters {
   display: flex;
-  flex-direction: row;
-  // justify-content: space-between;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  height: 80px;
+  flex-wrap: wrap;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: auto;
+    padding: 0px 25px;
+    > div:nth-child(1) {
+      flex-basis: 100%;
+      height: 80px;
+    }
+    > div:nth-child(2) {
+    }
+    > div:nth-child(3) {
+    }
+  }
+}
+
+.ExploreFilters__sort {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 25px;
+  padding-left: 25px;
+  border-left: 2px solid $background;
+  @media (max-width: $mobile) {
+    margin: 0;
+    padding: 0px;
+    height: 80px;
+    border: none;
+  }
+  > p {
+    width: 80px;
+  }
+  .ExploreSort {
+    width: 100%;
+    > div > div {
+      border: none;
+    }
+    input {
+      height: auto;
+    }
+  }
 }
 
 .ExploreFilters__filters {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-left: 50px;
+  align-items: center;
+  margin-left: 25px;
+  padding-left: 25px;
+  border-left: 2px solid $background;
+  height: 100%;
+  @media (max-width: $mobile) {
+    margin: 0;
+    padding: 0px;
+    height: 80px;
+    border: none;
+  }
+  > p {
+    margin: 0;
+  }
+  .FilterList {
+    .Trigger {
+      margin-left: 25px;
+      cursor: pointer;
+      transition: all 0.15s linear;
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
 }
 
-.ExploreFilters__sort {
-  width: 200px;
-  margin-left: 50px;
-}
-
-.selected {
-  background-color: $primary;
+.DropdownList {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 4px;
+  background: #fbfbf9;
+  box-shadow: $shadow;
+  min-width: 240px;
+  margin-top: 10px;
+  > div {
+    cursor: pointer;
+    padding: 10px 15px;
+    transition: all 0.15s linear;
+    margin-bottom: 1px;
+    &.selected,
+    &:hover {
+      background-color: $primary;
+      color: white;
+    }
+  }
 }

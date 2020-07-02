@@ -14,7 +14,6 @@ const ExploreFilters = () => {
   return (
     <div className="ExploreFilters">
       <ExploreSearch />
-
       <div className="ExploreFilters__sort">
         <p>Sort by</p>
         <ExploreSort />

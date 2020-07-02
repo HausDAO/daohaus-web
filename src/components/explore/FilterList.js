@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ToggleLayer, anchor } from 'react-laag';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 import { ExploreContext } from '../../contexts/ExploreContext';
 
@@ -19,7 +20,9 @@ const FilterList = ({ name, options, filterKey }) => {
           onClick={() => handleChange(option, isSelected)}
         >
           {option.label}
-          {isSelected ? <span>**</span> : null}
+          {isSelected ? (
+            <CheckCircleOutlined style={{ float: 'right' }} />
+          ) : null}
         </div>
       );
     });
@@ -50,10 +53,9 @@ const FilterList = ({ name, options, filterKey }) => {
           isOpen && (
             <div
               ref={layerProps.ref}
+              className="DropdownList"
               style={{
                 ...layerProps.style,
-                backgroundColor: 'white',
-                padding: '20px',
               }}
             >
               {renderOptions()}
@@ -62,11 +64,7 @@ const FilterList = ({ name, options, filterKey }) => {
         }
       >
         {({ toggle, triggerRef }) => (
-          <div
-            ref={triggerRef}
-            onClick={toggle}
-            style={{ margin: '10px 10px 20px 20px' }}
-          >
+          <div className="Trigger" ref={triggerRef} onClick={toggle}>
             {name}
           </div>
         )}

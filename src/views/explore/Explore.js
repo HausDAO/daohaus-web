@@ -20,16 +20,19 @@ const Explore = () => {
       <div className="Explore__hero">
         <h1>EXPLORE</h1>
       </div>
-      <div className="View">
-        {state.allDaos.length ? (
-          <>
+
+      {state.allDaos.length ? (
+        <>
+          <div className="FilterBar">
             <FilterBar />
+          </div>
+          <div className="View">
             <DaoList />
-          </>
-        ) : (
-          <ExploreFetch />
-        )}
-      </div>
+          </div>
+        </>
+      ) : (
+        <ExploreFetch />
+      )}
     </>
   );
 };
