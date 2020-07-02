@@ -80,8 +80,18 @@
       margin-left: 25px;
       cursor: pointer;
       transition: all 0.15s linear;
+      padding: 5px 10px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      height: 38px;
+      display: flex;
+      align-items: center;
       &:hover {
         color: $primary;
+        border: 1px solid $primary;
+      }
+      &:active {
+        border: 1px solid $primary;
       }
     }
   }
