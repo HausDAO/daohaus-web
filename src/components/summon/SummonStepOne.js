@@ -6,24 +6,23 @@ import './Summon.scss';
 
 const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
   const selectPreset = preset => {
-    console.log('setting preset', preset);
     setDaoData(prevState => {
-      return { ...prevState, preset: preset };
+      return { ...prevState, ...preset };
     });
   };
 
   const renderPresets = () => {
     return daoPresets.map(preset => {
-      const isSelected = daoData.preset && daoData.preset.name === preset.name;
+      const isSelected = daoData.presetName === preset.presetName;
 
       if (isSelected) {
         return (
           <div
             className="SummonStepOne__card"
             style={{ backgroundColor: preset.color }}
-            key={preset.name}
+            key={preset.presetName}
           >
-            <h4>{preset.name}</h4>
+            <h4>{preset.presetName}</h4>
             <h5>Default Settings</h5>
             <p>Currency: {preset.currency}</p>
             <p>Min Tribute: {preset.minTribute}</p>
@@ -38,12 +37,12 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
         return (
           <div
             className="SummonStepOne__card"
-            key={preset.name}
+            key={preset.presetName}
             onClick={() => selectPreset(preset)}
           >
-            <h4 style={{ color: preset.color }}>{preset.name}</h4>
-            <h5 style={{ color: preset.color }}>{preset.subtitle}</h5>
-            <p>{preset.description}</p>
+            <h4 style={{ color: preset.color }}>{preset.presetName}</h4>
+            <h5 style={{ color: preset.color }}>{preset.presetSubtitle}</h5>
+            <p>{preset.presetDescription}</p>
           </div>
         );
       }
@@ -52,7 +51,13 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
   return (
     <div className="SummonStepOne">
       <div className="SummonStepOne__list">{renderPresets()}</div>
-      {daoData.preset ? <button>NEXT STEP</button> : null}
+      <button
+        onClick={() => setCurrentStep(2)}
+        disabled={!daoData.presetName}
+        className={!daoData.presetName ? 'disabled' : ''}
+      >
+        NEXT STEP
+      </button>
     </div>
   );
 };

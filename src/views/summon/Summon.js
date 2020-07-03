@@ -4,6 +4,8 @@ import { Web3Context } from '../../contexts/ContractContexts';
 import { stepContent } from '../../content/summon-content';
 import SummonStepOne from '../../components/summon/SummonStepOne';
 import HardModeForm from '../../components/summon/HardModeForm';
+import SummonStepTwo from '../../components/summon/SummonStepTwo';
+import SummonStepThree from '../../components/summon/SummonStepThree';
 
 import './Summon.scss';
 
@@ -34,6 +36,22 @@ const Summon = () => {
               <>
                 {currentStep === 1 ? (
                   <SummonStepOne
+                    daoData={daoData}
+                    setDaoData={setDaoData}
+                    setCurrentStep={setCurrentStep}
+                  />
+                ) : null}
+
+                {currentStep === 2 ? (
+                  <SummonStepTwo
+                    daoData={daoData}
+                    setDaoData={setDaoData}
+                    setCurrentStep={setCurrentStep}
+                  />
+                ) : null}
+
+                {currentStep === 3 ? (
+                  <SummonStepThree
                     daoData={daoData}
                     setDaoData={setDaoData}
                     setCurrentStep={setCurrentStep}

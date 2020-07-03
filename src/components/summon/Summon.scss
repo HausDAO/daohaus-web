@@ -58,3 +58,21 @@
     background-color: $primary-hover;
   }
 }
+
+.disabled,
+.disabled:hover {
+  background-color: grey;
+}
+
+input:not([type='checkbox']).inline-field,
+textarea.inline-field {
+  width: unset;
+  border: none;
+  box-shadow: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  appearance: none;
+  margin: 0;
+}
