@@ -24,8 +24,8 @@ const TopNav = () => {
         <img src={Brand} alt="DAOHAUS" />
       </Link>
       <nav className="TopNav__Desktop">
-        <Link to={`/`} alt="DAOHaus Home">
-          Home
+        <Link to={`/explore`} alt="DAOHaus Explore">
+          Explore
         </Link>
         <Link to={`/about`} alt="DAOHaus About">
           About

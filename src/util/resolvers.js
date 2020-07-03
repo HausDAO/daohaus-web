@@ -72,7 +72,7 @@ export const resolvers = (() => {
 
           return guildBankValue;
         } else {
-          return null;
+          return 0;
         }
       },
     },

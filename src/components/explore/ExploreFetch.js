@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from 'react-apollo';
 
-import { GET_MOLOCHES } from '../../util/queries';
-import DaoFilter from '../daoFilter/DaoFilter';
+import { GET_MOLOCHES_EXPLORER } from '../../util/queries';
+import { ExploreContext } from '../../contexts/ExploreContext';
 
-const DaoFetcher = ({ version }) => {
-  const { loading, error, data, fetchMore } = useQuery(GET_MOLOCHES, {
+const ExploreFetch = () => {
+  const { dispatch } = useContext(ExploreContext);
+
+  const { loading, error, data, fetchMore } = useQuery(GET_MOLOCHES_EXPLORER, {
     fetchPolicy: 'network-only',
   });
 
   if (loading) return <p className="View">Loading DAOs</p>;
   if (error) return <p className="View">Sorry there's been an error</p>;
 
-  console.log('data', data);
-
   fetchMore({
     variables: { skip: data.moloches.length },
     updateQuery: (prev, { fetchMoreResult }) => {
       if (fetchMoreResult.moloches.length === 0) {
+        dispatch({ type: 'setAllDaos', payload: data.moloches });
         return prev;
       }
 
@@ -27,13 +28,7 @@ const DaoFetcher = ({ version }) => {
     },
   });
 
-  return (
-    <>
-      <div className="Search">
-        {data ? <DaoFilter daos={data.moloches} version={version} /> : null}
-      </div>
-    </>
-  );
+  return <></>;
 };
 
-export default DaoFetcher;
+export default ExploreFetch;
