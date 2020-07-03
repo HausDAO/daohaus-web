@@ -1,71 +1,77 @@
 import React, { useState, useContext } from 'react';
 
-import SummonAdvForm from '../../components/summonAdvForm/SummonAdvForm';
-import SummonWizard from '../../components/summonWizard/SummonWizard';
-import SummonAdvV2Form from '../../components/summonAdvV2Form/SummonAdvV2Form';
-import SummonWizardV2 from '../../components/summonWizardV2/SummonWizardV2';
+import { Web3Context } from '../../contexts/ContractContexts';
+import { stepContent } from '../../content/summon-content';
+import SummonStepOne from '../../components/summon/SummonStepOne';
+import HardModeForm from '../../components/summon/HardModeForm';
+import SummonStepTwo from '../../components/summon/SummonStepTwo';
+import SummonStepThree from '../../components/summon/SummonStepThree';
 
 import './Summon.scss';
-import { Web3Context } from '../../contexts/ContractContexts';
 
 const Summon = () => {
   const [web3context] = useContext(Web3Context);
-
-  const [wizardForm, setWizardForm] = useState(true);
-  const [v2Form, setV2Form] = useState(false);
-  const [v2Wizard, setV2Wizard] = useState(false);
-
-  const toggleForm = () => {
-    setWizardForm(!wizardForm);
-  };
-
-  const toggleV2 = () => {
-    setV2Form(!v2Form);
-  };
-
-  const toggleV2Wizard = () => {
-    setV2Wizard(!v2Wizard);
-  };
+  const [hardMode, setHardMode] = useState(false);
+  const [daoData, setDaoData] = useState({});
+  const [currentStep, setCurrentStep] = useState(1);
 
   return (
     <>
-      {web3context.account ? (
-        <div className="View SmallContainer">
-          <div className="Row">
-            <p>{wizardForm ? 'Summon (Easy Mode)' : 'Summon (Hard Mode)'}</p>
-            <button className="TabButton" onClick={toggleForm}>
-              {wizardForm ? 'Hard Mode' : 'Easy Mode'}
-            </button>
+      {web3context && web3context.account ? (
+        <>
+          <div className="Summon__hero">
+            <h1>SUMMON</h1>
           </div>
-          {wizardForm ? (
-            <>
-              <h3>{v2Wizard ? 'Summon Moloch V2' : 'Summon Moloch V1'}</h3>
 
-              <button className="TabButton Switch" onClick={toggleV2Wizard}>
-                Switch to {v2Wizard ? 'Moloch V1' : 'Moloch V2'}
-              </button>
-              {v2Wizard ? (
-                <SummonWizardV2></SummonWizardV2>
-              ) : (
-                <SummonWizard></SummonWizard>
-              )}
-            </>
-          ) : (
-            <div className="SummonForm">
-              <h3>{v2Form ? 'Summon Moloch V2' : 'Summon Moloch V1'}</h3>
-
-              <button className="TabButton Switch" onClick={toggleV2}>
-                Switch to {v2Form ? 'Moloch V1' : 'Moloch V2'}
-              </button>
-
-              {v2Form ? (
-                <SummonAdvV2Form></SummonAdvV2Form>
-              ) : (
-                <SummonAdvForm></SummonAdvForm>
-              )}
+          <div className="View">
+            <div className="Row">
+              <div className="Summon__step">
+                <h3>Step {currentStep}</h3>
+                <p>{stepContent[currentStep]}</p>
+              </div>
+              <button>Get Help</button>
             </div>
-          )}
-        </div>
+
+            {!hardMode ? (
+              <>
+                {currentStep === 1 ? (
+                  <SummonStepOne
+                    daoData={daoData}
+                    setDaoData={setDaoData}
+                    setCurrentStep={setCurrentStep}
+                  />
+                ) : null}
+
+                {currentStep === 2 ? (
+                  <SummonStepTwo
+                    daoData={daoData}
+                    setDaoData={setDaoData}
+                    setCurrentStep={setCurrentStep}
+                  />
+                ) : null}
+
+                {currentStep === 3 ? (
+                  <SummonStepThree
+                    daoData={daoData}
+                    setDaoData={setDaoData}
+                    setCurrentStep={setCurrentStep}
+                  />
+                ) : null}
+
+                <p onClick={() => setHardMode(true)}>
+                  I'm a DAO master, take me to hard mode.
+                </p>
+              </>
+            ) : (
+              <>
+                <HardModeForm daoData={daoData} setDaoData={setDaoData} />
+                <p onClick={() => setHardMode(false)}>
+                  Take me back to fun mode!
+                </p>
+              </>
+            )}
+          </div>
+        </>
       ) : null}
     </>
   );
