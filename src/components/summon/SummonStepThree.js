@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Select from 'react-select';
 
 import { periodsForForm, periodsFromForm } from '../../util/helpers';
+import { currencyOptions } from '../../content/summon-presets';
 
 import './Summon.scss';
 
@@ -34,6 +36,17 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
     }
   };
 
+  const handleCurrencyChange = selectedOption => {
+    console.log('selectedOption', selectedOption);
+    setDaoData(prevState => {
+      return {
+        ...prevState,
+        currency: selectedOption.value,
+        currencyAddress: selectedOption.address,
+      };
+    });
+  };
+
   console.log('daoData', daoData);
 
   return (
@@ -60,9 +73,18 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
 
       <div>
         <h4>Currency</h4>
-        <p>
+        <div>
           Our primary currency is{' '}
-          <input className="inline-field" name="currency" ref={register} />
+          {/* <input className="inline-field" name="currency" ref={register} />
+          <input type="select" name="currency" ref={register} */}
+          <Select
+            name="currency"
+            placeholder="Currency"
+            value={{ value: daoData.currency, label: daoData.currency }}
+            options={currencyOptions}
+            onChange={handleCurrencyChange}
+            ref={e => register({ name: 'reactSelect', required: true })}
+          />
           and it'll cost at least
           <input
             className="inline-field"
@@ -70,7 +92,7 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
             ref={register}
           />
           {daoData.currency} to join.
-        </p>
+        </div>
       </div>
 
       <div>

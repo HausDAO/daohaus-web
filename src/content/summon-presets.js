@@ -95,3 +95,16 @@ export const daoPresets = [
     color: '#513e97',
   },
 ];
+
+export const currencyOptions = [
+  {
+    value: 'DAI',
+    label: 'DAI',
+    address: process.env.REACT_APP_DAI_ADDRESS,
+  },
+  {
+    value: 'WETH',
+    label: 'WETH',
+    address: process.env.REACT_APP_WETH_ADDRESS,
+  },
+];
