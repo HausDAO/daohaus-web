@@ -65,7 +65,8 @@
 }
 
 input:not([type='checkbox']).inline-field,
-textarea.inline-field {
+textarea.inline-field,
+select.inline-field {
   width: unset;
   border: none;
   box-shadow: none;

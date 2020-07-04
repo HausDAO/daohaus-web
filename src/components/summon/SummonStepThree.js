@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Select from 'react-select';
 
 import { periodsForForm, periodsFromForm } from '../../util/helpers';
 import { currencyOptions } from '../../content/summon-presets';
@@ -18,6 +17,7 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
   ]);
 
   //TODO: use some watchField magic to check on valid values
+  // TODO: handle to and from wei
   const canSummon = false;
 
   const navigate = step => {
@@ -36,8 +36,11 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
     }
   };
 
-  const handleCurrencyChange = selectedOption => {
-    console.log('selectedOption', selectedOption);
+  const handleCurrencyChange = event => {
+    const selectedOption = currencyOptions.find(option => {
+      return event.target.value === option.value;
+    });
+
     setDaoData(prevState => {
       return {
         ...prevState,
@@ -46,8 +49,6 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
       };
     });
   };
-
-  console.log('daoData', daoData);
 
   return (
     <div className="SummonStepThree">
@@ -75,16 +76,19 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
         <h4>Currency</h4>
         <div>
           Our primary currency is{' '}
-          {/* <input className="inline-field" name="currency" ref={register} />
-          <input type="select" name="currency" ref={register} */}
-          <Select
-            name="currency"
-            placeholder="Currency"
-            value={{ value: daoData.currency, label: daoData.currency }}
-            options={currencyOptions}
+          <select
+            value={daoData.currency}
             onChange={handleCurrencyChange}
-            ref={e => register({ name: 'reactSelect', required: true })}
-          />
+            className="inline-field"
+          >
+            {currencyOptions.map(option => {
+              return (
+                <option value={option.value} key={option.value}>
+                  {option.label}
+                </option>
+              );
+            })}
+          </select>
           and it'll cost at least
           <input
             className="inline-field"
@@ -98,13 +102,6 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
       <div>
         <h4>Voting</h4>
         <p>
-          {/* TODO: DO we want to surface this in easy mode? 
-          Time between proposal phases is{' '}
-          <input
-            className="inline-field"
-            name="formattedPeriods.periodDuration"
-            ref={register}
-          />{' '} minutes */}
           Our voting period lasts{' '}
           <input
             className="inline-field"
@@ -137,13 +134,6 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
             ref={register}
           />{' '}
           {daoData.currency}
-          <input className="inline-field" name="votingPeriod" ref={register} />
-          and the grace period is another{' '}
-          <input
-            className="inline-field"
-            name="gracePeriod"
-            ref={register}
-          />{' '}
         </p>
       </div>
       <div>

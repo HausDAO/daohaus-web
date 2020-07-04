@@ -67,7 +67,6 @@ export const descriptionMaker = proposal => {
 
 export const formatPeriodDuration = seconds => {
   const hours = moment.duration(+seconds, 'seconds').asHours();
-  console.log('hours', hours);
   if (hours > 1) {
     return `${hours} hour${hours > 1 ? 's' : ''}`;
   } else {
@@ -84,10 +83,6 @@ export const formatPeriodLength = (periods, duration) => {
 };
 
 export const periodsForForm = daoData => {
-  // const periodDuration = moment
-  //   .duration(+daoData.periodDuration, 'seconds')
-  //   .asMinutes();
-
   const votingPeriod = moment
     .duration(+daoData.votingPeriod * +daoData.periodDuration, 'seconds')
     .asDays();
@@ -97,7 +92,6 @@ export const periodsForForm = daoData => {
     .asDays();
 
   return {
-    // periodDuration,
     votingPeriod,
     gracePeriod,
   };
@@ -107,8 +101,6 @@ export const periodsFromForm = (periods, periodDuration) => {
   const votingSeconds = moment
     .duration(+periods['formattedPeriods.votingPeriod'], 'days')
     .asSeconds();
-
-  console.log('votingSeconds, duration', votingSeconds, periodDuration);
   const votingPeriod = +votingSeconds / +periodDuration;
 
   const graceSeconds = moment
