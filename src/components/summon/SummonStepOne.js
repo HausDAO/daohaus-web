@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { daoPresets } from '../../content/summon-content';
+import { daoPresets } from '../../content/summon-presets';
+import { formatPeriodDuration, formatPeriodLength } from '../../util/helpers';
 
 import './Summon.scss';
 
@@ -25,11 +26,24 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
             <h4>{preset.presetName}</h4>
             <h5>Default Settings</h5>
             <p>Currency: {preset.currency}</p>
-            <p>Min Tribute: {preset.minTribute}</p>
-            <p>Voting Period: {preset.votingPeriod}</p>
-            <p>Grace Period: {preset.gracePeriod}</p>
-            <p>Prop Deposit: {preset.propDeposit}</p>
-            <p>Prop Reward: {preset.propReward}</p>
+            <p>Min Tribute: {`${preset.minimumTribute} ${preset.currency}`}</p>
+            <p>
+              Period Duration: {formatPeriodDuration(preset.periodDuration)}
+            </p>
+            <p>
+              Voting Period:{' '}
+              {formatPeriodLength(preset.votingPeriod, preset.periodDuration)}
+            </p>
+            <p>
+              Grace Period:{' '}
+              {formatPeriodLength(preset.gracePeriod, preset.periodDuration)}
+            </p>
+            <p>
+              Prop Deposit: {`${preset.proposalDeposit} ${preset.currency}`}
+            </p>
+            <p>
+              Prop Reward: {`${preset.processingReward} ${preset.currency}`}
+            </p>
             <p>* you can change these later</p>
           </div>
         );

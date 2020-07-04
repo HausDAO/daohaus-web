@@ -16,6 +16,7 @@
     "formik-wizard": "^3.1.1",
     "graphql": "^14.5.8",
     "lodash": "^4.17.15",
+    "moment": "^2.27.0",
     "node-libs-browser": "^2.2.1",
     "node-sass": "^4.12.0",
     "profile-hover": "^1.0.2",

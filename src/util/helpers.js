@@ -1,6 +1,9 @@
+import moment from 'moment';
+
 export const truncateAddr = addr => {
   return addr.slice(0, 6) + '...' + addr.slice(-4);
 };
+
 export const successMessagesText = messageType => {
   switch (messageType) {
     case 'pledge': {
@@ -60,4 +63,22 @@ export const descriptionMaker = proposal => {
     }
   }
   return ``;
+};
+
+export const formatPeriodDuration = seconds => {
+  const hours = moment.duration(+seconds, 'seconds').asHours();
+  console.log('hours', hours);
+  if (hours > 1) {
+    return `${hours} hour${hours > 1 ? 's' : ''}`;
+  } else {
+    const minutes = moment.duration(+seconds, 'seconds').asMinutes();
+    return `${minutes} minute${minutes > 1 ? 's' : ''}`;
+  }
+};
+
+export const formatPeriodLength = (periods, duration) => {
+  const periodSeconds = +periods * duration;
+  const days = moment.duration(periodSeconds, 'seconds').asDays();
+
+  return `${days} day${days > 1 ? 's' : ''}`;
 };

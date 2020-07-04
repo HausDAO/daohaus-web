@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 
 import { Web3Context } from '../../contexts/ContractContexts';
-import { stepContent } from '../../content/summon-content';
 import SummonStepOne from '../../components/summon/SummonStepOne';
 import HardModeForm from '../../components/summon/HardModeForm';
 import SummonStepTwo from '../../components/summon/SummonStepTwo';
@@ -14,6 +13,12 @@ const Summon = () => {
   const [hardMode, setHardMode] = useState(false);
   const [daoData, setDaoData] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
+
+  const stepContent = {
+    1: 'What kind of DAO are you summoning?',
+    2: 'Tell us about your DAO',
+    3: 'Pre-summon check',
+  };
 
   return (
     <>
