@@ -1,5 +1,6 @@
 export const daoConstants = {
   //should this default to match voting period or grace period?
+  // or are we only letting people summon v1 in hard mode
   abortWindow: '1',
   dilutionBound: '3',
 };

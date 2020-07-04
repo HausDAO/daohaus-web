@@ -82,3 +82,42 @@ export const formatPeriodLength = (periods, duration) => {
 
   return `${days} day${days > 1 ? 's' : ''}`;
 };
+
+export const periodsForForm = daoData => {
+  // const periodDuration = moment
+  //   .duration(+daoData.periodDuration, 'seconds')
+  //   .asMinutes();
+
+  const votingPeriod = moment
+    .duration(+daoData.votingPeriod * +daoData.periodDuration, 'seconds')
+    .asDays();
+
+  const gracePeriod = moment
+    .duration(+daoData.gracePeriod * +daoData.periodDuration, 'seconds')
+    .asDays();
+
+  return {
+    // periodDuration,
+    votingPeriod,
+    gracePeriod,
+  };
+};
+
+export const periodsFromForm = (periods, periodDuration) => {
+  const votingSeconds = moment
+    .duration(+periods['formattedPeriods.votingPeriod'], 'days')
+    .asSeconds();
+
+  console.log('votingSeconds, duration', votingSeconds, periodDuration);
+  const votingPeriod = +votingSeconds / +periodDuration;
+
+  const graceSeconds = moment
+    .duration(+periods['formattedPeriods.gracePeriod'], 'days')
+    .asSeconds();
+  const gracePeriod = +graceSeconds / +periodDuration;
+
+  return {
+    votingPeriod,
+    gracePeriod,
+  };
+};

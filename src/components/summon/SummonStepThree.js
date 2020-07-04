@@ -1,19 +1,30 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+import { periodsForForm, periodsFromForm } from '../../util/helpers';
+
 import './Summon.scss';
 
 const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
   const { register, getValues, watch } = useForm({
-    defaultValues: daoData,
+    defaultValues: { ...daoData, formattedPeriods: periodsForForm(daoData) },
   });
-  // const watchAllFields = watch();
-  // const canMoveForward = watchAllFields.name && watchAllFields.description;
+
+  const watchPeriodFields = watch([
+    'formattedPeriods.votingPeriod',
+    'formattedPeriods.gracePeriod',
+  ]);
+
+  //TODO: use some watchField magic to check on valid values
   const canSummon = false;
 
   const navigate = step => {
     setDaoData(prevState => {
-      return { ...prevState, ...getValues() };
+      return {
+        ...prevState,
+        ...getValues(),
+        ...periodsFromForm(watchPeriodFields, daoData.periodDuration),
+      };
     });
 
     if (step === 'summon') {
@@ -52,27 +63,39 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
         <p>
           Our primary currency is{' '}
           <input className="inline-field" name="currency" ref={register} />
-          and it'll cost at least{' '}
+          and it'll cost at least
           <input
             className="inline-field"
             name="minimumTribute"
             ref={register}
-          />{' '}
-          to join.
+          />
+          {daoData.currency} to join.
         </p>
       </div>
 
       <div>
         <h4>Voting</h4>
         <p>
-          Our voting period lasts{' '}
-          <input className="inline-field" name="votingPeriod" ref={register} />
-          and the grace period is another{' '}
+          {/* TODO: DO we want to surface this in easy mode? 
+          Time between proposal phases is{' '}
           <input
             className="inline-field"
-            name="gracePeriod"
+            name="formattedPeriods.periodDuration"
+            ref={register}
+          />{' '} minutes */}
+          Our voting period lasts{' '}
+          <input
+            className="inline-field"
+            name="formattedPeriods.votingPeriod"
             ref={register}
           />{' '}
+          days. and the grace period is another{' '}
+          <input
+            className="inline-field"
+            name="formattedPeriods.gracePeriod"
+            ref={register}
+          />{' '}
+          days.
         </p>
       </div>
 
