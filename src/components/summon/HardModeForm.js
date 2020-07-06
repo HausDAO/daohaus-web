@@ -8,9 +8,22 @@ import './Summon.scss';
 const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
   const [w3Service] = useContext(Web3Context);
 
-  const { register, getValues, errors, handleSubmit } = useForm({
+  const {
+    register,
+    getValues,
+    errors,
+    handleSubmit,
+    watch,
+    formState,
+  } = useForm({
+    mode: 'onBlur',
     defaultValues: { ...daoData },
   });
+  const { isDirty, isValid } = formState;
+
+  console.log('errors', errors);
+
+  const versionWatch = watch('version');
 
   const onSubmit = data => {
     setDaoData(prevState => {
@@ -25,7 +38,7 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
 
   return (
     <div className="HardModeForm">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <div>
           <h4>Name</h4>
           <p>
@@ -85,6 +98,14 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 },
               })}
             />
+            {errors.name?.currencyAddress === 'required' && (
+              <span className="required-field">add a token address</span>
+            )}
+            {errors.name?.currencyAddress === 'isAddress' && (
+              <span className="required-field">
+                that doesn't look like a token address
+              </span>
+            )}
             and it'll cost at least
             <input
               className="inline-field"
@@ -94,6 +115,9 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />
+            {errors.name?.minimumTribute === 'required' && (
+              <span className="required-field">required</span>
+            )}
             (18 decimals) to join...
           </div>
         </div>
@@ -110,6 +134,12 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />
+            {errors.name?.periodDuration === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.name?.periodDuration === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}
             seconds...
           </div>
         </div>
@@ -126,6 +156,12 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />{' '}
+            {errors.name?.votingPeriod === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.name?.votingPeriod === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}
             periods, the grace period is another{' '}
             <input
               className="inline-field"
@@ -135,16 +171,48 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />{' '}
-            periods, and the abort window is{' '}
+            {errors.name?.gracePeriod === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.name?.gracePeriod === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}
+            periods.
+            {versionWatch === '1' ? (
+              <>
+                the abort window is{' '}
+                <input
+                  className="inline-field"
+                  name="abortWindow"
+                  ref={register({
+                    required: true,
+                    pattern: /^-?\d*\.?\d*$/,
+                  })}
+                />
+                {errors.name?.abortWindow === 'required' && (
+                  <span className="required-field">required</span>
+                )}
+                {errors.name?.abortWindow === 'pattern' && (
+                  <span className="required-field">not a number</span>
+                )}{' '}
+                periods.
+              </>
+            ) : null}
+            The dilution bound is
             <input
               className="inline-field"
-              name="abortWindow"
+              name="dilutionBound"
               ref={register({
                 required: true,
                 pattern: /^-?\d*\.?\d*$/,
               })}
-            />{' '}
-            periods.
+            />
+            {errors.name?.dilutionBound === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.name?.dilutionBound === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}{' '}
           </p>
         </div>
 
@@ -159,7 +227,15 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 required: true,
                 pattern: /^-?\d*\.?\d*$/,
               })}
-            />{' '}
+            />
+            {errors.name?.proposalDeposit === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.name?.proposalDeposit === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}{' '}
+          </p>
+          <p>
             (18 decimals) and the proposal reward is{' '}
             <input
               className="inline-field"
@@ -173,11 +249,27 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 },
               })}
             />{' '}
+            {errors.name?.processingReward === 'lessThanDeposit' && (
+              <span className="required-field">
+                processing reward must be less than that proposal deposit
+              </span>
+            )}
+            {errors.name?.processingReward === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.name?.processingReward === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}{' '}
             (18 decimals)
           </p>
         </div>
         <div>
-          <input type="submit" value="SUMMON" />
+          <input
+            type="submit"
+            value="SUMMON"
+            disabled={!isDirty && !isValid}
+            className={!isDirty && !isValid ? 'disabled Button' : 'Button'}
+          />
         </div>
       </form>
     </div>
