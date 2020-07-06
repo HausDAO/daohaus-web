@@ -1,7 +1,11 @@
 import React from 'react';
 
 import { daoPresets } from '../../content/summon-presets';
-import { formatPeriodDuration, formatPeriodLength } from '../../util/helpers';
+import {
+  formatPeriodDuration,
+  formatPeriodLength,
+  formatDepositWei,
+} from '../../util/helpers';
 
 import './Summon.scss';
 
@@ -39,10 +43,14 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
               {formatPeriodLength(preset.gracePeriod, preset.periodDuration)}
             </p>
             <p>
-              Prop Deposit: {`${preset.proposalDeposit} ${preset.currency}`}
+              Prop Deposit:{' '}
+              {`${formatDepositWei(preset.proposalDeposit)} ${preset.currency}`}
             </p>
             <p>
-              Prop Reward: {`${preset.processingReward} ${preset.currency}`}
+              Prop Reward:{' '}
+              {`${formatDepositWei(preset.processingReward)} ${
+                preset.currency
+              }`}
             </p>
             <p>* you can change these later</p>
           </div>

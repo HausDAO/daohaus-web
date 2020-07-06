@@ -1,14 +1,23 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { periodsForForm, periodsFromForm } from '../../util/helpers';
+import {
+  periodsForForm,
+  periodsFromForm,
+  depositsForForm,
+  depositsFromForm,
+} from '../../util/helpers';
 import { currencyOptions } from '../../content/summon-presets';
 
 import './Summon.scss';
 
 const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
   const { register, getValues, watch } = useForm({
-    defaultValues: { ...daoData, formattedPeriods: periodsForForm(daoData) },
+    defaultValues: {
+      ...daoData,
+      formattedPeriods: periodsForForm(daoData),
+      formattedDeposits: depositsForForm(daoData),
+    },
   });
 
   const watchPeriodFields = watch([
@@ -16,8 +25,12 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
     'formattedPeriods.gracePeriod',
   ]);
 
-  //TODO: use some watchField magic to check on valid values
-  // TODO: handle to and from wei
+  const watchDepositFields = watch([
+    'formattedDeposits.proposalDeposit',
+    'formattedDeposits.processingReward',
+  ]);
+
+  //TODO: use some watchField magic to check on valid values or turn this into a submit like the hard mode
   const canSummon = false;
 
   const navigate = step => {
@@ -26,6 +39,7 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
         ...prevState,
         ...getValues(),
         ...periodsFromForm(watchPeriodFields, daoData.periodDuration),
+        ...depositsFromForm(watchDepositFields),
       };
     });
 
@@ -124,13 +138,13 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
           And a proposal deposit costs{' '}
           <input
             className="inline-field"
-            name="proposalDeposit"
+            name="formattedDeposits.proposalDeposit"
             ref={register}
           />{' '}
           {daoData.currency} and the proposal reward is{' '}
           <input
             className="inline-field"
-            name="processingReward"
+            name="formattedDeposits.processingReward"
             ref={register}
           />{' '}
           {daoData.currency}

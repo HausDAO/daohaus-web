@@ -1,4 +1,5 @@
 import moment from 'moment';
+import web3 from 'web3';
 
 export const truncateAddr = addr => {
   return addr.slice(0, 6) + '...' + addr.slice(-4);
@@ -111,5 +112,29 @@ export const periodsFromForm = (periods, periodDuration) => {
   return {
     votingPeriod,
     gracePeriod,
+  };
+};
+
+export const formatDepositWei = amount => {
+  return web3.utils.fromWei(amount.toString(), 'ether');
+};
+
+export const depositsForForm = daoData => {
+  return {
+    proposalDeposit: formatDepositWei(daoData.proposalDeposit),
+    processingReward: formatDepositWei(daoData.processingReward),
+  };
+};
+
+export const depositsFromForm = deposits => {
+  return {
+    proposalDeposit: web3.utils.toWei(
+      deposits['formattedDeposits.proposalDeposit'].toString(),
+      'ether',
+    ),
+    processingReward: web3.utils.toWei(
+      deposits['formattedDeposits.processingReward'].toString(),
+      'ether',
+    ),
   };
 };
