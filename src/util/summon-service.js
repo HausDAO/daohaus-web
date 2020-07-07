@@ -17,14 +17,10 @@ export default class SummonService {
     this.summonTx = null;
   }
 
-  setTx(hash) {
-    this.summonTx = hash;
-
-    console.log('this.siummonTx', this.summonTx);
-  }
-
-  async summonV1(daoData, account) {
+  async summonV1(daoData, account, dispatch) {
     console.log('summoning', daoData, account);
+
+    dispatch({ type: 'setStatus', payload: 'summoning' });
 
     try {
       const cacheMoloch = {
@@ -33,15 +29,18 @@ export default class SummonService {
         minimumTribute: daoData.minimumTribute,
         description: daoData.description,
       };
-      // cache dao incase of web3 timeout timeout
       const cacheId = await post('moloch/orphan', cacheMoloch);
-
-      return await this.v1factoryContract.methods
+      this.setLocal({
+        name: cacheMoloch.name,
+        summonerAddress: cacheMoloch.summonerAddress,
+        cacheId,
+      });
+      return await this.v1FactoryContract.methods
         .newDao(
           daoData.approvedToken,
           daoData.periodDuration,
-          daoData.votingPeriodLength,
-          daoData.gracePeriodLength,
+          daoData.votingPeriod,
+          daoData.gracePeriod,
           daoData.abortWindow,
           this.web3Service.web3.utils.toBN(daoData.proposalDeposit).toString(),
           daoData.dilutionBound,
@@ -52,42 +51,57 @@ export default class SummonService {
           {
             from: account,
           },
-          function(error, transactionHash) {
-            console.log(error, transactionHash);
+          (error, transactionHash) => {
+            console.log('first call back after .send', error, transactionHash);
 
             this.summonTx = transactionHash;
+            dispatch({ type: 'setSummonTx', payload: transactionHash });
           },
         )
-        .on('error', function(err) {
+        .on('error', err => {
           console.log(err);
 
           if (err && err.code === 4001) {
-            //remove from cache
             remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-              console.log('dao rejected, remove cache');
-              // setformError('Transaction Rejected by user.');
+              dispatch({
+                type: 'setError',
+                payload: 'Looks like you rejected the transaction.',
+              });
+
+              this.setLocal({
+                error: 'rejected tx.',
+                tx: this.summonTx,
+              });
             });
             if (
               err.message.indexOf(
                 'Error: Transaction was not mined within 50 blocks',
               ) > -1
             ) {
-              // setformError(
-              //   `rejected transaction is taking a long time. tx hash: ${txHash}`,
-              // );
-              return { error: err };
+              dispatch({
+                type: 'setError',
+                payload: `transaction is taking a long time. tx hash: ${this.summonTx}`,
+              });
+              this.setLocal({
+                error: `long tx`,
+                tx: this.summonTx,
+              });
             }
           }
-          console.log(err);
         })
-        .on('transactionHash', function(transactionHash) {
+        .on('transactionHash', transactionHash => {
           console.log(transactionHash);
-          this.summonTx = transactionHash;
-        })
-        .on('receipt', function(receipt) {
-          console.log(receipt.events.Register); // contains the new contract address
-          const contractAddress = receipt.events.Register.returnValues.moloch;
 
+          this.summonTx = transactionHash;
+          dispatch({ type: 'setSummonTx', payload: transactionHash });
+          this.setLocal({
+            tx: this.summonTx,
+          });
+        })
+        .on('receipt', receipt => {
+          console.log(receipt.events.Register);
+
+          const contractAddress = receipt.events.Register.returnValues.moloch;
           const newMoloch = {
             summonerAddress: account,
             contractAddress: contractAddress,
@@ -96,37 +110,68 @@ export default class SummonService {
             description: daoData.description,
           };
 
+          this.setLocal({
+            tx: this.summonTx,
+            contract: contractAddress,
+          });
+
           post('moloch', newMoloch)
-            .then(newMolochRes => {
-              //remove from cache and redirect
+            .then(() => {
               remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
+                // move them on to register
                 // props.history.push(
                 //   `/building-dao/v1/${contractAddress.toLowerCase()}`,
                 // );
+
+                dispatch({
+                  type: 'setComplete',
+                  payload: { status: 'complete', contractAddress },
+                });
               });
             })
             .catch(err => {
-              // setLoading(false);
               console.log('moloch creation error', err);
-            });
 
-          // resetForm();
-          // setLoading(false);
-          // setSubmitting(false);
+              dispatch({ type: 'setError', payload: err });
+              this.setLocal({
+                tx: this.summonTx,
+                error: 'cache error',
+              });
+            });
         })
-        .on('confirmation', function(confirmationNumber, receipt) {
+        .on('confirmation', (confirmationNumber, receipt) => {
           console.log(confirmationNumber, receipt);
+
+          //why/when?
+          // dispatch({ type: 'setStatus', payload: 'confirmed' });
         })
-        .then(function(newContractInstance) {
-          console.log(newContractInstance); // instance with the new contract address
+        .then(newContractInstance => {
+          console.log(newContractInstance);
+
+          this.setLocal({
+            complete: true,
+          });
         });
     } catch (err) {
-      console.log(err);
-      // alert(`Something went wrong. please try again`);
-      // setformError(`Something went wrong. please try again`);
+      console.log('last catch error', err);
 
-      // setLoading(false);
-      // setSubmitting(false);
+      // seems redundant to catch here with all the catch above?
+      dispatch({ type: 'setError', payload: err });
     }
+  }
+
+  setLocal(newData) {
+    let localMoloch = window.localStorage.getItem('pendingMoloch');
+    if (localMoloch) {
+      localMoloch = JSON.parse(localMoloch);
+    }
+
+    window.localStorage.setItem(
+      'pendingMoloch',
+      JSON.stringify({
+        ...localMoloch,
+        ...newData,
+      }),
+    );
   }
 }

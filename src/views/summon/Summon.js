@@ -11,13 +11,14 @@ import BoostPackages from '../../components/boosts/BoostPackages';
 import MiniLoader from '../../components/loading/MiniLoader';
 
 import './Summon.scss';
+import { withRouter } from 'react-router-dom';
 
-const Summon = () => {
+const Summon = props => {
   const [web3context] = useContext(Web3Context);
   const [hardMode, setHardMode] = useState(false);
   const [daoData, setDaoData] = useState(daoConstants);
-  const [isSummoning, setIsSummoning] = useState(true);
-  const [currentStep, setCurrentStep] = useState(4);
+  const [isSummoning, setIsSummoning] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
   const { state, dispatch } = useContext(SummonContext);
 
   console.log('state', state);
@@ -29,14 +30,45 @@ const Summon = () => {
     4: 'Our magic internet communities take a minute or two to create.',
   };
 
-  const handleSummon = () => {
+  const handleSummon = async data => {
     setCurrentStep(4);
     setIsSummoning(true);
 
-    //todo: pass to summon service
-
-    console.log('summoning HERE', daoData);
+    setDaoData(prevState => {
+      return {
+        ...prevState,
+        ...data,
+        summon: true,
+      };
+    });
   };
+
+  useEffect(() => {
+    const summonDao = async () => {
+      console.log('summoning HERE', daoData);
+      if (daoData.version === '1') {
+        await state.service.summonV1(daoData, web3context.account, dispatch);
+      }
+    };
+    if (daoData.summon) {
+      summonDao();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [daoData]);
+
+  useEffect(() => {
+    if (state.status === 'error') {
+      setIsSummoning(false);
+    }
+
+    if (state.status === 'complete') {
+      props.history.push(
+        `/building-dao/v1/${state.contractAddress.toLowerCase()}`,
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   return (
     <>
@@ -54,6 +86,10 @@ const Summon = () => {
               </div>
               {currentStep > 4 ? <button>Get Help</button> : null}
             </div>
+
+            {state.status === 'error' ? (
+              <h1>error: {state.errorMessage.message || state.errorMessage}</h1>
+            ) : null}
 
             {!isSummoning ? (
               <>
@@ -127,4 +163,4 @@ const Summon = () => {
   );
 };
 
-export default Summon;
+export default withRouter(Summon);

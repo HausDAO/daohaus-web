@@ -5,6 +5,8 @@ const SummonContext = React.createContext();
 const initialState = {
   service: null,
   summonTx: null,
+  status: 'new',
+  errorMessage: null,
 };
 
 const reducer = (state, action) => {
@@ -18,7 +20,18 @@ const reducer = (state, action) => {
     case 'setSummonTx': {
       return { ...state, summonTx: action.payload };
     }
-
+    case 'setStatus': {
+      return { ...state, status: action.payload };
+    }
+    case 'setError': {
+      return { ...state, errorMessage: action.payload, status: 'error' };
+    }
+    case 'setComplete': {
+      return { ...state, ...action.payload };
+    }
+    case 'clearState': {
+      return { ...state, errorMessage: null, summonTx: null, status: 'new' };
+    }
     default: {
       return initialState;
     }

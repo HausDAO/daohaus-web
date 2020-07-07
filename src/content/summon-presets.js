@@ -11,7 +11,7 @@ export const daoPresets = [
     presetSubtitle: 'Accelerators',
     presetDescription: 'Spread around the wealth and accelerate good stuff.',
     currency: 'WETH',
-    currencyAddress: process.env.REACT_APP_WETH_ADDRESS,
+    approvedToken: process.env.REACT_APP_WETH_ADDRESS,
     minimumTribute: '10',
     votingPeriod: '168',
     gracePeriod: '72',
@@ -27,7 +27,7 @@ export const daoPresets = [
     presetDescription:
       'Invest on chain with a venture fund at your fingertips.',
     currency: 'WETH',
-    currencyAddress: process.env.REACT_APP_WETH_ADDRESS,
+    approvedToken: process.env.REACT_APP_WETH_ADDRESS,
     minimumTribute: '50',
     votingPeriod: '7',
     gracePeriod: '7',
@@ -42,7 +42,7 @@ export const daoPresets = [
     presetSubtitle: 'Services',
     presetDescription: 'BuidL with fellow journeymen for clients and glory.',
     currency: 'DAI',
-    currencyAddress: process.env.REACT_APP_DAI_ADDRESS,
+    approvedToken: process.env.REACT_APP_DAI_ADDRESS,
     minimumTribute: '100',
     votingPeriod: '60',
     gracePeriod: '24',
@@ -58,7 +58,7 @@ export const daoPresets = [
     presetDescription:
       'Hang with your friends and commrades to nerd out or just chill.',
     currency: 'DAI',
-    currencyAddress: process.env.REACT_APP_DAI_ADDRESS,
+    approvedToken: process.env.REACT_APP_DAI_ADDRESS,
     minimumTribute: '10',
     votingPeriod: '4320',
     gracePeriod: '2880',
@@ -74,7 +74,7 @@ export const daoPresets = [
     presetDescription:
       'Decentralize to do good for the world and make an impact that lasts.',
     currency: 'DAI',
-    currencyAddress: process.env.REACT_APP_DAI_ADDRESS,
+    approvedToken: process.env.REACT_APP_DAI_ADDRESS,
     minimumTribute: '25',
     votingPeriod: '240',
     gracePeriod: '96',
@@ -90,7 +90,7 @@ export const daoPresets = [
     presetDescription:
       'Raid together to get projects and products done in record time.',
     currency: 'DAI',
-    currencyAddress: process.env.REACT_APP_DAI_ADDRESS,
+    approvedToken: process.env.REACT_APP_DAI_ADDRESS,
     minimumTribute: '250',
     votingPeriod: '60',
     gracePeriod: '36',

@@ -26,14 +26,15 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
   const versionWatch = watch('version');
 
   const onSubmit = data => {
-    setDaoData(prevState => {
-      return {
-        ...prevState,
-        ...data,
-      };
-    });
+    console.log('data', data);
+    // setDaoData(prevState => {
+    //   return {
+    //     ...prevState,
+    //     ...data,
+    //   };
+    // });
 
-    handleSummon();
+    handleSummon(data);
   };
 
   return (
@@ -90,7 +91,7 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
             Our primary currency is{' '}
             <input
               className="inline-field"
-              name="currencyAddress"
+              name="approvedToken"
               ref={register({
                 required: true,
                 validate: {
@@ -98,10 +99,10 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 },
               })}
             />
-            {errors.currencyAddress?.type === 'required' && (
+            {errors.approvedToken?.type === 'required' && (
               <span className="required-field">add a token address</span>
             )}
-            {errors.currencyAddress?.type === 'isAddress' && (
+            {errors.approvedToken?.type === 'isAddress' && (
               <span className="required-field">
                 that doesn't look like a token address
               </span>

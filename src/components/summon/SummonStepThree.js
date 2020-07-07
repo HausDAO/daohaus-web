@@ -59,7 +59,7 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
       return {
         ...prevState,
         currency: selectedOption.value,
-        currencyAddress: selectedOption.address,
+        approvedToken: selectedOption.address,
       };
     });
   };
