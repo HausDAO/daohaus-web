@@ -3,14 +3,10 @@ import makeBlockie from 'ethereum-blockies-base64';
 
 import './ProfileMemberList.scss';
 
-// const VISIBLE_COUNT = 5;
-
 const ProfileMemberList = ({ daos }) => {
   const [visibleDaos, setVisibleDaos] = useState([]);
 
   useEffect(() => {
-    // TODO: commenting out search functionality
-    // const firstDaos = [...daos].slice(0, VISIBLE_COUNT);
     const firstDaos = [...daos];
 
     setVisibleDaos(firstDaos);

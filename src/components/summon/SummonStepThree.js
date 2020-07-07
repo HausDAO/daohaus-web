@@ -66,8 +66,6 @@ const SummonStepThree = ({
     }
   };
 
-  console.log('errors', errors);
-
   const handleCurrencyChange = event => {
     const selectedOption = currencyOptions.find(option => {
       return event.target.value === option.value;

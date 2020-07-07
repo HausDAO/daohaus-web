@@ -21,8 +21,6 @@ const Summon = props => {
   const [currentStep, setCurrentStep] = useState(1);
   const { state, dispatch } = useContext(SummonContext);
 
-  console.log('state', state);
-
   const stepContent = {
     1: 'What kind of haus will you build?',
     2: 'Give us the basics',
