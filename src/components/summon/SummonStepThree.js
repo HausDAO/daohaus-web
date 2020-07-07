@@ -1,19 +1,62 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+import {
+  periodsForForm,
+  periodsFromForm,
+  depositsForForm,
+  depositsFromForm,
+} from '../../util/helpers';
+import { currencyOptions } from '../../content/summon-presets';
+
 import './Summon.scss';
 
-const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
-  const { register, getValues, watch } = useForm({
-    defaultValues: daoData,
+const SummonStepThree = ({
+  daoData,
+  setDaoData,
+  setCurrentStep,
+  handleSummon,
+}) => {
+  const {
+    register,
+    getValues,
+    watch,
+    handleSubmit,
+    errors,
+    formState,
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues: {
+      ...daoData,
+      formattedPeriods: periodsForForm(daoData),
+      formattedDeposits: depositsForForm(daoData),
+    },
   });
-  // const watchAllFields = watch();
-  // const canMoveForward = watchAllFields.name && watchAllFields.description;
-  const canSummon = false;
+
+  const { isDirty, isValid, isSubmitted } = formState;
+
+  const watchPeriodFields = watch([
+    'formattedPeriods.votingPeriod',
+    'formattedPeriods.gracePeriod',
+  ]);
+
+  const watchDepositFields = watch([
+    'formattedDeposits.proposalDeposit',
+    'formattedDeposits.processingReward',
+  ]);
+
+  const onSubmit = data => {
+    handleSummon(data);
+  };
 
   const navigate = step => {
     setDaoData(prevState => {
-      return { ...prevState, ...getValues() };
+      return {
+        ...prevState,
+        ...getValues(),
+        ...periodsFromForm(watchPeriodFields, daoData.periodDuration),
+        ...depositsFromForm(watchDepositFields),
+      };
     });
 
     if (step === 'summon') {
@@ -23,94 +66,189 @@ const SummonStepThree = ({ daoData, setDaoData, setCurrentStep }) => {
     }
   };
 
-  console.log('daoData', daoData);
+  const handleCurrencyChange = event => {
+    const selectedOption = currencyOptions.find(option => {
+      return event.target.value === option.value;
+    });
+
+    setDaoData(prevState => {
+      return {
+        ...prevState,
+        currency: selectedOption.value,
+        approvedToken: selectedOption.address,
+      };
+    });
+  };
 
   return (
     <div className="SummonStepThree">
-      <div>
-        <h4>Name</h4>
-        <p>
-          Our DAO is called{' '}
-          <input className="inline-field" name="name" ref={register} />
-        </p>
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <div>
+          <h4>Name</h4>
+          <p>
+            Our DAO is called{' '}
+            <input
+              className="inline-field"
+              name="name"
+              ref={register({
+                required: true,
+              })}
+            />
+            {errors.name?.type === 'required' && (
+              <span className="required-field">daos need names</span>
+            )}
+          </p>
+        </div>
 
-      <div>
-        <h4>Description</h4>
-        <p>
-          The quick description is{' '}
-          <textarea
-            className="inline-field"
-            name="description"
-            ref={register}
+        <div>
+          <h4>Description</h4>
+          <p>
+            The quick description is{' '}
+            <textarea
+              className="inline-field"
+              name="description"
+              ref={register({
+                required: true,
+              })}
+            />
+            {errors.description?.type === 'required' && (
+              <span className="required-field">daos need descriptions</span>
+            )}
+          </p>
+        </div>
+
+        <div>
+          <h4>Currency</h4>
+          <div>
+            Our primary currency is{' '}
+            <select
+              value={daoData.currency}
+              onChange={handleCurrencyChange}
+              className="inline-field"
+            >
+              {currencyOptions.map(option => {
+                return (
+                  <option value={option.value} key={option.value}>
+                    {option.label}
+                  </option>
+                );
+              })}
+            </select>
+            and it'll cost at least
+            <input
+              className="inline-field"
+              name="minimumTribute"
+              ref={register({
+                required: true,
+                pattern: /^-?\d*\.?\d*$/,
+              })}
+            />
+            {errors.minimumTribute?.type === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {daoData.currency} to join.
+          </div>
+        </div>
+
+        <div>
+          <h4>Voting</h4>
+          <p>
+            Our voting period lasts{' '}
+            <input
+              className="inline-field"
+              name="formattedPeriods.votingPeriod"
+              ref={register({
+                required: true,
+                pattern: /^-?\d*\.?\d*$/,
+              })}
+            />{' '}
+            {errors.formattedPeriods?.votingPeriod?.type === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.formattedPeriods?.votingPeriod?.type === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}
+            days. and the grace period is another{' '}
+            <input
+              className="inline-field"
+              name="formattedPeriods.gracePeriod"
+              ref={register({
+                required: true,
+                pattern: /^-?\d*\.?\d*$/,
+              })}
+            />{' '}
+            {errors.formattedPeriods?.gracePeriod?.type === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.formattedPeriods?.gracePeriod?.type === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}
+            days.
+          </p>
+        </div>
+
+        <div>
+          <h4>Deposits</h4>
+          <p>
+            And a proposal deposit costs{' '}
+            <input
+              className="inline-field"
+              name="formattedDeposits.proposalDeposit"
+              ref={register({
+                required: true,
+                pattern: /^-?\d*\.?\d*$/,
+              })}
+            />
+            {errors.formattedDeposits?.proposalDeposit?.type === 'required' && (
+              <span className="required-field">required</span>
+            )}
+            {errors.formattedDeposits?.proposalDeposit?.type === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}{' '}
+            {daoData.currency} and the proposal reward is{' '}
+            <input
+              className="inline-field"
+              name="formattedDeposits.processingReward"
+              ref={register({
+                required: true,
+                pattern: /^-?\d*\.?\d*$/,
+                validate: {
+                  lessThanDeposit: val => {
+                    return (
+                      +val <= +getValues('formattedDeposits.proposalDeposit')
+                    );
+                  },
+                },
+              })}
+            />{' '}
+            {errors.formattedDeposits?.processingReward?.type ===
+              'lessThanDeposit' && (
+              <span className="required-field">
+                processing reward must be less than that proposal deposit
+              </span>
+            )}
+            {errors.formattedDeposits?.processingReward?.type ===
+              'required' && <span className="required-field">required</span>}
+            {errors.formattedDeposits?.processingReward?.type === 'pattern' && (
+              <span className="required-field">not a number</span>
+            )}{' '}
+            {daoData.currency}
+          </p>
+        </div>
+        <div>
+          <button onClick={() => navigate(2)}>GO BACK</button>
+          <input
+            type="submit"
+            value="SUMMON"
+            disabled={isSubmitted || (!isDirty && !isValid)}
+            className={
+              isSubmitted || (!isDirty && !isValid)
+                ? 'disabled Button'
+                : 'Button'
+            }
           />
-        </p>
-      </div>
-
-      <div>
-        <h4>Currency</h4>
-        <p>
-          Our primary currency is{' '}
-          <input className="inline-field" name="currency" ref={register} />
-          and it'll cost at least{' '}
-          <input
-            className="inline-field"
-            name="minimumTribute"
-            ref={register}
-          />{' '}
-          to join.
-        </p>
-      </div>
-
-      <div>
-        <h4>Voting</h4>
-        <p>
-          Our voting period lasts{' '}
-          <input className="inline-field" name="votingPeriod" ref={register} />
-          and the grace period is another{' '}
-          <input
-            className="inline-field"
-            name="gracePeriod"
-            ref={register}
-          />{' '}
-        </p>
-      </div>
-
-      <div>
-        <h4>Deposits</h4>
-        <p>
-          And a proposal deposit costs{' '}
-          <input
-            className="inline-field"
-            name="proposalDeposit"
-            ref={register}
-          />{' '}
-          {daoData.currency} and the proposal reward is{' '}
-          <input
-            className="inline-field"
-            name="processingReward"
-            ref={register}
-          />{' '}
-          {daoData.currency}
-          <input className="inline-field" name="votingPeriod" ref={register} />
-          and the grace period is another{' '}
-          <input
-            className="inline-field"
-            name="gracePeriod"
-            ref={register}
-          />{' '}
-        </p>
-      </div>
-      <div>
-        <button
-          onClick={() => navigate('summon')}
-          disabled={!canSummon}
-          className={!canSummon ? 'disabled' : ''}
-        >
-          SUMMON
-        </button>
-        <button onClick={() => navigate(2)}>GO BACK</button>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

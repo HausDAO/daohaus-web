@@ -61,11 +61,13 @@
 
 .disabled,
 .disabled:hover {
+  //TODO: Not working on hard mode input button
   background-color: grey;
 }
 
 input:not([type='checkbox']).inline-field,
-textarea.inline-field {
+textarea.inline-field,
+select.inline-field {
   width: unset;
   border: none;
   box-shadow: none;
@@ -75,4 +77,9 @@ textarea.inline-field {
   padding: none;
   appearance: none;
   margin: 0;
+}
+
+.required-field {
+  color: red;
+  font-size: 10px;
 }
