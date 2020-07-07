@@ -19,7 +19,7 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
     mode: 'onBlur',
     defaultValues: { ...daoData },
   });
-  const { isDirty, isValid } = formState;
+  const { isDirty, isValid, isSubmitted } = formState;
 
   console.log('errors', errors);
 
@@ -98,10 +98,10 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 },
               })}
             />
-            {errors.name?.currencyAddress === 'required' && (
+            {errors.currencyAddress?.type === 'required' && (
               <span className="required-field">add a token address</span>
             )}
-            {errors.name?.currencyAddress === 'isAddress' && (
+            {errors.currencyAddress?.type === 'isAddress' && (
               <span className="required-field">
                 that doesn't look like a token address
               </span>
@@ -115,7 +115,7 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />
-            {errors.name?.minimumTribute === 'required' && (
+            {errors.minimumTribute?.type === 'required' && (
               <span className="required-field">required</span>
             )}
             (18 decimals) to join...
@@ -134,10 +134,10 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />
-            {errors.name?.periodDuration === 'required' && (
+            {errors.periodDuration?.type === 'required' && (
               <span className="required-field">required</span>
             )}
-            {errors.name?.periodDuration === 'pattern' && (
+            {errors.periodDuration?.type === 'pattern' && (
               <span className="required-field">not a number</span>
             )}
             seconds...
@@ -156,10 +156,10 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />{' '}
-            {errors.name?.votingPeriod === 'required' && (
+            {errors.votingPeriod?.type === 'required' && (
               <span className="required-field">required</span>
             )}
-            {errors.name?.votingPeriod === 'pattern' && (
+            {errors.votingPeriod?.type === 'pattern' && (
               <span className="required-field">not a number</span>
             )}
             periods, the grace period is another{' '}
@@ -171,10 +171,10 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />{' '}
-            {errors.name?.gracePeriod === 'required' && (
+            {errors.gracePeriod?.type === 'required' && (
               <span className="required-field">required</span>
             )}
-            {errors.name?.gracePeriod === 'pattern' && (
+            {errors.gracePeriod?.type === 'pattern' && (
               <span className="required-field">not a number</span>
             )}
             periods.
@@ -189,10 +189,10 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                     pattern: /^-?\d*\.?\d*$/,
                   })}
                 />
-                {errors.name?.abortWindow === 'required' && (
+                {errors.abortWindow?.type === 'required' && (
                   <span className="required-field">required</span>
                 )}
-                {errors.name?.abortWindow === 'pattern' && (
+                {errors.abortWindow?.type === 'pattern' && (
                   <span className="required-field">not a number</span>
                 )}{' '}
                 periods.
@@ -207,10 +207,10 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />
-            {errors.name?.dilutionBound === 'required' && (
+            {errors.dilutionBound?.type === 'required' && (
               <span className="required-field">required</span>
             )}
-            {errors.name?.dilutionBound === 'pattern' && (
+            {errors.dilutionBound?.type === 'pattern' && (
               <span className="required-field">not a number</span>
             )}{' '}
           </p>
@@ -228,10 +228,10 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 pattern: /^-?\d*\.?\d*$/,
               })}
             />
-            {errors.name?.proposalDeposit === 'required' && (
+            {errors.proposalDeposit?.type === 'required' && (
               <span className="required-field">required</span>
             )}
-            {errors.name?.proposalDeposit === 'pattern' && (
+            {errors.proposalDeposit?.type === 'pattern' && (
               <span className="required-field">not a number</span>
             )}{' '}
           </p>
@@ -249,15 +249,15 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
                 },
               })}
             />{' '}
-            {errors.name?.processingReward === 'lessThanDeposit' && (
+            {errors.processingReward?.type === 'lessThanDeposit' && (
               <span className="required-field">
                 processing reward must be less than that proposal deposit
               </span>
             )}
-            {errors.name?.processingReward === 'required' && (
+            {errors.processingReward?.type === 'required' && (
               <span className="required-field">required</span>
             )}
-            {errors.name?.processingReward === 'pattern' && (
+            {errors.processingReward?.type === 'pattern' && (
               <span className="required-field">not a number</span>
             )}{' '}
             (18 decimals)
@@ -267,8 +267,12 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
           <input
             type="submit"
             value="SUMMON"
-            disabled={!isDirty && !isValid}
-            className={!isDirty && !isValid ? 'disabled Button' : 'Button'}
+            disabled={isSubmitted || (!isDirty && !isValid)}
+            className={
+              isSubmitted || (!isDirty && !isValid)
+                ? 'disabled Button'
+                : 'Button'
+            }
           />
         </div>
       </form>

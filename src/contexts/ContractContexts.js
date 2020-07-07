@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import Web3Modal from 'web3modal';
 
 import Web3 from 'web3';
@@ -6,6 +6,8 @@ import Web3 from 'web3';
 import Web3Service from '../util/web3Service';
 import { USER_TYPE, w3connect, providerOptions } from '../components/auth/Auth';
 import { getChainData } from '../components/auth/chains';
+import SummonService from '../util/summon-service';
+import { SummonContext } from './SummonContext';
 
 export const MolochContext = createContext(null);
 export const Web3Context = createContext();
@@ -15,6 +17,7 @@ const ContractContexts = ({ children }) => {
   const [w3Context, setW3Context] = useState();
   const [token, setToken] = useState();
   const [moloch, setMoloch] = useState();
+  const { dispatch } = useContext(SummonContext);
 
   useEffect(() => {
     const setUp = async () => {
@@ -35,7 +38,6 @@ const ContractContexts = ({ children }) => {
         switch (loginType) {
           case USER_TYPE.WEB3: {
             if (web3Modal.cachedProvider) {
-
               const w3m = await w3connect(web3Modal);
 
               const [account] = await w3m.web3.eth.getAccounts();
@@ -89,6 +91,16 @@ const ContractContexts = ({ children }) => {
     };
     setUp();
   }, []);
+
+  useEffect(() => {
+    if (w3Context && w3Context.web3Service) {
+      const summonService = new SummonService(w3Context.web3Service);
+      dispatch({ type: 'setService', payload: summonService });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [w3Context]);
+
   return (
     <Web3Context.Provider value={[w3Context, setW3Context]}>
       <MolochContext.Provider value={[moloch, setMoloch]}>
