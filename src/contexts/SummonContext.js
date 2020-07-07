@@ -7,6 +7,7 @@ const initialState = {
   summonTx: null,
   status: 'new',
   errorMessage: null,
+  contractAddress: null,
 };
 
 const reducer = (state, action) => {
@@ -30,7 +31,13 @@ const reducer = (state, action) => {
       return { ...state, ...action.payload };
     }
     case 'clearState': {
-      return { ...state, errorMessage: null, summonTx: null, status: 'new' };
+      return {
+        ...state,
+        errorMessage: null,
+        summonTx: null,
+        status: 'new',
+        contractAddress: null,
+      };
     }
     default: {
       return initialState;

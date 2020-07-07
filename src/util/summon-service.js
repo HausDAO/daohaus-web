@@ -1,5 +1,7 @@
 import v1FactoryAbi from '../contracts/factory';
 import v2FactoryAbi from '../contracts/factory';
+import MolochV2Abi from '../contracts/molochV2.json';
+import MolochV2Bytecode from '../contracts/molochV2Bytecode.json';
 
 import { post, remove, put } from './requests';
 
@@ -15,9 +17,44 @@ export default class SummonService {
       process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
     );
     this.summonTx = null;
+    this.MolochV2Bytecode = MolochV2Bytecode;
   }
 
-  async summonV1(daoData, account, dispatch) {
+  async summonFunction(daoData, account) {
+    if (daoData.version === '1') {
+      return this.v1FactoryContract.methods.newDao(
+        daoData.approvedToken,
+        daoData.periodDuration,
+        daoData.votingPeriod,
+        daoData.gracePeriod,
+        daoData.abortWindow,
+        this.web3Service.web3.utils.toBN(daoData.proposalDeposit).toString(),
+        daoData.dilutionBound,
+        this.web3Service.web3.utils.toBN(daoData.processingReward).toString(),
+        daoData.name.trim(),
+      );
+    } else {
+      const molochV2Contract = await this.web3Service.createContract(
+        MolochV2Abi,
+      );
+
+      return molochV2Contract.deploy({
+        data: MolochV2Bytecode.object,
+        arguments: [
+          account,
+          daoData.approvedToken.split(',').map(item => item.trim()),
+          daoData.periodDuration,
+          daoData.votingPeriod,
+          daoData.gracePeriod,
+          daoData.proposalDeposit,
+          daoData.dilutionBound,
+          daoData.processingReward,
+        ],
+      });
+    }
+  }
+
+  async summonDao(daoData, account, dispatch) {
     console.log('summoning', daoData, account);
 
     dispatch({ type: 'setStatus', payload: 'summoning' });
@@ -28,6 +65,7 @@ export default class SummonService {
         name: daoData.name.trim(),
         minimumTribute: daoData.minimumTribute,
         description: daoData.description,
+        version: daoData.version,
       };
       const cacheId = await post('moloch/orphan', cacheMoloch);
       this.setLocal({
@@ -35,18 +73,9 @@ export default class SummonService {
         summonerAddress: cacheMoloch.summonerAddress,
         cacheId,
       });
-      return await this.v1FactoryContract.methods
-        .newDao(
-          daoData.approvedToken,
-          daoData.periodDuration,
-          daoData.votingPeriod,
-          daoData.gracePeriod,
-          daoData.abortWindow,
-          this.web3Service.web3.utils.toBN(daoData.proposalDeposit).toString(),
-          daoData.dilutionBound,
-          this.web3Service.web3.utils.toBN(daoData.processingReward).toString(),
-          daoData.name.trim(),
-        )
+
+      const summon = await this.summonFunction(daoData, account);
+      await summon
         .send(
           {
             from: account,
@@ -97,11 +126,22 @@ export default class SummonService {
           this.setLocal({
             tx: this.summonTx,
           });
+
+          if (daoData.version === '2') {
+            put(`moloch/orphan/${cacheId.data.id}`, {
+              transactionHash: transactionHash,
+            });
+          }
         })
         .on('receipt', receipt => {
           console.log(receipt.events.Register);
 
-          const contractAddress = receipt.events.Register.returnValues.moloch;
+          // TODO: split on v2 v1 logic with orphans
+
+          const contractAddress =
+            daoData.version === '1'
+              ? receipt.events.Register.returnValues.moloch
+              : receipt.contractAddress;
           const newMoloch = {
             summonerAddress: account,
             contractAddress: contractAddress,
@@ -115,43 +155,62 @@ export default class SummonService {
             contract: contractAddress,
           });
 
-          post('moloch', newMoloch)
-            .then(() => {
-              remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
-                // move them on to register
-                // props.history.push(
-                //   `/building-dao/v1/${contractAddress.toLowerCase()}`,
-                // );
+          if (daoData.version === '1') {
+            post('moloch', newMoloch)
+              .then(() => {
+                remove(`moloch/orphan/${cacheId.data.id}`).then(() => {
+                  dispatch({
+                    type: 'setComplete',
+                    payload: { status: 'complete', contractAddress },
+                  });
+                });
+              })
+              .catch(err => {
+                console.log('moloch creation error', err);
 
+                dispatch({ type: 'setError', payload: err });
+                this.setLocal({
+                  tx: this.summonTx,
+                  error: 'cache error',
+                });
+              });
+          } else {
+            put(`moloch/orphan/${cacheId.data.id}`, {
+              contractAddress: contractAddress,
+            })
+              .then(() => {
+                console.log('dao contract address updated');
+              })
+              .then(orphanRes => {
                 dispatch({
                   type: 'setComplete',
                   payload: { status: 'complete', contractAddress },
                 });
+              })
+              .catch(err => {
+                console.log('moloch creation error', err);
+
+                dispatch({ type: 'setError', payload: err });
+                this.setLocal({
+                  tx: this.summonTx,
+                  error: 'cache error',
+                });
               });
-            })
-            .catch(err => {
-              console.log('moloch creation error', err);
-
-              dispatch({ type: 'setError', payload: err });
-              this.setLocal({
-                tx: this.summonTx,
-                error: 'cache error',
-              });
-            });
-        })
-        .on('confirmation', (confirmationNumber, receipt) => {
-          console.log(confirmationNumber, receipt);
-
-          //why/when?
-          // dispatch({ type: 'setStatus', payload: 'confirmed' });
-        })
-        .then(newContractInstance => {
-          console.log(newContractInstance);
-
-          this.setLocal({
-            complete: true,
-          });
+          }
         });
+      // .on('confirmation', (confirmationNumber, receipt) => {
+      //   console.log(confirmationNumber, receipt);
+
+      //   //why/when?
+      //   // dispatch({ type: 'setStatus', payload: 'confirmed' });
+      // })
+      // .then(newContractInstance => {
+      //   console.log(newContractInstance);
+
+      //   this.setLocal({
+      //     complete: true,
+      //   });
+      // });
     } catch (err) {
       console.log('last catch error', err);
 

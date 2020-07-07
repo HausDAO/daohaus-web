@@ -46,9 +46,9 @@ const Summon = props => {
   useEffect(() => {
     const summonDao = async () => {
       console.log('summoning HERE', daoData);
-      if (daoData.version === '1') {
-        await state.service.summonV1(daoData, web3context.account, dispatch);
-      }
+      // if (daoData.version === '1') {
+      await state.service.summonDao(daoData, web3context.account, dispatch);
+      // }
     };
     if (daoData.summon) {
       summonDao();
@@ -63,8 +63,11 @@ const Summon = props => {
     }
 
     if (state.status === 'complete') {
+      dispatch({ type: 'clearState' });
       props.history.push(
-        `/building-dao/v1/${state.contractAddress.toLowerCase()}`,
+        `/building-dao/v${
+          daoData.version
+        }/${state.contractAddress.toLowerCase()}`,
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
