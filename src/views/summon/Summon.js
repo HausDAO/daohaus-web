@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { daoConstants } from '../../content/summon-presets';
 import { SummonContext } from '../../contexts/SummonContext';
@@ -11,7 +12,6 @@ import BoostPackages from '../../components/boosts/BoostPackages';
 import MiniLoader from '../../components/loading/MiniLoader';
 
 import './Summon.scss';
-import { withRouter } from 'react-router-dom';
 
 const Summon = props => {
   const [web3context] = useContext(Web3Context);
@@ -46,10 +46,9 @@ const Summon = props => {
   useEffect(() => {
     const summonDao = async () => {
       console.log('summoning HERE', daoData);
-      // if (daoData.version === '1') {
       await state.service.summonDao(daoData, web3context.account, dispatch);
-      // }
     };
+
     if (daoData.summon) {
       summonDao();
     }

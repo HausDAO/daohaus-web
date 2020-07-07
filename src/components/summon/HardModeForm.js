@@ -5,7 +5,7 @@ import { Web3Context } from '../../contexts/ContractContexts';
 
 import './Summon.scss';
 
-const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
+const HardModeForm = ({ daoData, handleSummon }) => {
   const [w3Service] = useContext(Web3Context);
 
   const {
@@ -26,14 +26,6 @@ const HardModeForm = ({ daoData, setDaoData, handleSummon }) => {
   const versionWatch = watch('version');
 
   const onSubmit = data => {
-    console.log('data', data);
-    // setDaoData(prevState => {
-    //   return {
-    //     ...prevState,
-    //     ...data,
-    //   };
-    // });
-
     handleSummon(data);
   };
 

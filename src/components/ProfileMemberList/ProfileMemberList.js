@@ -3,15 +3,15 @@ import makeBlockie from 'ethereum-blockies-base64';
 
 import './ProfileMemberList.scss';
 
-const VISIBLE_COUNT = 5;
+// const VISIBLE_COUNT = 5;
 
 const ProfileMemberList = ({ daos }) => {
   const [visibleDaos, setVisibleDaos] = useState([]);
 
   useEffect(() => {
     // TODO: commenting out search functionality
-    const firstDaos = [...daos].slice(0, VISIBLE_COUNT);
-    // const firstDaos = [...daos];
+    // const firstDaos = [...daos].slice(0, VISIBLE_COUNT);
+    const firstDaos = [...daos];
 
     setVisibleDaos(firstDaos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,13 +59,13 @@ const ProfileMemberList = ({ daos }) => {
           dao.title.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1
         );
       });
-      setVisibleDaos(resultDaos.slice(0, 4));
+      setVisibleDaos(resultDaos);
     } else {
-      setVisibleDaos([...daos].slice(0, 4));
+      setVisibleDaos(daos);
     }
   };
 
-  const canSearch = daos.length > visibleDaos.length;
+  const canSearch = daos.length > 5;
 
   return (
     <div className="ProfileMemberList">
