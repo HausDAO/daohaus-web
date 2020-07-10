@@ -32,6 +32,9 @@ const Activity = props => {
 
     const summonMonths = Object.keys(groupedSummonData);
     const propMonths = Object.keys(groupedProposalData);
+    summonMonths.pop();
+    propMonths.pop();
+
     const labels =
       summonMonths.length > propMonths.length ? summonMonths : propMonths;
 
