@@ -1898,11 +1898,6 @@
     "@hapi/bourne" "1.x.x"
     "@hapi/hoek" "8.x.x"
 
-"@hookform/resolvers@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-0.0.5.tgz#eddf423734c35b1b02a048528be80a64f67781ab"
-  integrity sha512-EDp4nclPiE4slWS/v9Q/Ad9ETdqC4zLivDOkj+PCvsXc2mpe9YlkXYM4N3iR9cdcSKA34EG1bTq4+5JG8GaYAQ==
-
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
