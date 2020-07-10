@@ -22,7 +22,7 @@ const Summon = props => {
   const { state, dispatch } = useContext(SummonContext);
 
   const stepContent = {
-    1: 'What kind of haus will you build?',
+    1: 'What kind of Haus will you build?',
     2: 'Give us the basics',
     3: 'Last chance to make changes',
     4: 'Our magic internet communities take a minute or two to create.',
@@ -121,12 +121,12 @@ const Summon = props => {
                     ) : null}
 
                     <p>
-                      I'm a DAO master, take me to the{' '}
+                      I'm a DAO master, take me to{' '}
                       <span
                         className="mode-link"
                         onClick={() => setHardMode(true)}
                       >
-                        hard mode
+                        Hard Mode
                       </span>
                     </p>
                   </>
@@ -143,7 +143,7 @@ const Summon = props => {
                         className="mode-link"
                         onClick={() => setHardMode(false)}
                       >
-                        fun mode.
+                        Fun Mode.
                       </span>
                     </p>
                   </>
@@ -152,7 +152,7 @@ const Summon = props => {
             ) : (
               <>
                 <MiniLoader txHash={state.summonTx} />
-                <p>While you wait checkout our boosts</p>
+                <p>While you wait, check out our boosts</p>
                 <BoostPackages isSummoning={isSummoning} />
               </>
             )}

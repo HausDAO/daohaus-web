@@ -27,35 +27,67 @@
   justify-content: space-between;
   @media (max-width: $mobile) {
     flex-direction: column;
-    .ActivityCard {
-      width: calc(100% - 50px) !important;
-    }
   }
 }
 
 .SummonStepOne__card {
   padding: 25px;
-  background-color: $primary-background;
+  background-color: $background;
+  border: 2px solid transparent;
   margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: $shadow;
   width: calc(33% - 50px);
-  &:not(:nth-child(3n)) {
-    margin-right: 15px;
-    width: calc(33% - 65px);
+  transition: all 0.15s linear;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media (min-width: $grid + 1px) {
+    &:not(:nth-child(3n)) {
+      margin-right: 15px;
+      width: calc(33% - 65px);
+    }
+  }
+  > img {
+    margin: 0 auto;
+    display: block;
+    svg path.stroke {
+      fill: black;
+    }
   }
   > p,
   > h4,
   > h5 {
-    color: white;
+    text-align: center;
   }
-  > a > p {
-    max-height: 300px;
-    overflow: hidden;
-    word-break: break-all;
+  > p {
+    font-size: 0.85em;
   }
   &:hover {
-    background-color: $primary-hover;
+    cursor: pointer;
+    background-color: $background-hover;
+  }
+  &.isSelected {
+    border-color: $primary-background;
+    > p {
+      margin: 0;
+    }
+    > h4,
+    > h5 {
+      color: white;
+    }
+  }
+  @media (min-width: $mobile + 1px) and (max-width: $grid) {
+    width: calc(50% - 50px);
+    &:not(:nth-child(2n)) {
+      margin-right: 15px;
+      width: calc(50% - 65px);
+    }
+  }
+  @media (max-width: $mobile) {
+    width: calc(100% - 50px);
   }
 }
 

@@ -1,3 +1,10 @@
+import imgGrants from '../assets/imgGrants.svg';
+import imgGuilds from '../assets/imgGuilds.svg';
+import imgVentures from '../assets/imgVentures.svg';
+import imgImpacts from '../assets/imgImpacts.svg';
+import imgProjects from '../assets/imgProjects.svg';
+import imgClubs from '../assets/imgClubs.svg';
+
 export const daoConstants = {
   //should this default to match voting period or grace period?
   // or are we only letting people summon v1 in hard mode
@@ -20,6 +27,7 @@ export const daoPresets = [
     periodDuration: '3600',
     color: '#ea8923',
     version: '2',
+    img: imgGrants,
   },
   {
     presetName: 'Ventures',
@@ -36,6 +44,7 @@ export const daoPresets = [
     periodDuration: '86400',
     color: '#AB3593',
     version: '2',
+    img: imgVentures,
   },
   {
     presetName: 'Guilds',
@@ -51,6 +60,7 @@ export const daoPresets = [
     periodDuration: '7200',
     color: '#4FBF9F',
     version: '2',
+    img: imgGuilds,
   },
   {
     presetName: 'Clubs',
@@ -67,6 +77,7 @@ export const daoPresets = [
     periodDuration: '60',
     color: '#F16061',
     version: '2',
+    img: imgClubs,
   },
   {
     presetName: 'Non-profit',
@@ -83,6 +94,7 @@ export const daoPresets = [
     periodDuration: '1800',
     color: '#129AC6',
     version: '2',
+    img: imgImpacts,
   },
   {
     presetName: 'Products',
@@ -99,6 +111,7 @@ export const daoPresets = [
     periodDuration: '7200',
     color: '#513e97',
     version: '2',
+    img: imgProjects,
   },
 ];
 

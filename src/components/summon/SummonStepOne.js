@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { daoPresets } from '../../content/summon-presets';
 import {
@@ -15,18 +15,22 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
       return { ...prevState, ...preset };
     });
   };
+  const [isFlipped, setIsFlipped] = useState(false);
 
   const renderPresets = () => {
     return daoPresets.map(preset => {
       const isSelected = daoData.presetName === preset.presetName;
-
-      if (isSelected) {
-        return (
-          <div
-            className="SummonStepOne__card"
-            style={{ backgroundColor: preset.color }}
-            key={preset.presetName}
-          >
+      return (
+        <div
+          className={
+            isFlipped ? 'SummonStepOne__card isFlipped' : 'SummonStepOne__card'
+          }
+          key={preset.presetName}
+          onMouseEnter={() => setIsFlipped(true)}
+          onMouseLeave={() => setIsFlipped(false)}
+          onClick={() => selectPreset(preset)}
+        >
+          <div className="Back">
             <h4>{preset.presetName}</h4>
             <h5>Default Settings</h5>
             <p>Currency: {preset.currency}</p>
@@ -52,22 +56,16 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
                 preset.currency
               }`}
             </p>
-            <p>* you can change these later</p>
+            <p>* You can change these later</p>
           </div>
-        );
-      } else {
-        return (
-          <div
-            className="SummonStepOne__card"
-            key={preset.presetName}
-            onClick={() => selectPreset(preset)}
-          >
+          <div className="Front">
+            <img src={preset.img} />
             <h4 style={{ color: preset.color }}>{preset.presetName}</h4>
             <h5 style={{ color: preset.color }}>{preset.presetSubtitle}</h5>
             <p>{preset.presetDescription}</p>
           </div>
-        );
-      }
+        </div>
+      );
     });
   };
   return (
