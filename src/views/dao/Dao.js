@@ -133,7 +133,8 @@ const Dao = props => {
 
   const checkIfMemberOrApplicant = (memberAddresses, members) => {
     const isMember =
-      web3Context.account && memberAddresses.includes(web3Context.account.toLowerCase());
+      web3Context.account &&
+      memberAddresses.includes(web3Context.account.toLowerCase());
     const applicantAddresses = members.applicants.map(app => {
       return app.applicantAddress.toLowerCase();
     });
@@ -277,7 +278,7 @@ const Dao = props => {
                       <h4>Dao Details</h4>
                       <p className="Label">Bank</p>
                       <p className="Value Data">
-                        {bankValue(daoData.guildBankValue)}{' '}
+                        {bankValue(daoData.guildBankValue.token)}{' '}
                         {daoData.depositToken.symbol}
                       </p>
                       <p className="Label">Members</p>

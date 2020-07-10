@@ -15,6 +15,8 @@ const Explore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log('state.allDaos', state.allDaos);
+
   return (
     <>
       <div className="Explore__hero">

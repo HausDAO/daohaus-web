@@ -6,6 +6,7 @@ import MolochService from './molochService';
 import TokenService from './tokenService';
 import { get } from './requests';
 import { titleMaker, descriptionMaker } from './helpers';
+import { getUsd } from './prices';
 
 let _web3;
 if (
@@ -19,6 +20,7 @@ if (
   );
 }
 const web3Service = new Web3Service(_web3);
+const prices = {};
 
 export const resolvers = (() => {
   const tokens = {};
@@ -67,12 +69,30 @@ export const resolvers = (() => {
             guildBankValue = await tokenService.balanceOf(guildBankAddr);
           } catch (err) {
             // console.log('symbol or guildbank error', err);
-            guildBankValue = '0';
+            guildBankValue = 0;
           }
 
-          return guildBankValue;
+          let usdPrice = prices[moloch.depositToken.tokenAddress];
+
+          if (!usdPrice && usdPrice !== 0) {
+            try {
+              console.log('api call', moloch.depositToken.tokenAddress);
+              const usdRes = await getUsd(moloch.depositToken.tokenAddress);
+              prices[moloch.depositToken.tokenAddress] =
+                usdRes.data[moloch.depositToken.tokenAddress].usd || 0;
+              usdPrice = usdRes.data[moloch.depositToken.tokenAddress].usd;
+            } catch (err) {
+              console.log('usd fetch error', err);
+              usdPrice = 0;
+            }
+          }
+
+          const usdValue =
+            usdPrice * (guildBankValue / 10 ** moloch.depositToken.decimals);
+          return { token: guildBankValue, usd: usdValue };
         } else {
-          return 0;
+          //todo: wont have token
+          return { token: 0, usd: 0 };
         }
       },
     },

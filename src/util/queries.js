@@ -25,6 +25,10 @@ export const GET_MOLOCHES_EXPLORER = gql`
         symbol
         decimals
       }
+      guildTokenBalance {
+        id
+        tokenBalance
+      }
     }
   }
 `;

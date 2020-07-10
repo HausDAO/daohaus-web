@@ -22,11 +22,11 @@ const DaoCard = ({ dao }) => {
           <div className="Column">
             {dao.version !== '2' ? (
               <p className="Data">
-                {bankValue(dao.guildBankValue)} {dao.depositToken.symbol}
+                {bankValue(dao.guildBankValue.token)} {dao.depositToken.symbol}
               </p>
             ) : (
               <p className="Data">
-                {dao.guildBankValue} **v2 value coming soon{' '}
+                {dao.guildBankValue.token} **v2 value coming soon{' '}
               </p>
             )}
             <p className="Data">{dao.members.length} Members</p>

@@ -8,8 +8,6 @@ import '../../views/stats/Stats.scss';
 const Activity = props => {
   const { data } = props;
 
-  console.log('data', data);
-
   const lineData = () => {
     const groupedSummonData = _.groupBy(
       _.sortBy(data.moloches, 'summoningTime'),
@@ -47,7 +45,6 @@ const Activity = props => {
       summonMonths.length - 1,
     );
 
-    console.log('propMonths', propMonths);
     const labels =
       summonMonths.length > propMonths.length ? summonMonths : propMonths;
 
