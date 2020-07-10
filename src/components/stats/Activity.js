@@ -30,8 +30,19 @@ const Activity = props => {
       },
     );
 
-    const summonMonths = Object.keys(groupedSummonData);
-    const propMonths = Object.keys(groupedProposalData);
+    let summonMonths = Object.keys(groupedSummonData);
+    let propMonths = Object.keys(groupedProposalData);
+    propMonths = propMonths.slice(
+      propMonths.indexOf('8/2019'),
+      propMonths.length - 1,
+    );
+    summonMonths = summonMonths.slice(
+      summonMonths.indexOf('8/2019'),
+      summonMonths.length - 1,
+    );
+
+    console.log('propMonths', propMonths);
+
     const labels =
       summonMonths.length > propMonths.length ? summonMonths : propMonths;
 
