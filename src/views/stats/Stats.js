@@ -30,6 +30,8 @@ const Stats = () => {
     },
   });
 
+  console.log('data', data);
+
   const totalDaos = () => {
     return data.moloches.length;
   };

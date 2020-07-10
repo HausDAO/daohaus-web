@@ -8,6 +8,8 @@ import '../../views/stats/Stats.scss';
 const Activity = props => {
   const { data } = props;
 
+  console.log('data', data);
+
   const lineData = () => {
     const groupedSummonData = _.groupBy(
       _.sortBy(data.moloches, 'summoningTime'),
@@ -32,15 +34,20 @@ const Activity = props => {
 
     let summonMonths = Object.keys(groupedSummonData);
     let propMonths = Object.keys(groupedProposalData);
-    propMonths = propMonths.slice(
-      propMonths.indexOf('8/2019'),
-      propMonths.length - 1,
-    );
+    const startIndexProp =
+      propMonths.indexOf('8/2019') === -1 ? 0 : propMonths.indexOf('8/2019');
+    const startIndexSummon =
+      summonMonths.indexOf('8/2019') === -1
+        ? 0
+        : summonMonths.indexOf('8/2019');
+
+    propMonths = propMonths.slice(startIndexProp, propMonths.length - 1);
     summonMonths = summonMonths.slice(
-      summonMonths.indexOf('8/2019'),
+      startIndexSummon,
       summonMonths.length - 1,
     );
 
+    console.log('propMonths', propMonths);
     const labels =
       summonMonths.length > propMonths.length ? summonMonths : propMonths;
 
