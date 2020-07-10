@@ -41,8 +41,6 @@ const Activity = props => {
       summonMonths.length - 1,
     );
 
-    console.log('propMonths', propMonths);
-
     const labels =
       summonMonths.length > propMonths.length ? summonMonths : propMonths;
 
