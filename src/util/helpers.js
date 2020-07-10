@@ -1,6 +1,10 @@
+import moment from 'moment';
+import web3 from 'web3';
+
 export const truncateAddr = addr => {
   return addr.slice(0, 6) + '...' + addr.slice(-4);
 };
+
 export const successMessagesText = messageType => {
   switch (messageType) {
     case 'pledge': {
@@ -60,4 +64,77 @@ export const descriptionMaker = proposal => {
     }
   }
   return ``;
+};
+
+export const formatPeriodDuration = seconds => {
+  const hours = moment.duration(+seconds, 'seconds').asHours();
+  if (hours > 1) {
+    return `${hours} hour${hours > 1 ? 's' : ''}`;
+  } else {
+    const minutes = moment.duration(+seconds, 'seconds').asMinutes();
+    return `${minutes} minute${minutes > 1 ? 's' : ''}`;
+  }
+};
+
+export const formatPeriodLength = (periods, duration) => {
+  const periodSeconds = +periods * duration;
+  const days = moment.duration(periodSeconds, 'seconds').asDays();
+
+  return `${days} day${days > 1 ? 's' : ''}`;
+};
+
+export const periodsForForm = daoData => {
+  const votingPeriod = moment
+    .duration(+daoData.votingPeriod * +daoData.periodDuration, 'seconds')
+    .asDays();
+
+  const gracePeriod = moment
+    .duration(+daoData.gracePeriod * +daoData.periodDuration, 'seconds')
+    .asDays();
+
+  return {
+    votingPeriod,
+    gracePeriod,
+  };
+};
+
+export const periodsFromForm = (periods, periodDuration) => {
+  const votingSeconds = moment
+    .duration(+periods['formattedPeriods.votingPeriod'], 'days')
+    .asSeconds();
+  const votingPeriod = +votingSeconds / +periodDuration;
+
+  const graceSeconds = moment
+    .duration(+periods['formattedPeriods.gracePeriod'], 'days')
+    .asSeconds();
+  const gracePeriod = +graceSeconds / +periodDuration;
+
+  return {
+    votingPeriod,
+    gracePeriod,
+  };
+};
+
+export const formatDepositWei = amount => {
+  return web3.utils.fromWei(amount.toString(), 'ether');
+};
+
+export const depositsForForm = daoData => {
+  return {
+    proposalDeposit: formatDepositWei(daoData.proposalDeposit),
+    processingReward: formatDepositWei(daoData.processingReward),
+  };
+};
+
+export const depositsFromForm = deposits => {
+  return {
+    proposalDeposit: web3.utils.toWei(
+      deposits['formattedDeposits.proposalDeposit'].toString(),
+      'ether',
+    ),
+    processingReward: web3.utils.toWei(
+      deposits['formattedDeposits.processingReward'].toString(),
+      'ether',
+    ),
+  };
 };

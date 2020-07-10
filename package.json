@@ -16,6 +16,7 @@
     "formik-wizard": "^3.1.1",
     "graphql": "^14.5.8",
     "lodash": "^4.17.15",
+    "moment": "^2.27.0",
     "node-libs-browser": "^2.2.1",
     "node-sass": "^4.12.0",
     "profile-hover": "^1.0.2",
@@ -26,6 +27,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
+    "react-hook-form": "^6.0.1",
     "react-laag": "^1.7.3",
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.0.1",
@@ -34,7 +36,7 @@
     "react-tabs": "^3.0.0",
     "web3": "^1.2.2",
     "web3modal": "^1.7.0",
-    "yup": "^0.27.0"
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "eslint": "^6.4.0",

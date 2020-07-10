@@ -11,6 +11,7 @@ import { resolvers } from './util/resolvers';
 import './global.scss';
 import './App.css';
 import { ExploreContextProvider } from './contexts/ExploreContext';
+import { SummonContextProvider } from './contexts/SummonContext';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_SUPERGRAPH_URL,
@@ -22,16 +23,18 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <ContractContexts>
-        <ExploreContextProvider>
-          <div className="App">
-            <Router>
-              <TopNav />
-              <Routes />
-            </Router>
-          </div>
-        </ExploreContextProvider>
-      </ContractContexts>
+      <SummonContextProvider>
+        <ContractContexts>
+          <ExploreContextProvider>
+            <div className="App">
+              <Router>
+                <TopNav />
+                <Routes />
+              </Router>
+            </div>
+          </ExploreContextProvider>
+        </ContractContexts>
+      </SummonContextProvider>
     </ApolloProvider>
   );
 }
