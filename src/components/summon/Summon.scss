@@ -21,6 +21,22 @@
   }
 }
 
+.Summon.View {
+  .Row {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+}
+.Summon__step {
+  p {
+    width: 100%;
+    font-size: 1.5em;
+    text-align: center;
+  }
+}
+
 .SummonStepOne__list {
   display: flex;
   flex-wrap: wrap;
@@ -30,64 +46,116 @@
   }
 }
 
-.SummonStepOne__card {
-  padding: 25px;
-  background-color: $background;
-  border: 2px solid transparent;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  box-shadow: $shadow;
-  width: calc(33% - 50px);
+.PresetCard {
+  display: block;
+  background-color: transparent;
+  width: calc(33%);
   transition: all 0.15s linear;
-  min-height: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: 360px;
+  perspective: 2000px;
+  margin-bottom: 25px;
+  cursor: pointer;
   @media (min-width: $grid + 1px) {
     &:not(:nth-child(3n)) {
       margin-right: 15px;
-      width: calc(33% - 65px);
+      width: calc(33% - 15px);
     }
   }
-  > img {
-    margin: 0 auto;
-    display: block;
-    svg path.stroke {
-      fill: black;
-    }
+  &:hover .PresetCard__Inner {
+    transform: rotateY(180deg);
   }
-  > p,
-  > h4,
-  > h5 {
-    text-align: center;
-  }
-  > p {
-    font-size: 0.85em;
-  }
-  &:hover {
-    cursor: pointer;
-    background-color: $background-hover;
-  }
-  &.isSelected {
+  &.isSelected .PresetCard__Inner {
     border-color: $primary-background;
-    > p {
-      margin: 0;
+  }
+  &__Inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: $shadow;
+    border: 2px solid transparent;
+    border-radius: 5px;
+  }
+  &__Front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $background;
+    // Flip
+    position: absolute;
+    padding: 25px;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    > img {
+      margin: 0 auto;
+      display: block;
+      svg path.stroke {
+        fill: black;
+      }
     }
-    > h4,
+    > p {
+      text-align: center;
+      margin-top: 15px;
+    }
+    > h4 {
+      margin: 0;
+      text-align: center;
+    }
     > h5 {
-      color: white;
+      margin: 0;
+      text-align: center;
+    }
+  }
+  &__Back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $background;
+    // Flip
+    position: absolute;
+    padding: 25px;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    > h4 {
+      margin: 0;
+      text-align: center;
+    }
+    > h5 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    > p {
+      margin: 3px 0px;
+      font-size: 0.85em;
     }
   }
   @media (min-width: $mobile + 1px) and (max-width: $grid) {
-    width: calc(50% - 50px);
+    width: calc(50%);
     &:not(:nth-child(2n)) {
       margin-right: 15px;
-      width: calc(50% - 65px);
+      width: calc(50% - 15px);
     }
   }
   @media (max-width: $mobile) {
-    width: calc(100% - 50px);
+    width: calc(100%);
+  }
+}
+
+.StepControl {
+  width: 100%;
+  button {
+    display: block;
+    margin: 0 auto;
   }
 }
 

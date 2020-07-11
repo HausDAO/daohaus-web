@@ -28,13 +28,15 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
   return (
     <div className="SummonStepOne">
       <div className="SummonStepOne__list">{renderPresets()}</div>
-      <button
-        onClick={() => setCurrentStep(2)}
-        disabled={!daoData.presetName}
-        className={!daoData.presetName ? 'disabled' : ''}
-      >
-        NEXT STEP
-      </button>
+      <div className="StepControl">
+        <button
+          onClick={() => setCurrentStep(2)}
+          disabled={!daoData.presetName}
+          className={!daoData.presetName ? 'disabled' : ''}
+        >
+          NEXT STEP
+        </button>
+      </div>
     </div>
   );
 };

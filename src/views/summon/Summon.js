@@ -78,7 +78,7 @@ const Summon = props => {
             <h1>SUMMON</h1>
           </div>
 
-          <div className="View">
+          <div className="View Summon">
             <div className="Row">
               <div className="Summon__step">
                 {currentStep > 4 ? <h3>Step {currentStep}</h3> : null}
@@ -119,16 +119,17 @@ const Summon = props => {
                         handleSummon={handleSummon}
                       />
                     ) : null}
-
-                    <p>
-                      I'm a DAO master, take me to{' '}
-                      <span
-                        className="mode-link"
-                        onClick={() => setHardMode(true)}
-                      >
-                        Hard Mode
-                      </span>
-                    </p>
+                    <div className="ModeSwitch">
+                      <p style={{ width: '100%', textAlign: 'center' }}>
+                        I'm a DAO master, take me to{' '}
+                        <span
+                          className="mode-link"
+                          onClick={() => setHardMode(true)}
+                        >
+                          Hard Mode
+                        </span>
+                      </p>
+                    </div>
                   </>
                 ) : (
                   <>
