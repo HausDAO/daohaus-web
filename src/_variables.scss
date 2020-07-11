@@ -23,6 +23,7 @@ $red: #f05f61;
 $background: #f6f6f2;
 $pokemol: #aa174c;
 $pokemol-hover: lighten($pokemol, 5%);
+$background-light: lighten($background, 5%);
 
 // Hovers
 $primary-hover: lighten($primary, 15%);

@@ -75,7 +75,7 @@
     transition: transform 0.6s;
     transform-style: preserve-3d;
     box-shadow: $shadow;
-    border: 2px solid transparent;
+    border: 2px solid $background-light;
     border-radius: 5px;
   }
   &__Front {
@@ -83,7 +83,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $background;
+    background-color: $background-light;
     // Flip
     position: absolute;
     padding: 25px;
@@ -116,7 +116,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $background;
+    background-color: $background-light;
     // Flip
     position: absolute;
     padding: 25px;
@@ -153,30 +153,41 @@
 
 .StepControl {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 0px;
   button {
     display: block;
-    margin: 0 auto;
+    &:not(:last-child) {
+      margin-right: 25px;
+    }
   }
 }
 
 .disabled,
 .disabled:hover {
   //TODO: Not working on hard mode input button
-  background-color: grey;
+  opacity: 0.15;
 }
 
 input:not([type='checkbox']).inline-field,
 textarea.inline-field,
 select.inline-field {
+  appearance: none;
   width: unset;
+  display: inline-block;
+
   border: none;
   box-shadow: none;
   background: none;
   font-family: inherit;
   font-size: inherit;
-  padding: none;
+  padding: 0px;
   appearance: none;
   margin: 0;
+  min-width: auto;
+  max-width: auto;
 }
 
 .required-field {

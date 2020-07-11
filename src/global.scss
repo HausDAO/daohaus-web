@@ -458,6 +458,34 @@ p.Large {
   }
 }
 
+.GridList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+  &__Item {
+    width: 33%;
+    @media (min-width: $grid + 1px) {
+      &:not(:nth-child(3n)) {
+        margin-right: 15px;
+        width: calc(33% - 15px);
+      }
+    }
+    @media (min-width: $mobile + 1px) and (max-width: $grid) {
+      width: calc(50%);
+      &:not(:nth-child(2n)) {
+        margin-right: 15px;
+        width: calc(50% - 15px);
+      }
+    }
+    @media (max-width: $mobile) {
+      width: calc(100%);
+    }
+  }
+}
+
 // Profile
 .ProfileImg {
   width: 150px;
@@ -477,13 +505,29 @@ p.Large {
   align-content: center;
   justify-content: center;
   flex-direction: column;
-  min-height: 50vh;
   padding: $base-padding;
-  max-width: 600px;
+  max-width: 420px;
+  margin: 0 auto;
   button {
     margin: 0 auto;
   }
   width: calc(100% - 100px);
+  &.NoCode input:not([type='checkbox']):not([type='submit']),
+  &.NoCode textarea {
+    height: auto;
+    // border-radius: 50px;
+    border: none;
+    width: auto;
+    margin: 0px;
+    outline: none !important;
+    padding: 0px;
+    font-size: 1em;
+    transition: all 0.15s linear;
+    // box-shadow: $shadow;
+    &:focus {
+      border: none;
+    }
+  }
 }
 
 .Label {
@@ -497,17 +541,21 @@ p.Large {
   position: relative;
 }
 
-input:not([type='checkbox']),
+input:not([type='checkbox']):not([type='submit']),
 textarea {
   height: 40px;
-  border-radius: 50px;
-  border: 1px solid #efefef;
+  // border-radius: 50px;
+  border: 2px solid #efefef;
   width: calc(100% - 30px);
   margin: 10px 0px;
   outline: none !important;
   padding: 0px 15px;
   font-size: 1em;
-  box-shadow: $shadow;
+  transition: all 0.15s linear;
+  // box-shadow: $shadow;
+  &:focus {
+    border: 2px solid $tertiary;
+  }
 }
 
 input[type='checkbox'] {
@@ -524,7 +572,8 @@ input[type='checkbox'] {
 
 textarea {
   padding: 15px;
-  border-radius: 5px;
+  // border-radius: 5px;
+  height: auto;
 }
 
 label {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowRightOutlined } from '@ant-design/icons';
 
 import { daoPresets } from '../../content/summon-presets';
 import PresetCard from './PresetCard';
@@ -34,7 +35,7 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
           disabled={!daoData.presetName}
           className={!daoData.presetName ? 'disabled' : ''}
         >
-          NEXT STEP
+          Continue <ArrowRightOutlined style={{ marginLeft: '5px' }} />
         </button>
       </div>
     </div>

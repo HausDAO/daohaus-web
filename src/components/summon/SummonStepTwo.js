@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
 import './Summon.scss';
 
@@ -20,23 +21,33 @@ const SummonStepTwo = ({ daoData, setDaoData, setCurrentStep }) => {
   return (
     <div className="SummonStepTwo">
       <div>
-        <form>
-          <label>DAO name</label>
-          <input name="name" ref={register} />
+        <form className="Form">
+          <label>Name your DAO</label>
+          <input name="name" ref={register} placeholder="Braid Guild" />
 
-          <label>DAO description</label>
-          <textarea name="description" ref={register} />
+          <label>Describe its purpose</label>
+          <textarea
+            name="description"
+            ref={register}
+            rows="8"
+            placeholder="Banging the best braids since 2020"
+          />
         </form>
       </div>
       <div>
-        <button onClick={() => navigate(1)}>GO BACK</button>
-        <button
-          onClick={() => navigate(3)}
-          disabled={!canMoveForward}
-          className={!canMoveForward ? 'disabled' : ''}
-        >
-          NEXT STEP
-        </button>
+        <div className="StepControl">
+          <button onClick={() => navigate(1)}>
+            <ArrowLeftOutlined style={{ marginRight: '5px' }} />
+            GO BACK
+          </button>
+          <button
+            onClick={() => navigate(3)}
+            disabled={!canMoveForward}
+            className={!canMoveForward ? 'disabled' : ''}
+          >
+            NEXT STEP <ArrowRightOutlined style={{ marginLeft: '5px' }} />
+          </button>
+        </div>
       </div>
     </div>
   );

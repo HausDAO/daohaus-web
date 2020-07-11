@@ -138,15 +138,17 @@ const Summon = props => {
                       setDaoData={setDaoData}
                       handleSummon={handleSummon}
                     />
-                    <p>
-                      Take me back to{' '}
-                      <span
-                        className="mode-link"
-                        onClick={() => setHardMode(false)}
-                      >
-                        Fun Mode.
-                      </span>
-                    </p>
+                    <div className="ModeSwitch">
+                      <p style={{ width: '100%', textAlign: 'center' }}>
+                        Take me back to{' '}
+                        <span
+                          className="mode-link"
+                          onClick={() => setHardMode(false)}
+                        >
+                          Fun Mode.
+                        </span>
+                      </p>
+                    </div>
                   </>
                 )}
               </>

@@ -31,7 +31,11 @@ const HardModeForm = ({ daoData, handleSummon }) => {
 
   return (
     <div className="HardModeForm">
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
+        className="Form NoCode"
+      >
         <div>
           <h4>Name</h4>
           <p>
@@ -256,7 +260,7 @@ const HardModeForm = ({ daoData, handleSummon }) => {
             (18 decimals)
           </p>
         </div>
-        <div>
+        <div className="StepControl">
           <input
             type="submit"
             value="SUMMON"
