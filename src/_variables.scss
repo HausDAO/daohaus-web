@@ -1,12 +1,19 @@
+// Typography
+
+//Inknut Antiqua from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap');
+//Rubik from Google Fonts
+
+//Set Fonts
+
+$heading-font: 'Inknut Antiqua', serif;
+$body-font: 'Rubik', sans-serif;
+
 //Color Palette
 $primary: #513e97;
 $secondary: #0e99c4;
 $tertiary: #4ebd9e;
-
-// Hovers
-$primary-hover: lighten($primary, 15%);
-$secondary-hover: lighten($secondary, 15%);
-$tertiary-hover: lighten($tertiary, 15%);
 
 // Other Colors
 $primary-background: #020436;
@@ -16,6 +23,13 @@ $red: #f05f61;
 $background: #f6f6f2;
 $pokemol: #aa174c;
 $pokemol-hover: lighten($pokemol, 5%);
+$background-light: lighten($background, 5%);
+
+// Hovers
+$primary-hover: lighten($primary, 15%);
+$secondary-hover: lighten($secondary, 15%);
+$tertiary-hover: lighten($tertiary, 15%);
+$background-hover: darken($background, 5%);
 
 // Other Styles
 $shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);

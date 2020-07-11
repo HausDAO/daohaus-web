@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { ArrowLeftOutlined, FireOutlined } from '@ant-design/icons';
 
 import {
   periodsForForm,
@@ -82,7 +83,11 @@ const SummonStepThree = ({
 
   return (
     <div className="SummonStepThree">
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <form
+        className="Form NoCode"
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
+      >
         <div>
           <h4>Name</h4>
           <p>
@@ -235,18 +240,22 @@ const SummonStepThree = ({
             {daoData.currency}
           </p>
         </div>
-        <div>
-          <button onClick={() => navigate(2)}>GO BACK</button>
-          <input
+        <div className="StepControl">
+          <button onClick={() => navigate(2)}>
+            <ArrowLeftOutlined style={{ marginRight: '5px' }} />
+            GO BACK
+          </button>
+          <button
             type="submit"
-            value="SUMMON"
             disabled={isSubmitted || (!isDirty && !isValid)}
             className={
               isSubmitted || (!isDirty && !isValid)
                 ? 'disabled Button'
                 : 'Button'
             }
-          />
+          >
+            <FireOutlined /> Summon <FireOutlined />
+          </button>
         </div>
       </form>
     </div>

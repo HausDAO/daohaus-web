@@ -22,7 +22,7 @@ const Summon = props => {
   const { state, dispatch } = useContext(SummonContext);
 
   const stepContent = {
-    1: 'What kind of haus will you build?',
+    1: 'What kind of Haus will you build?',
     2: 'Give us the basics',
     3: 'Last chance to make changes',
     4: 'Our magic internet communities take a minute or two to create.',
@@ -78,7 +78,7 @@ const Summon = props => {
             <h1>SUMMON</h1>
           </div>
 
-          <div className="View">
+          <div className="View Summon">
             <div className="Row">
               <div className="Summon__step">
                 {currentStep > 4 ? <h3>Step {currentStep}</h3> : null}
@@ -119,16 +119,17 @@ const Summon = props => {
                         handleSummon={handleSummon}
                       />
                     ) : null}
-
-                    <p>
-                      I'm a DAO master, take me to the{' '}
-                      <span
-                        className="mode-link"
-                        onClick={() => setHardMode(true)}
-                      >
-                        hard mode
-                      </span>
-                    </p>
+                    <div className="ModeSwitch">
+                      <p style={{ width: '100%', textAlign: 'center' }}>
+                        I'm a DAO master, take me to{' '}
+                        <span
+                          className="mode-link"
+                          onClick={() => setHardMode(true)}
+                        >
+                          Hard Mode
+                        </span>
+                      </p>
+                    </div>
                   </>
                 ) : (
                   <>
@@ -137,22 +138,24 @@ const Summon = props => {
                       setDaoData={setDaoData}
                       handleSummon={handleSummon}
                     />
-                    <p>
-                      Take me back to{' '}
-                      <span
-                        className="mode-link"
-                        onClick={() => setHardMode(false)}
-                      >
-                        fun mode.
-                      </span>
-                    </p>
+                    <div className="ModeSwitch">
+                      <p style={{ width: '100%', textAlign: 'center' }}>
+                        Take me back to{' '}
+                        <span
+                          className="mode-link"
+                          onClick={() => setHardMode(false)}
+                        >
+                          Fun Mode.
+                        </span>
+                      </p>
+                    </div>
                   </>
                 )}
               </>
             ) : (
               <>
                 <MiniLoader txHash={state.summonTx} />
-                <p>While you wait checkout our boosts</p>
+                <p>While you wait, check out our boosts</p>
                 <BoostPackages isSummoning={isSummoning} />
               </>
             )}

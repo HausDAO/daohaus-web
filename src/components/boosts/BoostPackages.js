@@ -22,22 +22,22 @@ const BoostPackages = ({ isSummoning }) => {
     <div className="BoostPackages">
       <h3>Give your DAO a boost</h3>
 
-      <div className="BoostPackages__list">{renderBoostPackages()}</div>
+      <div className="BoostPackages__list GridList">
+        {renderBoostPackages()}
+      </div>
 
       <div className="BoostPackages__custom">
         <div>
           <h2>Go Fully Custom</h2>
           <p>Cause You've got needs</p>
           <p>Coming soon</p>
-        </div>
-        {/* <h3>some button</h3> */}
-        <div>
           <h4>Other Boosts</h4>
           {otherBoosts.map(boost => {
             return <p key={boost}>+ {boost}</p>;
           })}
           <p>+ More Coming Soon...</p>
         </div>
+        {/* <h3>some button</h3> */}
       </div>
     </div>
   );

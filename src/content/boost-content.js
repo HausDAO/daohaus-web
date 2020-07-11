@@ -2,11 +2,11 @@ export const boostPackages = [
   {
     id: '1',
     packageName: 'Carbon',
-    packageCost: 'free',
+    packageCost: 'Free Forever',
     boosts: [
-      'Infinite Communities',
-      'Infinite Members',
-      'Infinite Proposals and Voting',
+      'Summon Infinite Communities',
+      'Invite Infinite Collaborators',
+      'Submit Infinite Proposals and Voting',
     ],
   },
   {

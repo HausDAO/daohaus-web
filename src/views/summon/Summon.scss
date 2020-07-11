@@ -7,7 +7,6 @@
   flex-direction: column;
   padding: 50px;
   padding-bottom: 100px;
-  padding-left: 150px;
   text-align: left;
   background-color: $primary-background;
   background-size: cover;
@@ -18,6 +17,13 @@
   h1 {
     letter-spacing: 0.5em;
     font-weight: 900;
+  }
+}
+
+.ModeSwitch {
+  width: 100%;
+  p {
+    margin: 15px auto;
   }
 }
 
