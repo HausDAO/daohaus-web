@@ -28,24 +28,40 @@ const PresetCard = ({ preset, selectPreset, isSelected }) => {
         <div className="PresetCard__Back">
           <h4 style={{ color: preset.color }}>{preset.presetName}</h4>
           <h5 style={{ color: preset.color }}>Default Settings</h5>
-          <p>Currency: {preset.currency}</p>
-          <p>Min Tribute: {`${preset.minimumTribute} ${preset.currency}`}</p>
-          <p>Period Duration: {formatPeriodDuration(preset.periodDuration)}</p>
+          <p>
+            Currency: <strong>{preset.currency}</strong>
+          </p>
+          <p>
+            Min Tribute:{' '}
+            <strong>{`${preset.minimumTribute} ${preset.currency}`}</strong>
+          </p>
+          <p>
+            Period Duration:{' '}
+            <strong>{formatPeriodDuration(preset.periodDuration)}</strong>
+          </p>
           <p>
             Voting Period:{' '}
-            {formatPeriodLength(preset.votingPeriod, preset.periodDuration)}
+            <strong>
+              {formatPeriodLength(preset.votingPeriod, preset.periodDuration)}
+            </strong>
           </p>
           <p>
             Grace Period:{' '}
-            {formatPeriodLength(preset.gracePeriod, preset.periodDuration)}
+            <strong>
+              {formatPeriodLength(preset.gracePeriod, preset.periodDuration)}
+            </strong>
           </p>
           <p>
             Prop Deposit:{' '}
-            {`${formatDepositWei(preset.proposalDeposit)} ${preset.currency}`}
+            <strong>{`${formatDepositWei(preset.proposalDeposit)} ${
+              preset.currency
+            }`}</strong>
           </p>
           <p>
             Prop Reward:{' '}
-            {`${formatDepositWei(preset.processingReward)} ${preset.currency}`}
+            <strong>{`${formatDepositWei(preset.processingReward)} ${
+              preset.currency
+            }`}</strong>
           </p>
           <p>* You can change these later</p>
         </div>
