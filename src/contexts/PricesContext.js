@@ -53,7 +53,7 @@ const PricesContext = ({ children }) => {
 
   return (
     <PriceContext.Provider value={[prices, setPrices]}>
-      {prices ? children : <Loading />}
+      {children}
     </PriceContext.Provider>
   );
 };
