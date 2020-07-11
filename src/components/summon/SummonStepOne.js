@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { daoPresets } from '../../content/summon-presets';
 import PresetCard from './PresetCard';
@@ -19,7 +19,7 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
         <PresetCard
           preset={preset}
           isSelected={isSelected}
-          onClick={() => selectPreset(preset)}
+          selectPreset={selectPreset}
           key={preset.presetName}
         ></PresetCard>
       );

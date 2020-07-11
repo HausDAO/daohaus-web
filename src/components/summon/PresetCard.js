@@ -13,10 +13,11 @@ const PresetCard = ({ preset, selectPreset, isSelected }) => {
 
   return (
     <div
-      className={preset.isSelected ? 'PresetCard isSelected' : 'PresetCard'}
+      className={isSelected ? 'PresetCard isSelected' : 'PresetCard'}
       key={preset.presetName}
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
+      onClick={() => selectPreset(preset)}
     >
       <div className="PresetCard__Inner">
         <div className="PresetCard__Front">
