@@ -35,7 +35,11 @@ const DaoList = () => {
           if (state.sort.count) {
             return dao[state.sort.value].length;
           } else {
-            return dao[state.sort.value];
+            if (state.sort.value2) {
+              return dao[state.sort.value][state.sort.value2];
+            } else {
+              return dao[state.sort.value];
+            }
           }
         },
       ],

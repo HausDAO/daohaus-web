@@ -25,10 +25,23 @@ export const GET_MOLOCHES_EXPLORER = gql`
         symbol
         decimals
       }
-      guildTokenBalance {
+      tokenBalances {
         id
         tokenBalance
+        guildBank
+        token {
+          decimals
+          tokenAddress
+        }
       }
+    }
+  }
+`;
+
+export const GET_TOKENS = gql`
+  query tokens($skip: Int) {
+    tokens(first: 100, skip: $skip) {
+      tokenAddress
     }
   }
 `;
@@ -62,6 +75,15 @@ export const GET_MOLOCHES_STATS = gql`
         symbol
         decimals
       }
+      tokenBalances {
+        id
+        tokenBalance
+        guildBank
+        token {
+          decimals
+          tokenAddress
+        }
+      }
     }
   }
 `;
@@ -90,6 +112,15 @@ export const GET_MOLOCH = gql`
         tokenAddress
         symbol
         decimals
+      }
+      tokenBalances {
+        id
+        tokenBalance
+        guildBank
+        token {
+          decimals
+          tokenAddress
+        }
       }
     }
   }

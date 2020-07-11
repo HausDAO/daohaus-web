@@ -10,7 +10,8 @@ export const SORT_OPTIONS = [
     count: true,
   },
   {
-    value: 'guildBankValue.token',
+    value: 'guildBankValue',
+    value2: 'usd',
     label: 'Bank Value',
   },
   {

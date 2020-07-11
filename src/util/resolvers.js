@@ -6,7 +6,6 @@ import MolochService from './molochService';
 import TokenService from './tokenService';
 import { get } from './requests';
 import { titleMaker, descriptionMaker } from './helpers';
-import { getUsd } from './prices';
 
 let _web3;
 if (
@@ -20,7 +19,6 @@ if (
   );
 }
 const web3Service = new Web3Service(_web3);
-const prices = {};
 
 export const resolvers = (() => {
   const tokens = {};
@@ -72,27 +70,31 @@ export const resolvers = (() => {
             guildBankValue = 0;
           }
 
-          let usdPrice = prices[moloch.depositToken.tokenAddress];
-
-          if (!usdPrice && usdPrice !== 0) {
-            try {
-              console.log('api call', moloch.depositToken.tokenAddress);
-              const usdRes = await getUsd(moloch.depositToken.tokenAddress);
-              prices[moloch.depositToken.tokenAddress] =
-                usdRes.data[moloch.depositToken.tokenAddress].usd || 0;
-              usdPrice = usdRes.data[moloch.depositToken.tokenAddress].usd;
-            } catch (err) {
-              console.log('usd fetch error', err);
-              usdPrice = 0;
-            }
-          }
-
+          const usdPrice = _context.prices[
+            moloch.depositToken.tokenAddress
+          ] || {
+            usd: 0,
+          };
           const usdValue =
-            usdPrice * (guildBankValue / 10 ** moloch.depositToken.decimals);
+            usdPrice.usd *
+            (guildBankValue / 10 ** moloch.depositToken.decimals);
           return { token: guildBankValue, usd: usdValue };
         } else {
-          //todo: wont have token
-          return { token: 0, usd: 0 };
+          const guilBankBalances = moloch.tokenBalances.filter(
+            bal => bal.guildBank,
+          );
+
+          const totalValue = guilBankBalances.reduce((sum, bal) => {
+            const usdPrice = _context.prices[bal.token.tokenAddress] || {
+              usd: 0,
+            };
+
+            const usdValue =
+              usdPrice.usd * (+bal.tokenBalance / 10 ** +bal.token.decimals);
+            return sum + usdValue;
+          }, 0);
+
+          return { token: 0, usd: totalValue };
         }
       },
     },
