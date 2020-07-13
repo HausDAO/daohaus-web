@@ -58,7 +58,7 @@ h6 {
 p {
   max-width: 800px;
   margin: 10px 0px 10px 0px;
-  color: darken($tertiary, 25%);
+  // color: darken($tertiary, 25%);
 }
 
 body {
@@ -99,15 +99,15 @@ button,
   font-family: $body-font;
   font-weight: 500;
   display: inline-block;
-  appearance: none;
   outline: none;
-  background-color: $primary;
+  background-color: $orange;
   color: white;
   border: none;
-  border-radius: 50px;
-  height: 50px;
+  border-radius: 10px;
+  height: 100px;
+  width: 300px;
   padding: 15px 25px;
-  font-size: 1em;
+  font-size: 2.5em;
   cursor: pointer;
   transition: all 0.15s linear;
   &:hover {
@@ -159,9 +159,9 @@ button,
   }
   button {
     margin: 15px 0px;
-    max-width: 280px;
+    background-color: $orange;
     &:hover {
-      background-color: $orange;
+      background-color: $primary;
     }
   }
   @media (max-width: $mobile) {
