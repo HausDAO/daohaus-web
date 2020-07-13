@@ -5,10 +5,11 @@ import { GET_MOLOCHES_EXPLORER } from '../../util/queries';
 import { ExploreContext } from '../../contexts/ExploreContext';
 
 const ExploreFetch = () => {
-  const { dispatch } = useContext(ExploreContext);
+  const { state, dispatch } = useContext(ExploreContext);
 
   const { loading, error, data, fetchMore } = useQuery(GET_MOLOCHES_EXPLORER, {
     fetchPolicy: 'network-only',
+    context: { prices: state.prices },
   });
 
   if (loading) return <p className="View">Loading DAOs</p>;

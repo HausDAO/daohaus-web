@@ -11,6 +11,7 @@ export const SORT_OPTIONS = [
   },
   {
     value: 'guildBankValue',
+    value2: 'usd',
     label: 'Bank Value',
   },
   {

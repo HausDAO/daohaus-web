@@ -1,16 +1,21 @@
-import React, { useContext } from 'react';
-
-import { Web3Context } from '../../contexts/ContractContexts';
+import React from 'react';
+// import { Line } from 'react-chartjs-2';
 
 import './DaoCard.scss';
 
 const DaoCard = ({ dao }) => {
-  const [web3Service] = useContext(Web3Context);
-
-  const bankValue = value => {
-    const amt = web3Service.web3Service.fromWei(value);
-    return parseFloat(amt).toFixed(2);
-  };
+  // console.log('dao', dao);
+  // const data = {
+  //   datasets: [
+  //     {
+  //       borderColor: '#0e99c4',
+  //       backgroundColor: '#0e99c4',
+  //       pointRadius: 0,
+  //       lineTension: 0.9,
+  //       data: dao.balances,
+  //     },
+  //   ],
+  // };
 
   return (
     <>
@@ -20,19 +25,49 @@ const DaoCard = ({ dao }) => {
 
         <div className="Row">
           <div className="Column">
-            {dao.version !== '2' ? (
-              <p className="Data">
-                {bankValue(dao.guildBankValue)} {dao.depositToken.symbol}
-              </p>
-            ) : (
-              <p className="Data">
-                {dao.guildBankValue} **v2 value coming soon{' '}
-              </p>
-            )}
+            <p className="Data">
+              {dao.guildBankValue.usd.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              })}{' '}
+            </p>
+
             <p className="Data">{dao.members.length} Members</p>
-            <p className="Data">{dao.approvedTokens.length} Tokens</p>
+            <p className="Data">
+              {dao.version === '2' ? dao.approvedTokens.length : '1'} Token(s)
+            </p>
           </div>
         </div>
+
+        {/* <div className="DaoCard__chart">
+          <Line
+            data={data}
+            legend={{ display: false }}
+            width={100}
+            // height={50}
+            options={{
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [
+                  {
+                    gridLines: {
+                      drawOnChartArea: false,
+                    },
+                    display: false,
+                  },
+                ],
+                xAxes: [
+                  {
+                    gridLines: {
+                      drawOnChartArea: false,
+                    },
+                    display: false,
+                  },
+                ],
+              },
+            }}
+          />
+        </div> */}
       </div>
     </>
   );

@@ -31,7 +31,7 @@ const Explore = () => {
           </div>
         </>
       ) : (
-        <ExploreFetch />
+        <>{state.prices ? <ExploreFetch /> : null}</>
       )}
     </>
   );
