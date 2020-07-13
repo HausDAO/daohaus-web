@@ -9,7 +9,7 @@ import {
 import './Summon.scss';
 
 const PresetCard = ({ preset, selectPreset, isSelected }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [setIsFlipped] = useState(false);
 
   return (
     <div

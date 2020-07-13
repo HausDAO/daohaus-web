@@ -93,7 +93,6 @@ export const GET_MOLOCH = gql`
   query moloch($contractAddr: String!) {
     moloch(id: $contractAddr) {
       apiData @client
-      guildBankValue @client
       id
       title
       summoner

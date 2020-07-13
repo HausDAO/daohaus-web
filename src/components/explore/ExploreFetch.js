@@ -3,15 +3,13 @@ import { useQuery } from 'react-apollo';
 
 import { GET_MOLOCHES_EXPLORER } from '../../util/queries';
 import { ExploreContext } from '../../contexts/ExploreContext';
-import { PriceContext } from '../../contexts/PricesContext';
 
 const ExploreFetch = () => {
-  const { dispatch } = useContext(ExploreContext);
-  const [prices] = useContext(PriceContext);
+  const { state, dispatch } = useContext(ExploreContext);
 
   const { loading, error, data, fetchMore } = useQuery(GET_MOLOCHES_EXPLORER, {
     fetchPolicy: 'network-only',
-    context: { prices },
+    context: { prices: state.prices },
   });
 
   if (loading) return <p className="View">Loading DAOs</p>;

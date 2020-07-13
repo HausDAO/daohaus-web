@@ -9,14 +9,12 @@ import MolochService from '../../util/molochService';
 import HeadTags from '../../components/headTags/HeadTags';
 import ApplicationList from '../../components/applicationList/ApplicationList';
 import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
-import { PriceContext } from '../../contexts/PricesContext';
 
 import './Dao.scss';
 
 const DaoV2 = props => {
   const client = useApolloClient();
   const [web3Context] = useContext(Web3Context);
-  const [prices] = useContext(PriceContext);
 
   const [message, setMessage] = useState(null);
   const [daoData, setDaoData] = useState({});
@@ -60,7 +58,6 @@ const DaoV2 = props => {
     const { isLoading, isError, data } = await client.query({
       query: GET_MOLOCH,
       variables: { contractAddr: props.match.params.contractAddress },
-      context: { prices },
     });
 
     isLoading && setLoading(loading);

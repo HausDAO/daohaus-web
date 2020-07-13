@@ -1,5 +1,6 @@
 import { get } from './requests';
 import { titleMaker, descriptionMaker } from './helpers';
+import { getBalances } from './stat-requests';
 
 export const resolvers = (() => {
   return {
@@ -43,6 +44,18 @@ export const resolvers = (() => {
 
           return { token: 0, usd: totalValue };
         }
+      },
+      balances: async (moloch, _args, _context) => {
+        const balances = await getBalances(moloch.id);
+
+        return balances.data.data.balances.map(b => {
+          // return {
+          //   x: +b.timestamp,
+          //   y: +(+b.balance / 10 ** 19).toFixed(0),
+          // };
+
+          return +(+b.balance / 10 ** 19).toFixed(0);
+        });
       },
     },
     Proposal: {

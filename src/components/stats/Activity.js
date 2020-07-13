@@ -32,6 +32,7 @@ const Activity = props => {
 
     let summonMonths = Object.keys(groupedSummonData);
     let propMonths = Object.keys(groupedProposalData);
+
     const startIndexProp =
       propMonths.indexOf('8/2019') === -1 ? 0 : propMonths.indexOf('8/2019');
     const startIndexSummon =

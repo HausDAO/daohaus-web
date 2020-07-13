@@ -1,8 +1,22 @@
 import React from 'react';
+// import { Line } from 'react-chartjs-2';
 
 import './DaoCard.scss';
 
 const DaoCard = ({ dao }) => {
+  // console.log('dao', dao);
+  // const data = {
+  //   datasets: [
+  //     {
+  //       borderColor: '#0e99c4',
+  //       backgroundColor: '#0e99c4',
+  //       pointRadius: 0,
+  //       lineTension: 0.9,
+  //       data: dao.balances,
+  //     },
+  //   ],
+  // };
+
   return (
     <>
       <div className="DaoCard">
@@ -24,6 +38,36 @@ const DaoCard = ({ dao }) => {
             </p>
           </div>
         </div>
+
+        {/* <div className="DaoCard__chart">
+          <Line
+            data={data}
+            legend={{ display: false }}
+            width={100}
+            // height={50}
+            options={{
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [
+                  {
+                    gridLines: {
+                      drawOnChartArea: false,
+                    },
+                    display: false,
+                  },
+                ],
+                xAxes: [
+                  {
+                    gridLines: {
+                      drawOnChartArea: false,
+                    },
+                    display: false,
+                  },
+                ],
+              },
+            }}
+          />
+        </div> */}
       </div>
     </>
   );
