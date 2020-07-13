@@ -12,14 +12,21 @@ import Loading from '../../components/loading/Loading';
 const Explore = () => {
   const { state, dispatch } = useContext(ExploreContext);
   //TODO: Move this to the explore state and lose the PriceContext
-  //TODO: need better guildbankvalue handling in resolver in general,
-  // 1)v1 value to graph?
   // 2) missing context errors
   // 3) maybe it's own field only for explore so as not to fuck with other places using it and prices aren't around
   //TODO: smoother loading transitions
+
+  // {
+  //   moloches(first: 100, where: {version:"1"}) {
+  //     title
+  //     guildBankBalanceV1
+  //   }
+  // }
   const [prices] = useContext(PriceContext);
 
   console.log('prices', prices);
+
+  console.log('state', state);
 
   useEffect(() => {
     dispatch({ type: 'clearAllDaos' });
@@ -32,8 +39,6 @@ const Explore = () => {
         <h1>EXPLORE</h1>
       </div>
 
-      {prices ? <ExploreFetch /> : <Loading msg={'getting things'} />}
-
       {state.allDaos.length ? (
         <>
           <div className="FilterBar">
@@ -43,7 +48,9 @@ const Explore = () => {
             <DaoList />
           </div>
         </>
-      ) : null}
+      ) : (
+        <>{prices ? <ExploreFetch /> : <Loading msg={'getting things'} />}</>
+      )}
     </>
   );
 };

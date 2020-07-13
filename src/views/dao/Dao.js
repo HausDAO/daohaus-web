@@ -278,7 +278,7 @@ const Dao = props => {
                       <h4>Dao Details</h4>
                       <p className="Label">Bank</p>
                       <p className="Value Data">
-                        {bankValue(daoData.guildBankValue.token)}{' '}
+                        {bankValue(daoData.guildBankBalanceV1)}{' '}
                         {daoData.depositToken.symbol}
                       </p>
                       <p className="Label">Members</p>

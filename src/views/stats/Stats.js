@@ -5,7 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { GET_MOLOCHES_STATS } from '../../util/queries';
 import Activity from '../../components/stats/Activity';
-import GuildBanks from '../../components/stats/GuildBank';
+// import GuildBanks from '../../components/stats/GuildBank';
 
 import './Stats.scss';
 
@@ -106,14 +106,14 @@ const Stats = () => {
           <Tabs>
             <TabList>
               <Tab>Activity</Tab>
-              <Tab>V1 Guild Banks</Tab>
+              {/* <Tab>V1 Guild Banks</Tab> */}
             </TabList>
             <TabPanel>
               <Activity data={data} />
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <GuildBanks data={data} />
-            </TabPanel>
+            </TabPanel> */}
           </Tabs>
         </div>
       ) : null}

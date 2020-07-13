@@ -9,6 +9,7 @@ export const GET_MOLOCHES_EXPLORER = gql`
       totalShares
       guildBankAddress
       summoningTime
+      guildBankBalanceV1
       guildBankValue @client
       apiData @client
       members(where: { exists: true }) {
@@ -51,12 +52,12 @@ export const GET_MOLOCHES_STATS = gql`
     moloches(orderBy: summoningTime, first: 100, skip: $skip) {
       id
       apiData @client
-      guildBankValue @client
       version
       title
       totalShares
       summoningTime
       guildBankAddress
+      guildBankBalanceV1
       members {
         id
         memberAddress
@@ -100,6 +101,7 @@ export const GET_MOLOCH = gql`
       newContract
       totalShares
       guildBankAddress
+      guildBankBalanceV1
       version
       members(where: { exists: true }) {
         id
