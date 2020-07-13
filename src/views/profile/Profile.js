@@ -130,11 +130,11 @@ const Profile = props => {
           <div>
             <div className="Profile__balances">
               <div className="Profile__balances--Boosts">
-                <p>Boosts</p>
+                <h5>Boosts</h5>
                 <p>0</p>
               </div>
               <div className="Profile__balances--HAUS">
-                <p>$HAUS</p>
+                <h5>$HAUS</h5>
                 <p>Coming soon :)</p>
               </div>
             </div>
@@ -146,17 +146,17 @@ const Profile = props => {
         {loading ? <p>Loading</p> : null}
         {error ? <p>Error - are you on mainnet?</p> : null}
 
-        {unregisteredDaos.length ? (
-          <>
-            <h2>Unregistered Moloch V2 Daos</h2>
-            {renderUnregisteredList()}
-          </>
-        ) : null}
-
         {data && memberDaos.length ? (
           <>
             <ProfileMemberList daos={memberDaos} />
             <ProfileActivityFeed daos={memberDaos} />
+          </>
+        ) : null}
+
+        {unregisteredDaos.length ? (
+          <>
+            <h2>Unregistered Moloch V2 Daos</h2>
+            {renderUnregisteredList()}
           </>
         ) : null}
       </div>
