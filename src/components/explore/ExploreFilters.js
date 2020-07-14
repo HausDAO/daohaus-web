@@ -3,6 +3,7 @@ import React from 'react';
 import {
   MEMBER_FILTER_OPTIONS,
   VERSION_FILTER_OPTIONS,
+  PURPOSE_FILTER_OPTIONS,
 } from '../../util/constants';
 import FilterList from './FilterList';
 import ExploreSearch from './ExploreSearch';
@@ -30,6 +31,12 @@ const ExploreFilters = () => {
           filterKey="versions"
           name="Version"
           options={VERSION_FILTER_OPTIONS}
+        />
+
+        <FilterList
+          filterKey="purpose"
+          name="Purpose"
+          options={PURPOSE_FILTER_OPTIONS}
         />
       </div>
     </div>

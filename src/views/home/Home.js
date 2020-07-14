@@ -13,24 +13,24 @@ import TelegramLogo from '../../assets/telegram__logo.png';
 import './Home.scss';
 import { Web3Context } from '../../contexts/ContractContexts';
 
-const heroSlides = [
-  {
-    heading: 'Meta Gamma Delta',
-    content:
-      'At Meta Gamma Delta, we learned that there are Membership proposals and also Funding Proposals. And how can projects be funded? Based on voting! Simple, easy, brilliant.',
-    image: '',
-  },
-  {
-    heading: '',
-    content: '',
-    image: '',
-  },
-  {
-    heading: '',
-    content: '',
-    image: '',
-  },
-];
+// const heroSlides = [
+//   {
+//     heading: 'Meta Gamma Delta',
+//     content:
+//       'At Meta Gamma Delta, we learned that there are Membership proposals and also Funding Proposals. And how can projects be funded? Based on voting! Simple, easy, brilliant.',
+//     image: '',
+//   },
+//   {
+//     heading: '',
+//     content: '',
+//     image: '',
+//   },
+//   {
+//     heading: '',
+//     content: '',
+//     image: '',
+//   },
+// ];
 
 const daohausFeatures = [
   {

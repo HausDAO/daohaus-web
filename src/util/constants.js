@@ -37,3 +37,30 @@ export const VERSION_FILTER_OPTIONS = [
     label: 'Moloch V2',
   },
 ];
+
+export const PURPOSE_FILTER_OPTIONS = [
+  {
+    value: 'Grants',
+    label: 'Grants (Accelerators)',
+  },
+  {
+    value: 'Ventures',
+    label: 'Ventures (Investments)',
+  },
+  {
+    value: 'Guilds',
+    label: 'Guilds (Services)',
+  },
+  {
+    value: 'Clubs',
+    label: 'Clubs (Social)',
+  },
+  {
+    value: 'Non-profit',
+    label: 'Non-profit (Impact)',
+  },
+  {
+    value: 'Product',
+    label: 'Product (Project)',
+  },
+];
