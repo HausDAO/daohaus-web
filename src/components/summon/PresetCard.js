@@ -9,14 +9,10 @@ import {
 import './Summon.scss';
 
 const PresetCard = ({ preset, selectPreset, isSelected }) => {
-  const [setIsFlipped] = useState(false);
-
   return (
     <div
       className={isSelected ? 'PresetCard isSelected' : 'PresetCard'}
       key={preset.presetName}
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
       onClick={() => selectPreset(preset)}
     >
       <div className="PresetCard__Inner">

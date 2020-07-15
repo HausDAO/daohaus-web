@@ -7,6 +7,7 @@ import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
+import HeroMGD from '../../assets/featured/mgd-screenshot.jpg';
 
 import TelegramLogo from '../../assets/telegram__logo.png';
 
@@ -18,7 +19,7 @@ const heroSlides = [
     heading: 'Meta Gamma Delta',
     content:
       'At Meta Gamma Delta, we learned that there are Membership proposals and also Funding Proposals. And how can projects be funded? Based on voting! Simple, easy, brilliant.',
-    image: '',
+    image: HeroMGD,
   },
   {
     heading: '',
@@ -97,9 +98,9 @@ const pricingPacks = [
   {
     name: 'Starter',
     features: [
-      'Infinite Communities',
-      'Infinite Members',
-      'Infinite Proposals and Voting',
+      'Launch Infinite Communities',
+      'Invite Infinite Collaborators',
+      'Submit Infinite Proposals and Votes',
     ],
     price: 'Free Forever',
   },
@@ -156,7 +157,14 @@ const Home = () => {
             <ActivateButton msg={'Sign in'} />
           )}
         </div>
-        <div className="Carousel"></div>
+        <div className="Carousel">
+          <div className="Carousel__Slide" style={{ backgroundImage: HeroMGD }}>
+            <div className="Content">
+              <h4>Meta Gamma Delta</h4>
+              <p>Text</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="Row Features">
         <div>
@@ -222,10 +230,10 @@ const Home = () => {
           <h2>
             Don’t be shy. Discover and join a decentralized community today.
           </h2>
-          <button>Explore</button>
+          <button className="Big">Explore</button>
         </div>
       </div>
-      <div className="Row Boosts">
+      <div className="Boosts">
         <div className="BoostsHeading">
           <h2>Boost Packs</h2>
           <h4>Level up your community, or gift to another.</h4>
@@ -240,7 +248,9 @@ const Home = () => {
                     return <li key={feature}>{feature}</li>;
                   })}
                 </ul>
-                <button>{pack.price}</button>
+                <button className="Big" disabled="true">
+                  {pack.price}
+                </button>
               </div>
             );
           })}
@@ -258,7 +268,7 @@ const Home = () => {
             <br />
             The possibilities are truly infinite.
           </h4>
-          <button>Book a Consultation</button>
+          <button className="Big">Book a Consultation</button>
         </div>
         <div className="Icons">
           {integrationLogos.map(logo => {
@@ -268,6 +278,7 @@ const Home = () => {
                 alt={logo.alt}
                 style={{ top: logo.top, left: logo.left }}
                 className="Icon"
+                key={logo.img}
               />
             );
           })}
