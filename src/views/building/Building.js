@@ -1,14 +1,13 @@
 import React, { useState, useContext } from 'react';
+import { useApolloClient } from 'react-apollo';
 
 import useInterval from '../../util/PollingUtil';
 import { GET_MOLOCH } from '../../util/queries';
-
-import './Building.scss';
 import { Web3Context } from '../../contexts/ContractContexts';
 import { get, post, remove } from '../../util/requests';
-
 import FactoryAbi from '../../contracts/factoryV2.json';
-import { useApolloClient } from 'react-apollo';
+
+import './Building.scss';
 
 const Building = props => {
   const { match, history } = props;
@@ -87,6 +86,7 @@ const Building = props => {
           minimumTribute: unregisteredDao.minimumTribute,
           description: unregisteredDao.description,
           version: 2,
+          purpose: unregisteredDao.purpose,
         };
 
         post('moloch', newMoloch)

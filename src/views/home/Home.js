@@ -33,6 +33,7 @@ const heroSlides = [
   },
 ];
 
+
 const daohausFeatures = [
   {
     sub: 'Share Goals',
@@ -165,7 +166,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
       <div className="Row Features">
         <div>
           <div className="FeaturesHeading" style={{ flexDirection: 'column' }}>
@@ -276,6 +276,7 @@ const Home = () => {
               <img
                 src={require('../../assets/' + logo.img)}
                 alt={logo.alt}
+                key={logo.alt}
                 style={{ top: logo.top, left: logo.left }}
                 className="Icon"
                 key={logo.img}

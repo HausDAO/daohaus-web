@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 
 import { GET_TOKENS } from '../util/queries';
-import { SORT_OPTIONS } from '../util/constants';
+import {
+  SORT_OPTIONS,
+  PURPOSE_FILTER_OPTIONS,
+  VERSION_FILTER_OPTIONS,
+} from '../util/constants';
 import { useQuery } from 'react-apollo';
 import { getUsd } from '../util/prices';
 
@@ -14,7 +18,8 @@ const initialState = {
   sort: SORT_OPTIONS[0],
   filters: {
     members: ['1'],
-    versions: ['1', '2'],
+    versions: VERSION_FILTER_OPTIONS.map(o => o.value),
+    purpose: PURPOSE_FILTER_OPTIONS.map(o => o.value),
   },
   searchTerm: null,
 };

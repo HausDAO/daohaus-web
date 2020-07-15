@@ -66,7 +66,9 @@ export default class SummonService {
         minimumTribute: daoData.minimumTribute,
         description: daoData.description,
         version: daoData.version,
+        purpose: daoData.presetName || 'Grants',
       };
+
       const cacheId = await post('moloch/orphan', cacheMoloch);
       this.setLocal({
         name: cacheMoloch.name,
@@ -148,6 +150,7 @@ export default class SummonService {
             name: daoData.name.trim(),
             minimumTribute: daoData.minimumTribute,
             description: daoData.description,
+            purpose: daoData.presetName || 'Grants',
           };
 
           this.setLocal({

@@ -57,6 +57,7 @@ const Summon = props => {
   useEffect(() => {
     if (state.status === 'error') {
       setIsSummoning(false);
+      setCurrentStep(3);
     }
 
     if (state.status === 'complete') {
@@ -88,7 +89,7 @@ const Summon = props => {
             </div>
 
             {state.status === 'error' ? (
-              <h1>error: {state.errorMessage.message || state.errorMessage}</h1>
+              <h1>{state.errorMessage.message || state.errorMessage}</h1>
             ) : null}
 
             {!isSummoning ? (
