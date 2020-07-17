@@ -33,7 +33,6 @@ const heroSlides = [
   },
 ];
 
-
 const daohausFeatures = [
   {
     sub: 'Share Goals',
@@ -166,6 +165,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </div>
       <div className="Row Features">
         <div>
           <div className="FeaturesHeading" style={{ flexDirection: 'column' }}>
