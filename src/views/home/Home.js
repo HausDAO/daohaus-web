@@ -33,7 +33,6 @@ const heroSlides = [
   },
 ];
 
-
 const daohausFeatures = [
   {
     sub: 'Share Goals',
@@ -166,142 +165,146 @@ const Home = () => {
             </div>
           </div>
         </div>
-      <div className="Row Features">
-        <div>
-          <div className="FeaturesHeading" style={{ flexDirection: 'column' }}>
-            <h5>Ya’ll just chattin smh</h5>
-            <h2>Share resources and get shit done. Together.</h2>
+        <div className="Row Features">
+          <div>
+            <div
+              className="FeaturesHeading"
+              style={{ flexDirection: 'column' }}
+            >
+              <h5>Ya’ll just chattin smh</h5>
+              <h2>Share resources and get shit done. Together.</h2>
+            </div>
+            <div className="AmountRaised">
+              <p>
+                <span>$5,420,609 raised</span>
+                <br />
+                $3,128,476 spent
+              </p>
+            </div>
           </div>
-          <div className="AmountRaised">
-            <p>
-              <span>$5,420,609 raised</span>
+          <div className="FeaturesList">
+            {daohausFeatures.map(feature => {
+              return (
+                <div key={feature.sub}>
+                  <h4>{feature.sub}</h4>
+                  <p>{feature.content}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div
+          className="Row Communities"
+          style={{ backgroundImage: 'url(' + RandomBackground + ')' }}
+        >
+          <div className="CommunitiesHeading">
+            <h3>
+              We{' '}
+              <span role="img" aria-label="Love">
+                ❤️
+              </span>{' '}
+              Communities
+            </h3>
+          </div>
+          <div className="FeaturedCommunities">
+            {featuredCommunities.map(community => {
+              return (
+                <div
+                  key={community.name}
+                  className="FeaturedCommunity"
+                  style={{ top: community.top, left: community.left }}
+                >
+                  <h4>{community.name}</h4>
+                  <p>{community.sub}</p>
+                  <p>
+                    {community.raised} | {community.members} Members
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div
+          className="Row GetStarted"
+          style={{ backgroundImage: 'url(' + GetStartedBackground + ')' }}
+        >
+          <div>
+            <h2>
+              Don’t be shy. Discover and join a decentralized community today.
+            </h2>
+            <button className="Big">Explore</button>
+          </div>
+        </div>
+        <div className="Boosts">
+          <div className="BoostsHeading">
+            <h2>Boost Packs</h2>
+            <h4>Level up your community, or gift to another.</h4>
+          </div>
+          <div className="BoostsPricing">
+            {pricingPacks.map(pack => {
+              return (
+                <div key={pack.name} className="Boost">
+                  <h2>{pack.name}</h2>
+                  <ul>
+                    {pack.features.map(feature => {
+                      return <li key={feature}>{feature}</li>;
+                    })}
+                  </ul>
+                  <button className="Big" disabled="true">
+                    {pack.price}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div
+          className="Row DaoConsultation"
+          style={{ backgroundImage: 'url(' + FallingBackground + ')' }}
+        >
+          <div className="Column Content">
+            <h2>Every community is unique, just like the people in it.</h2>
+            <h4>
+              DaoHaus can integrate with whatever tools your community needs.
               <br />
-              $3,128,476 spent
-            </p>
+              <br />
+              The possibilities are truly infinite.
+            </h4>
+            <button className="Big">Book a Consultation</button>
+          </div>
+          <div className="Icons">
+            {integrationLogos.map(logo => {
+              return (
+                <img
+                  src={require('../../assets/' + logo.img)}
+                  alt={logo.alt}
+                  key={logo.alt}
+                  style={{ top: logo.top, left: logo.left }}
+                  className="Icon"
+                  key={logo.img}
+                />
+              );
+            })}
           </div>
         </div>
-        <div className="FeaturesList">
-          {daohausFeatures.map(feature => {
-            return (
-              <div key={feature.sub}>
-                <h4>{feature.sub}</h4>
-                <p>{feature.content}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div
-        className="Row Communities"
-        style={{ backgroundImage: 'url(' + RandomBackground + ')' }}
-      >
-        <div className="CommunitiesHeading">
-          <h3>
-            We{' '}
-            <span role="img" aria-label="Love">
-              ❤️
-            </span>{' '}
-            Communities
-          </h3>
-        </div>
-        <div className="FeaturedCommunities">
-          {featuredCommunities.map(community => {
-            return (
-              <div
-                key={community.name}
-                className="FeaturedCommunity"
-                style={{ top: community.top, left: community.left }}
-              >
-                <h4>{community.name}</h4>
-                <p>{community.sub}</p>
-                <p>
-                  {community.raised} | {community.members} Members
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div
-        className="Row GetStarted"
-        style={{ backgroundImage: 'url(' + GetStartedBackground + ')' }}
-      >
-        <div>
-          <h2>
-            Don’t be shy. Discover and join a decentralized community today.
-          </h2>
-          <button className="Big">Explore</button>
-        </div>
-      </div>
-      <div className="Boosts">
-        <div className="BoostsHeading">
-          <h2>Boost Packs</h2>
-          <h4>Level up your community, or gift to another.</h4>
-        </div>
-        <div className="BoostsPricing">
-          {pricingPacks.map(pack => {
-            return (
-              <div key={pack.name} className="Boost">
-                <h2>{pack.name}</h2>
-                <ul>
-                  {pack.features.map(feature => {
-                    return <li key={feature}>{feature}</li>;
-                  })}
-                </ul>
-                <button className="Big" disabled="true">
-                  {pack.price}
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div
-        className="Row DaoConsultation"
-        style={{ backgroundImage: 'url(' + FallingBackground + ')' }}
-      >
-        <div className="Column Content">
-          <h2>Every community is unique, just like the people in it.</h2>
-          <h4>
-            DaoHaus can integrate with whatever tools your community needs.
-            <br />
-            <br />
-            The possibilities are truly infinite.
-          </h4>
-          <button className="Big">Book a Consultation</button>
-        </div>
-        <div className="Icons">
-          {integrationLogos.map(logo => {
-            return (
-              <img
-                src={require('../../assets/' + logo.img)}
-                alt={logo.alt}
-                key={logo.alt}
-                style={{ top: logo.top, left: logo.left }}
-                className="Icon"
-                key={logo.img}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="Row Footer" style={{ flexWrap: 'nowrap' }}>
-        <div>
-          <img src={DaohausLogo} alt="DaoHaus Logo" />
-        </div>
-        <div className="Social">
-          <a href="https://t.me/daohaus">
-            <img src={TelegramLogo} alt="DaoHaus Telegram" />
-          </a>
-          <a href="https://twitter.com/daohaus">
-            <img src={TelegramLogo} alt="DaoHaus Twitter" />
-          </a>
-          <a href="https://twitter.com/daohaus">
-            <img src={TelegramLogo} alt="DaoHaus Twitter" />
-          </a>
-          <a href="https://twitter.com/daohaus">
-            <img src={TelegramLogo} alt="DaoHaus Twitter" />
-          </a>
+        <div className="Row Footer" style={{ flexWrap: 'nowrap' }}>
+          <div>
+            <img src={DaohausLogo} alt="DaoHaus Logo" />
+          </div>
+          <div className="Social">
+            <a href="https://t.me/daohaus">
+              <img src={TelegramLogo} alt="DaoHaus Telegram" />
+            </a>
+            <a href="https://twitter.com/daohaus">
+              <img src={TelegramLogo} alt="DaoHaus Twitter" />
+            </a>
+            <a href="https://twitter.com/daohaus">
+              <img src={TelegramLogo} alt="DaoHaus Twitter" />
+            </a>
+            <a href="https://twitter.com/daohaus">
+              <img src={TelegramLogo} alt="DaoHaus Twitter" />
+            </a>
+          </div>
         </div>
       </div>
     </>
