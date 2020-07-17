@@ -19,6 +19,8 @@ const ExploreSort = () => {
         value={state.sort}
         onChange={option => handleChange(option)}
         options={SORT_OPTIONS}
+        className="ReactSelectContainer"
+        classNamePrefix="ReactSelect"
       />
     </div>
   );

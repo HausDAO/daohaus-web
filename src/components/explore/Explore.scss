@@ -50,13 +50,48 @@
   }
   .ExploreSort {
     width: 100%;
-    > div > div {
-      border: none;
-    }
-    input {
-      height: auto;
+    > .ReactSelectContainer {
+      height: 42px;
+      margin: 0;
+      padding: 0px;
+      .ReactSelect__control {
+        &--is-focused {
+          border: 2px solid $primary;
+          .ReactSelect__single-value {
+            color: $primary;
+          }
+        }
+      }
+      > div {
+        height: auto;
+        border: 2px solid $secondary;
+        cursor: pointer;
+        transition: all 0.15s linear;
+        .ReactSelect__single-value {
+          color: $secondary;
+          font-weight: 500;
+        }
+        &:hover {
+          border: 2px solid $primary;
+          .ReactSelect__single-value {
+            color: $primary;
+          }
+        }
+      }
+
+      input {
+        height: auto;
+        margin: 0;
+        color: $secondary;
+        &:hover {
+          color: $primary;
+        }
+      }
     }
   }
+}
+
+.ReactSelectContainer {
 }
 
 .ExploreFilters__filters {
@@ -81,39 +116,48 @@
       cursor: pointer;
       transition: all 0.15s linear;
       padding: 5px 10px;
-      border: 1px solid transparent;
+      border: 2px solid $secondary;
+      color: $secondary;
       border-radius: 4px;
-      height: 38px;
+      height: 32px;
       display: flex;
       align-items: center;
+      font-weight: 500;
       &:hover {
         color: $primary;
-        border: 1px solid $primary;
+        border: 2px solid $primary;
       }
-      &:active {
-        border: 1px solid $primary;
+      &.Active {
+        border: 2px solid $primary;
       }
     }
   }
 }
 
 .DropdownList {
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   border-radius: 4px;
   background: #fbfbf9;
   box-shadow: $shadow;
   min-width: 240px;
+  width: auto;
   margin-top: 10px;
   > div {
     cursor: pointer;
-    padding: 10px 15px;
+    padding: 15px 15px;
     transition: all 0.15s linear;
     margin-bottom: 1px;
-    &.selected,
+    color: $tertiary;
+    &.selected {
+      color: $primary;
+    }
     &:hover {
-      background-color: $primary;
-      color: white;
+      color: $secondary;
+      background-color: $background;
+    }
+    span {
+      margin-left: 15px;
     }
   }
 }
