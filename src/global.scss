@@ -93,7 +93,6 @@ img {
 }
 
 // Elements
-
 button,
 .Button {
   font-family: $body-font;
@@ -113,6 +112,10 @@ button,
   &.Big {
     padding: 25px;
     font-size: 2.5em;
+    @media (max-width: $grid) {
+      font-size: 1.5em;
+      min-width: 180px;
+    }
   }
   &:hover {
     background-color: $primary-hover;
@@ -203,7 +206,7 @@ button,
   &__Contents {
     margin: 0 auto;
     width: 100%;
-    max-width: 1100px;
+    max-width: calc(1100px);
     padding: 50px;
     > h1,
     h2 {
@@ -211,6 +214,9 @@ button,
     }
     > p {
       font-size: 1.35em;
+    }
+    @media (max-width: $grid) {
+      max-width: calc(100% - 100px);
     }
   }
   &.Primary {
@@ -267,6 +273,35 @@ button,
     width: 60%;
     @media (max-width: $mobile) {
       width: 100%;
+    }
+  }
+}
+
+.GridList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+  &__Item {
+    width: 33%;
+    @media (min-width: $grid + 1px) {
+      &:not(:nth-child(3n)) {
+        margin-right: 15px;
+        width: calc(33% - 15px);
+      }
+    }
+    @media (min-width: $mobile + 1px) and (max-width: $grid) {
+      width: calc(50%);
+      &:not(:nth-child(2n)) {
+        margin-right: 15px;
+        width: calc(50% - 15px);
+      }
+    }
+    @media (max-width: $mobile) {
+      width: calc(100%);
+      margin-bottom: 25px;
     }
   }
 }
@@ -458,34 +493,6 @@ p.Large {
       :nth-child(1) {
         margin-right: 10px;
       }
-    }
-  }
-}
-
-.GridList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  @media (max-width: $mobile) {
-    flex-direction: column;
-  }
-  &__Item {
-    width: 33%;
-    @media (min-width: $grid + 1px) {
-      &:not(:nth-child(3n)) {
-        margin-right: 15px;
-        width: calc(33% - 15px);
-      }
-    }
-    @media (min-width: $mobile + 1px) and (max-width: $grid) {
-      width: calc(50%);
-      &:not(:nth-child(2n)) {
-        margin-right: 15px;
-        width: calc(50% - 15px);
-      }
-    }
-    @media (max-width: $mobile) {
-      width: calc(100%);
     }
   }
 }

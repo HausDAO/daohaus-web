@@ -23,7 +23,7 @@ export const SORT_OPTIONS = [
 export const MEMBER_FILTER_OPTIONS = [
   {
     value: '1',
-    label: 'More than one Member',
+    label: 'Has more than one Member',
   },
 ];
 
