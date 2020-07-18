@@ -66,7 +66,7 @@ const ProfileMemberList = ({ daos }) => {
   return (
     <div className="ProfileMemberList">
       <div className="Row">
-        <h2>Member of {daos.length} DAOs</h2>
+        <h4>Member of {daos.length} DAOs</h4>
 
         {canSearch ? (
           <div className="DaoFilter__search">

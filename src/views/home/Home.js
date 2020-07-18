@@ -9,6 +9,10 @@ import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
 import HeroMGD from '../../assets/featured/Hero__MGD--1.jpeg';
 import AvatarMetaCartel from '../../assets/featured/metacartel__avatar.jpg';
+import AvatarRaidGuild from '../../assets/featured/raidguild__avatar.png';
+import AvatarMachiX from '../../assets/featured/machix__avatar.jpg';
+import AvatarVentures from '../../assets/featured/ventures__avatar.jpg';
+import AvatarMGD from '../../assets/featured/mgd__avatar.jpg';
 
 import TelegramLogo from '../../assets/telegram__logo.png';
 import { TwitterCircleFilled } from '@ant-design/icons';
@@ -59,8 +63,6 @@ const featuredCommunities = [
     sub: 'Digital Nation for Web3',
     raised: '$218,120',
     members: 91,
-    top: 100,
-    left: 250,
     image: AvatarMetaCartel,
   },
   {
@@ -68,36 +70,28 @@ const featuredCommunities = [
     sub: 'Network of Crypto Artists',
     raised: '$840,906',
     members: 16,
-    top: 0,
-    left: 675,
-    image: AvatarMetaCartel,
-  },
-  {
-    name: 'Venture DAO',
-    sub: 'Digital Nation for Web3',
-    raised: '$840,906',
-    members: 16,
-    top: 250,
-    left: 450,
-    image: AvatarMetaCartel,
-  },
-  {
-    name: 'Raid Guild',
-    sub: 'Digital Cooperative of Builders',
-    raised: '$18,329',
-    members: 54,
-    top: 400,
-    left: 150,
-    image: AvatarMetaCartel,
+    image: AvatarMachiX,
   },
   {
     name: 'Meta Gamma Delta',
     sub: 'Support female-led initiatives.',
     raised: '$6,480',
     members: 63,
-    top: 450,
-    left: 725,
-    image: AvatarMetaCartel,
+    image: AvatarMGD,
+  },
+  {
+    name: 'Raid Guild',
+    sub: 'Digital Cooperative of Builders',
+    raised: '$18,329',
+    members: 54,
+    image: AvatarRaidGuild,
+  },
+  {
+    name: 'Venture DAO',
+    sub: 'Digital Nation for Web3',
+    raised: '$840,906',
+    members: 16,
+    image: AvatarVentures,
   },
 ];
 
@@ -276,9 +270,7 @@ const Home = () => {
                       return <li key={feature}>{feature}</li>;
                     })}
                   </ul>
-                  <button className="Big" disabled="true">
-                    {pack.price}
-                  </button>
+                  <button className="Big">{pack.price}</button>
                 </div>
               );
             })}

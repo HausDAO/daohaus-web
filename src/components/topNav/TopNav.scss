@@ -131,7 +131,7 @@ $hamburger-hover-filter: none !default;
 .hamburger {
   padding: $hamburger-padding-y $hamburger-padding-x;
   @media (min-width: $mobile) {
-    display: none;
+    display: none !important;
   }
   @media (max-width: $mobile) {
     display: inline-block;

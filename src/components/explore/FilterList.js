@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ToggleLayer, anchor } from 'react-laag';
+import { Switch } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
 
 import { ExploreContext } from '../../contexts/ExploreContext';
@@ -14,15 +15,13 @@ const FilterList = ({ name, options, filterKey }) => {
       const isSelected = state.filters[filterKey].includes(option.value);
 
       return (
-        <div
-          key={option.value}
-          className={isSelected ? 'selected' : ''}
-          onClick={() => handleChange(option, isSelected)}
-        >
+        <div key={option.value}>
           {option.label}
-          {isSelected ? (
-            <CheckCircleOutlined style={{ float: 'right' }} />
-          ) : null}
+          <Switch
+            defaultChecked
+            className={isSelected ? 'selected' : ''}
+            onClick={() => handleChange(option, isSelected)}
+          />
         </div>
       );
     });
@@ -65,7 +64,7 @@ const FilterList = ({ name, options, filterKey }) => {
       >
         {({ toggle, triggerRef }) => (
           <div className="Trigger" ref={triggerRef} onClick={toggle}>
-            {name}
+            {name} <span className="ActiveFilters">1</span>
           </div>
         )}
       </ToggleLayer>
