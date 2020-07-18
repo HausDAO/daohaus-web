@@ -15,12 +15,16 @@ const FilterList = ({ name, options, filterKey }) => {
       const isSelected = state.filters[filterKey].includes(option.value);
 
       return (
-        <div key={option.value}>
+        <div
+          key={option.value}
+          onClick={() => handleChange(option, isSelected)}
+        >
           {option.label}
           <Switch
             defaultChecked
+            checked={isSelected}
             className={isSelected ? 'selected' : ''}
-            onClick={() => handleChange(option, isSelected)}
+            onChange={() => handleChange(option, isSelected)}
           />
         </div>
       );
