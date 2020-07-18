@@ -1,4 +1,5 @@
 @import 'variables';
+// @import '~antd/dist/antd.css';
 
 // Typography
 
@@ -76,7 +77,7 @@ a {
   cursor: pointer;
   transition: all 0.15s linear;
   font-weight: 500;
-  &:hover {
+  &:not(.Button):hover {
     color: $primary-hover;
   }
 }
@@ -93,7 +94,7 @@ img {
 }
 
 // Elements
-button,
+button:not(.hamburger):not([role='switch']),
 .Button {
   font-family: $body-font;
   font-weight: 500;
@@ -104,14 +105,23 @@ button,
   border: none;
   border-radius: 10px;
   height: auto;
-  min-width: 300px;
   padding: 15px 25px;
   font-size: 1em;
   cursor: pointer;
   transition: all 0.15s linear;
+  &.Medium {
+    padding: 25px;
+    font-size: 1.75em;
+    min-width: 240px;
+    @media (max-width: $grid) {
+      font-size: 1.25em;
+      min-width: 180px;
+    }
+  }
   &.Big {
     padding: 25px;
     font-size: 2.5em;
+    min-width: 300px;
     @media (max-width: $grid) {
       font-size: 1.5em;
       min-width: 180px;
@@ -370,6 +380,102 @@ p.Large {
     cursor: pointer;
     font-weight: 900;
   }
+}
+
+// Ant-D Components
+
+// Switch
+
+.ant-switch {
+  margin: 0;
+  padding: 0;
+  color: $background-hover;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', 'tnum';
+  position: relative;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 44px;
+  height: 22px;
+  line-height: 22px;
+  vertical-align: middle;
+  background-color: $background-hover;
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.ant-switch-checked {
+  background-color: $orange;
+}
+
+.ant-switch-checked .ant-switch-handle {
+  left: calc(100% - 18px - 2px);
+}
+
+.ant-switch-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.ant-switch-checked .ant-switch-inner {
+  margin: 0 25px 0 7px;
+}
+
+.ant-click-animating-node {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  border-radius: inherit;
+  -webkit-box-shadow: 0 0 0 0 #1890ff;
+  box-shadow: 0 0 0 0 #1890ff;
+  -webkit-box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);
+  box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);
+  opacity: 0.2;
+  -webkit-animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  content: '';
+  pointer-events: none;
+}
+
+.ant-switch-handle::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  border-radius: 9px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  content: '';
 }
 
 // Wizard

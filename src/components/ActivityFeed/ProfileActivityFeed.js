@@ -46,9 +46,9 @@ const ProfileActivityFeed = ({ daos }) => {
   return (
     <div className="ProfileActivityFeed">
       <div className="ProfileActivityFeed__header">
-        <h3>Activity Feed</h3>
+        <h4>Activity Feed</h4>
 
-        <p>unread {unread}</p>
+        <p>{unread} Unread</p>
       </div>
       <ActivityFeed activities={activities} />
     </div>

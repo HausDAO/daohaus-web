@@ -1,5 +1,22 @@
 @import '../../variables';
 
+.ProfileActivityFeed__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 50px;
+  p {
+    margin-left: 25px;
+    color: white;
+    background: $red;
+    border: 2px solid $red;
+    padding: 3px 10px;
+    border-radius: 25px;
+    font-weight: 500;
+  }
+}
+
 .ActivityFeed {
   display: flex;
   flex-wrap: wrap;
@@ -10,13 +27,6 @@
       width: calc(100% - 50px) !important;
     }
   }
-}
-
-.ProfileActivityFeed__header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 50px;
 }
 
 .ActivityCard {

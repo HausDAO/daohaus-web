@@ -51,12 +51,14 @@
   .ExploreSort {
     width: 100%;
     > .ReactSelectContainer {
-      height: 42px;
+      height: 44px;
       margin: 0;
       padding: 0px;
+      padding-top: 3px;
       .ReactSelect__control {
         &--is-focused {
-          border: 2px solid $primary;
+          border: none;
+          border-bottom: 2px solid $primary;
           .ReactSelect__single-value {
             color: $primary;
           }
@@ -64,7 +66,9 @@
       }
       > div {
         height: auto;
-        border: 2px solid $secondary;
+        border: none;
+        border-bottom: 2px solid transparent;
+        border-radius: 0px;
         cursor: pointer;
         transition: all 0.15s linear;
         .ReactSelect__single-value {
@@ -72,13 +76,11 @@
           font-weight: 500;
         }
         &:hover {
-          border: 2px solid $primary;
           .ReactSelect__single-value {
             color: $primary;
           }
         }
       }
-
       input {
         height: auto;
         margin: 0;
@@ -91,7 +93,8 @@
   }
 }
 
-.ReactSelectContainer {
+.ReactSelect__indicators {
+  display: none !important;
 }
 
 .ExploreFilters__filters {
@@ -116,19 +119,25 @@
       cursor: pointer;
       transition: all 0.15s linear;
       padding: 5px 10px;
-      border: 2px solid $secondary;
+      border-bottom: 2px solid transparent;
       color: $secondary;
-      border-radius: 4px;
       height: 32px;
       display: flex;
       align-items: center;
       font-weight: 500;
       &:hover {
         color: $primary;
-        border: 2px solid $primary;
+        border-bottom: 2px solid $primary;
       }
       &.Active {
-        border: 2px solid $primary;
+        border-bottom: 2px solid $primary;
+      }
+      .ActiveFilters {
+        border-radius: 25px;
+        margin-left: 5px;
+        padding: 3px 7px;
+        border: 2px solid;
+        font-size: 0.75em;
       }
     }
   }
@@ -156,8 +165,9 @@
       color: $secondary;
       background-color: $background;
     }
-    span {
+    button {
       margin-left: 15px;
+      float: right;
     }
   }
 }
