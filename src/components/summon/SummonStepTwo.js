@@ -36,7 +36,7 @@ const SummonStepTwo = ({ daoData, setDaoData, setCurrentStep }) => {
       </div>
       <div>
         <div className="StepControl">
-          <button onClick={() => navigate(1)}>
+          <button onClick={() => navigate(1)} className="Outlined">
             <ArrowLeftOutlined style={{ marginRight: '5px' }} />
             GO BACK
           </button>

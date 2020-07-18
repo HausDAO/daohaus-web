@@ -108,7 +108,6 @@ const SummonStepThree = ({
         <div>
           <h4>Description</h4>
           <p>
-            The quick description is{' '}
             <textarea
               className="inline-field"
               name="description"
@@ -241,7 +240,7 @@ const SummonStepThree = ({
           </p>
         </div>
         <div className="StepControl">
-          <button onClick={() => navigate(2)}>
+          <button className="Outlined" onClick={() => navigate(2)}>
             <ArrowLeftOutlined style={{ marginRight: '5px' }} />
             GO BACK
           </button>

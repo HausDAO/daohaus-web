@@ -93,7 +93,7 @@ img {
   word-break: break-all;
 }
 
-// Elements
+// UI Elements
 button:not(.hamburger):not([role='switch']),
 .Button {
   font-family: $body-font;
@@ -102,7 +102,7 @@ button:not(.hamburger):not([role='switch']),
   outline: none;
   background-color: $orange;
   color: white;
-  border: none;
+  border: 2px solid transparent;
   border-radius: 10px;
   height: auto;
   padding: 15px 25px;
@@ -134,6 +134,11 @@ button:not(.hamburger):not([role='switch']),
     border: 2px solid $orange;
     background-color: transparent;
     color: $orange;
+    &:hover {
+      border: 2px solid $primary-hover;
+      background-color: transparent;
+      color: $primary-hover;
+    }
   }
 }
 
@@ -159,6 +164,8 @@ button:not(.hamburger):not([role='switch']),
 }
 
 // Layout
+
+// Big Heroes for the tops of pages
 
 .Hero {
   display: flex;
@@ -210,6 +217,8 @@ button:not(.hamburger):not([role='switch']),
     }
   }
 }
+
+// Basic big block for marketing style content
 
 .Block {
   width: 100%;
@@ -292,6 +301,8 @@ button:not(.hamburger):not([role='switch']),
   }
 }
 
+// List of items in a grid of 3 columns
+
 .GridList {
   display: flex;
   flex-wrap: wrap;
@@ -359,7 +370,7 @@ p.Large {
   color: $red;
 }
 .Success {
-  color: lime-green;
+  color: $success;
 }
 
 .SuccessMessage {
@@ -651,6 +662,7 @@ p.Large {
     // box-shadow: $shadow;
     &:focus {
       border: none;
+      outline: none;
     }
   }
 }
