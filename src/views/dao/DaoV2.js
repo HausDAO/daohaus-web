@@ -115,14 +115,13 @@ const DaoV2 = props => {
                   <h4 className="Label">Things to DAO</h4>
                   {!daoData.apiData.hidePokemol ? (
                     <div className="Dapp">
-                      <p className="Label">Proposal and Voting dApp</p>
                       <a
-                        className="Button Pokemol"
+                        className="Button Medium"
                         href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
-                        <img src={PokemolBrand} alt="pokemol" />
+                        Enter the DAO
                       </a>
                     </div>
                   ) : null}

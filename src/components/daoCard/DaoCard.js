@@ -1,4 +1,5 @@
 import React from 'react';
+import makeBlockie from 'ethereum-blockies-base64';
 // import { Line } from 'react-chartjs-2';
 
 import './DaoCard.scss';
@@ -20,23 +21,38 @@ const DaoCard = ({ dao }) => {
   return (
     <>
       <div className="DaoCard">
-        <h4 className="DaoName">{dao.title}</h4>
-        <p>{dao.apiData.description}</p>
+        <div className="Title Row">
+          <div
+            className="DaoAvatar"
+            style={{
+              backgroundImage: `url("${makeBlockie(dao.id)}")`,
+            }}
+          ></div>
+          <h4 className="DaoName">{dao.title}</h4>
+        </div>
+        <p className="DaoDesc">{dao.apiData.description}</p>
 
-        <div className="Row">
-          <div className="Column">
-            <p className="Data">
-              {dao.guildBankValue.usd.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              })}{' '}
-            </p>
-
+        <div className="Column">
+          <p className="Data Bank">
+            {dao.guildBankValue.usd.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}{' '}
+          </p>
+          <div className="Info Row">
             <p className="Data">{dao.members.length} Members</p>
             <p className="Data">
               {dao.version === '2' ? dao.approvedTokens.length : '1'} Token(s)
             </p>
           </div>
+          {/*}
+          <div className="Actions Row">
+            <div className="ButtonGroup">
+              <button className="Outlined">View Page</button>
+              <button>Enter the DAO</button>
+            </div>
+          </div>
+          */}
         </div>
 
         {/* <div className="DaoCard__chart">

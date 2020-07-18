@@ -130,6 +130,11 @@ button:not(.hamburger):not([role='switch']),
   &:hover {
     background-color: $primary-hover;
   }
+  &.Outlined {
+    border: 2px solid $orange;
+    background-color: transparent;
+    color: $orange;
+  }
 }
 
 // Dao/Profile Elements
@@ -501,6 +506,9 @@ p.Large {
   width: 100%;
   button {
     display: inline-block;
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
   }
 }
 
