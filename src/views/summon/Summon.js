@@ -120,17 +120,20 @@ const Summon = props => {
                         handleSummon={handleSummon}
                       />
                     ) : null}
-                    <div className="ModeSwitch">
-                      <p style={{ width: '100%', textAlign: 'center' }}>
-                        I'm a DAO master, take me to{' '}
-                        <span
-                          className="mode-link"
-                          onClick={() => setHardMode(true)}
-                        >
-                          Hard Mode
-                        </span>
-                      </p>
-                    </div>
+
+                    {currentStep === 1 ? (
+                      <div className="ModeSwitch">
+                        <p style={{ width: '100%', textAlign: 'center' }}>
+                          I'm a DAO master, take me to{' '}
+                          <span
+                            className="mode-link"
+                            onClick={() => setHardMode(true)}
+                          >
+                            Hard Mode
+                          </span>
+                        </p>
+                      </div>
+                    ) : null}
                   </>
                 ) : (
                   <>

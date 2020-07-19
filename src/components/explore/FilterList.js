@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { ToggleLayer, anchor } from 'react-laag';
 import { Switch } from 'antd';
-import { CheckCircleOutlined } from '@ant-design/icons';
 
 import { ExploreContext } from '../../contexts/ExploreContext';
 
@@ -66,9 +65,16 @@ const FilterList = ({ name, options, filterKey }) => {
           )
         }
       >
-        {({ toggle, triggerRef }) => (
-          <div className="Trigger" ref={triggerRef} onClick={toggle}>
-            {name} <span className="ActiveFilters">1</span>
+        {({ toggle, triggerRef, isOpen }) => (
+          <div
+            className={isOpen ? 'Trigger Active' : 'Trigger'}
+            ref={triggerRef}
+            onClick={toggle}
+          >
+            {name}{' '}
+            <span className="ActiveFilters">
+              {state.filters[filterKey].length}
+            </span>
           </div>
         )}
       </ToggleLayer>
