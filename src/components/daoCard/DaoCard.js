@@ -42,7 +42,11 @@ const DaoCard = ({ dao }) => {
           <div className="Info Row">
             <p className="Data">{dao.members.length} Members</p>
             <p className="Data">
-              {dao.version === '2' ? dao.approvedTokens.length : '1'} Token(s)
+              {dao.version === '2'
+                ? `${dao.approvedTokens.length} Token${
+                    dao.approvedTokens.length > 1 ? 's' : ''
+                  }`
+                : '1 Token'}
             </p>
           </div>
           {/*}
