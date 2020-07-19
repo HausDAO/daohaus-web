@@ -26,14 +26,17 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'resetAll': {
-      return initialState;
-    }
     case 'setAllDaos': {
       return { ...state, allDaos: action.payload };
     }
-    case 'clearAllDaos': {
-      return { ...state, allDaos: [] };
+    case 'resetExplore': {
+      return {
+        ...state,
+        allDaos: initialState.allDaos,
+        sort: initialState.sort,
+        filters: initialState.filters,
+        searchTerm: initialState.searchTerm,
+      };
     }
     case 'setPrices': {
       return { ...state, prices: action.payload };

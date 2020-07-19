@@ -11,7 +11,7 @@ const Explore = () => {
   const { state, dispatch } = useContext(ExploreContext);
 
   useEffect(() => {
-    dispatch({ type: 'clearAllDaos' });
+    dispatch({ type: 'resetExplore' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
