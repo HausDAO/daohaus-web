@@ -1,4 +1,5 @@
 @import 'variables';
+// @import '~antd/dist/antd.css';
 
 // Typography
 
@@ -76,7 +77,7 @@ a {
   cursor: pointer;
   transition: all 0.15s linear;
   font-weight: 500;
-  &:hover {
+  &:not(.Button):hover {
     color: $primary-hover;
   }
 }
@@ -92,9 +93,8 @@ img {
   word-break: break-all;
 }
 
-// Elements
-
-button,
+// UI Elements
+button:not(.hamburger):not([role='switch']),
 .Button {
   font-family: $body-font;
   font-weight: 500;
@@ -102,16 +102,43 @@ button,
   outline: none;
   background-color: $orange;
   color: white;
-  border: none;
+  border: 2px solid transparent;
   border-radius: 10px;
-  height: 100px;
-  width: 300px;
+  height: auto;
   padding: 15px 25px;
-  font-size: 2.5em;
+  font-size: 1em;
   cursor: pointer;
   transition: all 0.15s linear;
+  &.Medium {
+    padding: 25px;
+    font-size: 1.75em;
+    min-width: 240px;
+    @media (max-width: $grid) {
+      font-size: 1.25em;
+      min-width: 180px;
+    }
+  }
+  &.Big {
+    padding: 25px;
+    font-size: 2.5em;
+    min-width: 300px;
+    @media (max-width: $grid) {
+      font-size: 1.5em;
+      min-width: 180px;
+    }
+  }
   &:hover {
     background-color: $primary-hover;
+  }
+  &.Outlined {
+    border: 2px solid $orange;
+    background-color: transparent;
+    color: $orange;
+    &:hover {
+      border: 2px solid $primary-hover;
+      background-color: transparent;
+      color: $primary-hover;
+    }
   }
 }
 
@@ -137,6 +164,8 @@ button,
 }
 
 // Layout
+
+// Big Heroes for the tops of pages
 
 .Hero {
   display: flex;
@@ -189,6 +218,8 @@ button,
   }
 }
 
+// Basic big block for marketing style content
+
 .Block {
   width: 100%;
   display: flex;
@@ -199,7 +230,7 @@ button,
   &__Contents {
     margin: 0 auto;
     width: 100%;
-    max-width: 1100px;
+    max-width: calc(1100px);
     padding: 50px;
     > h1,
     h2 {
@@ -207,6 +238,9 @@ button,
     }
     > p {
       font-size: 1.35em;
+    }
+    @media (max-width: $grid) {
+      max-width: calc(100% - 100px);
     }
   }
   &.Primary {
@@ -267,6 +301,37 @@ button,
   }
 }
 
+// List of items in a grid of 3 columns
+
+.GridList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+  &__Item {
+    width: 33%;
+    @media (min-width: $grid + 1px) {
+      &:not(:nth-child(3n)) {
+        margin-right: 15px;
+        width: calc(33% - 15px);
+      }
+    }
+    @media (min-width: $mobile + 1px) and (max-width: $grid) {
+      width: calc(50%);
+      &:not(:nth-child(2n)) {
+        margin-right: 15px;
+        width: calc(50% - 15px);
+      }
+    }
+    @media (max-width: $mobile) {
+      width: calc(100%);
+      margin-bottom: 25px;
+    }
+  }
+}
+
 .Section {
   margin-top: 50px;
 }
@@ -305,7 +370,7 @@ p.Large {
   color: $red;
 }
 .Success {
-  color: lime-green;
+  color: $success;
 }
 
 .SuccessMessage {
@@ -333,6 +398,102 @@ p.Large {
   }
 }
 
+// Ant-D Components
+
+// Switch
+
+.ant-switch {
+  margin: 0;
+  padding: 0;
+  color: $background-hover;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', 'tnum';
+  position: relative;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 44px;
+  height: 22px;
+  line-height: 22px;
+  vertical-align: middle;
+  background-color: $background-hover;
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.ant-switch-checked {
+  background-color: $orange;
+}
+
+.ant-switch-checked .ant-switch-handle {
+  left: calc(100% - 18px - 2px);
+}
+
+.ant-switch-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.ant-switch-checked .ant-switch-inner {
+  margin: 0 25px 0 7px;
+}
+
+.ant-click-animating-node {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  border-radius: inherit;
+  -webkit-box-shadow: 0 0 0 0 #1890ff;
+  box-shadow: 0 0 0 0 #1890ff;
+  -webkit-box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);
+  box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);
+  opacity: 0.2;
+  -webkit-animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  content: '';
+  pointer-events: none;
+}
+
+.ant-switch-handle::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  border-radius: 9px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  content: '';
+}
+
 // Wizard
 .Wizard {
   h3 {
@@ -356,6 +517,9 @@ p.Large {
   width: 100%;
   button {
     display: inline-block;
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
   }
 }
 
@@ -458,34 +622,6 @@ p.Large {
   }
 }
 
-.GridList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  @media (max-width: $mobile) {
-    flex-direction: column;
-  }
-  &__Item {
-    width: 33%;
-    @media (min-width: $grid + 1px) {
-      &:not(:nth-child(3n)) {
-        margin-right: 15px;
-        width: calc(33% - 15px);
-      }
-    }
-    @media (min-width: $mobile + 1px) and (max-width: $grid) {
-      width: calc(50%);
-      &:not(:nth-child(2n)) {
-        margin-right: 15px;
-        width: calc(50% - 15px);
-      }
-    }
-    @media (max-width: $mobile) {
-      width: calc(100%);
-    }
-  }
-}
-
 // Profile
 .ProfileImg {
   width: 150px;
@@ -526,6 +662,7 @@ p.Large {
     // box-shadow: $shadow;
     &:focus {
       border: none;
+      outline: none;
     }
   }
 }

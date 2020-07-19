@@ -1,5 +1,18 @@
 @import '../../variables';
 
+.ProfileMemberList {
+  .Row {
+    justify-content: flex-start;
+    .DaoFilter__search {
+      margin-left: 15px;
+      @media (max-width: $mobile) {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+  }
+}
+
 .Daolist {
   display: flex;
   flex-direction: row;
