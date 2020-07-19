@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { ToggleLayer, anchor } from 'react-laag';
 import { Switch } from 'antd';
-import { CheckCircleOutlined } from '@ant-design/icons';
 
 import { ExploreContext } from '../../contexts/ExploreContext';
 
@@ -9,8 +8,6 @@ import './Explore.scss';
 
 const FilterList = ({ name, options, filterKey }) => {
   const { state, dispatch } = useContext(ExploreContext);
-
-  console.log('state.filters[filterKey]', state.filters[filterKey]);
 
   const renderOptions = () => {
     return options.map(option => {

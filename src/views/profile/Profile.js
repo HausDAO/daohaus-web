@@ -25,13 +25,14 @@ const Profile = props => {
 
   useEffect(() => {
     const setup = async () => {
-      let profile;
+      let boxProfile;
       try {
-        profile = await getProfile(props.match.params.account);
+        boxProfile = await getProfile(props.match.params.account);
       } catch {
-        profile = {};
+        boxProfile = {};
       }
-      setProfile(profile);
+
+      setProfile(boxProfile);
     };
 
     setup();
@@ -52,7 +53,6 @@ const Profile = props => {
           `moloch/orphans/${props.match.params.account}`,
         );
 
-        console.log('orphans', orphans);
         setUnregisteredDaos(
           orphans.data.filter(orphan => {
             return orphan.summonerAddress === web3context.account.toLowerCase();
@@ -103,9 +103,9 @@ const Profile = props => {
 
             {profile.website ? (
               <>
-                {profile.website.indexOf('http') > 0 ? (
+                {profile.website.indexOf('http') >= 0 ? (
                   <a
-                    href={profile.website.match}
+                    href={profile.website}
                     target="_blank"
                     rel="noreferrer noopener"
                   >

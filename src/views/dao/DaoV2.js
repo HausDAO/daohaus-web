@@ -8,7 +8,6 @@ import { successMessagesText } from '../../util/helpers';
 import MolochService from '../../util/molochService';
 import HeadTags from '../../components/headTags/HeadTags';
 import ApplicationList from '../../components/applicationList/ApplicationList';
-import PokemolBrand from '../../assets/pokemol__brand--standard-white.svg';
 
 import './Dao.scss';
 
