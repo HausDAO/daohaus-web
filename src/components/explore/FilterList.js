@@ -10,6 +10,8 @@ import './Explore.scss';
 const FilterList = ({ name, options, filterKey }) => {
   const { state, dispatch } = useContext(ExploreContext);
 
+  console.log('state.filters[filterKey]', state.filters[filterKey]);
+
   const renderOptions = () => {
     return options.map(option => {
       const isSelected = state.filters[filterKey].includes(option.value);
@@ -66,9 +68,16 @@ const FilterList = ({ name, options, filterKey }) => {
           )
         }
       >
-        {({ toggle, triggerRef }) => (
-          <div className="Trigger" ref={triggerRef} onClick={toggle}>
-            {name} <span className="ActiveFilters">1</span>
+        {({ toggle, triggerRef, isOpen }) => (
+          <div
+            className={isOpen ? 'Trigger Active' : 'Trigger'}
+            ref={triggerRef}
+            onClick={toggle}
+          >
+            {name}{' '}
+            <span className="ActiveFilters">
+              {state.filters[filterKey].length}
+            </span>
           </div>
         )}
       </ToggleLayer>
