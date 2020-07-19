@@ -26,9 +26,15 @@ const ProfileActivityFeed = ({ daos }) => {
         }),
       ];
 
+      const activeRages = dao.rageQuits.filter(rage => {
+        // 1209600000 === 2 weeks
+        const now = (new Date() / 1000) | 0;
+        return +rage.createdAt >= now - 1209600;
+      });
+
       rageActivities = [
         ...rageActivities,
-        ...dao.rageQuits.map(rage => {
+        ...activeRages.map(rage => {
           return { ...rage, daoTitle: dao.title };
         }),
       ];
