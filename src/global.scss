@@ -400,6 +400,68 @@ p.Large {
 
 // Ant-D Components
 
+// Carousel
+
+.ant-carousel {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', 'tnum';
+  // Modify
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .slick-slider {
+    position: relative;
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .slick-list {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // extra
+    transform: translate3d(0, 0, 0);
+
+    .slick-track {
+      position: relative;
+      top: 0;
+      left: 0;
+      display: block;
+      height: 100%;
+      &:before {
+        display: table;
+        content: '';
+      }
+      .slick-slide {
+        position: relative;
+        float: left;
+        height: 100%;
+        min-height: 1px;
+        width: 100%;
+      }
+    }
+  }
+}
+
 // Switch
 
 .ant-switch {

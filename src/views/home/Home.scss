@@ -76,6 +76,16 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    .SlideBg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
     .Content {
       position: absolute;
       right: 50px;

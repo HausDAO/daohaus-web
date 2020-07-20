@@ -33,19 +33,18 @@ const Home = () => {
       <Carousel autoplay={true} dots={false} effect="fade">
         {heroSlides.map(slide => {
           return (
-            <div key={slide.id}>
+            <div key={slide.id} className="Carousel__Slide">
+              <div className="Content">
+                <p>{slide.content}</p>
+                <h4>{slide.heading}</h4>
+              </div>
               <div
-                className="Carousel__Slide"
+                className="SlideBg"
                 style={{
                   backgroundImage: 'url(' + slide.image + ')',
                 }}
-              >
-                <div className="Content">
-                  <p>{slide.content}</p>
-                  <h4>{slide.heading}</h4>
-                </div>
-                <div className="Overlay" />
-              </div>
+              />
+              <div className="Overlay" />
             </div>
           );
         })}
