@@ -1,18 +1,17 @@
 import React, { useContext } from 'react';
 import { Carousel } from 'antd';
+import { TwitterCircleFilled } from '@ant-design/icons';
 
 import { Web3Context } from '../../contexts/ContractContexts';
+import { ExploreContext } from '../../contexts/ExploreContext';
 import SummonButton from '../../components/summonButton/summonButton';
 import ActivateButton from '../../components/activateButton/ActivateButton';
+import FeaturedDaos from '../../components/featuredDaos/FeaturedDaos';
 import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
 import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
-import { TwitterCircleFilled } from '@ant-design/icons';
-import FeaturedDaos from '../../components/featuredDaos/FeaturedDaos';
-
-// import TelegramLogo from '../../assets/telegram__logo.png';
 
 import {
   heroSlides,
@@ -22,7 +21,6 @@ import {
 } from '../../content/home-content';
 
 import './Home.scss';
-import { ExploreContext } from '../../contexts/ExploreContext';
 
 const Home = () => {
   const [web3context] = useContext(Web3Context);
@@ -94,7 +92,7 @@ const Home = () => {
             {daohausFeatures.map(feature => {
               return (
                 <div key={feature.sub}>
-                  <img src={feature.icon} />
+                  <img src={feature.icon} alt={feature.sub} />
                   <h4>{feature.sub}</h4>
                   <p>{feature.content}</p>
                 </div>
