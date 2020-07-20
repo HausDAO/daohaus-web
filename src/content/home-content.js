@@ -8,7 +8,6 @@ import AvatarVentures from '../assets/featured/ventures__avatar.jpg';
 import AvatarMGD from '../assets/featured/mgd__avatar.jpg';
 import IconA from '../assets/branding/Icon__A.png';
 import IconB from '../assets/branding/Icon__B.png';
-import IconC from '../assets/branding/Icon__C.png';
 import IconD from '../assets/branding/Icon__D.png';
 
 export const heroSlides = [
