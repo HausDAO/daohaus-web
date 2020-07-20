@@ -1,9 +1,15 @@
 import HeroMGD from '../assets/featured/Hero__MGD--1.jpeg';
+import HeroOrochi from '../assets/featured/orochi__hero.jpeg';
+import HeroMetaCartel from '../assets/featured/metacartel__hero.jpg';
 import AvatarMetaCartel from '../assets/featured/metacartel__avatar.jpg';
 import AvatarRaidGuild from '../assets/featured/raidguild__avatar.png';
 import AvatarMachiX from '../assets/featured/machix__avatar.jpg';
 import AvatarVentures from '../assets/featured/ventures__avatar.jpg';
 import AvatarMGD from '../assets/featured/mgd__avatar.jpg';
+import IconA from '../assets/branding/Icon__A.png';
+import IconB from '../assets/branding/Icon__B.png';
+import IconC from '../assets/branding/Icon__C.png';
+import IconD from '../assets/branding/Icon__D.png';
 
 export const heroSlides = [
   {
@@ -18,29 +24,32 @@ export const heroSlides = [
     heading: 'Peter, Summoner of MetaCartel',
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    image: HeroMGD,
+    image: HeroMetaCartel,
   },
   {
     id: 3,
     heading: 'Makoto, Summoner of Orochi DAO',
     content:
       'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    image: HeroMGD,
+    image: HeroOrochi,
   },
 ];
 
 export const daohausFeatures = [
   {
+    icon: IconA,
     sub: 'Share Goals',
     content:
       'Collaborate with anyone, anywhere in an unstoppable organization that lives on the internet.',
   },
   {
+    icon: IconB,
     sub: 'Share Money',
     content:
       'Raise money and spend it together on shared goals with 100% transparency.',
   },
   {
+    icon: IconD,
     sub: 'Share Power',
     content:
       'Everyone has a voice. Not a single dollar can be spent without a community vote.',
