@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import { Carousel } from 'antd';
 
+import { Web3Context } from '../../contexts/ContractContexts';
 import SummonButton from '../../components/summonButton/summonButton';
 import ActivateButton from '../../components/activateButton/ActivateButton';
 import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
@@ -7,139 +9,48 @@ import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
-import HeroMGD from '../../assets/featured/Hero__MGD--1.jpeg';
-import AvatarMetaCartel from '../../assets/featured/metacartel__avatar.jpg';
-import AvatarRaidGuild from '../../assets/featured/raidguild__avatar.png';
-import AvatarMachiX from '../../assets/featured/machix__avatar.jpg';
-import AvatarVentures from '../../assets/featured/ventures__avatar.jpg';
-import AvatarMGD from '../../assets/featured/mgd__avatar.jpg';
-
-import TelegramLogo from '../../assets/telegram__logo.png';
 import { TwitterCircleFilled } from '@ant-design/icons';
 
+// import TelegramLogo from '../../assets/telegram__logo.png';
+
+import {
+  heroSlides,
+  daohausFeatures,
+  featuredCommunities,
+  pricingPacks,
+  integrationLogos,
+} from '../../content/home-content';
+
 import './Home.scss';
-import { Web3Context } from '../../contexts/ContractContexts';
-
-const heroSlides = [
-  {
-    heading: 'Juliana, Summoner of Meta Gamma Delta',
-    content:
-      'At Meta Gamma Delta, we learned that there are Membership proposals and also Funding Proposals. And how can projects be funded? Based on voting! Simple, easy, brilliant.',
-    image: HeroMGD,
-  },
-  {
-    heading: 'Peter, Summoner of MetaCartel',
-    content: '',
-    image: '',
-  },
-  {
-    heading: 'Makoto, Summoner of Orochi DAO',
-    content: '',
-    image: '',
-  },
-];
-
-const daohausFeatures = [
-  {
-    sub: 'Share Goals',
-    content:
-      'Collaborate with anyone, anywhere in an unstoppable organization that lives on the internet.',
-  },
-  {
-    sub: 'Share Money',
-    content:
-      'Raise money and spend it together on shared goals with 100% transparency.',
-  },
-  {
-    sub: 'Share Power',
-    content:
-      'Everyone has a voice. Not a single dollar can be spent without a community vote.',
-  },
-];
-
-const featuredCommunities = [
-  {
-    name: 'MetaCartel',
-    sub: 'Digital Nation for Web3',
-    raised: '$218,120',
-    members: 91,
-    image: AvatarMetaCartel,
-  },
-  {
-    name: 'Machi X',
-    sub: 'Network of Crypto Artists',
-    raised: '$840,906',
-    members: 16,
-    image: AvatarMachiX,
-  },
-  {
-    name: 'Meta Gamma Delta',
-    sub: 'Support female-led initiatives.',
-    raised: '$6,480',
-    members: 63,
-    image: AvatarMGD,
-  },
-  {
-    name: 'Raid Guild',
-    sub: 'Digital Cooperative of Builders',
-    raised: '$18,329',
-    members: 54,
-    image: AvatarRaidGuild,
-  },
-  {
-    name: 'Venture DAO',
-    sub: 'Digital Nation for Web3',
-    raised: '$840,906',
-    members: 16,
-    image: AvatarVentures,
-  },
-];
-
-const pricingPacks = [
-  {
-    name: 'Starter',
-    features: [
-      'Launch Infinite Communities',
-      'Invite Infinite Collaborators',
-      'Submit Infinite Proposals and Votes',
-    ],
-    price: 'Free Forever',
-  },
-  {
-    name: 'Pro',
-    features: ['All Free Boosts', '+ Custom Theme', '+ Social Notifications'],
-    price: '$10/mo',
-  },
-  {
-    name: 'Super',
-    features: ['All Free & Pro Boosts', '+ Minion', '+ Legal Wrapper'],
-    price: '$25/mo',
-  },
-];
-
-const integrationLogos = [
-  {
-    img: 'telegram__logo.png',
-    alt: 'Telegram',
-    top: 115,
-    left: 45,
-  },
-  {
-    img: 'discord__logo.png',
-    alt: 'Discord',
-    top: 15,
-    left: 150,
-  },
-  {
-    img: 'airtable__logo.png',
-    alt: 'Airtable',
-    top: 200,
-    left: 150,
-  },
-];
 
 const Home = () => {
   const [web3context] = useContext(Web3Context);
+
+  const renderSlides = () => {
+    return (
+      <Carousel autoplay={true} dots={false} effect="fade">
+        {heroSlides.map(slide => {
+          return (
+            <div>
+              <div
+                className="Carousel__Slide"
+                style={{
+                  backgroundImage: 'url(' + slide.image + ')',
+                }}
+                key={slide.id}
+              >
+                <div className="Content">
+                  <p>{slide.content}</p>
+                  <h4>{slide.heading}</h4>
+                </div>
+                <div className="Overlay" />
+              </div>
+            </div>
+          );
+        })}
+      </Carousel>
+    );
+  };
 
   return (
     <>
@@ -158,26 +69,9 @@ const Home = () => {
             <ActivateButton msg={'Sign in'} />
           )}
         </div>
-        <div className="Carousel">
-          <div
-            className="Carousel__Slide"
-            style={{ backgroundImage: 'url(' + HeroMGD + ')' }}
-          >
-            <div className="Content">
-              <p>
-                Before having a DAO, I was already seeding and flourishing a
-                chat group of blockchain developers. Even though there is a lot
-                of engagement in the chat channel, in a DAO things get more
-                serious. The sense of commitment is much more developed.
-              </p>
-              <h4>
-                Juliana, Summoner of <strong>Meta Gamma Delta</strong>
-              </h4>
-            </div>
-            <div className="Overlay" />
-          </div>
-        </div>
+        <div className="Carousel">{renderSlides()}</div>
       </div>
+
       <div className="Features Block">
         <div className="Block__Contents">
           <div className="Row">
@@ -301,7 +195,6 @@ const Home = () => {
                   key={logo.alt}
                   style={{ top: logo.top, left: logo.left }}
                   className="Icon"
-                  key={logo.img}
                 />
               );
             })}
