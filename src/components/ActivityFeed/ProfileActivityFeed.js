@@ -45,7 +45,7 @@ const ProfileActivityFeed = ({ daos }) => {
         (a, b) => +b.createdAt - +a.createdAt,
       ),
     );
-    setUnread(unreadProposals.length);
+    setUnread(unreadProposals.length + rageActivities.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
