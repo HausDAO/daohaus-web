@@ -50,37 +50,32 @@ export const daohausFeatures = [
 export const featuredCommunities = [
   {
     name: 'MetaCartel',
+    address: '0x0372f3696fa7dc99801f435fd6737e57818239f2',
     sub: 'Digital Nation for Web3',
-    raised: '$218,120',
-    members: 91,
     image: AvatarMetaCartel,
   },
   {
     name: 'Machi X',
+    address: '0x016e79e9101a8eaa3e7f46d6d1c267819c09c939',
     sub: 'Network of Crypto Artists',
-    raised: '$840,906',
-    members: 16,
     image: AvatarMachiX,
   },
   {
     name: 'Meta Gamma Delta',
+    address: '0x1b3d7efb93ec432b0d1d56880c23303979b379e9',
     sub: 'Support female-led initiatives.',
-    raised: '$6,480',
-    members: 63,
     image: AvatarMGD,
   },
   {
     name: 'Raid Guild',
+    address: '0xbeb3e32355a933501c247e2dbde6e6ca2489bf3d',
     sub: 'Digital Cooperative of Builders',
-    raised: '$18,329',
-    members: 54,
     image: AvatarRaidGuild,
   },
   {
     name: 'Venture DAO',
+    address: '0x4570b4faf71e23942b8b9f934b47ccedf7540162',
     sub: 'Digital Nation for Web3',
-    raised: '$840,906',
-    members: 16,
     image: AvatarVentures,
   },
 ];

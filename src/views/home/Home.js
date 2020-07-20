@@ -10,34 +10,35 @@ import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
 import { TwitterCircleFilled } from '@ant-design/icons';
+import FeaturedDaos from '../../components/featuredDaos/FeaturedDaos';
 
 // import TelegramLogo from '../../assets/telegram__logo.png';
 
 import {
   heroSlides,
   daohausFeatures,
-  featuredCommunities,
   pricingPacks,
   integrationLogos,
 } from '../../content/home-content';
 
 import './Home.scss';
+import { ExploreContext } from '../../contexts/ExploreContext';
 
 const Home = () => {
   const [web3context] = useContext(Web3Context);
+  const { state } = useContext(ExploreContext);
 
   const renderSlides = () => {
     return (
       <Carousel autoplay={true} dots={false} effect="fade">
         {heroSlides.map(slide => {
           return (
-            <div>
+            <div key={slide.id}>
               <div
                 className="Carousel__Slide"
                 style={{
                   backgroundImage: 'url(' + slide.image + ')',
                 }}
-                key={slide.id}
               >
                 <div className="Content">
                   <p>{slide.content}</p>
@@ -116,25 +117,7 @@ const Home = () => {
               Communities
             </h3>
           </div>
-          <div className="FeaturedCommunities">
-            {featuredCommunities.map(community => {
-              return (
-                <div key={community.name} className="FeaturedCommunity">
-                  <h4>{community.name}</h4>
-                  <p>{community.sub}</p>
-                  <p>
-                    {community.raised} | {community.members} Members
-                  </p>
-                  <div
-                    className="FeaturedCommunity__Avatar"
-                    style={{ backgroundImage: 'url(' + community.image + ')' }}
-                  >
-                    <span>&nbsp;</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {state.prices ? <FeaturedDaos /> : null}
         </div>
       </div>
       <div
