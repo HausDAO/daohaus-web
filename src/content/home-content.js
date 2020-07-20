@@ -101,12 +101,12 @@ export const pricingPacks = [
   {
     name: 'Pro',
     features: ['All Free Boosts', '+ Custom Theme', '+ Social Notifications'],
-    price: '$10/mo',
+    price: 'Coming Soon',
   },
   {
     name: 'Super',
     features: ['All Free & Pro Boosts', '+ Minion', '+ Legal Wrapper'],
-    price: '$25/mo',
+    price: 'Coming Soon',
   },
 ];
 
@@ -124,9 +124,27 @@ export const integrationLogos = [
     left: 150,
   },
   {
-    img: 'airtable__logo.png',
+    img: 'airtable__logo.svg',
     alt: 'Airtable',
-    top: 200,
+    top: 260,
+    left: 90,
+  },
+  {
+    img: '3Box__logo.svg',
+    alt: '3Box',
+    top: 57,
+    left: 270,
+  },
+  {
+    img: 'thegraph__logo.png',
+    alt: 'The Graph',
+    top: 150,
     left: 150,
+  },
+  {
+    img: 'ENS__Logo.svg',
+    alt: 'ENS',
+    top: 220,
+    left: 250,
   },
 ];
