@@ -1,6 +1,11 @@
 import React, { useContext } from 'react';
 import { Carousel } from 'antd';
 
+import Icon from '@ant-design/icons';
+import { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
+import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
+import { ReactComponent as TelegramSvg } from '../../assets/branding/Telegram.svg';
+
 import { Web3Context } from '../../contexts/ContractContexts';
 import SummonButton from '../../components/summonButton/summonButton';
 import ActivateButton from '../../components/activateButton/ActivateButton';
@@ -9,7 +14,7 @@ import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
-import { TwitterCircleFilled } from '@ant-design/icons';
+
 import FeaturedDaos from '../../components/featuredDaos/FeaturedDaos';
 
 // import TelegramLogo from '../../assets/telegram__logo.png';
@@ -61,7 +66,7 @@ const Home = () => {
             Magic internet
             <br />
             communities* for all.
-            <span>*DAOs ;)</span>
+            <span>* DAOs ;)</span>
           </h1>
           {web3context && web3context.account ? (
             <SummonButton />
@@ -80,7 +85,7 @@ const Home = () => {
               style={{ flexDirection: 'column' }}
             >
               <h5>Ya’ll just chattin smh</h5>
-              <h2>Share resources and get shit done. Together.</h2>
+              <h2>Share resources and get stuff done. Together.</h2>
             </div>
             <div className="AmountRaised">
               <p>
@@ -128,7 +133,9 @@ const Home = () => {
           <h2>
             Don’t be shy. Discover and join a decentralized community today.
           </h2>
-          <button className="Big">Explore</button>
+          <a to="/explore" className="Button Big">
+            Explore
+          </a>
         </div>
       </div>
       <div className="Boosts Block">
@@ -147,7 +154,7 @@ const Home = () => {
                       return <li key={feature}>{feature}</li>;
                     })}
                   </ul>
-                  <button className="Big">{pack.price}</button>
+                  <h3 className="Price">{pack.price}</h3>
                 </div>
               );
             })}
@@ -162,12 +169,16 @@ const Home = () => {
           <div className="Column">
             <h2>Every community is unique, just like the people in it.</h2>
             <h4>
-              DaoHaus can integrate with whatever tools your community needs.
-              <br />
-              <br />
-              The possibilities are truly infinite.
+              DAOhaus can integrate with whatever tools your community needs to
+              get things done.
             </h4>
-            <button className="Big">Book a Consultation</button>
+            <h4>
+              Join our discord and ask us anything. We love helping communities
+              level up.
+            </h4>
+            <a className="Button">
+              <Icon component={DiscordSvg} /> Join us in Discord
+            </a>
           </div>
           <div className="Icons">
             {integrationLogos.map(logo => {
@@ -190,17 +201,17 @@ const Home = () => {
             <img src={DaohausLogo} alt="DaoHaus Logo" />
           </div>
           <div className="Social">
-            <a href="https://t.me/daohaus">
+            <a href="https://twitter.com/nowdaoit">
               <TwitterCircleFilled />
             </a>
-            <a href="https://twitter.com/daohaus">
-              <TwitterCircleFilled />
+            <a href="https://t.me/joinchat/IJqu9xPa0xzYLN1mmFKo8g">
+              <Icon component={TelegramSvg} />
             </a>
-            <a href="https://twitter.com/daohaus">
-              <TwitterCircleFilled />
+            <a href="https://t.me/joinchat/IJqu9xPa0xzYLN1mmFKo8g">
+              <Icon component={DiscordSvg} />
             </a>
-            <a href="https://twitter.com/daohaus">
-              <TwitterCircleFilled />
+            <a href="https://github.com/odyssy-automaton/daohaus-web">
+              <GithubOutlined />
             </a>
           </div>
         </div>

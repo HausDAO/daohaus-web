@@ -1,9 +1,9 @@
 import imgGrants from '../assets/imgGrants.svg';
 import imgGuilds from '../assets/imgGuilds.svg';
 import imgVentures from '../assets/imgVentures.svg';
-import imgImpacts from '../assets/imgImpacts.svg';
-import imgProjects from '../assets/imgProjects.svg';
-import imgClubs from '../assets/imgClubs.svg';
+import imgImpacts from '../assets/branding/Icon__DAO--Impact.png';
+import imgProjects from '../assets/branding/Icon__DAO--Project.png';
+import imgClubs from '../assets/branding/Icon__DAO--Social.png';
 
 export const daoConstants = {
   abortWindow: '1',
