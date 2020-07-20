@@ -206,3 +206,54 @@ export const GET_MEMBER_MOLOCHES = gql`
     }
   }
 `;
+
+const featuredFields = `
+id
+title
+version
+guildBankBalanceV1
+guildBankValue @client
+depositToken {
+  tokenAddress
+  symbol
+  decimals
+}
+tokenBalances {
+  id
+  tokenBalance
+  guildBank
+  token {
+    decimals
+    tokenAddress
+  }
+}
+members(where: { exists: true }) {
+  id
+}
+`;
+
+export const GET_FEATURED_DAOS = gql`
+  query featured(
+    $featured1: String!
+    $featured2: String!
+    $featured3: String!
+    $featured4: String!
+    $featured5: String!
+  ) {
+    featured1: moloch(id: $featured1) {
+      ${featuredFields}
+    }
+    featured2: moloch(id: $featured2) {
+      ${featuredFields}
+    }
+    featured3: moloch(id: $featured3) {
+      ${featuredFields}
+    }
+    featured4: moloch(id: $featured4) {
+      ${featuredFields}
+    }
+    featured5: moloch(id: $featured5) {
+      ${featuredFields}
+    }
+  }
+`;
