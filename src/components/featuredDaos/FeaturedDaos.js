@@ -33,8 +33,11 @@ const FeaturedDaos = () => {
               <h4>{community.name}</h4>
               <p>{community.sub}</p>
               <p>
-                ${community.guildBankValue.usd.toFixed(2)} |{' '}
-                {community.members.length} Members
+                $
+                {community.guildBankValue
+                  ? community.guildBankValue.usd.toFixed(2)
+                  : 0}{' '}
+                | {community.members ? community.members.length : 0} Members
               </p>
               <div
                 className="FeaturedCommunity__Avatar"
