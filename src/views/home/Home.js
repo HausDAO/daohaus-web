@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Carousel } from 'antd';
 
 import SummonButton from '../../components/summonButton/summonButton';
 import ActivateButton from '../../components/activateButton/ActivateButton';
@@ -13,29 +14,34 @@ import AvatarRaidGuild from '../../assets/featured/raidguild__avatar.png';
 import AvatarMachiX from '../../assets/featured/machix__avatar.jpg';
 import AvatarVentures from '../../assets/featured/ventures__avatar.jpg';
 import AvatarMGD from '../../assets/featured/mgd__avatar.jpg';
+import { Web3Context } from '../../contexts/ContractContexts';
 
-import TelegramLogo from '../../assets/telegram__logo.png';
+// import TelegramLogo from '../../assets/telegram__logo.png';
 import { TwitterCircleFilled } from '@ant-design/icons';
 
 import './Home.scss';
-import { Web3Context } from '../../contexts/ContractContexts';
 
 const heroSlides = [
   {
+    id: 1,
     heading: 'Juliana, Summoner of Meta Gamma Delta',
     content:
-      'At Meta Gamma Delta, we learned that there are Membership proposals and also Funding Proposals. And how can projects be funded? Based on voting! Simple, easy, brilliant.',
+      'Before having a DAO, I was already seeding and flourishing a chat group of blockchain developers. Even though there is a lot of engagement in the chat channel, in a DAO things get more serious. The sense of commitment is much more developed.',
     image: HeroMGD,
   },
   {
+    id: 2,
     heading: 'Peter, Summoner of MetaCartel',
-    content: '',
-    image: '',
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+    image: HeroMGD,
   },
   {
+    id: 3,
     heading: 'Makoto, Summoner of Orochi DAO',
-    content: '',
-    image: '',
+    content:
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    image: HeroMGD,
   },
 ];
 
@@ -141,6 +147,33 @@ const integrationLogos = [
 const Home = () => {
   const [web3context] = useContext(Web3Context);
 
+  const renderSlides = () => {
+    return (
+      <Carousel autoplay={true} dots={false} effect="fade">
+        {heroSlides.map(slide => {
+          console.log('slide', slide);
+          return (
+            <div>
+              <div
+                className="Carousel__Slide"
+                style={{
+                  backgroundImage: 'url(' + slide.image + ')',
+                }}
+                key={slide.id}
+              >
+                <div className="Content">
+                  <p>{slide.content}</p>
+                  <h4>{slide.heading}</h4>
+                </div>
+                <div className="Overlay" />
+              </div>
+            </div>
+          );
+        })}
+      </Carousel>
+    );
+  };
+
   return (
     <>
       <div className="HomeHero">
@@ -158,26 +191,11 @@ const Home = () => {
             <ActivateButton msg={'Sign in'} />
           )}
         </div>
-        <div className="Carousel">
-          <div
-            className="Carousel__Slide"
-            style={{ backgroundImage: 'url(' + HeroMGD + ')' }}
-          >
-            <div className="Content">
-              <p>
-                Before having a DAO, I was already seeding and flourishing a
-                chat group of blockchain developers. Even though there is a lot
-                of engagement in the chat channel, in a DAO things get more
-                serious. The sense of commitment is much more developed.
-              </p>
-              <h4>
-                Juliana, Summoner of <strong>Meta Gamma Delta</strong>
-              </h4>
-            </div>
-            <div className="Overlay" />
-          </div>
-        </div>
+        <div className="Carousel">{renderSlides()}</div>
       </div>
+
+      {/* <div className="Carousel">{renderSlides()}</div> */}
+
       <div className="Features Block">
         <div className="Block__Contents">
           <div className="Row">
