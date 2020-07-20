@@ -167,13 +167,20 @@
     flex-wrap: wrap;
     min-height: 300px;
     max-width: 100%;
-
+    img {
+      display: block;
+      width: 80px;
+      height: auto;
+      margin: 0 auto 25px;
+    }
     div {
       flex-direction: column;
+      text-align: center;
       width: 22%;
     }
     @media (max-width: $grid) {
       flex-direction: column;
+
       > div {
         width: 50%;
         margin: 0 auto;
@@ -384,8 +391,10 @@
   }
 }
 
-.Footer {
-  min-height: 300px;
+.Block.Footer {
+  min-height: 1px;
+  height: 100px;
+  padding: 50px 0px;
   background-color: $primary-background;
   .Block__Contents {
     display: flex;

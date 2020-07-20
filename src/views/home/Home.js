@@ -94,6 +94,7 @@ const Home = () => {
             {daohausFeatures.map(feature => {
               return (
                 <div key={feature.sub}>
+                  <img src={feature.icon} />
                   <h4>{feature.sub}</h4>
                   <p>{feature.content}</p>
                 </div>
