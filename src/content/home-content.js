@@ -23,14 +23,14 @@ export const heroSlides = [
     id: 2,
     heading: 'Peter, Summoner of MetaCartel',
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+      'It’s a great way to bring people together who want to get shit done. The process of building a DAO community is an experience that you will never regret.',
     image: HeroMetaCartel,
   },
   {
     id: 3,
     heading: 'Makoto, Summoner of Orochi DAO',
     content:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      'By summoning a DAO, I learned in and out of how a Moloch works and I can say that I turn from DAO noob to expert to the point that I was able to present at a meetup.',
     image: HeroOrochi,
   },
 ];
@@ -93,9 +93,9 @@ export const pricingPacks = [
   {
     name: 'Starter',
     features: [
-      'Launch Infinite Communities',
-      'Invite Infinite Collaborators',
-      'Submit Infinite Proposals and Votes',
+      '- Launch Infinite Communities',
+      '- Invite Infinite Collaborators',
+      '- Submit Infinite Proposals and Votes',
     ],
     price: 'Free Forever',
   },

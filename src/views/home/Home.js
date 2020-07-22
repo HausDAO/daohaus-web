@@ -176,7 +176,12 @@ const Home = () => {
               Join our discord and ask us anything. We love helping communities
               level up.
             </h4>
-            <a className="Button">
+            <a
+              className="Button"
+              href="https://discord.gg/NPEJysW"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon component={DiscordSvg} /> Join us in Discord
             </a>
           </div>
@@ -201,16 +206,32 @@ const Home = () => {
             <img src={DaohausLogo} alt="DaoHaus Logo" />
           </div>
           <div className="Social">
-            <a href="https://twitter.com/nowdaoit">
+            <a
+              href="https://twitter.com/nowdaoit"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <TwitterCircleFilled />
             </a>
-            <a href="https://t.me/joinchat/IJqu9xPa0xzYLN1mmFKo8g">
+            <a
+              href="https://t.me/joinchat/IJqu9xPa0xzYLN1mmFKo8g"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon component={TelegramSvg} />
             </a>
-            <a href="https://t.me/joinchat/IJqu9xPa0xzYLN1mmFKo8g">
+            <a
+              href="https://discord.gg/NPEJysW"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Icon component={DiscordSvg} />
             </a>
-            <a href="https://github.com/odyssy-automaton/daohaus-web">
+            <a
+              href="https://github.com/odyssy-automaton/daohaus-web"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <GithubOutlined />
             </a>
           </div>

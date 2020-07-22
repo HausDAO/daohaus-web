@@ -48,6 +48,9 @@ const TopNav = () => {
           <Link to={`/`} onClick={toggleNav}>
             Home
           </Link>
+          <Link to={`/explore`} onClick={toggleNav} alt="DAOHaus Explore">
+            Explore
+          </Link>
           <Link to="/about" onClick={toggleNav}>
             About
           </Link>
