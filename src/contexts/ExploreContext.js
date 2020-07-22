@@ -84,9 +84,15 @@ function ExploreContextProvider(props) {
     const getAllPrices = async () => {
       const uniqueTokens = _.uniq(data.tokens.map(token => token.tokenAddress));
 
-      const res = await getUsd(uniqueTokens.join(','));
+      let prices = {};
+      try {
+        const res = await getUsd(uniqueTokens.join(','));
+        prices = res.data;
+      } catch (err) {
+        console.log('price api error', err);
+      }
 
-      dispatch({ type: 'setPrices', payload: res.data });
+      dispatch({ type: 'setPrices', payload: prices });
     };
 
     if (fetchComplete) {
