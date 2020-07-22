@@ -1,35 +1,14 @@
 import React from 'react';
-import { useQuery } from 'react-apollo';
 
-import { GET_MEMBERS } from '../../util/queries';
 import HeroBackground from '../../assets/random-bg.png';
 import PokemolBrand from '../../assets/pokemol__brand--standard.png';
 import DaohausBrand from '../../assets/logo.png';
 import ThreeBoxBrand from '../../assets/3Box__logo.svg';
 import MolochBrand from '../../assets/moloch__logo.svg';
-import MemberItem from '../../components/memberItem/MemberItem';
 
 import './About.scss';
 
 const About = () => {
-  const { data } = useQuery(GET_MEMBERS, {
-    variables: { contractAddr: process.env.REACT_APP_RAIDGUILD_ADDRESS },
-  });
-
-  const renderMembers = () => {
-    return data.members.map((member, i) => {
-      return (
-        <div key={i} className="ApplicationList__Item">
-          <MemberItem
-            applicant={member}
-            applicantAddress={member.memberAddress}
-            daoData={{ summoner: '0x' }}
-          />
-        </div>
-      );
-    });
-  };
-
   return (
     <div className="About">
       <div
@@ -203,7 +182,7 @@ const About = () => {
           </div>
         </div>
       </div>
-      <div className="Block">
+      {/* <div className="Block">
         <div className="Block__Contents">
           <h2>Our Team is a dao</h2>
           <p>
@@ -211,12 +190,8 @@ const About = () => {
             launched on Daohaus, where the funds are distributed to those
             contributing to the project.
           </p>
-          <h3>Members of Raid Guild</h3>
-          <div className="ApplicationList">
-            {data ? <>{renderMembers()}</> : null}
-          </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
