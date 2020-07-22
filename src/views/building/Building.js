@@ -160,22 +160,24 @@ const Building = props => {
         )}
 
         <div>
-          {!daoReady && <h4>Tidying up and preparing your Pokemol.</h4>}
+          {!daoReady && <h4>Tidying up and preparing your DAO interface.</h4>}
 
           {daoReady && match.params.version === 'v2' && (
             <>
               {!loading && !daoValid ? (
-                <button onClick={() => registerDao()}>Launch V2 Pokemol</button>
+                <button onClick={() => registerDao()}>
+                  Launch V2 DAO interface{' '}
+                </button>
               ) : (
                 <p>
-                  {!daoValid && 'building pokemol'} {txHash}
+                  {!daoValid && 'building DAO interface '} {txHash}
                 </p>
               )}
               {formError && <p>{formError}</p>}
             </>
           )}
           {daoReady && match.params.version === 'v1' && (
-            <h4>Tidied up and Pokemol is ready.</h4>
+            <h4>Tidied up and your DAO interface is ready.</h4>
           )}
         </div>
       </div>
@@ -184,8 +186,8 @@ const Building = props => {
         where people can discover and pledge to your dao.
       </p>
       <p>
-        <strong>Pokemol</strong> is where you and your members submit and vote
-        on proposals.{' '}
+        <strong>The DAO interface</strong> is where you and your members submit
+        and vote on proposals.{' '}
       </p>
 
       <button
