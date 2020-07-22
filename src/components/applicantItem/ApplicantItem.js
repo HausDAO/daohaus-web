@@ -12,7 +12,7 @@ const ApplicantItem = props => {
   const { applicant, daoData, contract } = props;
 
   const [currentApplicant, setCurrentApplicant] = useState([]);
-  const [web3Service] = useContext(Web3Context);
+  const [web3Context] = useContext(Web3Context);
   const [tokenService] = useContext(TokenContext);
 
   useEffect(() => {
@@ -38,8 +38,8 @@ const ApplicantItem = props => {
             ...currentApplicant,
             {
               addr: _applicant,
-              inEth: web3Service.fromWei(allowance),
-              balanceOf: web3Service.fromWei(balanceOf),
+              inEth: web3Context.web3Service.fromWei(allowance),
+              balanceOf: web3Context.web3Service.fromWei(balanceOf),
               profile: profile,
             },
           ]);

@@ -1,59 +1,94 @@
-import React, { useContext } from 'react';
-
-import { Web3Context } from '../../contexts/ContractContexts';
+import React from 'react';
+import makeBlockie from 'ethereum-blockies-base64';
+// import { Line } from 'react-chartjs-2';
 
 import './DaoCard.scss';
 
 const DaoCard = ({ dao }) => {
-  const [web3Service] = useContext(Web3Context);
-
-  const bankValue = value => {
-    const amt = web3Service.fromWei(value);
-    return parseFloat(amt).toFixed(2);
-  };
+  // console.log('dao', dao);
+  // const data = {
+  //   datasets: [
+  //     {
+  //       borderColor: '#0e99c4',
+  //       backgroundColor: '#0e99c4',
+  //       pointRadius: 0,
+  //       lineTension: 0.9,
+  //       data: dao.balances,
+  //     },
+  //   ],
+  // };
 
   return (
     <>
-      {dao.id ? (
-        <div className="DaoCard">
-          <h4 className="DaoName">{dao.apiData.name || dao.title}</h4>
-          <p>{dao.apiData.description}</p>
-          <p>Moloch Version {dao.version}</p>
+      <div className="DaoCard">
+        <div className="Title Row">
+          <div
+            className="DaoAvatar"
+            style={{
+              backgroundImage: `url("${makeBlockie(dao.id)}")`,
+            }}
+          ></div>
+          <h4 className="DaoName">{dao.title}</h4>
+        </div>
+        <p className="DaoDesc">{dao.apiData.description}</p>
 
-          <div className="Row">
-            <div className="Column">
-              <>
-                <p className="Label">Shares</p>
-                <p className="Data">{dao.totalShares}</p>
-              </>
-              {dao.version !== '2' ? (
-                <>
-                  <p className="Label">Bank Value</p>
-                  <p className="Data">
-                    {bankValue(dao.guildBankValue)} {dao.depositToken.symbol}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="Label">Bank Tokens</p>
-                  <p className="Data">{dao.approvedTokens.length}</p>
-                </>
-              )}
-            </div>
-            <div className="Column">
-              <p className="Label">Members</p>
-              <p className="Data">{dao.members.length}</p>
-
-              <p className="Label">Proposals</p>
-              <p className="Data">{`${dao.proposals.length} ${
-                dao.proposals.length >= 100 ? '+' : ''
-              }`}</p>
+        <div className="Column">
+          <p className="Data Bank">
+            {dao.guildBankValue.usd.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}{' '}
+          </p>
+          <div className="Info Row">
+            <p className="Data">{dao.members.length} Members</p>
+            <p className="Data">
+              {dao.version === '2'
+                ? `${dao.approvedTokens.length} Token${
+                    dao.approvedTokens.length > 1 ? 's' : ''
+                  }`
+                : '1 Token'}
+            </p>
+          </div>
+          {/*}
+          <div className="Actions Row">
+            <div className="ButtonGroup">
+              <button className="Outlined">View Page</button>
+              <button>Enter the DAO</button>
             </div>
           </div>
+          */}
         </div>
-      ) : (
-        <p>LOADING THE DAOs</p>
-      )}
+
+        {/* <div className="DaoCard__chart">
+          <Line
+            data={data}
+            legend={{ display: false }}
+            width={100}
+            // height={50}
+            options={{
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [
+                  {
+                    gridLines: {
+                      drawOnChartArea: false,
+                    },
+                    display: false,
+                  },
+                ],
+                xAxes: [
+                  {
+                    gridLines: {
+                      drawOnChartArea: false,
+                    },
+                    display: false,
+                  },
+                ],
+              },
+            }}
+          />
+        </div> */}
+      </div>
     </>
   );
 };

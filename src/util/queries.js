@@ -1,16 +1,17 @@
 import { gql } from 'apollo-boost';
 
-export const GET_MOLOCHES = gql`
+export const GET_MOLOCHES_EXPLORER = gql`
   query moloches($skip: Int) {
     moloches(orderBy: summoningTime, first: 100, skip: $skip) {
-      apiData @client
-      guildBankValue @client
       id
       title
-      summoner
       version
       totalShares
       guildBankAddress
+      summoningTime
+      guildBankBalanceV1
+      guildBankValue @client
+      apiData @client
       members(where: { exists: true }) {
         id
       }
@@ -25,6 +26,23 @@ export const GET_MOLOCHES = gql`
         symbol
         decimals
       }
+      tokenBalances {
+        id
+        tokenBalance
+        guildBank
+        token {
+          decimals
+          tokenAddress
+        }
+      }
+    }
+  }
+`;
+
+export const GET_TOKENS = gql`
+  query tokens($skip: Int) {
+    tokens(first: 100, skip: $skip) {
+      tokenAddress
     }
   }
 `;
@@ -34,12 +52,12 @@ export const GET_MOLOCHES_STATS = gql`
     moloches(orderBy: summoningTime, first: 100, skip: $skip) {
       id
       apiData @client
-      guildBankValue @client
       version
       title
       totalShares
       summoningTime
       guildBankAddress
+      guildBankBalanceV1
       members {
         id
         memberAddress
@@ -58,6 +76,15 @@ export const GET_MOLOCHES_STATS = gql`
         symbol
         decimals
       }
+      tokenBalances {
+        id
+        tokenBalance
+        guildBank
+        token {
+          decimals
+          tokenAddress
+        }
+      }
     }
   }
 `;
@@ -66,7 +93,6 @@ export const GET_MOLOCH = gql`
   query moloch($contractAddr: String!) {
     moloch(id: $contractAddr) {
       apiData @client
-      guildBankValue @client
       id
       title
       summoner
@@ -74,6 +100,7 @@ export const GET_MOLOCH = gql`
       newContract
       totalShares
       guildBankAddress
+      guildBankBalanceV1
       version
       members(where: { exists: true }) {
         id
@@ -86,6 +113,15 @@ export const GET_MOLOCH = gql`
         tokenAddress
         symbol
         decimals
+      }
+      tokenBalances {
+        id
+        tokenBalance
+        guildBank
+        token {
+          decimals
+          tokenAddress
+        }
       }
     }
   }
@@ -125,30 +161,99 @@ export const GET_MEMBER_MOLOCHES = gql`
   query members($memberAddress: String!) {
     members(where: { memberAddress: $memberAddress, exists: true }) {
       id
+      memberAddress
       moloch {
-        apiData @client
-        guildBankValue @client
         id
         title
-        summoner
         version
-        totalShares
-        guildBankAddress
-        members {
+        proposals(orderBy: proposalId, orderDirection: desc, first: 10) {
           id
+          createdAt
+          proposalId
+          proposalIndex
+          processed
+          sponsored
+          details
+          newMember
+          whitelist
+          guildkick
+          trade
+          cancelled
+          aborted
+          votingPeriodStarts
+          votingPeriodEnds
+          gracePeriodEnds
+          molochAddress
+          molochVersion
+          proposalType @client
+          description @client
+          title @client
+          unread @client
+          votes(where: { memberAddress: $memberAddress }) {
+            id
+            memberAddress
+          }
         }
-        proposals {
+        rageQuits {
           id
-        }
-        approvedTokens {
-          id
-        }
-        depositToken {
-          tokenAddress
-          symbol
-          decimals
+          createdAt
+          shares
+          loot
+          memberAddress
+          molochAddress
         }
       }
+    }
+  }
+`;
+
+const featuredFields = `
+id
+title
+version
+guildBankBalanceV1
+guildBankValue @client
+depositToken {
+  tokenAddress
+  symbol
+  decimals
+}
+tokenBalances {
+  id
+  tokenBalance
+  guildBank
+  token {
+    decimals
+    tokenAddress
+  }
+}
+members(where: { exists: true }) {
+  id
+}
+`;
+
+export const GET_FEATURED_DAOS = gql`
+  query featured(
+    $featured1: String!
+    $featured2: String!
+    $featured3: String!
+    $featured4: String!
+    $featured5: String!
+  ) {
+    featured1: moloch(id: $featured1) {
+      ${featuredFields}
+    }
+    featured2: moloch(id: $featured2) {
+      ${featuredFields}
+    }
+    featured3: moloch(id: $featured3) {
+      ${featuredFields}
+    }
+    featured4: moloch(id: $featured4) {
+      ${featuredFields}
+    }
+    featured5: moloch(id: $featured5) {
+      ${featuredFields}
     }
   }
 `;

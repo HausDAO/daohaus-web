@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const SummonButton = () => {
   return (
-    <Link to={`summon`}>
-      <button>Summon a DAO</button>
+    <Link className="Button Big Summon" to={`summon`}>
+      Summon
     </Link>
   );
 };

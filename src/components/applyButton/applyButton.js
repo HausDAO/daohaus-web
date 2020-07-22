@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import ActivateButton from '../activateButton/ActivateButton';
-import { useWeb3Context } from 'web3-react';
+import { Web3Context } from '../../contexts/ContractContexts';
 
 const ApplyButton = props => {
   const { contractAddress } = props;
-  const context = useWeb3Context();
+  const [web3Context] = useContext(Web3Context);
 
-  if (!context.active) {
+  if (!web3Context.account) {
     return <ActivateButton msg={'Sign in to Pledge'} />;
   }
   return (

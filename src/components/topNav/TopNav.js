@@ -24,8 +24,8 @@ const TopNav = () => {
         <img src={Brand} alt="DAOHAUS" />
       </Link>
       <nav className="TopNav__Desktop">
-        <Link to={`/`} alt="DAOHaus Home">
-          Home
+        <Link to={`/explore`} alt="DAOHaus Explore">
+          Explore
         </Link>
         <Link to={`/about`} alt="DAOHaus About">
           About
@@ -47,6 +47,9 @@ const TopNav = () => {
         <div className="TopNav__Mobile--Contents">
           <Link to={`/`} onClick={toggleNav}>
             Home
+          </Link>
+          <Link to={`/explore`} onClick={toggleNav} alt="DAOHaus Explore">
+            Explore
           </Link>
           <Link to="/about" onClick={toggleNav}>
             About

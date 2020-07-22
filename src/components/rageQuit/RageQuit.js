@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useWeb3Context } from 'web3-react';
 
 import Loading from '../loading/Loading';
+import { Web3Context } from '../../contexts/ContractContexts';
 
 const RageQuit = props => {
   const {
@@ -16,7 +16,8 @@ const RageQuit = props => {
     account,
   } = props;
 
-  const context = useWeb3Context();
+  const [web3Context] = useContext(Web3Context);
+
   const [formError, setformError] = useState('');
   const [txHash, settxHash] = useState('');
   const [loading, setLoading] = useState(false);
@@ -57,7 +58,7 @@ const RageQuit = props => {
               try {
                 await contract.methods
                   .ragequit(values.amount)
-                  .send({ from: context.account })
+                  .send({ from: web3Context.account })
                   .once('transactionHash', txHash => {
                     console.log('txHash', txHash);
                     settxHash(txHash);

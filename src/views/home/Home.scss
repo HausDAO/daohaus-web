@@ -8,6 +8,459 @@
   background-color: $primary;
 }
 
+.HomeHero {
+  display: flex;
+  flex-direction: row;
+  min-height: 90vh;
+  color: white;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.SummonHero {
+  padding-left: 100px;
+  width: calc(50% - 100px);
+  background-color: $primary-background;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  h1 {
+    font-weight: 3.5em;
+    span {
+      display: block;
+      font-size: 0.5em;
+      margin-top: 20px;
+    }
+  }
+  :after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 97%;
+    width: 105px;
+    height: 100%;
+    background: $primary-background;
+    transform-origin: 0 10%;
+    transform: skew(-6deg);
+    z-index: 1;
+    @media (max-width: $grid) {
+      display: none;
+    }
+  }
+  @media (max-width: $grid) {
+    width: calc(100% - 50px);
+    padding: 25px;
+  }
+}
+
+.Carousel {
+  position: relative;
+  width: 50%;
+  .Overlay {
+    background-color: rgba(14, 15, 53, 0.85);
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+  }
+  &__Slide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    .SlideBg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+    .Content {
+      position: absolute;
+      right: 50px;
+      bottom: 50px;
+      text-align: right;
+      max-width: 420px;
+      z-index: 3;
+      h4 {
+        font-size: 1em;
+      }
+      p {
+        //font-family: $heading-font;
+        //line-height: 1.35em;
+        font-size: 1.25em;
+      }
+    }
+  }
+  @media (max-width: $grid) {
+    width: 100%;
+    min-height: 420px;
+    .Content {
+      h4 {
+        font-size: 0.75em;
+      }
+      p {
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+.Features {
+  background-color: $primary;
+  color: white;
+  flex-direction: column;
+  justify-content: flex-start;
+  .Row {
+    margin-bottom: 100px;
+    flex-wrap: wrap;
+    .FeaturesHeading {
+      width: 40%;
+      font-size: 1em;
+
+      span {
+        font-size: 0.75em;
+      }
+      @media (max-width: $grid) {
+        width: 80%;
+      }
+    }
+    .AmountRaised {
+      width: 60%;
+      font-size: 1.5em;
+      color: $primary-background;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-size: 1.75em;
+        transform: rotate(15deg);
+        span {
+          color: #4fbf9f;
+        }
+      }
+      @media (max-width: $grid) {
+        margin-top: 50px;
+        width: 80%;
+        p {
+          font-size: 1em;
+          transform: rotate(-15deg);
+        }
+      }
+    }
+  }
+  .FeaturesList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 300px;
+    max-width: 100%;
+    img {
+      display: block;
+      width: 80px;
+      height: auto;
+      margin: 0 auto 25px;
+    }
+    div {
+      flex-direction: column;
+      text-align: center;
+      width: 22%;
+    }
+    @media (max-width: $grid) {
+      flex-direction: column;
+
+      > div {
+        width: 50%;
+        margin: 0 auto;
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 50px;
+      }
+    }
+  }
+}
+
+.Communities {
+  position: relative;
+  background-position: center center;
+  background-size: cover;
+
+  .CommunitiesHeading {
+    display: flex;
+  }
+
+  .FeaturedCommunities {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .FeaturedCommunity {
+      position: relative;
+      color: $primary;
+      z-index: 1;
+      height: auto;
+      h4,
+      p {
+        margin: 5px 0px;
+      }
+      &__Avatar {
+        z-index: -1;
+        position: absolute;
+        top: 50%;
+        left: -130px;
+        transform: translateY(-50%);
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-size: cover;
+      }
+      @media (min-width: $grid + 1px) {
+        min-width: 25%;
+        &:nth-child(1) {
+          margin-top: -50px;
+          margin-left: 150px;
+        }
+        &:nth-child(2) {
+          margin-top: 400px;
+          margin-left: -100px;
+        }
+        &:nth-child(3) {
+          margin-top: 100px;
+          margin-left: 0px;
+        }
+        &:nth-child(4) {
+          margin-top: -200px;
+          margin-left: 0px;
+        }
+        &:nth-child(5) {
+          margin-top: 250px;
+          margin-left: -50px;
+        }
+      }
+      @media (max-width: $grid) {
+        margin-left: 130px;
+        margin-top: 25px;
+        margin-bottom: 50px;
+      }
+    }
+    @media (max-width: $grid) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+.GetStarted {
+  min-height: 300px;
+  div {
+    background-color: white;
+    border-radius: 10px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: $mobile-padding;
+    flex-wrap: wrap;
+    h2 {
+      width: calc(100% - 500px);
+    }
+    @media (max-width: $grid) {
+      h2 {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.Boosts {
+  min-height: 70vh;
+  background-color: $primary-background;
+  color: white;
+  flex-direction: column;
+  padding: 80px;
+  position: relative;
+
+  .BoostsPricing {
+    display: flex;
+    width: 100%;
+    padding-top: 50px;
+    justify-content: space-between;
+
+    .Boost {
+      position: relative;
+      background-color: white;
+      color: $primary-background;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      @media (max-width: $grid) {
+        // width: 100%;
+      }
+      &:nth-of-type(2),
+      &:nth-of-type(3) {
+        opacity: 0.15;
+        filter: blur(4px);
+      }
+      &:nth-of-type(1):after {
+        content: '';
+        display: block;
+        border-color: $secondary;
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 100%;
+        height: 100%;
+        border-style: solid;
+        border-width: 2px;
+      }
+      &:nth-of-type(2):after {
+        content: '';
+        display: block;
+        border-color: $primary;
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 100%;
+        height: 100%;
+        border-style: solid;
+        border-width: 2px;
+      }
+      &:nth-of-type(3):after {
+        content: '';
+        display: block;
+        border-color: $orange;
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 100%;
+        height: 100%;
+        border-style: solid;
+        border-width: 2px;
+      }
+      .Price {
+        font-size: 2.5em;
+      }
+      ul {
+        list-style-type: none;
+        padding-inline-start: 0;
+        width: 70%;
+
+        li {
+          padding-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+
+.DaoConsultation {
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  a.Button {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    svg {
+      width: 28px;
+      height: auto;
+      display: inline;
+      margin-right: 5px;
+    }
+  }
+  .Block__Contents {
+    display: flex;
+    flex-wrap: wrap;
+
+    .Column {
+      width: 60%;
+      height: 100%;
+      justify-content: space-evenly;
+      @media (max-width: $grid) {
+        margin-top: 50px;
+        width: 100%;
+      }
+    }
+    .Icons {
+      width: 40%;
+      position: relative;
+      @media (max-width: $grid) {
+        width: 100%;
+        margin-top: -120px;
+        margin-bottom: 280px;
+      }
+      .Icon {
+        position: absolute;
+        max-height: 60px;
+        max-width: 120px;
+      }
+    }
+    @media (max-width: $grid) {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+.Block.Footer {
+  min-height: 1px;
+  min-height: 100px;
+  padding: 50px 0px;
+  background-color: $primary-background;
+  .Block__Contents {
+    display: flex;
+    flex-wrap: wrap;
+    div:first-of-type {
+      width: 50%;
+      img {
+        height: 70px;
+      }
+      @media (max-width: $grid) {
+        width: 100%;
+      }
+    }
+    .Social {
+      display: flex;
+      width: 50%;
+      align-items: center;
+      justify-content: flex-end;
+      a {
+        svg {
+          width: 40px;
+          height: auto;
+        }
+        &:hover {
+          color: $orange;
+        }
+        &:not(:first-child) {
+          margin-left: 15px;
+        }
+      }
+      @media (max-width: $grid) {
+        width: 100%;
+        margin-top: 25px;
+        justify-content: center;
+      }
+    }
+  }
+}
+
 .Block.Primary.Home__Daolist {
   padding-top: 0px;
 }

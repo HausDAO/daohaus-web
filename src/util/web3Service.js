@@ -1,6 +1,5 @@
 export default class Web3Service {
   constructor(web3) {
-    
     this.web3 = web3;
   }
 
@@ -52,5 +51,9 @@ export default class Web3Service {
 
   getTime(block) {
     return this.web3.eth.getBlock(block).timestamp;
+  }
+
+  isAddress(address) {
+    return this.web3.utils.isAddress(address);
   }
 }

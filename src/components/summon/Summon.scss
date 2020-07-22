@@ -1,0 +1,197 @@
+@import '../../variables';
+
+.Summon__hero {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px;
+  padding-bottom: 100px;
+  padding-left: 150px;
+  text-align: left;
+  background-color: $primary-background;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  color: #fff;
+  text-align: center;
+  h1 {
+    letter-spacing: 0.5em;
+    font-weight: 900;
+  }
+}
+
+.Summon.View {
+  .Row {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+}
+.Summon__step {
+  p {
+    width: 100%;
+    font-size: 1.5em;
+    text-align: center;
+  }
+}
+
+.SummonStepOne__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+}
+
+.PresetCard {
+  display: block;
+  background-color: transparent;
+  width: calc(33%);
+  transition: all 0.15s linear;
+  height: 360px;
+  perspective: 2000px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  @media (min-width: $grid + 1px) {
+    &:not(:nth-child(3n)) {
+      margin-right: 15px;
+      width: calc(33% - 15px);
+    }
+  }
+  &:hover .PresetCard__Inner {
+    transform: rotateY(180deg);
+  }
+  &.isSelected .PresetCard__Inner {
+    border-color: $primary-background;
+  }
+  &__Inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: $shadow;
+    border: 2px solid $background-light;
+    border-radius: 5px;
+  }
+  &__Front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $background-light;
+    // Flip
+    position: absolute;
+    padding: 25px;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    > img {
+      margin: 0 auto;
+      display: block;
+      width: 120px;
+      svg path.stroke {
+        fill: black;
+      }
+    }
+    > p {
+      text-align: center;
+      margin-top: 15px;
+    }
+    > h4 {
+      margin: 0;
+      text-align: center;
+    }
+    > h5 {
+      margin: 0;
+      text-align: center;
+    }
+  }
+  &__Back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $background-light;
+    // Flip
+    position: absolute;
+    padding: 25px;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    > h4 {
+      margin: 0;
+      text-align: center;
+    }
+    > h5 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    > p {
+      margin: 3px 0px;
+      font-size: 0.85em;
+    }
+  }
+  @media (min-width: $mobile + 1px) and (max-width: $grid) {
+    width: calc(50%);
+    &:not(:nth-child(2n)) {
+      margin-right: 15px;
+      width: calc(50% - 15px);
+    }
+  }
+  @media (max-width: $mobile) {
+    width: calc(100%);
+  }
+}
+
+.StepControl {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 0px;
+  button {
+    display: block;
+    &:not(:last-child) {
+      margin-right: 25px;
+    }
+  }
+}
+
+.disabled,
+.disabled:hover {
+  //TODO: Not working on hard mode input button
+  opacity: 0.15;
+}
+
+input:not([type='checkbox']).inline-field,
+textarea.inline-field,
+select.inline-field {
+  appearance: none;
+  width: unset;
+  display: inline-block;
+
+  border: none;
+  box-shadow: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0px;
+  appearance: none;
+  margin: 0;
+  min-width: auto;
+  max-width: auto;
+}
+
+.required-field {
+  color: red;
+  font-size: 10px;
+}

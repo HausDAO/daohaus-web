@@ -1,15 +1,13 @@
 import React, { useState, useContext } from 'react';
+import { useApolloClient } from 'react-apollo';
 
 import useInterval from '../../util/PollingUtil';
 import { GET_MOLOCH } from '../../util/queries';
+import { Web3Context } from '../../contexts/ContractContexts';
+import { get, post, remove } from '../../util/requests';
+import FactoryAbi from '../../contracts/factoryV2.json';
 
 import './Building.scss';
-import { Web3Context } from '../../contexts/ContractContexts';
-import { useWeb3Context } from 'web3-react';
-import { get, post, remove } from '../../util/requests';
-
-import FactoryAbi from '../../contracts/factoryV2.json';
-import { useApolloClient } from 'react-apollo';
 
 const Building = props => {
   const { match, history } = props;
@@ -20,8 +18,8 @@ const Building = props => {
   const [txHash, setTxHash] = useState();
   const [unregisteredDao, setUnregisteredDao] = useState();
   const [delay, setDelay] = useState(2000);
-  const context = useWeb3Context();
-  const [web3Service] = useContext(Web3Context);
+
+  const [web3Context] = useContext(Web3Context);
   const client = useApolloClient();
 
   useInterval(async () => {
@@ -47,7 +45,7 @@ const Building = props => {
   }, delay);
 
   const fetchOrphan = async () => {
-    if (context.account) {
+    if (web3Context && web3Context.account) {
       const orphan = await get(
         `moloch/orphans/contract/${match.params.contractAddress.toLowerCase()}`,
       );
@@ -64,7 +62,7 @@ const Building = props => {
 
     //get all events of this moloch should not be more than one
     // user should be summonor
-    const factoryContract = web3Service.initContract(
+    const factoryContract = web3Context.web3Service.initContract(
       FactoryAbi,
       process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
     );
@@ -73,7 +71,7 @@ const Building = props => {
       .registerDao(match.params.contractAddress, unregisteredDao.name, 2)
       .send(
         {
-          from: context.account,
+          from: web3Context.account,
         },
         function(error, transactionHash) {
           console.log(error, transactionHash);
@@ -82,12 +80,13 @@ const Building = props => {
       )
       .on('receipt', function() {
         const newMoloch = {
-          summonerAddress: context.account,
+          summonerAddress: web3Context.account,
           contractAddress: match.params.contractAddress,
           name: unregisteredDao.name,
           minimumTribute: unregisteredDao.minimumTribute,
           description: unregisteredDao.description,
           version: 2,
+          purpose: unregisteredDao.purpose,
         };
 
         post('moloch', newMoloch)
@@ -161,22 +160,24 @@ const Building = props => {
         )}
 
         <div>
-          {!daoReady && <h4>Tidying up and preparing your Pokemol.</h4>}
+          {!daoReady && <h4>Tidying up and preparing your DAO interface.</h4>}
 
           {daoReady && match.params.version === 'v2' && (
             <>
               {!loading && !daoValid ? (
-                <button onClick={() => registerDao()}>Launch V2 Pokemol</button>
+                <button onClick={() => registerDao()}>
+                  Launch V2 DAO interface{' '}
+                </button>
               ) : (
                 <p>
-                  {!daoValid && 'building pokemol'} {txHash}
+                  {!daoValid && 'building DAO interface '} {txHash}
                 </p>
               )}
               {formError && <p>{formError}</p>}
             </>
           )}
           {daoReady && match.params.version === 'v1' && (
-            <h4>Tidied up and Pokemol is ready.</h4>
+            <h4>Tidied up and your DAO interface is ready.</h4>
           )}
         </div>
       </div>
@@ -185,8 +186,8 @@ const Building = props => {
         where people can discover and pledge to your dao.
       </p>
       <p>
-        <strong>Pokemol</strong> is where you and your members submit and vote
-        on proposals.{' '}
+        <strong>The DAO interface</strong> is where you and your members submit
+        and vote on proposals.{' '}
       </p>
 
       <button

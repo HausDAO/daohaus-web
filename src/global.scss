@@ -1,4 +1,5 @@
 @import 'variables';
+// @import '~antd/dist/antd.css';
 
 // Typography
 
@@ -13,43 +14,57 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 400;
   margin: 15px 0px 15px 0px;
+  line-height: 1.35em;
 }
 
 h1 {
+  font-family: $heading-font;
+  font-weight: 900;
   font-size: 2.5em;
+  font-weight: 700;
 }
 
 h2 {
+  font-family: $heading-font;
+  font-weight: 700;
   font-size: 2em;
+  font-weight: 700;
 }
 
 h3 {
+  font-family: $heading-font;
+  font-weight: 700;
   font-size: 1.75em;
 }
 
 h4 {
+  font-family: $heading-font;
+  font-weight: 500;
   font-size: 1.35em;
 }
 
 h5 {
+  font-family: $body-font;
+  font-weight: 700;
   font-size: 1em;
 }
 
 h6 {
+  font-family: $body-font;
+  font-weight: 700;
   font-size: 0.85em;
 }
 
 p {
   max-width: 800px;
   margin: 10px 0px 10px 0px;
-  color: darken($tertiary, 25%);
+  // color: darken($tertiary, 25%);
 }
 
 body {
   font-size: 16px;
-  font-family: 'Futura', sans-serif;
+  font-family: $body-font;
   font-weight: 400;
   width: 100%;
   text-align: left;
@@ -61,7 +76,8 @@ a {
   text-decoration: none;
   cursor: pointer;
   transition: all 0.15s linear;
-  &:hover {
+  font-weight: 500;
+  &:not(.Button):hover {
     color: $primary-hover;
   }
 }
@@ -77,28 +93,80 @@ img {
   word-break: break-all;
 }
 
-// Elements
-
-button,
+// UI Elements
+button:not(.hamburger):not([role='switch']),
 .Button {
+  font-family: $body-font;
+  font-weight: 500;
   display: inline-block;
-  appearance: none;
   outline: none;
-  background-color: $primary;
+  background-color: $orange;
   color: white;
-  border: none;
-  border-radius: 50px;
-  height: 50px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  height: auto;
   padding: 15px 25px;
   font-size: 1em;
   cursor: pointer;
   transition: all 0.15s linear;
+  &.Medium {
+    padding: 25px;
+    font-size: 1.75em;
+    min-width: 240px;
+    @media (max-width: $grid) {
+      font-size: 1.25em;
+      min-width: 180px;
+    }
+  }
+  &.Big {
+    padding: 25px;
+    font-size: 2.5em;
+    min-width: 300px;
+    text-align: center;
+    @media (max-width: $grid) {
+      font-size: 1.5em;
+      min-width: 180px;
+    }
+  }
   &:hover {
     background-color: $primary-hover;
   }
+  &.Outlined {
+    border: 2px solid $orange;
+    background-color: transparent;
+    color: $orange;
+    &:hover {
+      border: 2px solid $primary-hover;
+      background-color: transparent;
+      color: $primary-hover;
+    }
+  }
+}
+
+// Dao/Profile Elements
+
+.Daolist__Header {
+  display: flex;
+  align-items: center;
+  .Daolist__Avatar {
+    margin: 0;
+    margin-right: 15px;
+  }
+}
+
+.NoteCount {
+  background-color: $red;
+  border-radius: 25px;
+  padding: 3px 5px;
+  color: white;
+  font-size: 0.75em;
+  min-width: 11px;
+  text-align: center;
 }
 
 // Layout
+
+// Big Heroes for the tops of pages
 
 .Hero {
   display: flex;
@@ -121,9 +189,9 @@ button,
   }
   button {
     margin: 15px 0px;
-    max-width: 280px;
+    background-color: $orange;
     &:hover {
-      background-color: $orange;
+      background-color: $primary;
     }
   }
   @media (max-width: $mobile) {
@@ -151,6 +219,8 @@ button,
   }
 }
 
+// Basic big block for marketing style content
+
 .Block {
   width: 100%;
   display: flex;
@@ -161,7 +231,7 @@ button,
   &__Contents {
     margin: 0 auto;
     width: 100%;
-    max-width: 1100px;
+    max-width: calc(1100px);
     padding: 50px;
     > h1,
     h2 {
@@ -169,6 +239,9 @@ button,
     }
     > p {
       font-size: 1.35em;
+    }
+    @media (max-width: $grid) {
+      max-width: calc(100% - 100px);
     }
   }
   &.Primary {
@@ -229,6 +302,37 @@ button,
   }
 }
 
+// List of items in a grid of 3 columns
+
+.GridList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+  &__Item {
+    width: 33%;
+    @media (min-width: $grid + 1px) {
+      &:not(:nth-child(3n)) {
+        margin-right: 15px;
+        width: calc(33% - 15px);
+      }
+    }
+    @media (min-width: $mobile + 1px) and (max-width: $grid) {
+      width: calc(50%);
+      &:not(:nth-child(2n)) {
+        margin-right: 15px;
+        width: calc(50% - 15px);
+      }
+    }
+    @media (max-width: $mobile) {
+      width: calc(100%);
+      margin-bottom: 25px;
+    }
+  }
+}
+
 .Section {
   margin-top: 50px;
 }
@@ -267,7 +371,7 @@ p.Large {
   color: $red;
 }
 .Success {
-  color: lime-green;
+  color: $success;
 }
 
 .SuccessMessage {
@@ -295,6 +399,164 @@ p.Large {
   }
 }
 
+// Ant-D Components
+
+// Carousel
+
+.ant-carousel {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', 'tnum';
+  // Modify
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .slick-slider {
+    position: relative;
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .slick-list {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // extra
+    transform: translate3d(0, 0, 0);
+
+    .slick-track {
+      position: relative;
+      top: 0;
+      left: 0;
+      display: block;
+      height: 100%;
+      &:before {
+        display: table;
+        content: '';
+      }
+      .slick-slide {
+        position: relative;
+        float: left;
+        height: 100%;
+        min-height: 1px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Switch
+
+.ant-switch {
+  margin: 0;
+  padding: 0;
+  color: $background-hover;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', 'tnum';
+  position: relative;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 44px;
+  height: 22px;
+  line-height: 22px;
+  vertical-align: middle;
+  background-color: $background-hover;
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.ant-switch-checked {
+  background-color: $orange;
+}
+
+.ant-switch-checked .ant-switch-handle {
+  left: calc(100% - 18px - 2px);
+}
+
+.ant-switch-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.ant-switch-checked .ant-switch-inner {
+  margin: 0 25px 0 7px;
+}
+
+.ant-click-animating-node {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  border-radius: inherit;
+  -webkit-box-shadow: 0 0 0 0 #1890ff;
+  box-shadow: 0 0 0 0 #1890ff;
+  -webkit-box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);
+  box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);
+  opacity: 0.2;
+  -webkit-animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  content: '';
+  pointer-events: none;
+}
+
+.ant-switch-handle::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  border-radius: 9px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  content: '';
+}
+
 // Wizard
 .Wizard {
   h3 {
@@ -318,6 +580,9 @@ p.Large {
   width: 100%;
   button {
     display: inline-block;
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
   }
 }
 
@@ -439,13 +704,39 @@ p.Large {
   align-content: center;
   justify-content: center;
   flex-direction: column;
-  min-height: 50vh;
   padding: $base-padding;
   max-width: 600px;
+  margin: 0 auto;
   button {
     margin: 0 auto;
   }
   width: calc(100% - 100px);
+  &.NoCode input:not([type='checkbox']):not([type='submit']),
+  &.NoCode textarea {
+    max-width: 100%;
+    resize: vertical;
+    height: auto;
+    // border-radius: 50px;
+    border: none;
+    width: auto;
+    margin: 0px;
+    outline: none !important;
+    padding: 0px;
+    font-size: 1em;
+    transition: all 0.15s linear;
+    max-width: 100px;
+    // box-shadow: $shadow;
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+  &.NoCode p {
+    font-size: 1.25em;
+  }
+  &.NoCode textarea {
+    max-width: 100%;
+  }
 }
 
 .Label {
@@ -459,17 +750,21 @@ p.Large {
   position: relative;
 }
 
-input:not([type='checkbox']),
+input:not([type='checkbox']):not([type='submit']),
 textarea {
   height: 40px;
-  border-radius: 50px;
-  border: 1px solid #efefef;
+  // border-radius: 50px;
+  border: 2px solid #efefef;
   width: calc(100% - 30px);
   margin: 10px 0px;
   outline: none !important;
   padding: 0px 15px;
   font-size: 1em;
-  box-shadow: $shadow;
+  transition: all 0.15s linear;
+  // box-shadow: $shadow;
+  &:focus {
+    border: 2px solid $tertiary;
+  }
 }
 
 input[type='checkbox'] {
@@ -486,7 +781,8 @@ input[type='checkbox'] {
 
 textarea {
   padding: 15px;
-  border-radius: 5px;
+  // border-radius: 5px;
+  height: auto;
 }
 
 label {

@@ -1,24 +1,39 @@
+// Typography
+
+//Inknut Antiqua from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;700;900&display=swap');
+//Rubik from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap');
+
+//Set Fonts
+
+$heading-font: 'Inknut Antiqua', serif;
+$body-font: 'Rubik', sans-serif;
+
 //Color Palette
-$primary: #513E97;
-$secondary: #0E99C4;
-$tertiary: #4EBD9E;
+$primary: #513e97; // rgba(81, 62, 151)
+$secondary: #0e99c4;
+$tertiary: #4ebd9e;
+
+// Other Colors
+$primary-background: #020436; // rgba(14, 15, 53)
+$blue: #001aff;
+$orange: #ea8923;
+$red: #f05f61;
+$success: #3dd63a;
+$background: #f6f6f2;
+$pokemol: #aa174c;
+$pokemol-hover: lighten($pokemol, 5%);
+$background-light: lighten($background, 2.5%);
 
 // Hovers
 $primary-hover: lighten($primary, 15%);
 $secondary-hover: lighten($secondary, 15%);
 $tertiary-hover: lighten($tertiary, 15%);
-
-// Other Colors
-$primary-background: #020436;
-$blue: #001aff;
-$orange: #EA8923;
-$red: #F05F61;
-$background: lighten($tertiary, 40%);
-$pokemol: #AA174C;
-$pokemol-hover: lighten($pokemol, 5%);
+$background-hover: darken($background, 5%);
 
 // Other Styles
-$shadow: 0px 0px 10px rgba(0,0,0,0.1);
+$shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 
 // Breakpoints
 $mobile: 768px;
@@ -28,44 +43,67 @@ $grid: 1200px;
 $mobile-padding: 25px;
 $base-padding: 50px;
 $large-padding: 100px;
+$border-radius: 15px;
 
 // Animations
 
-@keyframes fadeIn { from { opacity:0; top: -50px; pointer-events: none; } to { opacity:1; top: 0px; pointer-events: all; } }
-@keyframes fadeOut { from { opacity:1; top: 0px; pointer-events: all; } to { opacity:0; top: -50px; pointer-events: none; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    top: -50px;
+    pointer-events: none;
+  }
+  to {
+    opacity: 1;
+    top: 0px;
+    pointer-events: all;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    top: 0px;
+    pointer-events: all;
+  }
+  to {
+    opacity: 0;
+    top: -50px;
+    pointer-events: none;
+  }
+}
 
 .FadeIn {
-    opacity:0;  /* make things invisible upon start */
-    top: 0px;
-    animation:fadeIn;
-    animation-fill-mode:forwards;
-    animation-timing-function: ease-in;
-    animation-duration: .25s;
-    animation-delay: 0s;
-    animation-iteration-count: 1;
+  opacity: 0; /* make things invisible upon start */
+  top: 0px;
+  animation: fadeIn;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+  animation-duration: 0.25s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
 }
 
 .FadeOut {
-    opacity:0;  /* make things invisible upon start */
-    top: 0px;
-    animation:fadeOut;
-    animation-fill-mode:forwards;
-    animation-timing-function: ease-out;
-    animation-duration: .25s;
-    animation-delay: 0s;
-    animation-iteration-count: 1;
+  opacity: 0; /* make things invisible upon start */
+  top: 0px;
+  animation: fadeOut;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-duration: 0.25s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
 }
 
 .Flash {
-    // animation in/out settings
-    opacity:0;  /* make things invisible upon start */
-    top: 0px;
-    animation:fadeIn, fadeOut;
-    animation-fill-mode:forwards, forwards;
-    animation-timing-function: ease-in, ease-out;
-    animation-duration: .15s, .15s;
-    animation-delay: 0s, 3s;
-    animation-iteration-count: 1, 1;
-    // specific styles
-    z-index: 99;
+  // animation in/out settings
+  opacity: 0; /* make things invisible upon start */
+  top: 0px;
+  animation: fadeIn, fadeOut;
+  animation-fill-mode: forwards, forwards;
+  animation-timing-function: ease-in, ease-out;
+  animation-duration: 0.15s, 0.15s;
+  animation-delay: 0s, 3s;
+  animation-iteration-count: 1, 1;
+  // specific styles
+  z-index: 99;
 }
