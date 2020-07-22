@@ -21,8 +21,6 @@ const HardModeForm = ({ daoData, handleSummon }) => {
   });
   const { isDirty, isValid, isSubmitted } = formState;
 
-  console.log('errors', errors);
-
   const versionWatch = watch('version');
 
   const onSubmit = data => {
