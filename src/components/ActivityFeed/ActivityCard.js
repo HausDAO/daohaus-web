@@ -7,7 +7,7 @@ const ActivityCard = ({ activity }) => {
   const baseUrl = `${process.env.REACT_APP_POKEMOL_URL}/dao/${activity.molochAddress}`;
   const url = activity.proposalId
     ? `${baseUrl}/proposal/${
-        activity.molochvVersion === 2
+        activity.molochVersion === '2'
           ? activity.proposalId
           : activity.proposalIndex
       }`
