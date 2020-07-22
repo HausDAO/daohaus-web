@@ -32,7 +32,7 @@ const Home = () => {
 
   const renderSlides = () => {
     return (
-      <Carousel autoplay={true} dots={false} effect="fade">
+      <Carousel autoplay={true} dots={false} effect="fade" autoplaySpeed={5000}>
         {heroSlides.map(slide => {
           return (
             <div key={slide.id} className="Carousel__Slide">
