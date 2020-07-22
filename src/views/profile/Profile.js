@@ -104,13 +104,15 @@ const Profile = props => {
             {profile.website ? (
               <>
                 {profile.website.indexOf('http') >= 0 ? (
-                  <a
-                    href={profile.website}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    {profile.website}
-                  </a>
+                  <p>
+                    <a
+                      href={profile.website}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      {profile.website}
+                    </a>
+                  </p>
                 ) : (
                   <p>{profile.website}</p>
                 )}
