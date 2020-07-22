@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 import { Carousel } from 'antd';
-import { TwitterCircleFilled } from '@ant-design/icons';
+import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
 
-import Icon from '@ant-design/icons';
-import { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
 import { ReactComponent as TelegramSvg } from '../../assets/branding/Telegram.svg';
 
@@ -18,8 +16,6 @@ import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
 
-import FeaturedDaos from '../../components/featuredDaos/FeaturedDaos';
-
 import {
   heroSlides,
   daohausFeatures,
@@ -28,6 +24,7 @@ import {
 } from '../../content/home-content';
 
 import './Home.scss';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [web3context] = useContext(Web3Context);
@@ -133,9 +130,9 @@ const Home = () => {
           <h2>
             Don’t be shy. Discover and join a decentralized community today.
           </h2>
-          <a to="/explore" className="Button Big">
+          <Link to="/explore" className="Button Big">
             Explore
-          </a>
+          </Link>
         </div>
       </div>
       <div className="Boosts Block">
@@ -176,7 +173,7 @@ const Home = () => {
               Join our discord and ask us anything. We love helping communities
               level up.
             </h4>
-            <a className="Button">
+            <a href="/" className="Button">
               <Icon component={DiscordSvg} /> Join us in Discord
             </a>
           </div>

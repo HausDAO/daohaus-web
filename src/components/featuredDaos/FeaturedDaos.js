@@ -4,6 +4,7 @@ import { useQuery } from 'react-apollo';
 import { GET_FEATURED_DAOS } from '../../util/queries';
 import { ExploreContext } from '../../contexts/ExploreContext';
 import { featuredCommunities } from '../../content/home-content';
+import { Link } from 'react-router-dom';
 
 const FeaturedDaos = () => {
   const { state } = useContext(ExploreContext);
@@ -23,11 +24,14 @@ const FeaturedDaos = () => {
   if (loading) return <p className="View">Loading Featured DAOs</p>;
   if (error) return <p className="View">Sorry there's been an error</p>;
 
+  console.log('data', data);
+
   return (
     <>
       <div className="FeaturedCommunities">
         {featuredCommunities.map((communityData, i) => {
           const community = { ...communityData, ...data[`featured${i + 1}`] };
+          console.log('community', community);
           return (
             <div key={community.name} className="FeaturedCommunity">
               <h4>{community.name}</h4>
@@ -39,12 +43,23 @@ const FeaturedDaos = () => {
                   : 0}{' '}
                 | {community.members ? community.members.length : 0} Members
               </p>
-              <div
-                className="FeaturedCommunity__Avatar"
-                style={{ backgroundImage: 'url(' + community.image + ')' }}
-              >
-                <span>&nbsp;</span>
-              </div>
+              {community.version ? (
+                <Link to={`/dao/v${community.version}/${community.address}`}>
+                  <div
+                    className="FeaturedCommunity__Avatar"
+                    style={{ backgroundImage: 'url(' + community.image + ')' }}
+                  >
+                    <span>&nbsp;</span>
+                  </div>
+                </Link>
+              ) : (
+                <div
+                  className="FeaturedCommunity__Avatar"
+                  style={{ backgroundImage: 'url(' + community.image + ')' }}
+                >
+                  <span>&nbsp;</span>
+                </div>
+              )}
             </div>
           );
         })}
