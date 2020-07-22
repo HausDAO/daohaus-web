@@ -139,7 +139,7 @@ const SummonStepThree = ({
             </select>
           </p>
           <p>
-            The minimum cost to join will be{' '}
+            The minimum cost in {daoData.currency} to join will be{' '}
             <input
               className="inline-field"
               name="minimumTribute"
@@ -151,14 +151,13 @@ const SummonStepThree = ({
             {errors.minimumTribute?.type === 'required' && (
               <span className="required-field Danger">Required</span>
             )}
-            {daoData.currency}
           </p>
         </div>
 
         <div>
           <h4>Voting</h4>
           <p>
-            Our voting period lasts{' '}
+            Our voting period, in days, lasts{' '}
             <input
               className="inline-field"
               name="formattedPeriods.votingPeriod"
@@ -172,11 +171,10 @@ const SummonStepThree = ({
             )}
             {errors.formattedPeriods?.votingPeriod?.type === 'pattern' && (
               <span className="required-field Danger">Should be a number</span>
-            )}{' '}
-            days.
+            )}
           </p>
           <p>
-            The grace period is another{' '}
+            Also in days, the grace period is another{' '}
             <input
               className="inline-field"
               name="formattedPeriods.gracePeriod"
@@ -190,15 +188,14 @@ const SummonStepThree = ({
             )}
             {errors.formattedPeriods?.gracePeriod?.type === 'pattern' && (
               <span className="required-field Danger">Should be a number</span>
-            )}{' '}
-            days.
+            )}
           </p>
         </div>
 
         <div>
           <h4>Deposits</h4>
           <p>
-            A proposal deposit costs{' '}
+            A proposal deposit is in {daoData.currency} and costs{' '}
             <input
               className="inline-field"
               name="formattedDeposits.proposalDeposit"
@@ -213,10 +210,9 @@ const SummonStepThree = ({
             {errors.formattedDeposits?.proposalDeposit?.type === 'pattern' && (
               <span className="required-field">Should be a number</span>
             )}{' '}
-            {daoData.currency}
           </p>
           <p>
-            The proposal reward is{' '}
+            The proposal reward is also in {daoData.currency} and is
             <input
               className="inline-field"
               name="formattedDeposits.processingReward"
@@ -231,7 +227,7 @@ const SummonStepThree = ({
                   },
                 },
               })}
-            />{' '}
+            />
             {errors.formattedDeposits?.processingReward?.type ===
               'lessThanDeposit' && (
               <span className="required-field Danger">
@@ -242,8 +238,7 @@ const SummonStepThree = ({
               'required' && <span className="required-field">required</span>}
             {errors.formattedDeposits?.processingReward?.type === 'pattern' && (
               <span className="required-field Danger">Should be a number</span>
-            )}{' '}
-            {daoData.currency}
+            )}
           </p>
         </div>
         <div className="StepControl">
