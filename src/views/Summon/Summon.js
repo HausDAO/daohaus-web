@@ -17,7 +17,7 @@ const Summon = props => {
   const [web3context] = useContext(Web3Context);
   const [hardMode, setHardMode] = useState(true);
   const [daoData, setDaoData] = useState(daoConstants);
-  const [isSummoning, setIsSummoning] = useState(true);
+  const [isSummoning, setIsSummoning] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const { state, dispatch } = useContext(SummonContext);
 
