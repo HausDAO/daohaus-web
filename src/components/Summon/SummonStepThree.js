@@ -84,7 +84,8 @@ const SummonStepThree = ({
   return (
     <div className="SummonStepThree">
       <form
-        className="Form NoCode"
+        // className="Form NoCode"
+        className="Form"
         onSubmit={handleSubmit(onSubmit)}
         autoComplete="off"
       >
@@ -242,7 +243,11 @@ const SummonStepThree = ({
           </p>
         </div>
         <div className="StepControl">
-          <button className="Outlined" onClick={() => navigate(2)}>
+          <button
+            className="Outlined"
+            onClick={() => navigate(2)}
+            disabled={!isDirty && !isValid}
+          >
             <ArrowLeftOutlined style={{ marginRight: '5px' }} />
             GO BACK
           </button>

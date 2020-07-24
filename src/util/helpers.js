@@ -131,14 +131,17 @@ export const depositsForForm = daoData => {
 };
 
 export const depositsFromForm = deposits => {
+  const propDeposit = isNaN(+deposits['formattedDeposits.proposalDeposit'])
+    ? '0'
+    : +deposits['formattedDeposits.proposalDeposit'];
+
+  const procReward = isNaN(+deposits['formattedDeposits.processingReward'])
+    ? '0'
+    : +deposits['formattedDeposits.processingReward'];
+
+  console.log(propDeposit, procReward);
   return {
-    proposalDeposit: web3.utils.toWei(
-      deposits['formattedDeposits.proposalDeposit'].toString(),
-      'ether',
-    ),
-    processingReward: web3.utils.toWei(
-      deposits['formattedDeposits.processingReward'].toString(),
-      'ether',
-    ),
+    proposalDeposit: web3.utils.toWei(propDeposit.toString(), 'ether'),
+    processingReward: web3.utils.toWei(procReward.toString(), 'ether'),
   };
 };

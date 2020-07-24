@@ -181,7 +181,7 @@ select.inline-field {
 
   border: none;
   box-shadow: none;
-  background: none;
+  background: white;
   font-family: inherit;
   font-size: inherit;
   padding: 0px;
@@ -189,6 +189,19 @@ select.inline-field {
   margin: 0;
   min-width: auto;
   max-width: auto;
+}
+
+textarea.inline-field {
+  width: 95%;
+  height: 150px;
+  border: 2px solid #efefef;
+  padding: 15px;
+}
+
+select.inline-field {
+  width: 100%;
+  border-radius: 0px;
+  padding: 0px 15px;
 }
 
 .required-field {

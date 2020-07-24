@@ -32,12 +32,11 @@ const HardModeForm = ({ daoData, handleSummon }) => {
       <form
         onSubmit={handleSubmit(onSubmit)}
         autoComplete="off"
-        className="Form NoCode"
+        className="Form"
       >
         <div>
           <h4>Name</h4>
           <p>
-            Our DAO is called{' '}
             <input
               className="inline-field"
               name="name"
@@ -54,7 +53,6 @@ const HardModeForm = ({ daoData, handleSummon }) => {
         <div>
           <h4>Description</h4>
           <p>
-            The quick description is{' '}
             <textarea
               className="inline-field"
               name="description"
@@ -71,7 +69,7 @@ const HardModeForm = ({ daoData, handleSummon }) => {
         <div>
           <h4>Moloch Version</h4>
           <div>
-            We want to use a Moloch{' '}
+            Which Moloch Version?
             <select className="inline-field" name="version" ref={register}>
               <option value="1">Version 1</option>
               <option value="2">Version 2</option>
@@ -82,7 +80,7 @@ const HardModeForm = ({ daoData, handleSummon }) => {
         <div>
           <h4>Currency</h4>
           <div>
-            Our primary currency is{' '}
+            What is the primary currency contract address?
             <input
               className="inline-field"
               name="approvedToken"
@@ -101,7 +99,10 @@ const HardModeForm = ({ daoData, handleSummon }) => {
                 that doesn't look like a token address
               </span>
             )}
-            and it'll cost at least
+            <p>
+              How much should it cost to join (needs to be in wei - 18
+              decimals)?
+            </p>
             <input
               className="inline-field"
               name="minimumTribute"
@@ -113,14 +114,13 @@ const HardModeForm = ({ daoData, handleSummon }) => {
             {errors.minimumTribute?.type === 'required' && (
               <span className="required-field">required</span>
             )}
-            (18 decimals) to join...
           </div>
         </div>
 
         <div>
           <h4>Periods</h4>
           <div>
-            A period lasts{' '}
+            How many seconds per period?
             <input
               className="inline-field"
               name="periodDuration"
@@ -135,86 +135,81 @@ const HardModeForm = ({ daoData, handleSummon }) => {
             {errors.periodDuration?.type === 'pattern' && (
               <span className="required-field">not a number</span>
             )}
-            seconds...
           </div>
         </div>
 
         <div>
           <h4>Voting</h4>
-          <p>
-            Our voting period lasts{' '}
-            <input
-              className="inline-field"
-              name="votingPeriod"
-              ref={register({
-                required: true,
-                pattern: /^-?\d*\.?\d*$/,
-              })}
-            />{' '}
-            {errors.votingPeriod?.type === 'required' && (
-              <span className="required-field">required</span>
-            )}
-            {errors.votingPeriod?.type === 'pattern' && (
-              <span className="required-field">not a number</span>
-            )}
-            periods, the grace period is another{' '}
-            <input
-              className="inline-field"
-              name="gracePeriod"
-              ref={register({
-                required: true,
-                pattern: /^-?\d*\.?\d*$/,
-              })}
-            />{' '}
-            {errors.gracePeriod?.type === 'required' && (
-              <span className="required-field">required</span>
-            )}
-            {errors.gracePeriod?.type === 'pattern' && (
-              <span className="required-field">not a number</span>
-            )}
-            periods.
-            {versionWatch === '1' ? (
-              <>
-                the abort window is{' '}
-                <input
-                  className="inline-field"
-                  name="abortWindow"
-                  ref={register({
-                    required: true,
-                    pattern: /^-?\d*\.?\d*$/,
-                  })}
-                />
-                {errors.abortWindow?.type === 'required' && (
-                  <span className="required-field">required</span>
-                )}
-                {errors.abortWindow?.type === 'pattern' && (
-                  <span className="required-field">not a number</span>
-                )}{' '}
-                periods.
-              </>
-            ) : null}
-            The dilution bound is
-            <input
-              className="inline-field"
-              name="dilutionBound"
-              ref={register({
-                required: true,
-                pattern: /^-?\d*\.?\d*$/,
-              })}
-            />
-            {errors.dilutionBound?.type === 'required' && (
-              <span className="required-field">required</span>
-            )}
-            {errors.dilutionBound?.type === 'pattern' && (
-              <span className="required-field">not a number</span>
-            )}{' '}
-          </p>
+          <p>How many periods will the voting period last?</p>
+          <input
+            className="inline-field"
+            name="votingPeriod"
+            ref={register({
+              required: true,
+              pattern: /^-?\d*\.?\d*$/,
+            })}
+          />{' '}
+          {errors.votingPeriod?.type === 'required' && (
+            <span className="required-field">required</span>
+          )}
+          {errors.votingPeriod?.type === 'pattern' && (
+            <span className="required-field">not a number</span>
+          )}
+          <p>How many periods will the grace period last?</p>
+          <input
+            className="inline-field"
+            name="gracePeriod"
+            ref={register({
+              required: true,
+              pattern: /^-?\d*\.?\d*$/,
+            })}
+          />{' '}
+          {errors.gracePeriod?.type === 'required' && (
+            <span className="required-field">required</span>
+          )}
+          {errors.gracePeriod?.type === 'pattern' && (
+            <span className="required-field">not a number</span>
+          )}
+          {versionWatch === '1' ? (
+            <>
+              <p>How many periods will the abort window last?</p>
+              <input
+                className="inline-field"
+                name="abortWindow"
+                ref={register({
+                  required: true,
+                  pattern: /^-?\d*\.?\d*$/,
+                })}
+              />
+              {errors.abortWindow?.type === 'required' && (
+                <span className="required-field">required</span>
+              )}
+              {errors.abortWindow?.type === 'pattern' && (
+                <span className="required-field">not a number</span>
+              )}{' '}
+            </>
+          ) : null}
+          <p>What will be the dilution bound?</p>
+          <input
+            className="inline-field"
+            name="dilutionBound"
+            ref={register({
+              required: true,
+              pattern: /^-?\d*\.?\d*$/,
+            })}
+          />
+          {errors.dilutionBound?.type === 'required' && (
+            <span className="required-field">required</span>
+          )}
+          {errors.dilutionBound?.type === 'pattern' && (
+            <span className="required-field">not a number</span>
+          )}{' '}
         </div>
 
         <div>
           <h4>Deposits</h4>
           <p>
-            And a proposal deposit costs{' '}
+            How much is the proposal deposit (needs to be in wei - 18 decimals)?
             <input
               className="inline-field"
               name="proposalDeposit"
@@ -231,7 +226,8 @@ const HardModeForm = ({ daoData, handleSummon }) => {
             )}{' '}
           </p>
           <p>
-            (18 decimals) and the proposal reward is{' '}
+            How much is the processing reward (needs to be in wei - 18
+            decimals)?
             <input
               className="inline-field"
               name="processingReward"
@@ -255,7 +251,6 @@ const HardModeForm = ({ daoData, handleSummon }) => {
             {errors.processingReward?.type === 'pattern' && (
               <span className="required-field">not a number</span>
             )}{' '}
-            (18 decimals)
           </p>
         </div>
         <div className="StepControl">
