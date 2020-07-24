@@ -4,12 +4,12 @@ import { withRouter } from 'react-router-dom';
 import { daoConstants } from '../../content/summon-presets';
 import { SummonContext } from '../../contexts/SummonContext';
 import { Web3Context } from '../../contexts/ContractContexts';
-import SummonStepOne from '../../components/summon/SummonStepOne';
-import HardModeForm from '../../components/summon/HardModeForm';
-import SummonStepTwo from '../../components/summon/SummonStepTwo';
-import SummonStepThree from '../../components/summon/SummonStepThree';
-import BoostPackages from '../../components/boosts/BoostPackages';
-import MiniLoader from '../../components/loading/MiniLoader';
+import SummonStepOne from '../../components/Summon/SummonStepOne';
+import HardModeForm from '../../components/Summon/HardModeForm';
+import SummonStepTwo from '../../components/Summon/SummonStepTwo';
+import SummonStepThree from '../../components/Summon/SummonStepThree';
+import BoostPackages from '../../components/Boosts/BoostPackages';
+import MiniLoader from '../../components/Shared/Loading/MiniLoader';
 
 import './Summon.scss';
 

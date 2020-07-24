@@ -4,7 +4,7 @@ import { getProfile } from '3box/lib/api';
 import { get } from '../../util/requests';
 import { useQuery } from 'react-apollo';
 import { GET_MEMBER_MOLOCHES } from '../../util/queries';
-import UnregisteredList from '../../components/unregisteredList/unregisteredList';
+import UnregisteredList from '../../components/UnregisteredList/UnregisteredList';
 import { Web3Context } from '../../contexts/ContractContexts';
 import ProfileMemberList from '../../components/ProfileMemberList/ProfileMemberList';
 

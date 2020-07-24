@@ -12,14 +12,14 @@ import {
 import { get } from '../../util/requests';
 import { GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
-import RageQuit from '../../components/rageQuit/RageQuit';
-import UpdateDelegate from '../../components/updatedDelegate/UpdateDelegate';
-import EmailSignup from '../../components/emailSignup/EmailSignup';
-import ApplicationList from '../../components/applicationList/ApplicationList';
+import RageQuit from '../../components/RageQuit/RageQuit';
+import UpdateDelegate from '../../components/UpdateDelegate/UpdateDelegate';
+import MolochEmailSignup from '../../components/Shared/MolochEmailSignup/MolochEmailSignup';
+import ApplicationList from '../../components/MemberList/ApplicationList';
 import TokenService from '../../util/tokenService';
 import MolochService from '../../util/molochService';
-import ActivateButton from '../../components/activateButton/ActivateButton';
-import HeadTags from '../../components/headTags/HeadTags';
+import SignIn from '../../components/Shared/SignIn/SignIn';
+import HeadTags from '../../components/Shared/HeadTags/HeadTags';
 
 import './Dao.scss';
 
@@ -176,7 +176,7 @@ const Dao = props => {
       ) : emailSignupView && molochService ? (
         <div className="View__EmailSignup">
           <button onClick={() => setEmailSignupView(false)}>{'<= '}Back</button>
-          <EmailSignup />
+          <MolochEmailSignup />
         </div>
       ) : (
         <>
@@ -212,7 +212,7 @@ const Dao = props => {
                           Get Email Updates
                         </button>
                       )}
-                      {web3Context.active ? (
+                      {web3Context.account ? (
                         <>
                           {visitor.isMember ? (
                             <>
@@ -252,7 +252,7 @@ const Dao = props => {
                       ) : (
                         <>
                           <p>You need to sign in with Ethereum first</p>
-                          <ActivateButton msg={'Sign in'} />
+                          <SignIn msg={'Sign in'} />
                         </>
                       )}
                       {!daoData.apiData.hidePokemol ? (

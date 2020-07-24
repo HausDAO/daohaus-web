@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 
 import { ExploreContext } from '../../contexts/ExploreContext';
-import FilterBar from '../../components/explore/ExploreFilters';
-import ExploreFetch from '../../components/explore/ExploreFetch';
-import DaoList from '../../components/daoList/DaoList';
+import ExploreFilters from '../../components/Explore/ExploreFilters';
+import ExploreFetch from '../../components/Explore/ExploreFetch';
+import DaoList from '../../components/DaoList/DaoList';
 
 import './Explore.scss';
 
@@ -24,7 +24,7 @@ const Explore = () => {
       {state.allDaos.length ? (
         <>
           <div className="FilterBar">
-            <FilterBar />
+            <ExploreFilters />
           </div>
           <div className="View">
             <DaoList />

@@ -4,7 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import Routes from './Routes';
-import TopNav from './components/topNav/TopNav';
+import TopNav from './components/Shared/TopNav/TopNav';
 import ContractContexts from './contexts/ContractContexts';
 import { resolvers } from './util/resolvers';
 import { ExploreContextProvider } from './contexts/ExploreContext';

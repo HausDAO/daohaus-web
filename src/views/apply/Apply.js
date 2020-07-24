@@ -1,5 +1,5 @@
 import React from 'react';
-import ApplicationWizard from '../../components/applicationForm/applicationWizard';
+import ApplicationWizard from '../../components/ApplicationForm/ApplicationWizard';
 
 const Apply = props => {
   return (

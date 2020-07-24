@@ -7,9 +7,9 @@ import { ReactComponent as TelegramSvg } from '../../assets/branding/Telegram.sv
 
 import { Web3Context } from '../../contexts/ContractContexts';
 import { ExploreContext } from '../../contexts/ExploreContext';
-import SummonButton from '../../components/summonButton/summonButton';
-import ActivateButton from '../../components/activateButton/ActivateButton';
-import FeaturedDaos from '../../components/featuredDaos/FeaturedDaos';
+import SummonButton from '../../components/Summon/SummonButton';
+import SignIn from '../../components/Shared/SignIn/SignIn';
+import FeaturedDaos from '../../components/FeaturedDaos/FeaturedDaos';
 import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
 import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
@@ -68,7 +68,7 @@ const Home = () => {
           {web3context && web3context.account ? (
             <SummonButton />
           ) : (
-            <ActivateButton msg={'Sign in'} />
+            <SignIn msg={'Sign in'} />
           )}
         </div>
         <div className="Carousel">{renderSlides()}</div>

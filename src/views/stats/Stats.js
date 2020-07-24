@@ -4,8 +4,8 @@ import _ from 'lodash';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { GET_MOLOCHES_STATS } from '../../util/queries';
-import Activity from '../../components/stats/Activity';
-// import GuildBanks from '../../components/stats/GuildBank';
+import Activity from '../../components/Stats/Activity';
+// import GuildBanks from '../../components/Stats/GuildBank';
 
 import './Stats.scss';
 

@@ -3,11 +3,11 @@ import { useQuery, useApolloClient } from 'react-apollo';
 
 import { GET_GASSY, GET_MEMBER_GAS } from '../../util/queries';
 import { Web3Context } from '../../contexts/ContractContexts';
+import { getEthPrice } from '../../util/prices';
+import SignIn from '../../components/Shared/SignIn/SignIn';
+import GasLeaderItem from '../../components/Stats/GasLeaderItem';
 
 import './Gas.scss';
-import GasLeaderItem from '../../components/gas/GasLeaderItem';
-import { getEthPrice } from '../../util/prices';
-import ActivateButton from '../../components/activateButton/ActivateButton';
 
 const Gas = () => {
   const client = useApolloClient();
@@ -104,7 +104,7 @@ const Gas = () => {
               )}
             </>
           ) : (
-            <ActivateButton msg={'Sign in'} />
+            <SignIn msg={'Sign in'} />
           )}
         </div>
       </div>

@@ -6,8 +6,8 @@ import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
 import { GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
 import MolochService from '../../util/molochService';
-import HeadTags from '../../components/headTags/HeadTags';
-import ApplicationList from '../../components/applicationList/ApplicationList';
+import HeadTags from '../../components/Shared/HeadTags/HeadTags';
+import ApplicationList from '../../components/MemberList/ApplicationList';
 
 import './Dao.scss';
 
