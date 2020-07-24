@@ -5,7 +5,7 @@ import { useApolloClient } from 'react-apollo';
 import { Web3Context, MolochContext } from '../../contexts/ContractContexts';
 import { GET_MOLOCH } from '../../util/queries';
 import { successMessagesText } from '../../util/helpers';
-import MolochService from '../../util/molochService';
+import MolochService from '../../util/moloch-service';
 import HeadTags from '../../components/Shared/HeadTags/HeadTags';
 import ApplicationList from '../../components/MemberList/ApplicationList';
 

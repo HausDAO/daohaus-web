@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useApolloClient } from 'react-apollo';
 
-import useInterval from '../../util/PollingUtil';
+import UseInterval from '../../hooks/UseInterval';
 import { GET_MOLOCH } from '../../util/queries';
 import { Web3Context } from '../../contexts/ContractContexts';
 import { get, post, remove } from '../../util/requests';
@@ -22,7 +22,7 @@ const Building = props => {
   const [web3Context] = useContext(Web3Context);
   const client = useApolloClient();
 
-  useInterval(async () => {
+  UseInterval(async () => {
     if (match.params.version === 'v1') {
       const { data } = await client.query({
         query: GET_MOLOCH,

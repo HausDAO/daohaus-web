@@ -3,8 +3,6 @@ import React from 'react';
 import ApplicantItem from './ApplicantItem';
 import MemberItem from './MemberItem';
 
-import './ApplicationList.scss';
-
 const ApplicationList = props => {
   const { members, daoData, contract } = props;
 

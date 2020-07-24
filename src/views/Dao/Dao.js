@@ -16,8 +16,8 @@ import RageQuit from '../../components/RageQuit/RageQuit';
 import UpdateDelegate from '../../components/UpdateDelegate/UpdateDelegate';
 import MolochEmailSignup from '../../components/Shared/MolochEmailSignup/MolochEmailSignup';
 import ApplicationList from '../../components/MemberList/ApplicationList';
-import TokenService from '../../util/tokenService';
-import MolochService from '../../util/molochService';
+import TokenService from '../../util/token-service';
+import MolochService from '../../util/moloch-service';
 import SignIn from '../../components/Shared/SignIn/SignIn';
 import HeadTags from '../../components/Shared/HeadTags/HeadTags';
 

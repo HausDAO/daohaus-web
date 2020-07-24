@@ -3,7 +3,7 @@ import Web3Modal from 'web3modal';
 
 import Web3 from 'web3';
 
-import Web3Service from '../util/web3Service';
+import Web3Service from '../util/web3-service';
 import { USER_TYPE, w3connect, providerOptions } from '../util/auth';
 import { getChainData } from '../util/chains';
 import SummonService from '../util/summon-service';

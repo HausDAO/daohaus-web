@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 import { Web3Context } from '../../contexts/ContractContexts';
 import { getPrices } from '../../util/prices';
-import { formatTotalUsd, toUsd } from '../../util/statHelpers';
+import { formatTotalUsd, toUsd } from '../../util/stat-helpers';
 
 import '../../views/stats/Stats.scss';
 

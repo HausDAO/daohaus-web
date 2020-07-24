@@ -6,7 +6,7 @@ import IconEthereum from '../../../assets/icon__ethereum.png';
 import { getChainData } from '../../../util/chains';
 import { w3connect, providerOptions, USER_TYPE } from '../../../util/auth';
 import { Web3Context } from '../../../contexts/ContractContexts';
-import Web3Service from '../../../util/web3Service';
+import Web3Service from '../../../util/web3-service';
 
 import './SignIn.scss';
 

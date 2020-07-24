@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { Line } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 
-import '../../views/stats/Stats.scss';
+import '../../views/Stats/Stats.scss';
 
 const Activity = props => {
   const { data } = props;

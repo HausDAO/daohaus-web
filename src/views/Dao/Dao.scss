@@ -1,13 +1,14 @@
-@import '../../variables';
-
+@import '../../styles/variables';
 
 .View__EmailSignup {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 100%; 
-  button { margin-top: 50px; }
+  width: 100%;
+  button {
+    margin-top: 50px;
+  }
 }
 iframe {
   width: 100%;
@@ -19,7 +20,8 @@ iframe {
   }
 }
 
-.Hero.DaoInfo {display: flex;
+.Hero.DaoInfo {
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -47,12 +49,16 @@ iframe {
     font-size: 1.75em;
     margin: 15px 0px 25px;
     max-width: 600px;
-    color: rgba(255,255,255,0.65);
+    color: rgba(255, 255, 255, 0.65);
   }
   .Dao__actions {
     padding: 10px 0px 10px 0;
-    .Label { color: white; }
-    p { color: rgba(255,255,255,0.65); }
+    .Label {
+      color: white;
+    }
+    p {
+      color: rgba(255, 255, 255, 0.65);
+    }
   }
   .Dapp {
     margin-top: 25px;
@@ -71,13 +77,21 @@ iframe {
   border-radius: 10px;
   .Details {
     padding: 30px;
-    h4 { font-weight: 700;}
-    color: white; 
-    .Label, a { color: white; }
-    .Value { margin-bottom: 25px; font-size: 1em; color: white; }
+    h4 {
+      font-weight: 700;
+    }
+    color: white;
+    .Label,
+    a {
+      color: white;
+    }
+    .Value {
+      margin-bottom: 25px;
+      font-size: 1em;
+      color: white;
+    }
     a:hover {
       color: $primary-background;
-
     }
   }
 }

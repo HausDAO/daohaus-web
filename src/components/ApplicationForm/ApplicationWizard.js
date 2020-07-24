@@ -13,8 +13,8 @@ import {
   MolochContext,
 } from '../../contexts/ContractContexts';
 
-import TokenService from '../../util/tokenService';
-import MolochService from '../../util/molochService';
+import TokenService from '../../util/token-service';
+import MolochService from '../../util/moloch-service';
 
 import { useApolloClient } from 'react-apollo';
 import { GET_MOLOCH } from '../../util/queries';

@@ -10,7 +10,7 @@ import { resolvers } from './util/resolvers';
 import { ExploreContextProvider } from './contexts/ExploreContext';
 import { SummonContextProvider } from './contexts/SummonContext';
 
-import './global.scss';
+import './styles/global.scss';
 import './App.css';
 
 const client = new ApolloClient({

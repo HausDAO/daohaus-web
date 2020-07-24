@@ -6,7 +6,7 @@ import { getProfile } from '3box/lib/api';
 import { truncateAddr } from '../../util/helpers';
 import { Web3Context } from '../../contexts/ContractContexts';
 
-import '../../views/gas/Gas.scss';
+import '../../views/Stats/Gas.scss';
 
 const GasLeaderItem = ({ leader, ethPrice, i }) => {
   const [leaderProfile, setLeaderProfile] = useState();

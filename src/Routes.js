@@ -1,19 +1,19 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import Home from './views/home/Home';
-import Dao from './views/dao/Dao';
-import DaoV2 from './views/dao/DaoV2';
-import Summon from './views/summon/Summon';
-import Apply from './views/apply/Apply';
-import Profile from './views/profile/Profile';
-import Stats from './views/stats/Stats';
-import Building from './views/building/Building';
-import FourOhFour from './views/fourOhFour/FourOhFour';
-import About from './views/about/About';
-import Help from './views/help/Help';
-import Gas from './views/gas/Gas';
-import Explore from './views/explore/Explore';
+import Home from './views/Home/Home';
+import Dao from './views/Dao/Dao';
+import DaoV2 from './views/Dao/DaoV2';
+import Summon from './views/Summon/Summon';
+import Apply from './views/Apply/Apply';
+import Profile from './views/Profile/Profile';
+import Stats from './views/Stats/Stats';
+import Building from './views/Building/Building';
+import FourOhFour from './views/FourOhFour/FourOhFour';
+import About from './views/About/About';
+import Help from './views/Help/Help';
+import Gas from './views/Stats/Gas';
+import Explore from './views/Explore/Explore';
 
 const Routes = () => (
   <Switch>
