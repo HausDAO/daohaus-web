@@ -88,28 +88,6 @@ export const featuredCommunities = [
   },
 ];
 
-export const pricingPacks = [
-  {
-    name: 'Starter',
-    features: [
-      '- Launch Infinite Communities',
-      '- Invite Infinite Collaborators',
-      '- Submit Infinite Proposals and Votes',
-    ],
-    price: 'Free Forever',
-  },
-  {
-    name: 'Pro',
-    features: ['All Free Boosts', '+ Custom Theme', '+ Social Notifications'],
-    price: 'Coming Soon',
-  },
-  {
-    name: 'Super',
-    features: ['All Free & Pro Boosts', '+ Minion', '+ Legal Wrapper'],
-    price: 'Coming Soon',
-  },
-];
-
 export const integrationLogos = [
   {
     img: 'telegram__logo.png',

@@ -1,25 +1,25 @@
-export const boostPackages = [
+export const pricingPacks = [
   {
     id: '1',
-    packageName: 'Carbon',
-    packageCost: 'Free Forever',
-    boosts: [
-      'Summon Infinite Communities',
-      'Invite Infinite Collaborators',
-      'Submit Infinite Proposals and Voting',
+    name: 'Starter',
+    features: [
+      '- Launch Infinite Communities',
+      '- Invite Infinite Collaborators',
+      '- Submit Infinite Proposals and Votes',
     ],
+    price: 'Free Forever',
   },
   {
     id: '2',
-    packageName: 'Stone',
-    packageCost: 'Coming soon!',
-    boosts: ['All Carbon Boosts', '+ Custom Theme', '+ Social Notifications'],
+    name: 'Pro',
+    features: ['All Free Boosts', '+ Custom Theme', '+ Social Notifications'],
+    price: 'Coming Soon',
   },
   {
     id: '3',
-    packageName: 'Iron',
-    packageCost: 'Coming soon!',
-    boosts: ['All Carbon and Stone Boosts', '+ Minion', '+ Legal Wrapper'],
+    name: 'Super',
+    features: ['All Free & Pro Boosts', '+ Minion', '+ Legal Wrapper'],
+    price: 'Coming Soon',
   },
 ];
 

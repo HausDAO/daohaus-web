@@ -1,0 +1,896 @@
+@import 'variables';
+// @import '~antd/dist/antd.css';
+
+// Typography
+
+.App {
+  background-color: $background;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 15px 0px 15px 0px;
+  line-height: 1.35em;
+}
+
+h1 {
+  font-family: $heading-font;
+  font-weight: 900;
+  font-size: 2.5em;
+  font-weight: 700;
+}
+
+h2 {
+  font-family: $heading-font;
+  font-weight: 700;
+  font-size: 2em;
+  font-weight: 700;
+}
+
+h3 {
+  font-family: $heading-font;
+  font-weight: 700;
+  font-size: 1.75em;
+}
+
+h4 {
+  font-family: $heading-font;
+  font-weight: 500;
+  font-size: 1.35em;
+}
+
+h5 {
+  font-family: $body-font;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+h6 {
+  font-family: $body-font;
+  font-weight: 700;
+  font-size: 0.85em;
+}
+
+p {
+  max-width: 800px;
+  margin: 10px 0px 10px 0px;
+  // color: darken($tertiary, 25%);
+}
+
+body {
+  font-size: 16px;
+  font-family: $body-font;
+  font-weight: 400;
+  width: 100%;
+  text-align: left;
+  word-wrap: pre-line;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s linear;
+  font-weight: 500;
+  &:not(.Button):hover {
+    color: $primary-hover;
+  }
+}
+
+img {
+  max-width: 100%;
+  display: inline-block;
+}
+
+// Typography Utils
+.Data {
+  font-family: 'Roboto Mono', monospace;
+  word-break: break-all;
+}
+
+// UI Elements
+button:not(.hamburger):not([role='switch']),
+.Button {
+  font-family: $body-font;
+  font-weight: 500;
+  display: inline-block;
+  outline: none;
+  background-color: $orange;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  height: auto;
+  padding: 15px 25px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.15s linear;
+  &.Medium {
+    padding: 25px;
+    font-size: 1.75em;
+    min-width: 240px;
+    @media (max-width: $grid) {
+      font-size: 1.25em;
+      min-width: 180px;
+    }
+  }
+  &.Big {
+    padding: 25px;
+    font-size: 2.5em;
+    min-width: 300px;
+    text-align: center;
+    @media (max-width: $grid) {
+      font-size: 1.5em;
+      min-width: 180px;
+    }
+  }
+  &:hover {
+    background-color: $primary-hover;
+  }
+  &.Outlined {
+    border: 2px solid $orange;
+    background-color: transparent;
+    color: $orange;
+    &:hover {
+      border: 2px solid $primary-hover;
+      background-color: transparent;
+      color: $primary-hover;
+    }
+  }
+}
+
+// Dao/Profile Elements
+
+.Daolist__Header {
+  display: flex;
+  align-items: center;
+  .Daolist__Avatar {
+    margin: 0;
+    margin-right: 15px;
+  }
+}
+
+.NoteCount {
+  background-color: $red;
+  border-radius: 25px;
+  padding: 3px 5px;
+  color: white;
+  font-size: 0.75em;
+  min-width: 11px;
+  text-align: center;
+}
+
+// Layout
+
+// Big Heroes for the tops of pages
+
+.Hero {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 50vh;
+  padding: 50px;
+  padding-bottom: 250px;
+  padding-left: 150px;
+  text-align: left;
+  background-color: $primary-background;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  color: #fff;
+  &__Contents {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  button {
+    margin: 15px 0px;
+    background-color: $orange;
+    &:hover {
+      background-color: $primary;
+    }
+  }
+  @media (max-width: $mobile) {
+    padding-left: 50px;
+  }
+  h1 {
+    font-size: 3em;
+    margin: 0px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    @media (max-width: $mobile) {
+      font-size: 2.25em;
+    }
+    color: white;
+  }
+  h2 {
+    font-size: 1.75em;
+    margin: 15px 0px;
+    font-weight: 100;
+  }
+  @media (max-width: $mobile) {
+    button {
+      position: relative;
+    }
+  }
+}
+
+// Basic big block for marketing style content
+
+.Block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 50vh;
+  padding: 125px 0px;
+  &__Contents {
+    margin: 0 auto;
+    width: 100%;
+    max-width: calc(1100px);
+    padding: 50px;
+    > h1,
+    h2 {
+      font-weight: 700;
+    }
+    > p {
+      font-size: 1.35em;
+    }
+    @media (max-width: $grid) {
+      max-width: calc(100% - 100px);
+    }
+  }
+  &.Primary {
+    background-color: $primary;
+    p {
+      color: white;
+    }
+    a {
+      color: $orange;
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
+  &.Secondary {
+    background-color: $secondary;
+    p {
+      color: white;
+    }
+  }
+  &.Tertiary {
+    background-color: $tertiary;
+    p {
+      color: white;
+    }
+  }
+}
+
+.Row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.Column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  &--33 {
+    width: 30%;
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+  }
+  &--50 {
+    width: 45%;
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+  }
+  &--66 {
+    width: 60%;
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+  }
+}
+
+// List of items in a grid of 3 columns
+
+.GridList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+  &__Item {
+    width: 33%;
+    @media (min-width: $grid + 1px) {
+      &:not(:nth-child(3n)) {
+        margin-right: 15px;
+        width: calc(33% - 15px);
+      }
+    }
+    @media (min-width: $mobile + 1px) and (max-width: $grid) {
+      width: calc(50%);
+      &:not(:nth-child(2n)) {
+        margin-right: 15px;
+        width: calc(50% - 15px);
+      }
+    }
+    @media (max-width: $mobile) {
+      width: calc(100%);
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.Section {
+  margin-top: 50px;
+}
+
+.Contain {
+  max-width: $grid;
+  margin: 0 auto;
+}
+
+.View {
+  padding: $base-padding;
+  max-width: $grid;
+  margin: 0 auto;
+  width: calc(100% - 100px);
+  @media (max-width: $mobile) {
+    padding: $mobile-padding;
+    width: calc(100% - 100px);
+  }
+}
+
+.SmallContainer {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.Value {
+  margin-top: 5px;
+  font-size: 1.35em;
+}
+
+p.Large {
+  font-size: 1.35em;
+}
+
+.Danger {
+  color: $red;
+}
+.Success {
+  color: $success;
+}
+
+.SuccessMessage {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: auto;
+  padding: 15px;
+  width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $tertiary;
+  p {
+    color: white;
+    width: 75%;
+  }
+  .CloseFlash {
+    width: 25%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    font-weight: 900;
+  }
+}
+
+// Ant-D Components
+
+// Carousel
+
+.ant-carousel {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', 'tnum';
+  // Modify
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .slick-slider {
+    position: relative;
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .slick-list {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // extra
+    transform: translate3d(0, 0, 0);
+
+    .slick-track {
+      position: relative;
+      top: 0;
+      left: 0;
+      display: block;
+      height: 100%;
+      &:before {
+        display: table;
+        content: '';
+      }
+      .slick-slide {
+        position: relative;
+        float: left;
+        height: 100%;
+        min-height: 1px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Switch
+
+.ant-switch {
+  margin: 0;
+  padding: 0;
+  color: $background-hover;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum', 'tnum';
+  position: relative;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 44px;
+  height: 22px;
+  line-height: 22px;
+  vertical-align: middle;
+  background-color: $background-hover;
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.ant-switch-checked {
+  background-color: $orange;
+}
+
+.ant-switch-checked .ant-switch-handle {
+  left: calc(100% - 18px - 2px);
+}
+
+.ant-switch-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.ant-switch-checked .ant-switch-inner {
+  margin: 0 25px 0 7px;
+}
+
+.ant-click-animating-node {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  border-radius: inherit;
+  -webkit-box-shadow: 0 0 0 0 #1890ff;
+  box-shadow: 0 0 0 0 #1890ff;
+  -webkit-box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);
+  box-shadow: 0 0 0 0 var(--antd-wave-shadow-color);
+  opacity: 0.2;
+  -webkit-animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation: fadeEffect 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    waveEffect 0.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  content: '';
+  pointer-events: none;
+}
+
+.ant-switch-handle::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  border-radius: 9px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  content: '';
+}
+
+// Wizard
+.Wizard {
+  h3 {
+    font-size: 2em;
+  }
+  p:first-child {
+    font-size: 1.5em;
+  }
+}
+
+.Step {
+  position: relative;
+}
+
+.ButtonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  margin: 25px 0px;
+  width: 100%;
+  button {
+    display: inline-block;
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
+}
+
+.Summary {
+  p:first-child {
+    font-size: 1.35em;
+  }
+  .Value {
+    margin-bottom: 25px;
+  }
+  .Label {
+  }
+}
+
+// Application List
+.ApplicationList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
+  &__Item {
+    width: 30%;
+    margin-right: 25px;
+    @media (max-width: $grid) {
+      width: 45%;
+      margin-right: 25px;
+    }
+
+    @media (max-width: $mobile) {
+      width: 100%;
+      margin-right: 0px;
+    }
+    a {
+      background-color: white;
+      margin-top: 25px;
+      margin-bottom: 25px;
+      box-shadow: $shadow;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      transition: all 0.15s linear;
+      min-height: 103px;
+      &:hover {
+        scale: 1.05;
+      }
+    }
+    .MemberInfo {
+      justify-content: space-between;
+      font-size: 0.85em;
+      color: black;
+      p {
+        margin: 0 0 15px 0;
+        color: black;
+      }
+      :nth-child(1) {
+        margin-right: 10px;
+      }
+    }
+    .ProfileInfo {
+      justify-content: flex-start;
+      align-content: center;
+      font-size: 0.85em;
+      color: black;
+      &__Pseudo {
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      h2 {
+        margin: 0px 0px 0px 0px;
+        font-size: 1.25em;
+      }
+      p {
+        margin: 0 0 0px 0;
+        color: black;
+      }
+      :nth-child(1) {
+        margin-right: 10px;
+      }
+    }
+    .PledgeInfo {
+      justify-content: space-between;
+      font-size: 0.85em;
+      color: black;
+      p {
+        margin: 15px 0 0 0;
+        color: black;
+      }
+      :nth-child(1) {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+// Profile
+.ProfileImg {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  @media (max-width: $mobile) {
+    margin: 25px auto;
+  }
+}
+
+// Forms
+
+.Form {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: $base-padding;
+  max-width: 600px;
+  margin: 0 auto;
+  button {
+    margin: 0 auto;
+  }
+  width: calc(100% - 100px);
+  &.NoCode input:not([type='checkbox']):not([type='submit']),
+  &.NoCode textarea {
+    max-width: 100%;
+    resize: vertical;
+    height: auto;
+    // border-radius: 50px;
+    border: none;
+    width: auto;
+    margin: 0px;
+    outline: none !important;
+    padding: 0px;
+    font-size: 1em;
+    transition: all 0.15s linear;
+    max-width: 100px;
+    // box-shadow: $shadow;
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+  &.NoCode p {
+    font-size: 1.25em;
+  }
+  &.NoCode textarea {
+    max-width: 100%;
+  }
+}
+
+.Label {
+  font-size: 0.85em;
+  margin-bottom: 0px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.Field {
+  position: relative;
+}
+
+input:not([type='checkbox']):not([type='submit']),
+textarea {
+  height: 40px;
+  // border-radius: 50px;
+  border: 2px solid #efefef;
+  width: calc(100% - 30px);
+  margin: 10px 0px;
+  outline: none !important;
+  padding: 0px 15px;
+  font-size: 1em;
+  transition: all 0.15s linear;
+  // box-shadow: $shadow;
+  &:focus {
+    border: 2px solid $tertiary;
+  }
+}
+
+input[type='checkbox'] {
+  float: left;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.InlineLabel {
+  position: absolute;
+  top: 25px;
+  right: 15px;
+}
+
+textarea {
+  padding: 15px;
+  // border-radius: 5px;
+  height: auto;
+}
+
+label {
+  margin-top: 25px;
+  font-size: 0.75em;
+  display: block;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.TabButton {
+  position: relative;
+  background-color: transparent;
+  color: $primary;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-weight: 700;
+  &:hover {
+    color: $primary-hover;
+    background-color: transparent;
+  }
+}
+
+select {
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  font-size: 2em;
+  outline: none !important;
+  // restyle
+  color: $primary;
+  background-color: white;
+  position: relative;
+  // copied from normal input
+  height: 40px;
+  width: 100%;
+  padding: 0px 15px;
+  margin: 10px 0px;
+  border-radius: 50px;
+  box-shadow: $shadow;
+}
+
+label.Select {
+  position: relative;
+  width: 100%;
+  &::after {
+    content: '';
+    background-image: url('../assets/icon__dropdown-arrow.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 36px;
+    height: 36px;
+    fill: $primary;
+    display: block;
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+    pointer-events: none;
+  }
+}
+
+// Loader
+.Loading {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 110px);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: $background;
+  overflow: hidden;
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
+    overflow: hidden;
+  }
+  h5 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+  }
+}
+
+.Applicant__List {
+  display: block;
+  width: 100%;
+  * {
+    float: none;
+  }
+  .List--Item {
+    margin: 25px 0px;
+    font-size: 1.5em;
+  }
+}
+
+// Breakpoint Utils
+
+.HideMobile {
+  @media (max-width: $mobile) {
+    display: none;
+  }
+}

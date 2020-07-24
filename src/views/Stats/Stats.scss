@@ -1,0 +1,59 @@
+@import '../../styles/variables';
+
+.Stat_overview {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.GuildBank_overview {
+  margin-bottom: 20px;
+}
+
+.Stat_group {
+  text-align: left;
+  &--Large {
+    .Label {
+      font-size: 1em;
+    }
+    .Value {
+      font-size: 2.5em;
+    }
+  }
+}
+
+.Stat__title {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.Stat__value {
+  font-size: 2em;
+}
+
+ul.react-tabs__tab-list {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-inline-start: 0;
+}
+
+li.react-tabs__tab {
+  margin: 0 2vw 0 0;
+  padding: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+li.react-tabs__tab--selected {
+  border-bottom: 2px solid $primary;
+}
+
+.GasBag {
+  margin-top: 30px;
+  width: 100%;
+  text-align: right;
+}

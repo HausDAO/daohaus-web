@@ -1,0 +1,57 @@
+@import '../../styles/variables';
+.DaoCard {
+  background-color: $background-light;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  box-shadow: $shadow;
+  .Title.Row {
+    justify-content: flex-start;
+    .DaoAvatar {
+      width: 40px;
+      height: 40px;
+      background-color: $tertiary;
+      border-radius: 50%;
+      margin-right: 10px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      // display: none;
+    }
+    .DaoName {
+      max-width: calc(100% - 50px);
+      font-size: 28px;
+      margin: 0px;
+      font-family: $body-font;
+      font-weight: 500;
+      color: $primary-background;
+      // color: white !important;
+    }
+  }
+  .DaoDesc {
+    font-family: $heading-font;
+  }
+  span.Data {
+    margin-top: 5px;
+  }
+  .Bank {
+    font-size: 1.25em;
+  }
+  .Info.Row {
+    width: 100%;
+    justify-content: flex-start;
+    p {
+      margin: 0;
+      font-size: 0.85em;
+      &:not(:last-child) {
+        padding-right: 15px;
+        border-right: 1px solid $background-hover;
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+.DaoName {
+  word-wrap: break-word;
+}

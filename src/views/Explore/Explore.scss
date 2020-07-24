@@ -1,0 +1,24 @@
+@import '../../styles/variables';
+
+.Explore__hero {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px;
+  padding-bottom: 100px;
+  text-align: left;
+  background-color: $primary-background;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  color: #fff;
+  text-align: center;
+  h1 {
+    letter-spacing: 0.5em;
+    font-weight: 900;
+    @media (max-width: $mobile) {
+      font-size: 1.5em;
+    }
+  }
+}
