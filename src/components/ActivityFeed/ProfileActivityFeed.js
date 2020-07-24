@@ -15,7 +15,7 @@ const ProfileActivityFeed = ({ daos }) => {
 
     daos.forEach(dao => {
       const activeProps = dao.proposals.filter(prop => {
-        return prop.unread;
+        return prop.activityFeed.unread;
       });
       unreadProposals = [...unreadProposals, ...activeProps];
 

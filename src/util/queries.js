@@ -157,7 +157,7 @@ export const GET_MEMBER_GAS = gql`
   }
 `;
 
-export const GET_MEMBER_MOLOCHES = gql`
+export const GET_MEMBER_MOLOCHES_PROFILE = gql`
   query members($memberAddress: String!) {
     members(where: { memberAddress: $memberAddress, exists: true }) {
       id
@@ -188,7 +188,7 @@ export const GET_MEMBER_MOLOCHES = gql`
           proposalType @client
           description @client
           title @client
-          unread @client
+          activityFeed @client
           votes(where: { memberAddress: $memberAddress }) {
             id
             memberAddress
