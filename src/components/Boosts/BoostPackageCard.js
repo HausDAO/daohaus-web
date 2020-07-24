@@ -8,9 +8,9 @@ const BoostPackageCard = ({ boostPackage, isSummoning }) => {
   return (
     <div className="BoostPackageCard GridList__Item">
       <div className="Content">
-        <h4>{boostPackage.packageName}</h4>
-        <h2>{boostPackage.packageCost}</h2>
-        {boostPackage.boosts.map(boost => (
+        <h4>{boostPackage.name}</h4>
+        <h2>{boostPackage.price}</h2>
+        {boostPackage.features.map(boost => (
           <p key={boost}>{boost}</p>
         ))}
       </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { boostPackages, otherBoosts } from '../../content/boost-content';
+import { pricingPacks, otherBoosts } from '../../content/boost-content';
 import BoostPackageCard from './BoostPackageCard';
 
 import './Boosts.scss';
 
 const BoostPackages = ({ isSummoning }) => {
   const renderBoostPackages = () => {
-    return boostPackages.map(content => {
+    return pricingPacks.map(content => {
       return (
         <BoostPackageCard
           boostPackage={content}

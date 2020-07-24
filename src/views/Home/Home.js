@@ -19,12 +19,12 @@ import RandomBackground from '../../assets/random-bg.png';
 import {
   heroSlides,
   daohausFeatures,
-  pricingPacks,
   integrationLogos,
 } from '../../content/home-content';
 
 import './Home.scss';
 import { Link } from 'react-router-dom';
+import { pricingPacks } from '../../content/boost-content';
 
 const Home = () => {
   const [web3context] = useContext(Web3Context);
