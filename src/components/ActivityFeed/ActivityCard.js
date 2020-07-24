@@ -2,6 +2,7 @@ import React from 'react';
 import makeBlockie from 'ethereum-blockies-base64';
 
 import './ActivityFeed.scss';
+import { formatCreatedAt } from '../../util/helpers';
 
 const ActivityCard = ({ activity }) => {
   const baseUrl = `${process.env.REACT_APP_POKEMOL_URL}/dao/${activity.molochAddress}`;
@@ -32,13 +33,13 @@ const ActivityCard = ({ activity }) => {
 
         {activity.proposalId ? (
           <>
-            <h6>{activity.proposalType}</h6>
+            <h6>{`${activity.activityFeed.message} ${activity.proposalType}`}</h6>
             <h3>{activity.title}</h3>
             <p>{activity.description}</p>
           </>
         ) : (
           <>
-            <h6>Rage Quit</h6>
+            <h6>Rage Quit on {formatCreatedAt(activity.createdAt)}</h6>
             <p>Shares: {activity.shares}</p>
             <p>Loot: {activity.loot}</p>
             <p>memberAddress: {activity.memberAddress}</p>

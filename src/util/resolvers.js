@@ -59,21 +59,6 @@ export const resolvers = (() => {
       },
     },
     Proposal: {
-      unread: proposal => {
-        const abortedOrCancelled = proposal.aborted || proposal.cancelled;
-        const now = (new Date() / 1000) | 0;
-        const inVotingPeriod =
-          now >= +proposal.votingPeriodStart &&
-          now <= +proposal.votingPeriodEnds;
-        const needsMemberVote = inVotingPeriod && !proposal.votes.length;
-        const needsProcessing =
-          now >= +proposal.gracePeriodEnds && !proposal.processed;
-
-        return (
-          !abortedOrCancelled &&
-          (needsMemberVote || needsProcessing || !proposal.sponsored)
-        );
-      },
       proposalType: proposal => {
         let type;
         if (proposal.molochVersion === '1') {
@@ -97,6 +82,34 @@ export const resolvers = (() => {
       },
       description: proposal => {
         return descriptionMaker(proposal);
+      },
+      activityFeed: proposal => {
+        const abortedOrCancelled = proposal.aborted || proposal.cancelled;
+        const now = (new Date() / 1000) | 0;
+        const inVotingPeriod =
+          now >= +proposal.votingPeriodStart &&
+          now <= +proposal.votingPeriodEnds;
+        const needsMemberVote = inVotingPeriod && !proposal.votes.length;
+        const needsProcessing =
+          now >= +proposal.gracePeriodEnds && !proposal.processed;
+
+        let message;
+        if (!proposal.sponsored) {
+          message = 'New and unsponsored';
+        }
+        if (needsProcessing) {
+          message = 'Unprocessed';
+        }
+        if (needsMemberVote) {
+          message = "You haven't voted on this";
+        }
+
+        return {
+          unread:
+            !abortedOrCancelled &&
+            (needsMemberVote || needsProcessing || !proposal.sponsored),
+          message,
+        };
       },
     },
   };

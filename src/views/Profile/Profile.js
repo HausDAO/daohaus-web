@@ -3,7 +3,7 @@ import { getProfile } from '3box/lib/api';
 
 import { get } from '../../util/requests';
 import { useQuery } from 'react-apollo';
-import { GET_MEMBER_MOLOCHES } from '../../util/queries';
+import { GET_MEMBER_MOLOCHES_PROFILE } from '../../util/queries';
 import UnregisteredList from '../../components/UnregisteredList/UnregisteredList';
 import { Web3Context } from '../../contexts/ContractContexts';
 import ProfileMemberList from '../../components/ProfileMemberList/ProfileMemberList';
@@ -19,7 +19,7 @@ const Profile = props => {
 
   const [profile, setProfile] = useState({});
 
-  const { loading, error, data } = useQuery(GET_MEMBER_MOLOCHES, {
+  const { loading, error, data } = useQuery(GET_MEMBER_MOLOCHES_PROFILE, {
     variables: { memberAddress: props.match.params.account },
   });
 

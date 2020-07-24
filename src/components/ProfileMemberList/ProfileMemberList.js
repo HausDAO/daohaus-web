@@ -20,7 +20,7 @@ const ProfileMemberList = ({ daos }) => {
       return +rage.createdAt >= now - 1209600;
     });
     const recentProposals = dao.proposals.filter(prop => {
-      return prop.unread;
+      return prop.activityFeed.unread;
     });
     const healthCount = recentRages.length + recentProposals.length;
 

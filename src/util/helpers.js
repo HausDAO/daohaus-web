@@ -66,6 +66,10 @@ export const descriptionMaker = proposal => {
   return ``;
 };
 
+export const formatCreatedAt = createdAt => {
+  return moment.unix(createdAt).format('MMM Do');
+};
+
 export const formatPeriodDuration = seconds => {
   const hours = moment.duration(+seconds, 'seconds').asHours();
   if (hours > 1) {
