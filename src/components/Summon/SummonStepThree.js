@@ -47,7 +47,18 @@ const SummonStepThree = ({
   ]);
 
   const onSubmit = data => {
-    handleSummon(data);
+    const newDataData = {
+      ...getValues(),
+      ...periodsFromForm(watchPeriodFields, daoData.periodDuration),
+      ...depositsFromForm(watchDepositFields),
+    };
+    setDaoData(prevState => {
+      return {
+        ...prevState,
+        ...newDataData,
+      };
+    });
+    handleSummon(newDataData);
   };
 
   const navigate = step => {
