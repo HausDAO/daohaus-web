@@ -43,7 +43,7 @@ const Gas = () => {
       getYourGas();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [web3Context.account]);
+  }, [web3Context]);
 
   useEffect(() => {
     if (yourGas) {

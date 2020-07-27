@@ -12,6 +12,7 @@ import { SummonContextProvider } from './contexts/SummonContext';
 
 import './styles/global.scss';
 import './App.css';
+import { asciiLog } from './util/helpers';
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_SUPERGRAPH_URL,
@@ -21,6 +22,8 @@ const client = new ApolloClient({
 });
 
 function App() {
+  asciiLog();
+
   return (
     <ApolloProvider client={client}>
       <SummonContextProvider>

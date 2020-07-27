@@ -79,7 +79,7 @@ const SummonStepThree = ({
   };
 
   const handleCurrencyChange = event => {
-    const selectedOption = currencyOptions.find(option => {
+    const selectedOption = currencyOptions().find(option => {
       return event.target.value === option.value;
     });
 
@@ -141,7 +141,7 @@ const SummonStepThree = ({
               onChange={handleCurrencyChange}
               className="inline-field"
             >
-              {currencyOptions.map(option => {
+              {currencyOptions().map(option => {
                 return (
                   <option value={option.value} key={option.value}>
                     {option.label}
