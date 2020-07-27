@@ -60,7 +60,7 @@ export const PURPOSE_FILTER_OPTIONS = [
     label: 'Non-profit (Impact)',
   },
   {
-    value: 'Product',
+    value: 'Products',
     label: 'Product (Project)',
   },
 ];
