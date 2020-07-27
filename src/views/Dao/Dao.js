@@ -255,8 +255,8 @@ const Dao = props => {
                           <SignIn msg={'Sign in'} />
                         </>
                       )}
-                      {!daoData.apiData.hidePokemol ||
-                      process.env.REACT_APP_NETWORK_ID === '100' ? (
+                      {!daoData.apiData.hidePokemol &&
+                      process.env.REACT_APP_NETWORK_ID !== '100' ? (
                         <div className="Dapp">
                           <a
                             className="Button Medium"
