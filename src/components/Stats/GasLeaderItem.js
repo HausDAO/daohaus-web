@@ -59,9 +59,19 @@ const GasLeaderItem = ({ leader, ethPrice, i }) => {
         </div>
       </Link>
 
-      <p>{web3Service.fromWei(leader.totalGas)} Ξ</p>
-      {ethPrice ? (
-        <p>(${(web3Service.fromWei(leader.totalGas) * ethPrice).toFixed(2)})</p>
+      {web3Service ? (
+        <>
+          <p>{web3Service.web3Service.fromWei(leader.totalGas)} Ξ</p>
+          {ethPrice ? (
+            <p>
+              ($
+              {(
+                web3Service.web3Service.fromWei(leader.totalGas) * ethPrice
+              ).toFixed(2)}
+              )
+            </p>
+          ) : null}
+        </>
       ) : null}
     </div>
   );

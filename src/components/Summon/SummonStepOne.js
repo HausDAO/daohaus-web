@@ -14,7 +14,7 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
   };
 
   const renderPresets = () => {
-    return daoPresets.map(preset => {
+    return daoPresets().map(preset => {
       const isSelected = daoData.presetName === preset.presetName;
       return (
         <PresetCard
