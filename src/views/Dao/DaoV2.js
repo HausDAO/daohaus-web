@@ -112,8 +112,7 @@ const DaoV2 = props => {
                 )}
                 <div className="Dao__actions">
                   <h4 className="Label">Things to DAO</h4>
-                  {!daoData.apiData.hidePokemol &&
-                  process.env.REACT_APP_NETWORK_ID !== '100' ? (
+                  {!daoData.apiData.hidePokemol ? (
                     <div className="Dapp">
                       <a
                         className="Button Medium"
