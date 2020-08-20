@@ -65,11 +65,16 @@ const Home = () => {
             communities* for all.
             <span>* DAOs ;)</span>
           </h1>
-          {web3context && web3context.account ? (
-            <SummonButton />
-          ) : (
-            <SignIn msg={'Sign in'} />
-          )}
+          <div className="HeroButtonGroup">
+            {web3context && web3context.account ? (
+              <SummonButton />
+            ) : (
+              <SignIn msg={'Sign in'} />
+            )}
+            <a href="/explore" className="Button Big Secondary">
+              Explore
+            </a>
+          </div>
         </div>
         <div className="Carousel">{renderSlides()}</div>
       </div>
@@ -82,7 +87,7 @@ const Home = () => {
               style={{ flexDirection: 'column' }}
             >
               <h5>Ya’ll just chattin smh</h5>
-              <h2>Share resources and get stuff done. Together.</h2>
+              <h2>Share resources and get shit done. Together.</h2>
             </div>
             <div className="AmountRaised">
               <p>
