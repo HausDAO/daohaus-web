@@ -36,11 +36,11 @@ const Help = () => (
             <p>
               Feel free to hit us up in our{' '}
               <a
-                href="https://t.me/joinchat/IJqu9xPa0xzYLN1mmFKo8g"
+                href="https://discord.gg/NPEJysW"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Support Group on Telegram
+                #Support Channel on Discord
               </a>
               . Let us know about any bugs or feature requests. Or just ask us
               anything about daos. We can also introduce you to the DAO creation
@@ -61,20 +61,23 @@ const Help = () => (
               For a brief introduction to daos and Molochs specifically, you can
               catch up via the{' '}
               <a
-                href="https://medium.com/odyssy/moloch-primer-for-humans-9e6a4f258f78"
+                href="https://medium.com/raid-guild/moloch-evolved-v2-primer-25c9cdeab455"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Moloch Primer for Humans
+                Moloch V2 Primer for Humans
               </a>{' '}
               on Medium.
             </p>
 
             <p>
-              But basically, a DAO is a magical internet community that let’s
-              members raise and coordinate funds and resources. A Moloch (in
+              But basically, a DAO is a magic internet community that allows
+              members to raise and coordinate funds and resources. A Moloch (in
               addition to being a Canaanite god) is the simple, open-source DAO
-              framework we use at DAOhaus.
+              framework we use at DAOhaus. Its simplicity is important for 3
+              reasons: security (less code, less bugs), usability (complex tech
+              but easiest to understand and use), and extensibility (the ability
+              to extend its functionality to meet evolving community needs).
             </p>
             <p>
               Currently, Moloch is on version 2.0. Version 1.0 of Moloch was

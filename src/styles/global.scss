@@ -1,5 +1,4 @@
 @import 'variables';
-// @import '~antd/dist/antd.css';
 
 // Typography
 
@@ -120,12 +119,13 @@ button:not(.hamburger):not([role='switch']),
   }
   &.Big {
     padding: 25px;
-    font-size: 2.5em;
-    min-width: 300px;
+    font-size: 1.5em;
+    min-width: 200px;
     text-align: center;
     @media (max-width: $grid) {
-      font-size: 1.5em;
-      min-width: 180px;
+      padding: 15px;
+      font-size: 1.25em;
+      min-width: 120px;
     }
   }
   &:hover {
@@ -139,6 +139,14 @@ button:not(.hamburger):not([role='switch']),
       border: 2px solid $primary-hover;
       background-color: transparent;
       color: $primary-hover;
+    }
+  }
+  &.Secondary {
+    border: 2px solid transparent;
+    background-color: $secondary;
+    &:hover {
+      border: 2px solid transparent;
+      background-color: $primary-hover;
     }
   }
 }

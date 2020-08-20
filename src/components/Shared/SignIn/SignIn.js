@@ -45,7 +45,7 @@ const SignIn = props => {
           <Link to={`/profile/${w3Service.account}`}>Profile</Link>
         </>
       ) : (
-        <button onClick={() => activate()}>
+        <button onClick={() => activate()} className={msg ? 'Big' : ''}>
           {msg ? (
             <span>{msg}</span>
           ) : (

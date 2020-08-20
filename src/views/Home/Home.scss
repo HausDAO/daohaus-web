@@ -17,6 +17,12 @@
   flex-wrap: wrap;
 }
 
+.HeroButtonGroup {
+  .Button:not(:first-child) {
+    margin-left: 25px;
+  }
+}
+
 .SummonHero {
   padding-left: 100px;
   width: calc(50% - 100px);
