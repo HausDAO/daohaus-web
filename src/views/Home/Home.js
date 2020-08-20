@@ -143,7 +143,7 @@ const Home = () => {
       <div className="Boosts Block">
         <div className="Block__Contents">
           <div className="BoostsHeading">
-            <h2>Boost Packs</h2>
+            <h2>Boosts</h2>
             <h4>Level up your community, or gift to another.</h4>
           </div>
           <div className="BoostsPricing GridList">
@@ -214,13 +214,6 @@ const Home = () => {
               rel="noopener noreferrer"
             >
               <TwitterCircleFilled />
-            </a>
-            <a
-              href="https://t.me/joinchat/IJqu9xPa0xzYLN1mmFKo8g"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon component={TelegramSvg} />
             </a>
             <a
               href="https://discord.gg/NPEJysW"
