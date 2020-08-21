@@ -3,7 +3,6 @@ import { Carousel } from 'antd';
 import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
 
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
-import { ReactComponent as TelegramSvg } from '../../assets/branding/Telegram.svg';
 
 import { Web3Context } from '../../contexts/ContractContexts';
 import { ExploreContext } from '../../contexts/ExploreContext';
