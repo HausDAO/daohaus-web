@@ -89,4 +89,4 @@ https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-kovan
 
 https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-kovan-stats
 
-<table border="0"><tr>  <td><a href="https://gittron.me/bots/0x8f36df85f8e0bf32f2ffd20979d139cc"><img src="https://s3.amazonaws.com/od-flat-svg/0x8f36df85f8e0bf32f2ffd20979d139cc.png" alt="gittron" width="50"/></a></td><td><a href="https://gittron.me/bots/0x8f36df85f8e0bf32f2ffd20979d139cc">SUPPORT US WITH GITTRON</a></td></tr></table>
+<table border="0"><tr>  <td><a href="https://gittron.me/bots/0x8f36df85f8e0bf32f2ffd20979d139cc"><img src="https://s3.amazonaws.com/od-flat-svg/0x8f36df85f8e0bf32f2ffd20979d139cc.png" alt="gittron" width="50"/></a></td><td><a href="https://gittron.me/bots/0x8f36df85f8e0bf32f2ffd20979d139cc">HELLO GITTRON</a></td></tr></table>
