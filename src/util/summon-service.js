@@ -4,17 +4,20 @@ import MolochV2Abi from '../contracts/molochV2.json';
 import MolochV2Bytecode from '../contracts/molochV2Bytecode.json';
 
 import { post, remove, put } from './requests';
+import supportedChains from './chains';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
 
 export default class SummonService {
   constructor(web3Service) {
     this.web3Service = web3Service;
     this.v1FactoryContract = this.web3Service.initContract(
       v1FactoryAbi,
-      process.env.REACT_APP_FACTORY_CONTRACT_ADDRESS,
+      chainData.factory_contract,
     );
     this.v2FactoryContract = this.web3Service.initContract(
       v2FactoryAbi,
-      process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
+      chainData.factory_v2_contract,
     );
     this.summonTx = null;
     this.MolochV2Bytecode = MolochV2Bytecode;

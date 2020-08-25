@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+import supportedChains from './chains';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
+
 export const BaseUrl = () => {
-  return process.env.REACT_APP_STATGRAPH_URL;
+  return chainData.stats_subgraph_url;
 };
 
 export const getBalances = async (daoAddress, tokenAddress) => {

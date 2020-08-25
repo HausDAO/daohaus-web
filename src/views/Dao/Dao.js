@@ -20,8 +20,11 @@ import TokenService from '../../util/token-service';
 import MolochService from '../../util/moloch-service';
 import SignIn from '../../components/Shared/SignIn/SignIn';
 import HeadTags from '../../components/Shared/HeadTags/HeadTags';
+import supportedChains from '../../util/chains';
 
 import './Dao.scss';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
 
 const Dao = props => {
   const client = useApolloClient();
@@ -259,7 +262,7 @@ const Dao = props => {
                         <div className="Dapp">
                           <a
                             className="Button Medium"
-                            href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
+                            href={`${chainData.pokemol_url}/dao/${molochService.contractAddr}`}
                             target="_blank"
                             rel="noreferrer noopener"
                           >
