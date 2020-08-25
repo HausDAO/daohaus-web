@@ -1,11 +1,15 @@
 import React from 'react';
 import makeBlockie from 'ethereum-blockies-base64';
 
-import './ActivityFeed.scss';
 import { formatCreatedAt } from '../../util/helpers';
+import supportedChains from '../../util/chains';
+
+import './ActivityFeed.scss';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
 
 const ActivityCard = ({ activity }) => {
-  const baseUrl = `${process.env.REACT_APP_POKEMOL_URL}/dao/${activity.molochAddress}`;
+  const baseUrl = `${chainData.pokemol_url}/dao/${activity.molochAddress}`;
   const url = activity.proposalId
     ? `${baseUrl}/proposal/${
         activity.molochVersion === '2'

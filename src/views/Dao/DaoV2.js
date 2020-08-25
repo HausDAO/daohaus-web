@@ -8,8 +8,11 @@ import { successMessagesText } from '../../util/helpers';
 import MolochService from '../../util/moloch-service';
 import HeadTags from '../../components/Shared/HeadTags/HeadTags';
 import ApplicationList from '../../components/MemberList/ApplicationList';
+import supportedChains from '../../util/chains';
 
 import './Dao.scss';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
 
 const DaoV2 = props => {
   const client = useApolloClient();
@@ -116,7 +119,7 @@ const DaoV2 = props => {
                     <div className="Dapp">
                       <a
                         className="Button Medium"
-                        href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${molochService.contractAddr}`}
+                        href={`${chainData.pokemol_url}/dao/${molochService.contractAddr}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
