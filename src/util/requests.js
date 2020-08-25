@@ -1,7 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
+
+import supportedChains from './chains';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
 
 export const BaseUrl = () => {
-  return process.env.REACT_APP_API_HOST;
+  return chainData.api_url;
 };
 
 export const get = async endpoint => {
@@ -9,7 +13,7 @@ export const get = async endpoint => {
 
   const instance = axios.create({
     baseURL,
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   try {
     return await instance.get(`/${endpoint}`);
@@ -23,7 +27,7 @@ export const post = async (endpoint, payload) => {
 
   const instance = axios.create({
     baseURL,
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   try {
     return await instance.post(`/${endpoint}`, payload);
@@ -37,7 +41,7 @@ export const put = async (endpoint, payload) => {
 
   const instance = axios.create({
     baseURL,
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   try {
     return await instance.put(`/${endpoint}`, payload);
@@ -51,7 +55,7 @@ export const remove = async endpoint => {
 
   const instance = axios.create({
     baseURL,
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   try {
     return await instance.delete(`/${endpoint}`);

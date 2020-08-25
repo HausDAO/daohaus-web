@@ -4,6 +4,9 @@ import imgVentures from '../assets/imgVentures.svg';
 import imgImpacts from '../assets/branding/Icon__DAO--Impact.png';
 import imgProjects from '../assets/branding/Icon__DAO--Project.png';
 import imgClubs from '../assets/branding/Icon__DAO--Social.png';
+import supportedChains from '../util/chains';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
 
 export const daoConstants = () => {
   const constants = {
@@ -12,7 +15,7 @@ export const daoConstants = () => {
   };
 
   if (process.env.REACT_APP_NETWORK_ID === '100') {
-    constants.approvedToken = process.env.REACT_APP_WXDAI_ADDRESS;
+    constants.approvedToken = chainData.wxdai_contract;
   }
 
   return constants;
@@ -25,7 +28,7 @@ export const daoPresets = () => {
       presetSubtitle: 'Accelerators',
       presetDescription: 'Spread around the wealth and accelerate good stuff.',
       currency: 'WETH',
-      approvedToken: process.env.REACT_APP_WETH_ADDRESS,
+      approvedToken: chainData.weth_contract,
       minimumTribute: '10',
       votingPeriod: '168',
       gracePeriod: '72',
@@ -42,7 +45,7 @@ export const daoPresets = () => {
       presetDescription:
         'Invest on chain with a venture fund at your fingertips.',
       currency: 'WETH',
-      approvedToken: process.env.REACT_APP_WETH_ADDRESS,
+      approvedToken: chainData.weth_contract,
       minimumTribute: '50',
       votingPeriod: '7',
       gracePeriod: '7',
@@ -58,7 +61,7 @@ export const daoPresets = () => {
       presetSubtitle: 'Services',
       presetDescription: 'BuidL with fellow journeymen for clients and glory.',
       currency: 'DAI',
-      approvedToken: process.env.REACT_APP_DAI_ADDRESS,
+      approvedToken: chainData.dai_contract,
       minimumTribute: '100',
       votingPeriod: '60',
       gracePeriod: '24',
@@ -75,7 +78,7 @@ export const daoPresets = () => {
       presetDescription:
         'Hang with your friends and commrades to nerd out or just chill.',
       currency: 'DAI',
-      approvedToken: process.env.REACT_APP_DAI_ADDRESS,
+      approvedToken: chainData.dai_contract,
       minimumTribute: '10',
       votingPeriod: '4320',
       gracePeriod: '2880',
@@ -92,7 +95,7 @@ export const daoPresets = () => {
       presetDescription:
         'Decentralize to do good for the world and make an impact that lasts.',
       currency: 'DAI',
-      approvedToken: process.env.REACT_APP_DAI_ADDRESS,
+      approvedToken: chainData.dai_contract,
       minimumTribute: '25',
       votingPeriod: '240',
       gracePeriod: '96',
@@ -109,7 +112,7 @@ export const daoPresets = () => {
       presetDescription:
         'Raid together to get projects and products done in record time.',
       currency: 'DAI',
-      approvedToken: process.env.REACT_APP_DAI_ADDRESS,
+      approvedToken: chainData.dai_contract,
       minimumTribute: '250',
       votingPeriod: '60',
       gracePeriod: '36',
@@ -125,7 +128,7 @@ export const daoPresets = () => {
   if (process.env.REACT_APP_NETWORK_ID === '100') {
     presets = presets.map(preset => {
       preset.currency = 'WXDAI';
-      preset.approvedToken = process.env.REACT_APP_WXDAI_ADDRESS;
+      preset.approvedToken = chainData.wxdai_contract;
       preset.proposalDeposit = '100000000000000000';
       preset.processingReward = '10000000000000000';
 
@@ -143,7 +146,7 @@ export const currencyOptions = () => {
       {
         value: 'WXDAI',
         label: 'WXDAI',
-        address: process.env.REACT_APP_WXDAI_ADDRESS,
+        address: chainData.wxdai_contract,
       },
     ];
   } else {
@@ -151,12 +154,12 @@ export const currencyOptions = () => {
       {
         value: 'DAI',
         label: 'DAI',
-        address: process.env.REACT_APP_DAI_ADDRESS,
+        address: chainData.dai_contract,
       },
       {
         value: 'WETH',
         label: 'WETH',
-        address: process.env.REACT_APP_WETH_ADDRESS,
+        address: chainData.weth_contract,
       },
     ];
   }
