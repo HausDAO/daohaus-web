@@ -1,5 +1,5 @@
-const supportedChains = [
-  {
+export const supportedChains = {
+  1: {
     name: 'Ethereum Mainnet',
     short_name: 'eth',
     chain: 'ETH',
@@ -7,17 +7,18 @@ const supportedChains = [
     chain_id: 1,
     network_id: 1,
     rpc_url: 'https://mainnet.infura.io/',
+    api_url: 'https://luizh7qidl.execute-api.us-east-1.amazonaws.com/prod',
+    pokemol_url: 'https://pokemol.com',
+    subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus',
+    stats_subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats',
+    factory_contract: '0x2840d12d926cc686217bb42B80b662C7D72ee787',
+    factory_v2_contract: '0x1782a13f176e84Be200842Ade79daAA0B09F0418',
+    dai_contract: '0x6b175474e89094c44da98b954eedeac495271d0f',
+    weth_contract: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
   },
-  {
-    name: 'Ethereum Ropsten',
-    short_name: 'rop',
-    chain: 'ETH',
-    network: 'ropsten',
-    chain_id: 3,
-    network_id: 3,
-    rpc_url: 'https://ropsten.infura.io/',
-  },
-  {
+  4: {
     name: 'Ethereum Rinkeby',
     short_name: 'rin',
     chain: 'ETH',
@@ -25,17 +26,18 @@ const supportedChains = [
     chain_id: 4,
     network_id: 4,
     rpc_url: 'https://rinkeby.infura.io/',
+    api_url: 'https://e5sk5e8me2.execute-api.us-east-1.amazonaws.com/rinkeby',
+    pokemol_url: 'https://rinkeby.pokemol.com',
+    subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-rinkeby',
+    stats_subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-rinkeby',
+    factory_contract: '0x610247467d0dfA8B477ad7Dd1644e86CB2a79F8F',
+    factory_v2_contract: '0x763b61A62EF076ad960E1d513713B2aeD7C1b88e',
+    dai_contract: '0x95b58a6bff3d14b7db2f5cb5f0ad413dc2940658',
+    weth_contract: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
   },
-  {
-    name: 'Ethereum Görli',
-    short_name: 'gor',
-    chain: 'ETH',
-    network: 'goerli',
-    chain_id: 5,
-    network_id: 5,
-    rpc_url: 'https://rpc.goerli.mudit.blog/',
-  },
-  {
+  42: {
     name: 'Ethereum Kovan',
     short_name: 'kov',
     chain: 'ETH',
@@ -43,49 +45,39 @@ const supportedChains = [
     chain_id: 42,
     network_id: 42,
     rpc_url: 'https://kovan.infura.io/',
+    api_url: 'https://kp7w1od8kd.execute-api.us-east-1.amazonaws.com/kovan',
+    pokemol_url: 'https://kovan.pokemol.com',
+    subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-kovan',
+    stats_subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-kovan',
+    factory_contract: '0x0C60Cd59f42093c7489BA68BAA4d7A01f2468153',
+    factory_v2_contract: '0xB47778d3BcCBf5e39dEC075CA5F185fc20567b1e',
+    dai_contract: '0xc4375b7de8af5a38a93548eb8453a498222c4ff2',
+    weth_contract: '0xd0a1e359811322d97991e03f863a0c30c2cf029c',
   },
-  {
-    name: 'Ethereum Classic Mainnet',
-    short_name: 'etc',
-    chain: 'ETC',
-    network: 'mainnet',
-    chain_id: 61,
-    network_id: 1,
-    rpc_url: 'https://ethereumclassic.network',
-  },
-  {
-    name: 'POA Network Sokol',
-    short_name: 'poa',
-    chain: 'POA',
-    network: 'sokol',
-    chain_id: 77,
-    network_id: 1,
-    rpc_url: 'https://sokol.poa.network',
-  },
-  {
-    name: 'POA Network Core',
-    short_name: 'skl',
-    chain: 'POA',
-    network: 'core',
-    chain_id: 99,
-    network_id: 2,
-    rpc_url: 'https://core.poa.network',
-  },
-  {
+  100: {
     name: 'xDAI Chain',
     short_name: 'xdai',
     chain: 'xDAI',
-    network: 'xDAI',
+    network: 'mainnet',
     chain_id: 100,
     network_id: 1,
     rpc_url: 'https://dai.poa.network',
+    api_url: 'https://fbpzfkbqyi.execute-api.us-east-1.amazonaws.com/xdai',
+    pokemol_url: 'https://kovanxdai.pokemol.com',
+    subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-xdai',
+    stats_subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-xdai',
+    factory_contract: '0x0C60Cd59f42093c7489BA68BAA4d7A01f2468153',
+    factory_v2_contract: '0xB47778d3BcCBf5e39dEC075CA5F185fc20567b1e',
+    wxdai_contract: '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d',
   },
-];
+};
 
 export function getChainData(chainId) {
-  const chainData = supportedChains.filter(
-    chain => chain.chain_id === chainId,
-  )[0];
+  const chainData = supportedChains[+chainId];
 
   if (!chainData) {
     throw new Error('ChainId missing or not supported');

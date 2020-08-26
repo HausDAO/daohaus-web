@@ -6,8 +6,11 @@ import { GET_MOLOCH } from '../../util/queries';
 import { Web3Context } from '../../contexts/ContractContexts';
 import { get, post, remove } from '../../util/requests';
 import FactoryAbi from '../../contracts/factoryV2.json';
+import supportedChains from '../../util/chains';
 
 import './Building.scss';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
 
 const Building = props => {
   const { match, history } = props;
@@ -60,11 +63,11 @@ const Building = props => {
     }
     setLoading(true);
 
-    //get all events of this moloch should not be more than one
+    // get all events of this moloch should not be more than one
     // user should be summonor
     const factoryContract = web3Context.web3Service.initContract(
       FactoryAbi,
-      process.env.REACT_APP_FACTORY_V2_CONTRACT_ADDRESS,
+      chainData.factory_v2_contract,
     );
 
     factoryContract.methods

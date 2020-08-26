@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import makeBlockie from 'ethereum-blockies-base64';
 
+import supportedChains from '../../util/chains';
+
 import './ProfileMemberList.scss';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
 
 const ProfileMemberList = ({ daos }) => {
   const [visibleDaos, setVisibleDaos] = useState([]);
@@ -27,7 +31,7 @@ const ProfileMemberList = ({ daos }) => {
     return (
       <div key={dao.id} className="Daolist__Item">
         <a
-          href={`${process.env.REACT_APP_POKEMOL_URL}/dao/${dao.id}`}
+          href={`${chainData.pokemol_url}/dao/${dao.id}`}
           target="_blank"
           rel="noreferrer noopener"
         >
