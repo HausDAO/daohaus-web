@@ -65,7 +65,7 @@ export const supportedChains = {
     network_id: 1,
     rpc_url: 'https://dai.poa.network',
     api_url: 'https://fbpzfkbqyi.execute-api.us-east-1.amazonaws.com/xdai',
-    pokemol_url: 'https://kovanxdai.pokemol.com',
+    pokemol_url: 'https://xdai.pokemol.com',
     subgraph_url:
       'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-xdai',
     stats_subgraph_url:
