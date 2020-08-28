@@ -43,6 +43,7 @@ export const GET_TOKENS = gql`
   query tokens($skip: Int) {
     tokens(first: 100, skip: $skip) {
       tokenAddress
+      symbol
     }
   }
 `;
