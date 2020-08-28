@@ -31,6 +31,7 @@ $primary-hover: lighten($primary, 15%);
 $secondary-hover: lighten($secondary, 15%);
 $tertiary-hover: lighten($tertiary, 15%);
 $background-hover: darken($background, 5%);
+$primary-background-hover: darken($primary-background, 5%);
 
 // Other Styles
 $shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -71,6 +72,14 @@ $border-radius: 15px;
     pointer-events: none;
   }
 }
+@keyframes scaleDown {
+  from {
+    height: 100%;
+  }
+  to {
+    height: 0;
+  }
+}
 
 .FadeIn {
   opacity: 0; /* make things invisible upon start */
@@ -87,6 +96,16 @@ $border-radius: 15px;
   opacity: 0; /* make things invisible upon start */
   top: 0px;
   animation: fadeOut;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-duration: 0.25s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+}
+
+.ScaleDown {
+  height: 0px;
+  animation: scaleDown;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
   animation-duration: 0.25s;

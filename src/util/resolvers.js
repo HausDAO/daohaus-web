@@ -49,11 +49,6 @@ export const resolvers = (() => {
         const balances = await getBalances(moloch.id);
 
         return balances.data.data.balances.map(b => {
-          // return {
-          //   x: +b.timestamp,
-          //   y: +(+b.balance / 10 ** 19).toFixed(0),
-          // };
-
           return +(+b.balance / 10 ** 19).toFixed(0);
         });
       },

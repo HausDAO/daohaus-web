@@ -8,7 +8,7 @@ import {
   VERSION_FILTER_OPTIONS,
 } from '../util/constants';
 import { useQuery } from 'react-apollo';
-import { getUsd } from '../util/prices';
+import { getUsd, XDAI_TOKEN_PAIRS } from '../util/prices';
 
 const ExploreContext = React.createContext();
 
@@ -82,7 +82,13 @@ function ExploreContextProvider(props) {
 
   useEffect(() => {
     const getAllPrices = async () => {
-      const uniqueTokens = _.uniq(data.tokens.map(token => token.tokenAddress));
+      let uniqueTokens = _.uniq(data.tokens.map(token => token.tokenAddress));
+
+      if (process.env.REACT_APP_NETWORK_ID === '100') {
+        uniqueTokens = uniqueTokens.map(
+          xdaiAddress => XDAI_TOKEN_PAIRS[xdaiAddress],
+        );
+      }
 
       let prices = {};
       try {
@@ -90,6 +96,13 @@ function ExploreContextProvider(props) {
         prices = res.data;
       } catch (err) {
         console.log('price api error', err);
+      }
+
+      if (process.env.REACT_APP_NETWORK_ID === '100') {
+        prices = _.mapKeys(prices, (k, v) => {
+          const i = Object.values(XDAI_TOKEN_PAIRS).indexOf(v.toLowerCase());
+          return Object.keys(XDAI_TOKEN_PAIRS)[i];
+        });
       }
 
       dispatch({ type: 'setPrices', payload: prices });
