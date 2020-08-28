@@ -3,6 +3,8 @@ import React from 'react';
 import './Help.scss';
 import { Link } from 'react-router-dom';
 
+import xDAIComparisonChart from '../../assets/xDAIcomparisonChart.png';
+
 const Help = () => (
   <div className="Page">
     <div className="View">
@@ -27,6 +29,12 @@ const Help = () => (
             </li>
             <li>
               <a href="#Glossary">DAO Glossary</a>
+            </li>
+            <li>
+              <a href="#xDAI">xDAI Quick Start</a>
+            </li>
+            <li>
+              <a href="#xDAIMigrate">Migrate from Main to xDAI</a>
             </li>
           </ul>
         </div>
@@ -566,6 +574,215 @@ const Help = () => (
               that may give out large amounts of capital typically use 7 day
               voting periods. Other DAOs may choose to have shorter voting
               periods, so that funds can be accessed quicker.
+            </p>
+          </div>
+          <div className="Section" id="xDAI">
+            <h2>xDAI Quick Start</h2>
+            <p>
+              Ethereum Mainnet is extremely secure, but lately the transaction
+              fees have been too high due to high usage of the network. Slightly
+              less secure, but exponentially faster and cheaper, the xDAI
+              network offers a strong alternative until Eth 2.0 arrives.
+            </p>
+            <h4>Network Comparison</h4>
+            <img src={xDAIComparisonChart} alt="comparison of main vs xdai" />
+            <p>
+              There are tradeoffs with any network switch. In the case of xDAI,
+              you get far better usability for your community, but at the cost
+              of a slightly less secure network (less decentralized) and slight
+              change in user experience as you need to bridge tokens from Main
+              onto the xDAI network, and back again if you need access to a
+              token not yet on xDAI. For more on why we've chosen xDAI over
+              other Layer 2 solutions, read our{' '}
+              <a
+                href="https://medium.com/daohaus-club/daohaus-xdai-dapp-migration-83dca1fc590a"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                article on Medium
+              </a>
+              .
+            </p>
+            <p>
+              We’ve prepared the following tips and tricks to using DAOhaus on
+              xDAI, but please feel free to hop into our{' '}
+              <a
+                href="https://discord.gg/MEYmdJF"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Discord
+              </a>{' '}
+              and ask us anything.
+            </p>
+            <h2>How to xDAI</h2>
+            <p>
+              <strong>Important!</strong> This guide is for summoning new DAOs
+              on xDAI or interacting with DAOs fully running on xDAI. If your
+              DAO is on Mainnet and you're looking to migrate all activity to
+              xDAI, follow the suggested Migrate DAO to xDAI process here.
+            </p>
+            <h4>1. Bridge some DAI to xDAI</h4>
+            <p>
+              Where Eth is the native token on Ethereum Mainnet, xDAI is native
+              token on xDAI network. To bridge some Dai to xDAI, visit the
+              bridge on Mainnet. Transactions are very cheap on xDAI so you
+              shouldn't need much.{' '}
+            </p>
+            <p>
+              <a
+                href="https://dai-bridge.poa.network/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                https://dai-bridge.poa.network/
+              </a>
+            </p>
+            <p>
+              <strong>Note:</strong> You can always bridge xDAI back to Dai by
+              visiting the same bridge while on the xDAI network instead of
+              Mainnet.
+            </p>
+            <h4>2. Switch to xDAI network</h4>
+            <p>
+              Add xDAI as a network by clicking 'Custom RPC' in the network
+              dropdown in Metamask, and filling in the following details:
+              accompanying screenshot
+            </p>
+            <p>
+              <ul>
+                <li>Network Name: xdai </li>
+                <li>New RPC URL: https://dai.poa.network/</li>
+                <li>ChainID: 100 </li>
+                <li>Symbol: xDAI </li>
+                <li>Block Explorer URL: https://blockscout.com/poa/xdai</li>
+              </ul>
+            </p>
+            <p>
+              You are now on the xDAI network with some xDAI to run transactions
+              like summoning a DAO or voting in an existing one.
+            </p>
+            <h4>3. Get Wrapped xDAI (wxDAI)</h4>
+            <p>
+              A lot of DAOs use a wrapped version of the native token (wETH) to
+              submit proposals. The equivalent on xDAI is wrapped xDAI (wxDAI).
+              Visit Wrapeth.com while on xDAI network to wrap and unwrap xDAI as
+              needed.
+            </p>
+            <h4>4. Bridge back to Main (when necessary)</h4>
+            <p>
+              Whenever you need to take tokens back to Mainnet for whatever
+              reason, you simply visit the bridge while on xDAI network and
+              bridge your xDAI back to DAI.
+            </p>
+            <p>
+              <a
+                href="https://dai-bridge.poa.network/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                https://dai-bridge.poa.network/
+              </a>
+            </p>
+          </div>
+          <div className="Section" id="#xDAIMigrate">
+            <h2>Migrate DAO from Mainnet to xDAI</h2>
+            <p>
+              The xDAI bridge currently only accepts DAI to xDAI transfers. For
+              that reason, migrating is only recommended for DAOs who are only
+              holding DAI in their bank.
+            </p>
+            <p>
+              <strong>Note:</strong> A Multitoken bridge is on its way. We're
+              helping build it so it's coming fast ;). We'll update this guide
+              when it is usable.
+            </p>
+            <h4>1. Put a hold on Mainnet activity</h4>
+            <p>
+              When ready to start migrating, tell your community to hold off on
+              submitting new proposals until the migration to xDAI is complete.
+              Depending on the length of your DAO's voting period, it'll take at
+              least that long to get the state mirrored on xDAI. **Important!
+              Before starting the migration, make sure all proposals are
+              processed and there are no proposals in Queue, Voting, Grace,
+              Ready for Processing.**{' '}
+            </p>
+            <h4>2. Summon the DAO on xDAI</h4>
+            <p>
+              Visit DAOhaus on xDAI and summon your DAO. Typically you would
+              want to mirror the same settings as the original DAO on mainnet,
+              aside from the token contracts. https://xdai.daohaus.club/summon{' '}
+            </p>
+            <h4>3. Submit Proposals to the xDAI DAO</h4>
+            <p>
+              Once the DAO is summoned on xDAI, you basically just have to get
+              all exact Shares and Loot allocated to the exact same members as
+              the one on mainnet. We are working on a migration tool to ease
+              this process, but for now the easiest way to do this to submit
+              Member Proposals for each member and setting appropriate Shares
+              and Loot as found on mainnet. > screenshot of funding proposal >
+              screenshot of member cards in dao?{' '}
+            </p>
+            <p>
+              **Important! Be sure to follow proposals on xDAI and ensure they
+              all get voted on by someone so that they pass.** Once all
+              proposals have been submitted, sponsored, voted on, and processed,
+              your xDAI DAO is now in sync with your Mainnet DAO. Other than the
+              tokens!
+            </p>
+            <h4>4. Migrate DAO Funds from Main to xDAI</h4>
+            <p>
+              Here are two paths to migrating funds from the dao bank on mainnet
+              to the dao on xDAI. Trusting a member is fast and easy. Using a
+              multisig is more trustless, but VERY hard and time-consuming.
+            </p>
+            <h4>A. Trusting a Member</h4>
+            <p>
+              The quickest, easiest way to migrate funds is to submit a Funding
+              Proposal that sends all the DAI in the Mainnet DAO to a trusted
+              member. The trusted member then simply goes to the{' '}
+              <a
+                href="https://dai-bridge.poa.network/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                xDAI Bridge
+              </a>{' '}
+              on Mainnet to bridge the DAI to xDAI. Switch to xDAI network and
+              visit Wrapeth.com to wrap the xDAI into wxDAI. Once wrappd, you
+              can send the wxDAI to the DAO's contract address.
+            </p>
+            <h4>B. Using Multisigs</h4>
+            <p>
+              <strong>
+                Not recommended unless you know EXACTLY what you're doing. ALL
+                of your funds can be lost.
+              </strong>
+            </p>
+            <p>
+              You'll need two multisigs. One on Mainnet and one on xDAI. Gnosis
+              Safe is great but does not have an interface yet on xDAI, so
+              you'll have to get cozy with Etherscan until there is an interface
+              available.
+            </p>
+            <p>
+              <a
+                href="https://help.gnosis-safe.io/en/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                View Gnosis Safe Help
+              </a>
+            </p>
+            <p>Alternate Receiver Help</p>
+            <p>
+              <a
+                href="https://www.xdaichain.com/for-users/converting-xdai-via-bridge/alternate-receiver-send-dai-to-another-xdai-address"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                https://www.xdaichain.com/for-users/converting-xdai-via-bridge/alternate-receiver-send-dai-to-another-xdai-address
+              </a>
             </p>
           </div>
         </div>
