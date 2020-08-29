@@ -11,9 +11,7 @@ import './NotificationBar.scss';
 
 const NotificationBar = () => {
   const [isHidden, setIsHidden] = useState(false);
-
   const toggleBar = () => setIsHidden(!isHidden);
-
   const barClass = isHidden ? 'NotificationBar IsHidden' : 'NotificationBar';
 
   return (
@@ -30,12 +28,15 @@ const NotificationBar = () => {
           <Link className="Button Secondary" to="/help#xDAI">
             <OrderedListOutlined style={{ marginRight: '5px' }} /> Quick Guide
           </Link>
-          <a
-            className="Button Outlined Secondary"
-            href="https://xdai.daohaus.club/"
-          >
-            Go to xDAI <ArrowRightOutlined style={{ marginLeft: '5px' }} />
-          </a>
+          {window.location.href.indexOf('xdai.daohaus.club') <= -1 ? (
+            <a
+              className="Button Outlined Secondary"
+              href="https://xdai.daohaus.club/"
+            >
+              Go to xDAI <ArrowRightOutlined style={{ marginLeft: '5px' }} />
+            </a>
+          ) : null}
+
           <button className="Simple" onClick={toggleBar}>
             <CloseOutlined />
           </button>
