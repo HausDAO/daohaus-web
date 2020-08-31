@@ -7,7 +7,7 @@
   transition: all 0.15s linear;
   .Row {
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 15px;
   }
   p {
@@ -30,5 +30,24 @@
   }
   &.IsHidden {
     height: 0px;
+  }
+  button,
+  .Button {
+    @media (min-width: $mobile + 1) and (max-width: $grid) {
+      margin-left: 15px;
+      margin-top: 15px;
+    }
+    @media (min-width: $grid + 1) {
+      margin-left: 15px;
+    }
+    @media (max-width: $mobile) {
+      margin-top: 15px;
+    }
+  }
+  @media (max-width: $mobile) {
+    .Actions {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
