@@ -46,7 +46,8 @@ const Gas = () => {
   }, [web3Context]);
 
   useEffect(() => {
-    if (yourGas) {
+    console.log('yourGas', yourGas);
+    if (yourGas && data) {
       setIsLeader(
         data.gassiest.findIndex(leader => {
           return (
@@ -57,7 +58,7 @@ const Gas = () => {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [yourGas]);
+  }, [yourGas, data]);
 
   const renderLeaders = leaders => {
     return leaders.map((leader, i) => {
