@@ -95,6 +95,9 @@ img {
 // UI Elements
 button:not(.hamburger):not([role='switch']),
 .Button {
+  &:hover {
+    background-color: $primary-hover;
+  }
   font-family: $body-font;
   font-weight: 500;
   display: inline-block;
@@ -128,9 +131,6 @@ button:not(.hamburger):not([role='switch']),
       min-width: 120px;
     }
   }
-  &:hover {
-    background-color: $primary-hover;
-  }
   &.Outlined {
     border: 2px solid $orange;
     background-color: transparent;
@@ -147,6 +147,26 @@ button:not(.hamburger):not([role='switch']),
     &:hover {
       border: 2px solid transparent;
       background-color: $primary-hover;
+    }
+    &.Outlined {
+      border: 2px solid $secondary;
+      background-color: transparent;
+      color: $secondary;
+      &:hover {
+        border: 2px solid $secondary-hover;
+        background-color: transparent;
+        color: $secondary-hover;
+      }
+    }
+  }
+  &.Simple {
+    border: 2px solid transparent;
+    background-color: transparent;
+    color: $orange;
+    &:hover {
+      border: 2px solid transparent;
+      background-color: transparent;
+      color: $primary-hover;
     }
   }
 }

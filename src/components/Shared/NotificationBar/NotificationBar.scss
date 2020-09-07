@@ -1,0 +1,53 @@
+@import '../../../styles/variables';
+
+.NotificationBar {
+  width: 100%;
+  background-color: $primary-background-hover;
+  height: 100%;
+  transition: all 0.15s linear;
+  .Row {
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+  }
+  p {
+    color: white;
+  }
+  img {
+    width: auto;
+    height: 60px;
+  }
+  @media (max-width: $mobile) {
+    .Row {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 25px;
+      p {
+        text-align: center;
+      }
+    }
+  }
+  &.IsHidden {
+    height: 0px;
+  }
+  button,
+  .Button {
+    @media (min-width: $mobile + 1) and (max-width: $grid) {
+      margin-left: 15px;
+      margin-top: 15px;
+    }
+    @media (min-width: $grid + 1) {
+      margin-left: 15px;
+    }
+    @media (max-width: $mobile) {
+      margin-top: 15px;
+    }
+  }
+  @media (max-width: $mobile) {
+    .Actions {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

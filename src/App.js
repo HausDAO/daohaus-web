@@ -5,6 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 
 import Routes from './Routes';
 import TopNav from './components/Shared/TopNav/TopNav';
+import NotificationBar from './components/Shared/NotificationBar/NotificationBar';
 import ContractContexts from './contexts/ContractContexts';
 import { resolvers } from './util/resolvers';
 import { ExploreContextProvider } from './contexts/ExploreContext';
@@ -34,6 +35,7 @@ function App() {
           <ExploreContextProvider>
             <div className="App">
               <Router>
+                <NotificationBar />
                 <TopNav />
                 <Routes />
               </Router>

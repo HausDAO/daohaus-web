@@ -224,6 +224,8 @@ $hamburger-hover-filter: none !default;
   }
 
   &.is-active {
+    position: fixed;
+    top: 50px;
     .hamburger-inner {
       transform: rotate(225deg);
       transition-delay: 0.12s;
