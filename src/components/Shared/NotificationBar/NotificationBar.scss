@@ -5,6 +5,7 @@
   background-color: $primary-background-hover;
   height: 100%;
   transition: all 0.15s linear;
+  overflow: hidden;
   .Row {
     align-items: center;
     justify-content: flex-start;

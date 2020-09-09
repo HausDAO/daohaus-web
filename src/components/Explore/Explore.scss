@@ -22,7 +22,6 @@
     padding: 0px 25px;
     > div:nth-child(1) {
       flex-basis: 100%;
-      height: 80px;
     }
     > div:nth-child(2) {
     }
@@ -104,18 +103,28 @@
   padding-left: 25px;
   border-left: 2px solid $background;
   height: 100%;
+  flex-wrap: wrap;
   @media (max-width: $mobile) {
     margin: 0;
-    padding: 0px;
-    height: 80px;
+    padding: 0px 0px 25px 0px;
+    height: auto;
     border: none;
+    > p {
+      flex-basis: 100%;
+    }
   }
   > p {
     margin: 0;
   }
   .FilterList {
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
     .Trigger {
       margin-left: 25px;
+      @media (max-width: $mobile) {
+        margin-left: 0px;
+      }
       cursor: pointer;
       transition: all 0.15s linear;
       padding: 5px 10px;

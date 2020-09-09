@@ -8,7 +8,6 @@
   width: 100%;
   @media (max-width: $grid) {
     width: calc(100% - 50px);
-    padding: 25px;
   }
   &__Item {
     min-width: 320px;
