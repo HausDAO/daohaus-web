@@ -377,7 +377,7 @@ button:not(.hamburger):not([role='switch']),
   width: calc(100% - 100px);
   @media (max-width: $mobile) {
     padding: $mobile-padding;
-    width: calc(100% - 100px);
+    width: calc(100% - 50px);
   }
 }
 
