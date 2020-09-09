@@ -16,8 +16,9 @@ export const daoConstants = () => {
 
   if (process.env.REACT_APP_NETWORK_ID === '100') {
     constants.approvedToken = chainData.wxdai_contract;
+  } else if (process.env.REACT_APP_NETWORK_ID === '74') {
+    constants.approvedToken = chainData.weidi_contract;
   }
-
   return constants;
 };
 
@@ -134,6 +135,15 @@ export const daoPresets = () => {
 
       return preset;
     });
+  } else if (process.env.REACT_APP_NETWORK_ID === '74') {
+    presets = presets.map(preset => {
+      preset.currency = 'WEIDI';
+      preset.approvedToken = chainData.weidi_contract;
+      preset.proposalDeposit = '100000000000000000';
+      preset.processingReward = '10000000000000000';
+
+      return preset;
+    });
   }
   return presets;
 };
@@ -147,6 +157,14 @@ export const currencyOptions = () => {
         value: 'WXDAI',
         label: 'WXDAI',
         address: chainData.wxdai_contract,
+      },
+    ];
+  } else if (process.env.REACT_APP_NETWORK_ID === '74') {
+    options = [
+      {
+        value: 'WEIDI',
+        label: 'WEIDI',
+        address: chainData.weidi_contract,
       },
     ];
   } else {

@@ -74,6 +74,24 @@ export const supportedChains = {
     factory_v2_contract: '0x124F707B3675b5fdd6208F4483C5B6a0B9bAf316',
     wxdai_contract: '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d',
   },
+  74: {
+    name: 'ID Chain',
+    short_name: 'idchain',
+    chain: 'ID Chain',
+    network: 'mainnet',
+    chain_id: 74,
+    network_id: 1,
+    rpc_url: 'https://idchain.one/rpc/',
+    api_url: 'https://vncmvrainc.execute-api.us-east-1.amazonaws.com/idchain',
+    pokemol_url: 'https://idchain.pokemol.com',
+    subgraph_url:
+      'http://localhost:8000/subgraphs/name/odyssy-automaton/daohaus-idchain',
+    stats_subgraph_url:
+      'https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-stats-xdai',
+    factory_contract: '0xb29f7eEc3d6d3B614fd458094f7e2Ebb3488E12D',
+    factory_v2_contract: '0xF42aFC058B7b6f80729e43021404549F69875652',
+    weidi_contract: '0x5B160edBa6119828c5B065804e86111921323f9c',
+  },
 };
 
 export function getChainData(chainId) {
