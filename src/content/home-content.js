@@ -71,7 +71,7 @@ export const featuredCommunities = [
   {
     name: 'Meta Gamma Delta',
     address: '0x1b3d7efb93ec432b0d1d56880c23303979b379e9',
-    sub: 'Support female-led initiatives.',
+    sub: 'Supports female-led initiatives',
     image: AvatarMGD,
   },
   {
@@ -81,9 +81,9 @@ export const featuredCommunities = [
     image: AvatarRaidGuild,
   },
   {
-    name: 'Venture DAO',
+    name: 'Meta Cartel Ventures',
     address: '0x4570b4faf71e23942b8b9f934b47ccedf7540162',
-    sub: 'Digital Nation for Web3',
+    sub: 'Venture Capital Investments',
     image: AvatarVentures,
   },
 ];
