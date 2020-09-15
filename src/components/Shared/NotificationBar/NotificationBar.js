@@ -19,21 +19,21 @@ const NotificationBar = () => {
       <div className="Row">
         <img src={iconRocket} alt="rocket" />
         <p>
-          <strong>DAOhaus is now available on the xDAI network!</strong>
+          <strong>DAOhaus is now available on the IDChain network!</strong>
           <br />
           Transaction fees got you down? Check our guide on how to switch to
-          xDAI for cheaper, faster interactions.
+          IDChain for cheaper, faster interactions.
         </p>
         <div className="Actions">
-          <Link className="Button Secondary" to="/help#xDAI">
+          <Link className="Button Secondary" to="/help#IDChain">
             <OrderedListOutlined style={{ marginRight: '5px' }} /> Quick Guide
           </Link>
           {window.location.href.indexOf('xdai.daohaus.club') <= -1 ? (
             <a
               className="Button Outlined Secondary"
-              href="https://xdai.daohaus.club/"
+              href="https://idchain.daohaus.club/"
             >
-              Go to xDAI <ArrowRightOutlined style={{ marginLeft: '5px' }} />
+              Go to IDChain <ArrowRightOutlined style={{ marginLeft: '5px' }} />
             </a>
           ) : null}
 

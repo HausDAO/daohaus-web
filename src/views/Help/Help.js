@@ -30,12 +30,6 @@ const Help = () => (
             <li>
               <a href="#Glossary">DAO Glossary</a>
             </li>
-            <li>
-              <a href="#xDAI">xDAI Quick Start</a>
-            </li>
-            <li>
-              <a href="#xDAIMigrate">Migrate from Main to xDAI</a>
-            </li>
           </ul>
         </div>
         <div className="Sections">
@@ -649,15 +643,15 @@ const Help = () => (
               dropdown in Metamask, and filling in the following details:
               accompanying screenshot
             </p>
-            <p>
-              <ul>
-                <li>Network Name: xdai </li>
-                <li>New RPC URL: https://dai.poa.network/</li>
-                <li>ChainID: 100 </li>
-                <li>Symbol: xDAI </li>
-                <li>Block Explorer URL: https://blockscout.com/poa/xdai</li>
-              </ul>
-            </p>
+
+            <ul>
+              <li>Network Name: xdai </li>
+              <li>New RPC URL: https://dai.poa.network/</li>
+              <li>ChainID: 100 </li>
+              <li>Symbol: xDAI </li>
+              <li>Block Explorer URL: https://blockscout.com/poa/xdai</li>
+            </ul>
+
             <p>
               You are now on the xDAI network with some xDAI to run transactions
               like summoning a DAO or voting in an existing one.

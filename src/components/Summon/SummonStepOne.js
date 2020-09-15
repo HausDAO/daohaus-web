@@ -28,11 +28,6 @@ const SummonStepOne = ({ daoData, setDaoData, setCurrentStep }) => {
   };
   return (
     <div className="SummonStepOne">
-      <p className="Alert">
-        Transaction fees got you down? Check our{' '}
-        <a href="/help#xDAI">Quick Start Guide</a> on how to switch to xDAI for
-        cheaper, faster interactions for your community.
-      </p>
       <div className="SummonStepOne__list">{renderPresets()}</div>
       <div className="StepControl">
         <button
