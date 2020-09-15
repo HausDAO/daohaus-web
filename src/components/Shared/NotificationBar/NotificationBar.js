@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import iconRocket from '../../../assets/Icon__Network--xDAI.png';
 import {
   CloseOutlined,
@@ -10,6 +10,7 @@ import {
 import './NotificationBar.scss';
 
 const NotificationBar = () => {
+  const location = useLocation();
   const [isHidden, setIsHidden] = useState(false);
   const toggleBar = () => setIsHidden(!isHidden);
   const barClass = isHidden ? 'NotificationBar IsHidden' : 'NotificationBar';
