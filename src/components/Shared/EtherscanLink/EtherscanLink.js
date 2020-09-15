@@ -12,6 +12,9 @@ const EtherscanLink = ({ txHash }) => {
       case '4': {
         return 'https://rinkeby.etherscan.io/tx/';
       }
+      case '74': {
+        return 'https://explorer.idchain.one/tx/';
+      }
       case '100': {
         return 'https://blockscout.com/poa/xdai/tx/';
       }
@@ -27,6 +30,8 @@ const EtherscanLink = ({ txHash }) => {
         View on{' '}
         {process.env.REACT_APP_NETWORK_ID === '100'
           ? 'Blockscout'
+          : process.env.REACT_APP_NETWORK_ID === '74'
+          ? 'IDChain Explorer'
           : 'Etherscan'}
       </a>
     </div>
