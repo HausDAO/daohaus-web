@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useQuery, useApolloClient } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
 
 import { GET_GASSY, GET_MEMBER_GAS } from '../../util/queries';
 import { Web3Context } from '../../contexts/ContractContexts';
 import { getEthPrice } from '../../util/prices';
 import SignIn from '../../components/Shared/SignIn/SignIn';
 import GasLeaderItem from '../../components/Stats/GasLeaderItem';
+import supportedChains from '../../util/chains';
 
 import './Gas.scss';
+
+const chainData = supportedChains[+process.env.REACT_APP_NETWORK_ID];
+const statsClient = new ApolloClient({
+  uri: chainData.stats_subgraph_url,
+});
 
 const Gas = () => {
   const client = useApolloClient();
@@ -15,7 +22,9 @@ const Gas = () => {
   const [yourGas, setYourGas] = useState();
   const [isLeader, setIsLeader] = useState();
   const [ethPrice, setEthPrice] = useState();
-  const { loading, error, data } = useQuery(GET_GASSY);
+  const { loading, error, data } = useQuery(GET_GASSY, {
+    client: statsClient,
+  });
 
   useEffect(() => {
     const fetchEthPrice = async () => {
@@ -31,6 +40,7 @@ const Gas = () => {
   useEffect(() => {
     const getYourGas = async () => {
       const { data } = await client.query({
+        client: statsClient,
         query: GET_MEMBER_GAS,
         variables: { memberAddress: web3Context.account },
       });
