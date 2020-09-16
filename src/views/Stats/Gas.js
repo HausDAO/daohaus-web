@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useQuery, useApolloClient } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 
 import { GET_GASSY, GET_MEMBER_GAS } from '../../util/queries';
