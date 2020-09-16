@@ -17,7 +17,7 @@ const statsClient = new ApolloClient({
 });
 
 const Gas = () => {
-  const client = useApolloClient();
+  // const client = useApolloClient();
   const [web3Context] = useContext(Web3Context);
   const [yourGas, setYourGas] = useState();
   const [isLeader, setIsLeader] = useState();
@@ -39,7 +39,7 @@ const Gas = () => {
 
   useEffect(() => {
     const getYourGas = async () => {
-      const { data } = await client.query({
+      const { data } = await statsClient.query({
         client: statsClient,
         query: GET_MEMBER_GAS,
         variables: { memberAddress: web3Context.account },
