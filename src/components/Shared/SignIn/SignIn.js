@@ -33,6 +33,7 @@ const SignIn = props => {
       localStorage.setItem('loginType', USER_TYPE.WEB3);
       console.log(localStorage.getItem('loginType'));
 
+      props.toggleNav()
       //
     } catch (err) {
       console.log('error activating', err);
