@@ -57,7 +57,7 @@ const TopNav = () => {
           <Link to="/help" onClick={toggleNav}>
             Help
           </Link>
-          <SignIn msg={'Sign in'} />
+          <SignIn msg={'Sign in'} toggleNav={toggleNav} />
         </div>
       </div>
       {/* End Hamburger */}

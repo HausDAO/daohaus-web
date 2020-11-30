@@ -58,7 +58,7 @@ export const daohausFeatures = [
 export const featuredCommunities = [
   {
     name: 'MetaCartel',
-    address: '0x0372f3696fa7dc99801f435fd6737e57818239f2',
+    address: '0xee629a192374caf2a72cf1695c485c5c89611ef2',
     sub: 'Digital Nation for Web3',
     image: AvatarMetaCartel,
   },
@@ -70,7 +70,7 @@ export const featuredCommunities = [
   },
   {
     name: 'Meta Gamma Delta',
-    address: '0x1b3d7efb93ec432b0d1d56880c23303979b379e9',
+    address: '0x7d58c962356ae66ba91b108751d67ae5d3b022fc',
     sub: 'Supports female-led initiatives',
     image: AvatarMGD,
   },
