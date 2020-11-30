@@ -33,6 +33,7 @@ const SignIn = props => {
       localStorage.setItem('loginType', USER_TYPE.WEB3);
       console.log(localStorage.getItem('loginType'));
 
+      props.toggleNav()
       //
     } catch (err) {
       console.log('error activating', err);
@@ -42,7 +43,9 @@ const SignIn = props => {
     <>
       {w3Service && w3Service.account ? (
         <>
-          <Link to={`/profile/${w3Service.account}`}>Profile</Link>
+          <Link to={`/profile/${w3Service.account}`} onClick={props.toggleNav}>
+            Profile
+          </Link>
         </>
       ) : (
         <button onClick={() => activate()} className={msg ? 'Big' : ''}>
