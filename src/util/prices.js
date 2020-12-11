@@ -37,7 +37,6 @@ export const getPrices = async () => {
   });
 
   const eth = await instance.get(`/ethereum`);
-  console.log('eth', eth);
 
   // const dai = await instance.get(`/dai`);
   // coincap now returns 404 on /dai

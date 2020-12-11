@@ -56,7 +56,6 @@ const Gas = () => {
   }, [web3Context]);
 
   useEffect(() => {
-    console.log('yourGas', yourGas);
     if (yourGas && data) {
       setIsLeader(
         data.gassiest.findIndex(leader => {

@@ -139,7 +139,6 @@ export const depositsFromForm = deposits => {
     ? '0'
     : +deposits['formattedDeposits.processingReward'];
 
-  console.log(propDeposit, procReward);
   return {
     proposalDeposit: web3.utils.toWei(propDeposit.toString(), 'ether'),
     processingReward: web3.utils.toWei(procReward.toString(), 'ether'),

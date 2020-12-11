@@ -19,7 +19,6 @@ const NotificationBar = () => {
     <>
       {location.pathname === '/' ? (
         <div className={barClass}>
-          {console.log(location)}
           <div className="Row">
             <img src={iconRocket} alt="rocket" />
             <p>

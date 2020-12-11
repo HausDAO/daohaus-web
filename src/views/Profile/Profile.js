@@ -7,9 +7,9 @@ import { GET_MEMBER_MOLOCHES_PROFILE } from '../../util/queries';
 import UnregisteredList from '../../components/UnregisteredList/UnregisteredList';
 import { Web3Context } from '../../contexts/ContractContexts';
 import ProfileMemberList from '../../components/ProfileMemberList/ProfileMemberList';
+import ProfileActivityFeed from '../../components/ActivityFeed/ProfileActivityFeed';
 
 import './Profile.scss';
-import ProfileActivityFeed from '../../components/ActivityFeed/ProfileActivityFeed';
 
 const Profile = props => {
   const [memberDaos, setMemberDaos] = useState([]);
