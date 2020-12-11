@@ -1,5 +1,10 @@
 export const SORT_OPTIONS = [
   {
+    value: 'guildBankValue',
+    value2: 'usd',
+    label: 'Bank Value',
+  },
+  {
     value: 'members',
     label: 'Members',
     count: true,
@@ -8,11 +13,6 @@ export const SORT_OPTIONS = [
     value: 'proposals',
     label: 'Proposals',
     count: true,
-  },
-  {
-    value: 'guildBankValue',
-    value2: 'usd',
-    label: 'Bank Value',
   },
   {
     value: 'summoningTime',
