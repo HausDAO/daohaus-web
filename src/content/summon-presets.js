@@ -12,6 +12,7 @@ export const daoConstants = () => {
   const constants = {
     abortWindow: '1',
     dilutionBound: '3',
+    version: '2',
   };
 
   if (process.env.REACT_APP_NETWORK_ID === '100') {

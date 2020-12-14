@@ -16,8 +16,6 @@ const Euma = () => {
           <Field
             name="eumaChecked"
             render={({ field, form }) => {
-              console.log('in render', field);
-              console.log(' errors', errors);
               return <input {...field} type="checkbox" checked={field.value} />;
             }}
           />
