@@ -66,7 +66,7 @@ const HardModeForm = ({ daoData, handleSummon }) => {
           </p>
         </div>
 
-        <div>
+        {/* <div>
           <h4>Moloch Version</h4>
           <div>
             Which Moloch Version?
@@ -75,7 +75,7 @@ const HardModeForm = ({ daoData, handleSummon }) => {
               <option value="2">Version 2</option>
             </select>
           </div>
-        </div>
+        </div> */}
 
         <div>
           <h4>Currency</h4>
