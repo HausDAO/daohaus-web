@@ -32,19 +32,21 @@ const Activity = props => {
 
     let summonMonths = Object.keys(groupedSummonData);
     let propMonths = Object.keys(groupedProposalData);
+    summonMonths.pop();
+    propMonths.pop();
 
-    const startIndexProp =
-      propMonths.indexOf('8/2019') === -1 ? 0 : propMonths.indexOf('8/2019');
-    const startIndexSummon =
-      summonMonths.indexOf('8/2019') === -1
-        ? 0
-        : summonMonths.indexOf('8/2019');
+    // const startIndexProp =
+    //   propMonths.indexOf('8/2019') === -1 ? 0 : propMonths.indexOf('8/2019');
+    // const startIndexSummon =
+    //   summonMonths.indexOf('8/2019') === -1
+    //     ? 0
+    //     : summonMonths.indexOf('8/2019');
 
-    propMonths = propMonths.slice(startIndexProp, propMonths.length - 1);
-    summonMonths = summonMonths.slice(
-      startIndexSummon,
-      summonMonths.length - 1,
-    );
+    // propMonths = propMonths.slice(startIndexProp, propMonths.length - 1);
+    // summonMonths = summonMonths.slice(
+    //   startIndexSummon,
+    //   summonMonths.length - 1,
+    // );
 
     const labels =
       summonMonths.length > propMonths.length ? summonMonths : propMonths;
