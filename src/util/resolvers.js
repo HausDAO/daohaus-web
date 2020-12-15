@@ -1,6 +1,5 @@
 import { get } from './requests';
 import { titleMaker, descriptionMaker } from './helpers';
-import { getBalances } from './stat-requests';
 
 export const resolvers = (() => {
   return {
@@ -28,11 +27,11 @@ export const resolvers = (() => {
             (moloch.guildBankBalanceV1 / 10 ** moloch.depositToken.decimals);
           return { token: moloch.guildBankBalanceV1, usd: usdValue };
         } else {
-          const guilBankBalances = moloch.tokenBalances.filter(
+          const guildBankBalances = moloch.tokenBalances.filter(
             bal => bal.guildBank,
           );
 
-          const totalValue = guilBankBalances.reduce((sum, bal) => {
+          const totalValue = guildBankBalances.reduce((sum, bal) => {
             const usdPrice = _context.prices[bal.token.tokenAddress] || {
               usd: 0,
             };
@@ -44,13 +43,6 @@ export const resolvers = (() => {
 
           return { token: 0, usd: totalValue };
         }
-      },
-      balances: async (moloch, _args, _context) => {
-        const balances = await getBalances(moloch.id);
-
-        return balances.data.data.balances.map(b => {
-          return +(+b.balance / 10 ** 19).toFixed(0);
-        });
       },
     },
     Proposal: {
