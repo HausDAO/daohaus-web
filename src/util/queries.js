@@ -26,7 +26,7 @@ export const GET_MOLOCHES_EXPLORER = gql`
         symbol
         decimals
       }
-      tokenBalances {
+      tokenBalances(where: { guildBank: true }) {
         id
         tokenBalance
         guildBank
