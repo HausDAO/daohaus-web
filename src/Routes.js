@@ -4,7 +4,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './views/Home/Home';
 import Dao from './views/Dao/Dao';
 import DaoV2 from './views/Dao/DaoV2';
-import Summon from './views/Summon/Summon';
 import Apply from './views/Apply/Apply';
 import Profile from './views/Profile/Profile';
 import Stats from './views/Stats/Stats';
@@ -33,7 +32,6 @@ const Routes = () => (
       exact
       component={Apply}
     />
-    <Route path="/summon" exact component={Summon} />
     <Route
       path="/profile/:account(\b0x[0-9a-f]{10,40}\b)"
       exact

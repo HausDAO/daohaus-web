@@ -4,10 +4,7 @@ import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
 
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
 
-import { Web3Context } from '../../contexts/ContractContexts';
 import { ExploreContext } from '../../contexts/ExploreContext';
-import SummonButton from '../../components/Summon/SummonButton';
-import SignIn from '../../components/Shared/SignIn/SignIn';
 import FeaturedDaos from '../../components/FeaturedDaos/FeaturedDaos';
 import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
 import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
@@ -26,7 +23,6 @@ import { Link } from 'react-router-dom';
 import { pricingPacks } from '../../content/boost-content';
 
 const Home = () => {
-  const [web3context] = useContext(Web3Context);
   const { state } = useContext(ExploreContext);
 
   const renderSlides = () => {
@@ -65,11 +61,14 @@ const Home = () => {
             <span>* DAOs ;)</span>
           </h1>
           <div className="HeroButtonGroup">
-            {web3context && web3context.account ? (
-              <SummonButton />
-            ) : (
-              <SignIn msg={'Sign in'} />
-            )}
+            <a
+              href="https://app.daohaus.club/summon"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="Button Big Summon"
+            >
+              Summon
+            </a>
             <a href="/explore" className="Button Big Secondary">
               Explore
             </a>
