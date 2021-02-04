@@ -26,41 +26,41 @@ const FeaturedDaos = () => {
 
   return (
     <>
-      <div className="FeaturedCommunities">
-        {featuredCommunities.map((communityData, i) => {
-          const community = { ...communityData, ...data[`featured${i + 1}`] };
-          return (
-            <div key={community.name} className="FeaturedCommunity">
-              <h4>{community.name}</h4>
-              <p>{community.sub}</p>
-              <p>
-                $
-                {community.guildBankValue
-                  ? community.guildBankValue.usd.toFixed(2)
-                  : 0}{' '}
-                | {community.members ? community.members.length : 0} Members
-              </p>
-              {community.version ? (
-                <Link to={`/dao/v${community.version}/${community.address}`}>
+      {data ? (
+        <div className="FeaturedCommunities">
+          {featuredCommunities.map((communityData, i) => {
+            const community = { ...communityData, ...data[`featured${i + 1}`] };
+            return (
+              <div key={community.name} className="FeaturedCommunity">
+                <h4>{community.name}</h4>
+                <p>{community.sub}</p>
+                <p>
+                  ${community.bankValue} | {community.members} Members
+                </p>
+                {community.version ? (
+                  <Link to={`/dao/v${community.version}/${community.address}`}>
+                    <div
+                      className="FeaturedCommunity__Avatar"
+                      style={{
+                        backgroundImage: 'url(' + community.image + ')',
+                      }}
+                    >
+                      <span>&nbsp;</span>
+                    </div>
+                  </Link>
+                ) : (
                   <div
                     className="FeaturedCommunity__Avatar"
                     style={{ backgroundImage: 'url(' + community.image + ')' }}
                   >
                     <span>&nbsp;</span>
                   </div>
-                </Link>
-              ) : (
-                <div
-                  className="FeaturedCommunity__Avatar"
-                  style={{ backgroundImage: 'url(' + community.image + ')' }}
-                >
-                  <span>&nbsp;</span>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </>
   );
 };

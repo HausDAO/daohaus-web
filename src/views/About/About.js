@@ -168,16 +168,43 @@ const About = () => {
               All daos get a Pokemol automatically and Pokemol.com is born,
               uniting all Pokemols into one interface.
             </p>
+            <p className="Label">Feb 2020</p>
+            <p className="Value">Pokemol v1.0 launched</p>
+            <p className="Label">July 2020</p>
+            <p className="Value">
+              Formed HausDAO to expand ownership and contributor base to
+              DAOhaus. Raised 250k direct from the community to start work on
+              DAOhaus V2
+            </p>
+            <p className="Label">December 2020</p>
+            <p className="Value">
+              DAOhaus team grows from 5 to 20 contributors. Finished first
+              builds of DAOhaus V2 and started battle-testing with the
+              community.
+            </p>
+            <p className="Label">Januaray 2021</p>
+            <p className="Value">
+              Refining the V2 with community feedback, and with a new foundation
+              to integrate with DeFi and the rest of the Ethereum ecosystem.
+            </p>
           </div>
           <div className="Section">
             <h3>Onward</h3>
             <p>
               Onward toward maximum composability and minimum coordination cost.
             </p>
-            <p className="Label">February 2020</p>
+            <p className="Label">February 2021</p>
             <p className="Value">
-              Our next epic milestone is EthDenver 2020, and we'll have loads of
-              updates.
+              Our next epic milestone is EthDenver 2021, and we'll have loads of
+              updates along with a fresh launch of DAOhaus V2 out to all. Try{' '}
+              <a
+                href="https://app.daohaus.club"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                DAOhaus V2
+              </a>{' '}
+              yourself!
             </p>
           </div>
         </div>
