@@ -24,8 +24,6 @@ const FeaturedDaos = () => {
   if (loading) return <p className="View">Loading Featured DAOs</p>;
   if (error) return <p className="View">Sorry there's been an error</p>;
 
-  console.log('data', data);
-
   return (
     <>
       {data ? (
