@@ -8,7 +8,11 @@ import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
-import FeaturedDaos from '../../components/FeaturedDaos/FeaturedDaos';
+import AvatarMetaCartel from '../../assets/featured/metacartel__avatar.jpg';
+import AvatarRaidGuild from '../../assets/featured/raidguild__avatar.png';
+import AvatarMachiX from '../../assets/featured/machix__avatar.jpg';
+import AvatarVentures from '../../assets/featured/ventures__avatar.jpg';
+import AvatarMGD from '../../assets/featured/mgd__avatar.jpg';
 
 import {
   heroSlides,
@@ -119,7 +123,93 @@ const Home = () => {
               </span>{' '}
               Communities
             </h3>
-            <FeaturedDaos />
+            <div className="FeaturedCommunities">
+              <div className="FeaturedCommunity">
+                <h4>MetaCartel</h4>
+                <p>Digital Nation for Web3</p>
+                <p>$794,893.34 | 100 Members</p>
+                <a
+                  href="https://app.daohaus.club/dao/0xee629a192374caf2a72cf1695c485c5c89611ef2"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div
+                    className="FeaturedCommunity__Avatar"
+                    style={{ backgroundImage: 'url(' + AvatarMetaCartel + ')' }}
+                  >
+                    <span>&nbsp;</span>
+                  </div>
+                </a>
+              </div>
+              <div className="FeaturedCommunity">
+                <h4>Machi X'</h4>
+                <p>Network of Crypto Artists</p>
+                <p>$70,626.51 | 33 Members</p>
+                <a
+                  href="https://app.daohaus.club/dao/0x016e79e9101a8eaa3e7f46d6d1c267819c09c939"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div
+                    className="FeaturedCommunity__Avatar"
+                    style={{ backgroundImage: 'url(' + AvatarMachiX + ')' }}
+                  >
+                    <span>&nbsp;</span>
+                  </div>
+                </a>
+              </div>
+              <div className="FeaturedCommunity">
+                <h4>Meta Gamma Delta</h4>
+                <p>Supports female-led initiatives</p>
+                <p>$9,357.18 | 53 Members</p>
+                <a
+                  href="https://app.daohaus.club/dao/0x7d58c962356ae66ba91b108751d67ae5d3b022fc"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div
+                    className="FeaturedCommunity__Avatar"
+                    style={{ backgroundImage: 'url(' + AvatarMGD + ')' }}
+                  >
+                    <span>&nbsp;</span>
+                  </div>
+                </a>
+              </div>
+              <div className="FeaturedCommunity">
+                <h4>Raid Guild</h4>
+                <p>Digital Cooperative of Builders</p>
+                <p>$128,033.07 | 82 Members</p>
+                <a
+                  href="https://app.daohaus.club/dao/0xbeb3e32355a933501c247e2dbde6e6ca2489bf3d"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div
+                    className="FeaturedCommunity__Avatar"
+                    style={{ backgroundImage: 'url(' + AvatarRaidGuild + ')' }}
+                  >
+                    <span>&nbsp;</span>
+                  </div>
+                </a>
+              </div>
+              <div className="FeaturedCommunity">
+                <h4>Meta Cartel Ventures</h4>
+                <p>Venture Capital Investments</p>
+                <p>$12,760,526.40 | 79 Members</p>
+                <a
+                  href="https://app.daohaus.club/dao/0xee629a192374caf2a72cf1695c485c5c89611ef2"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div
+                    className="FeaturedCommunity__Avatar"
+                    style={{ backgroundImage: 'url(' + AvatarVentures + ')' }}
+                  >
+                    <span>&nbsp;</span>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
