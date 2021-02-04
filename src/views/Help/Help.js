@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './Help.scss';
-import { Link } from 'react-router-dom';
 
 import xDAIComparisonChart from '../../assets/xDAIcomparisonChart.png';
 
@@ -51,16 +50,7 @@ const Help = () => (
                 #Support Channel on Discord
               </a>
               . Let us know about any bugs or feature requests. Or just ask us
-              anything about daos. We can also introduce you to the DAO creation
-              experts at{' '}
-              <a
-                href="https://daoshop.raidguild.org/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                DAOshop
-              </a>{' '}
-              if you want a bespoke experience.
+              anything about daos.
             </p>
           </div>
           <div className="Intro Section" id="WTF-Moloch">
@@ -80,20 +70,19 @@ const Help = () => (
 
             <p>
               But basically, a DAO is a magic internet community that allows
-              members to raise and coordinate funds and resources. A Moloch (in
-              addition to being a Canaanite god) is the simple, open-source DAO
-              framework we use at DAOhaus. Its simplicity is important for 3
-              reasons: security (less code, less bugs), usability (complex tech
-              but easiest to understand and use), and extensibility (the ability
-              to extend its functionality to meet evolving community needs).
+              members to raise and coordinate funds and resources. A Moloch is
+              the simple, open-source DAO framework we use at DAOhaus. Its
+              simplicity is important for 3 reasons: security (less code, less
+              bugs), usability (complex tech but easiest to understand and use),
+              and extensibility (the ability to extend its functionality to meet
+              evolving community needs).
             </p>
             <p>
-              Currently, Moloch is on version 2.0. Version 1.0 of Moloch was
-              built specifically for grant giving communities. Moloch v.2 is a
+              Currently, Moloch is on version 2.1. Version 1.0 of Moloch was
+              built specifically for grant giving communities. Moloch v2 is a
               more flexible framework that allows communities to hold multiple
               tokens, make investments, give grants, trade tokens, and more. To
-              learn more about the changes in Moloch from v.1 to v.2 check out
-              the{' '}
+              learn more about the changes in Moloch from v1 to v2 check out the{' '}
               <a
                 href="https://github.com/MolochVentures/moloch"
                 rel="noopener noreferrer"
@@ -192,20 +181,6 @@ const Help = () => (
               toggle between Moloch v1 and v2, pick a non-standard ERC-20 as
               your deposit token, and set your own period duration.
             </p>
-            <p>
-              If you really want to get into the weeds and need some help
-              designing and picking the right form for your DAO, the experts at
-              <a
-                href="https://daoshop.raidguild.org/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                DAOshop
-              </a>{' '}
-              are also here to help. A consultation starts at 200 $DAI, but for
-              DAOs planning on legal wrappers or large token holdings, that can
-              be a bargain.
-            </p>
           </div>
           <div className="Section" id="Interact">
             <h2>Interacting with DAOs</h2>
@@ -226,8 +201,15 @@ const Help = () => (
             <p>
               If you’re new to the DAO space you can search for and see all of
               the DAOs created on DAOhaus on the{' '}
-              <Link to="/explore">Explore page</Link>. Feel free to sort by
-              membership size, DAO type, or other factors.
+              <a
+                href="https://app.daohaus.club/explore"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Explore page
+              </a>
+              . Feel free to sort by membership size, DAO type, or other
+              factors.
             </p>
 
             <h4>Joining a DAO</h4>
@@ -649,15 +631,13 @@ const Help = () => (
               dropdown in Metamask, and filling in the following details:
               accompanying screenshot
             </p>
-            <p>
-              <ul>
-                <li>Network Name: xdai </li>
-                <li>New RPC URL: https://dai.poa.network/</li>
-                <li>ChainID: 100 </li>
-                <li>Symbol: xDAI </li>
-                <li>Block Explorer URL: https://blockscout.com/poa/xdai</li>
-              </ul>
-            </p>
+            <ul>
+              <li>Network Name: xdai </li>
+              <li>New RPC URL: https://dai.poa.network/</li>
+              <li>ChainID: 100 </li>
+              <li>Symbol: xDAI </li>
+              <li>Block Explorer URL: https://blockscout.com/poa/xdai</li>
+            </ul>
             <p>
               You are now on the xDAI network with some xDAI to run transactions
               like summoning a DAO or voting in an existing one.
