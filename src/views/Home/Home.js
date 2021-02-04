@@ -3,6 +3,8 @@ import { Carousel } from 'antd';
 import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
 
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
+
+import FeaturedDaos from '../../components/FeaturedDaos/FeaturedDaos';
 import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
 import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
