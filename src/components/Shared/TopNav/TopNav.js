@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SignIn from '../SignIn/SignIn';
 
 import Brand from '../../../assets/logo.png';
+import DaohausCastle from '../../../assets/daohaus__brand--castle--light.png';
 import './TopNav.scss';
 
 const TopNav = () => {
@@ -24,18 +24,28 @@ const TopNav = () => {
         <img src={Brand} alt="DAOHAUS" />
       </Link>
       <nav className="TopNav__Desktop">
-        <Link to={`/explore`} alt="DAOHaus Explore">
-          Explore
-        </Link>
         <Link to={`/about`} alt="DAOHaus About">
           About
         </Link>
         <Link to={`/help`} alt="DAOHaus Help">
           Help
         </Link>
-        <div className="AuthButton">
-          <SignIn />
-        </div>
+        <a
+          className="Button Secondary"
+          style={{ color: 'white' }}
+          href="https://app.daohaus.club"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            src={DaohausCastle}
+            width="36px"
+            height="36px"
+            style={{ marginRight: '10px' }}
+            alt="daohaus castle icon"
+          />
+          Open App
+        </a>
       </nav>
       {/* Start Hamburger */}
       <button className={hamburgerClass} type="button" onClick={toggleNav}>
@@ -48,16 +58,21 @@ const TopNav = () => {
           <Link to={`/`} onClick={toggleNav}>
             Home
           </Link>
-          <Link to={`/explore`} onClick={toggleNav} alt="DAOHaus Explore">
-            Explore
-          </Link>
           <Link to="/about" onClick={toggleNav}>
             About
           </Link>
           <Link to="/help" onClick={toggleNav}>
             Help
           </Link>
-          <SignIn msg={'Sign in'} toggleNav={toggleNav} />
+          <a
+            className="Button Secondary"
+            style={{ color: 'white' }}
+            href="https://app.daohaus.club"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Open App
+          </a>
         </div>
       </div>
       {/* End Hamburger */}

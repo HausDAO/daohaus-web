@@ -1,19 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Carousel } from 'antd';
 import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
 
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
-
-import { Web3Context } from '../../contexts/ContractContexts';
-import { ExploreContext } from '../../contexts/ExploreContext';
-import SummonButton from '../../components/Summon/SummonButton';
-import SignIn from '../../components/Shared/SignIn/SignIn';
-import FeaturedDaos from '../../components/FeaturedDaos/FeaturedDaos';
 import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
 import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 import RandomBackground from '../../assets/random-bg.png';
+import FeaturedDaos from '../../components/FeaturedDaos/FeaturedDaos';
 
 import {
   heroSlides,
@@ -22,13 +17,9 @@ import {
 } from '../../content/home-content';
 
 import './Home.scss';
-import { Link } from 'react-router-dom';
 import { pricingPacks } from '../../content/boost-content';
 
 const Home = () => {
-  const [web3context] = useContext(Web3Context);
-  const { state } = useContext(ExploreContext);
-
   const renderSlides = () => {
     return (
       <Carousel autoplay={true} dots={false} effect="fade" autoplaySpeed={5000}>
@@ -65,13 +56,19 @@ const Home = () => {
             <span>* DAOs ;)</span>
           </h1>
           <div className="HeroButtonGroup">
-            {web3context && web3context.account ? (
-              <SummonButton />
-            ) : (
-              <SignIn msg={'Sign in'} />
-            )}
-            <a href="/explore" className="Button Big Secondary">
-              Explore
+            <a
+              href="https://daohaus.club/about"
+              className="Button Big Secondary Outline"
+            >
+              Learn More
+            </a>
+            <a
+              href="https://app.daohaus.club/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="Button Big"
+            >
+              Launch App
             </a>
           </div>
         </div>
@@ -90,9 +87,9 @@ const Home = () => {
             </div>
             <div className="AmountRaised">
               <p>
-                <span>$5,420,609 raised</span>
+                <span>$21,420,609 raised together</span>
                 <br />
-                $3,128,476 spent
+                $8,128,476 spent together
               </p>
             </div>
           </div>
@@ -122,8 +119,8 @@ const Home = () => {
               </span>{' '}
               Communities
             </h3>
+            <FeaturedDaos />
           </div>
-          {state.prices ? <FeaturedDaos /> : null}
         </div>
       </div>
       <div
@@ -134,9 +131,14 @@ const Home = () => {
           <h2>
             Don’t be shy. Discover and join a decentralized community today.
           </h2>
-          <Link to="/explore" className="Button Big">
-            Explore
-          </Link>
+          <a
+            href="https://app.daohaus.club/explore"
+            className="Button Big"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Explore DAOs
+          </a>
         </div>
       </div>
       <div className="Boosts Block">
