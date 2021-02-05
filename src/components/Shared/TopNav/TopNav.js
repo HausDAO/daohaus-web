@@ -31,7 +31,7 @@ const TopNav = () => {
           Help
         </Link>
         <a
-          className="Button Secondary"
+          className="Button"
           style={{ color: 'white' }}
           href="https://app.daohaus.club"
           rel="noopener noreferrer"
@@ -65,7 +65,7 @@ const TopNav = () => {
             Help
           </Link>
           <a
-            className="Button Secondary"
+            className="Button"
             style={{ color: 'white' }}
             href="https://app.daohaus.club"
             rel="noopener noreferrer"
