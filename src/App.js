@@ -1,6 +1,3 @@
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
-
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 

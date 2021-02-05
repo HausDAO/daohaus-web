@@ -59,6 +59,9 @@ p {
   max-width: 800px;
   margin: 10px 0px 10px 0px;
   // color: darken($tertiary, 25%);
+  &.BigP {
+    font-size: 1.25em;
+  }
 }
 
 body {

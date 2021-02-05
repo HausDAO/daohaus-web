@@ -4,8 +4,8 @@ import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
 
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
 
-import FeaturedDaos from '../../components/FeaturedDaos/FeaturedDaos';
 import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
+import DaohausCastleLight from '../../assets/daohaus__brand--castle--light.png';
 import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
@@ -61,10 +61,16 @@ const Home = () => {
             communities* for all.
             <span>* DAOs ;)</span>
           </h1>
+          <p className="BigP" style={{ maxWidth: '500px' }}>
+            Unlock the coordination power of a DAO. <br />
+            <br />
+            <strong>Launch a DAO with one click</strong>, or explore and join
+            existing ones.
+          </p>
           <div className="HeroButtonGroup">
             <a
               href="https://daohaus.club/about"
-              className="Button Big Secondary Outline"
+              className="Button Big Secondary"
             >
               Learn More
             </a>
@@ -74,7 +80,14 @@ const Home = () => {
               rel="noopener noreferrer"
               className="Button Big"
             >
-              Launch App
+              <img
+                src={DaohausCastleLight}
+                alt="DAOhaus Icon"
+                width="28px"
+                height="28px"
+                style={{ verticalAlign: 'middle', marginRight: '5px' }}
+              />
+              Open App
             </a>
           </div>
         </div>
@@ -144,7 +157,7 @@ const Home = () => {
                 </a>
               </div>
               <div className="FeaturedCommunity">
-                <h4>Machi X'</h4>
+                <h4>Machi X</h4>
                 <p>Network of Crypto Artists</p>
                 <p>$70,626.51 | 33 Members</p>
                 <a
