@@ -130,7 +130,7 @@ const Home = () => {
                 <p>Digital Nation for Web3</p>
                 <p>$794,893.34 | 100 Members</p>
                 <a
-                  href="https://app.daohaus.club/dao/0xee629a192374caf2a72cf1695c485c5c89611ef2"
+                  href="https://app.daohaus.club/dao/0x1/0xee629a192374caf2a72cf1695c485c5c89611ef2"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -147,7 +147,7 @@ const Home = () => {
                 <p>Network of Crypto Artists</p>
                 <p>$70,626.51 | 33 Members</p>
                 <a
-                  href="https://app.daohaus.club/dao/0x016e79e9101a8eaa3e7f46d6d1c267819c09c939"
+                  href="https://app.daohaus.club/dao/0x1/0x016e79e9101a8eaa3e7f46d6d1c267819c09c939"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -164,7 +164,7 @@ const Home = () => {
                 <p>Supports female-led initiatives</p>
                 <p>$9,357.18 | 53 Members</p>
                 <a
-                  href="https://app.daohaus.club/dao/0x7d58c962356ae66ba91b108751d67ae5d3b022fc"
+                  href="https://app.daohaus.club/dao/0x1/0x7d58c962356ae66ba91b108751d67ae5d3b022fc"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -181,7 +181,7 @@ const Home = () => {
                 <p>Digital Cooperative of Builders</p>
                 <p>$128,033.07 | 82 Members</p>
                 <a
-                  href="https://app.daohaus.club/dao/0xbeb3e32355a933501c247e2dbde6e6ca2489bf3d"
+                  href="https://app.daohaus.club/dao/0x1/0xbeb3e32355a933501c247e2dbde6e6ca2489bf3d"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -198,7 +198,7 @@ const Home = () => {
                 <p>Venture Capital Investments</p>
                 <p>$12,760,526.40 | 79 Members</p>
                 <a
-                  href="https://app.daohaus.club/dao/0xee629a192374caf2a72cf1695c485c5c89611ef2"
+                  href="https://app.daohaus.club/dao/0x1/0xee629a192374caf2a72cf1695c485c5c89611ef2"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
