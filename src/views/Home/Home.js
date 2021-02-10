@@ -2,6 +2,20 @@ import React from 'react';
 import { Carousel } from 'antd';
 import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
 
+import InfographicTrad from '../../assets/infographic__trad.png';
+import InfographicDAO from '../../assets/infographic__dao.png';
+import GraphicCommunities from '../../assets/graphic__communities.png';
+import DaohausBauhaus from '../../assets/daohaus__bauhaus.png';
+import DaohausHugeType from '../../assets/daohaus__hugeType.png';
+
+import HowTreasury from '../../assets/how__treasury.png';
+import HowProposals from '../../assets/how__proposals.png';
+import HowMembers from '../../assets/how__members.png';
+
+import IconA from '../../assets/branding/Icon__A.png';
+import IconB from '../../assets/branding/Icon__B.png';
+import IconC from '../../assets/branding/Icon__D.png';
+
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
 
 import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
@@ -9,21 +23,10 @@ import DaohausCastleLight from '../../assets/daohaus__brand--castle--light.png';
 import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
-import RandomBackground from '../../assets/random-bg.png';
-import AvatarMetaCartel from '../../assets/featured/metacartel__avatar.jpg';
-import AvatarRaidGuild from '../../assets/featured/raidguild__avatar.png';
-import AvatarMachiX from '../../assets/featured/machix__avatar.jpg';
-import AvatarVentures from '../../assets/featured/ventures__avatar.jpg';
-import AvatarMGD from '../../assets/featured/mgd__avatar.jpg';
 
-import {
-  heroSlides,
-  daohausFeatures,
-  integrationLogos,
-} from '../../content/home-content';
+import { heroSlides, integrationLogos } from '../../content/home-content';
 
 import './Home.scss';
-import { pricingPacks } from '../../content/boost-content';
 
 const Home = () => {
   const renderSlides = () => {
@@ -42,7 +45,14 @@ const Home = () => {
                   backgroundImage: 'url(' + slide.image + ')',
                 }}
               />
-              <div className="Overlay" />
+              <div className="Overlay">
+                <img
+                  src={DaohausHugeType}
+                  alt="daohaus type illustration"
+                  width="50%"
+                  style={{ position: 'absolute', bottom: 25, right: 25 }}
+                />
+              </div>
             </div>
           );
         })}
@@ -54,25 +64,18 @@ const Home = () => {
     <>
       <div className="HomeHero">
         <div className="SummonHero">
-          <img src={DaohausCastle} alt="DAOHAUS" />
-          <h1>
-            Magic internet
-            <br />
-            communities* for all.
-            <span>* DAOs ;)</span>
-          </h1>
+          <h1>Unlock the next tier in community coordination</h1>
           <p className="BigP" style={{ maxWidth: '500px' }}>
-            Unlock the coordination power of a DAO. <br />
+            We believe in power to the people. Join us in pioneering a future
+            where communities replace corporations and humans own the web.
             <br />
-            <strong>Launch a DAO with one click</strong>, or explore and join
-            existing ones.
           </p>
           <div className="HeroButtonGroup">
             <a
               href="https://daohaus.club/about"
               className="Button Big Secondary"
             >
-              Learn More
+              DAO Basics
             </a>
             <a
               href="https://app.daohaus.club/"
@@ -97,133 +100,110 @@ const Home = () => {
       <div className="Features Block">
         <div className="Block__Contents">
           <div className="Row">
-            <div
-              className="FeaturesHeading"
-              style={{ flexDirection: 'column' }}
-            >
-              <h5>Ya’ll just chattin smh</h5>
-              <h2>Share resources and get shit done. Together.</h2>
+            <div className="Column--50">
+              <img src={InfographicDAO} alt="infographic dao" width="240px" />
+              <h5>DAO</h5>
+              <h2>Power shared by all</h2>
+              <p>Agile, Collaboration, Diversity, Transparency</p>
             </div>
-            <div className="AmountRaised">
-              <p>
-                <span>$21,420,609 raised together</span>
-                <br />
-                $8,128,476 spent together
-              </p>
+            <div className="Column--50">
+              <img src={InfographicTrad} alt="infographic trad" width="240px" />
+              <h5>Traditional Organization</h5>
+              <h2>Power held by few at the top</h2>
+              <p>Rigid, Competition, Inequality, Opaque </p>
             </div>
-          </div>
-          <div className="FeaturesList">
-            {daohausFeatures.map(feature => {
-              return (
-                <div key={feature.sub}>
-                  <img src={feature.icon} alt={feature.sub} />
-                  <h4>{feature.sub}</h4>
-                  <p>{feature.content}</p>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>
-      <div
-        className="Block Communities"
-        style={{ backgroundImage: 'url(' + RandomBackground + ')' }}
-      >
+      <div className="Usecases Block">
         <div className="Block__Contents">
-          <div className="CommunitiesHeading">
-            <h3>
-              We{' '}
-              <span role="img" aria-label="Love">
-                ❤️
-              </span>{' '}
-              Communities
-            </h3>
-            <div className="FeaturedCommunities">
-              <div className="FeaturedCommunity">
-                <h4>MetaCartel</h4>
-                <p>Digital Nation for Web3</p>
-                <p>$794,893.34 | 100 Members</p>
-                <a
-                  href="https://app.daohaus.club/dao/0x1/0xee629a192374caf2a72cf1695c485c5c89611ef2"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    className="FeaturedCommunity__Avatar"
-                    style={{ backgroundImage: 'url(' + AvatarMetaCartel + ')' }}
-                  >
-                    <span>&nbsp;</span>
-                  </div>
-                </a>
-              </div>
-              <div className="FeaturedCommunity">
-                <h4>Machi X</h4>
-                <p>Network of Crypto Artists</p>
-                <p>$70,626.51 | 33 Members</p>
-                <a
-                  href="https://app.daohaus.club/dao/0x1/0x016e79e9101a8eaa3e7f46d6d1c267819c09c939"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    className="FeaturedCommunity__Avatar"
-                    style={{ backgroundImage: 'url(' + AvatarMachiX + ')' }}
-                  >
-                    <span>&nbsp;</span>
-                  </div>
-                </a>
-              </div>
-              <div className="FeaturedCommunity">
-                <h4>Meta Gamma Delta</h4>
-                <p>Supports female-led initiatives</p>
-                <p>$9,357.18 | 53 Members</p>
-                <a
-                  href="https://app.daohaus.club/dao/0x1/0x7d58c962356ae66ba91b108751d67ae5d3b022fc"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    className="FeaturedCommunity__Avatar"
-                    style={{ backgroundImage: 'url(' + AvatarMGD + ')' }}
-                  >
-                    <span>&nbsp;</span>
-                  </div>
-                </a>
-              </div>
-              <div className="FeaturedCommunity">
-                <h4>Raid Guild</h4>
-                <p>Digital Cooperative of Builders</p>
-                <p>$128,033.07 | 82 Members</p>
-                <a
-                  href="https://app.daohaus.club/dao/0x1/0xbeb3e32355a933501c247e2dbde6e6ca2489bf3d"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    className="FeaturedCommunity__Avatar"
-                    style={{ backgroundImage: 'url(' + AvatarRaidGuild + ')' }}
-                  >
-                    <span>&nbsp;</span>
-                  </div>
-                </a>
-              </div>
-              <div className="FeaturedCommunity">
-                <h4>Meta Cartel Ventures</h4>
-                <p>Venture Capital Investments</p>
-                <p>$12,760,526.40 | 79 Members</p>
-                <a
-                  href="https://app.daohaus.club/dao/0x1/0xee629a192374caf2a72cf1695c485c5c89611ef2"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    className="FeaturedCommunity__Avatar"
-                    style={{ backgroundImage: 'url(' + AvatarVentures + ')' }}
-                  >
-                    <span>&nbsp;</span>
-                  </div>
-                </a>
-              </div>
+          <h3>How is it Used?</h3>
+          <p>How communities use DAOhaus today</p>
+          <div className="Row">
+            <div className="Column--50">
+              <img src={IconA} alt="infographic dao" width="80px" />
+              <h5>Grants</h5>
+              <p>
+                The first major use of DAOs has been through community grants!
+                Millions have been raised and distributed to early developers of
+                this technology.
+              </p>
+            </div>
+            <div className="Column--50">
+              <img src={IconB} alt="infographic trad" width="80px" />
+              <h5>Ventures</h5>
+              <p>
+                Freelancers rejoice! Guilds have re-emerged as a powerful
+                collective force. Some even have members who quit their day jobs
+                to work for a DAO.
+              </p>
+            </div>
+            <div className="Column--50">
+              <img src={IconA} alt="infographic dao" width="80px" />
+              <h5>Guilds</h5>
+              <p>
+                Freelancers rejoice! Guilds have re-emerged as a powerful
+                collective force. Some even have members who quit their day jobs
+                to work for a DAO.
+              </p>
+            </div>
+            <div className="Column--50">
+              <img src={IconB} alt="infographic trad" width="80px" />
+              <h5>Social</h5>
+              <p>
+                Freelancers rejoice! Guilds have re-emerged as a powerful
+                collective force. Some even have members who quit their day jobs
+                to work for a DAO.
+              </p>
+            </div>
+          </div>
+          <p>How communities will use DAOs tomorrow</p>
+          <div className="Row">
+            <div className="Column--33">
+              <img src={IconA} alt="infographic dao" width="80px" />
+              <p>
+                Player-owned
+                <br />
+                <strong>Games</strong>
+              </p>
+            </div>
+            <div className="Column--33">
+              <img src={IconA} alt="infographic dao" width="80px" />
+              <p>
+                Brewer-owned
+                <br />
+                <strong>Breweries</strong>
+              </p>
+            </div>
+            <div className="Column--33">
+              <img src={IconC} alt="infographic dao" width="80px" />
+              <p>
+                User-owned
+                <br />
+                <strong>Platforms</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="Block Communities">
+        <div className="Block__Contents">
+          <div className="Row">
+            <div className="Column--50">
+              <h3>
+                We{' '}
+                <span role="img" aria-label="Love">
+                  ❤️
+                </span>{' '}
+                Communities
+              </h3>
+              <p>
+                DAOhaus communities have raised over $21m to build, hire and
+                invest as one unified voice.{' '}
+              </p>
+            </div>
+            <div className="Column--50">
+              <img src={GraphicCommunities} alt="dao communities" />
             </div>
           </div>
         </div>
@@ -232,10 +212,8 @@ const Home = () => {
         className="Row GetStarted"
         style={{ backgroundImage: 'url(' + GetStartedBackground + ')' }}
       >
-        <div>
-          <h2>
-            Don’t be shy. Discover and join a decentralized community today.
-          </h2>
+        <div style={{ width: '100%', maxWidth: '800px' }}>
+          <h2>Ready to DAO it?</h2>
           <a
             href="https://app.daohaus.club/explore"
             className="Button Big"
@@ -246,66 +224,57 @@ const Home = () => {
           </a>
         </div>
       </div>
-      <div className="Boosts Block">
+      <div className="How Block">
         <div className="Block__Contents">
-          <div className="BoostsHeading">
-            <h2>Boosts</h2>
-            <h4>Level up your community, or gift to another.</h4>
+          <h3>How a DAO works</h3>
+          <p>How communities use DAOhaus today</p>
+          <div className="Row JustifyCenter">
+            <div className="Column--50">
+              <h5>Shared Treasury</h5>
+              <p>Hold and distribute crypto.</p>
+            </div>
+            <div className="Column--50">
+              <img src={HowTreasury} alt="app screenshot of treasury" />
+            </div>
           </div>
-          <div className="BoostsPricing GridList">
-            {pricingPacks.map(pack => {
-              return (
-                <div key={pack.name} className="Boost GridList__Item">
-                  <h2>{pack.name}</h2>
-                  <ul>
-                    {pack.features.map(feature => {
-                      return <li key={feature}>{feature}</li>;
-                    })}
-                  </ul>
-                  <h3 className="Price">{pack.price}</h3>
-                </div>
-              );
-            })}
+          <div className="Row JustifyCenter">
+            <div className="Column--50">
+              <h5>Voting & Proposals</h5>
+              <p>All decisions allow for members to vote.</p>
+            </div>
+            <div className="Column--50">
+              <img src={HowProposals} alt="app screenshot of proposals" />
+            </div>
+          </div>
+          <div className="Row JustifyCenter">
+            <div className="Column--50">
+              <h5>Dynamic Membership</h5>
+              <p>Add/remove members together. Members can exit anytime.</p>
+            </div>
+            <div className="Column--50">
+              <img src={HowMembers} alt="app screenshot of members" />
+            </div>
           </div>
         </div>
       </div>
-      <div
-        className="Block DaoConsultation"
-        style={{ backgroundImage: 'url(' + FallingBackground + ')' }}
-      >
+      <div className="Block Communities">
         <div className="Block__Contents">
-          <div className="Column">
-            <h2>Every community is unique, just like the people in it.</h2>
-            <h4>
-              DAOhaus can integrate with whatever tools your community needs to
-              get things done.
-            </h4>
-            <h4>
-              Join our discord and ask us anything. We love helping communities
-              level up.
-            </h4>
-            <a
-              className="Button"
-              href="https://discord.gg/NPEJysW"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon component={DiscordSvg} /> Join us in Discord
-            </a>
-          </div>
-          <div className="Icons">
-            {integrationLogos.map(logo => {
-              return (
-                <img
-                  src={require('../../assets/' + logo.img)}
-                  alt={logo.alt}
-                  key={logo.alt}
-                  style={{ top: logo.top, left: logo.left }}
-                  className="Icon"
-                />
-              );
-            })}
-          </div>
+          <h3>Interact with the entire Ethereum ecosystem of dApps.</h3>
+          <p>
+            Every community is unique, just like the people in it. DAOhaus can
+            integrate with whatever tools your community needs to get things
+            done. Join our discord and ask us anything. We love helping
+            communities level up.
+          </p>
+          <img src={DaohausBauhaus} alt="ethereum ecosystem of dapps" />
+        </div>
+      </div>
+      <div className="Block">
+        <div className="Block__Contents">
+          <h3>DAOhaus is community owned and operated.</h3>
+          <p>
+            Our mission is to foster an open economy of interconnected DAOs.
+          </p>
         </div>
       </div>
       <div className="Block Footer">

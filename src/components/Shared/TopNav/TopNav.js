@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import Brand from '../../../assets/logo.png';
+import DaohausIcon from '../../../assets/daohaus__brand--castle.svg';
 import DaohausCastle from '../../../assets/daohaus__brand--castle--light.png';
 import './TopNav.scss';
 
@@ -21,7 +20,7 @@ const TopNav = () => {
   return (
     <header className="TopNav">
       <Link to={`/`} className="TopNav__Brand" alt="DAOHaus Home">
-        <img src={Brand} alt="DAOHAUS" />
+        <img src={DaohausIcon} alt="DAOHAUS" /> DAOhaus
       </Link>
       <nav className="TopNav__Desktop">
         <Link to={`/about`} alt="DAOHaus About">
