@@ -2,10 +2,6 @@ import React from 'react';
 import { Carousel } from 'antd';
 
 import HeroBackground from '../../assets/random-bg.png';
-import PokemolBrand from '../../assets/pokemol__brand--standard.png';
-import DaohausBrand from '../../assets/logo.png';
-import ThreeBoxBrand from '../../assets/3Box__logo.svg';
-import MolochBrand from '../../assets/moloch__logo.svg';
 
 import './About.scss';
 
