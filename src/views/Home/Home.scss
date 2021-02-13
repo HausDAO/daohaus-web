@@ -18,6 +18,7 @@
 }
 
 .HeroButtonGroup {
+  margin-top: 100px;
   @media (min-width: $mobile + 1) {
     .Button:not(:first-child) {
       margin-left: 25px;
@@ -35,12 +36,12 @@
 .SummonHero {
   padding-left: 100px;
   width: calc(50% - 100px);
-  background-color: $primary-background;
+  background-color: $primary-dark;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: flex-start;
+  justify-content: center;
   h1 {
     font-size: 3em;
     @media (max-width: $mobile) {
@@ -56,30 +57,43 @@
     width: calc(100% - 50px);
     padding: 25px;
   }
+  .Social {
+    margin-top: 15px;
+    display: flex;
+    a {
+      margin-right: 15px;
+      width: 36px;
+      height: 36px;
+      transition: all 0.15s linear;
+      svg {
+        width: 36px;
+        height: 36px;
+        path {
+          fill: #513e97;
+        }
+      }
+    }
+    :hover svg path {
+      transition: all 0.15s linear;
+      fill: #433185;
+    }
+  }
 }
 
-.Carousel {
-  position: relative;
-  width: 50%;
-  .Overlay {
-    background-color: rgba(14, 15, 53, 0.85);
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 0;
-  }
-  &__Slide {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    .SlideBg {
+.Home {
+  .Carousel {
+    position: relative;
+    width: 50%;
+    .Overlay {
+      background-color: rgba(14, 15, 53, 0.85);
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+    }
+    &__Slide {
       position: absolute;
       top: 0;
       right: 0;
@@ -88,182 +102,109 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
+      .SlideBg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+      .Content {
+        position: absolute;
+        right: 50px;
+        top: 50px;
+        text-align: right;
+        max-width: 420px;
+        z-index: 3;
+        h4 {
+          font-size: 1em;
+        }
+        p {
+          //font-family: $heading-font;
+          //line-height: 1.35em;
+          font-size: 1.25em;
+        }
+      }
     }
-    .Content {
-      position: absolute;
-      right: 50px;
-      bottom: 50px;
-      text-align: right;
-      max-width: 420px;
-      z-index: 3;
-      h4 {
-        font-size: 1em;
-      }
-      p {
-        //font-family: $heading-font;
-        //line-height: 1.35em;
-        font-size: 1.25em;
-      }
-    }
-  }
-  @media (max-width: $grid) {
-    width: 100%;
-    min-height: 420px;
-    .Content {
-      h4 {
-        font-size: 0.75em;
-      }
-      p {
-        font-size: 1em;
+    @media (max-width: $grid) {
+      width: 100%;
+      min-height: 420px;
+      .Content {
+        h4 {
+          font-size: 0.75em;
+        }
+        p {
+          font-size: 1em;
+        }
       }
     }
   }
 }
 
-.Features {
-  background-color: $primary;
+.Usecases {
+  background-color: $primary-dark;
   color: white;
   flex-direction: column;
   justify-content: flex-start;
-  .Row {
-    margin-bottom: 100px;
-    flex-wrap: wrap;
-    .FeaturesHeading {
-      width: 40%;
-      font-size: 1em;
+  .Column--50,
+  .Column--33 {
+    margin-top: 50px;
+  }
+}
 
-      span {
-        font-size: 0.75em;
-      }
-      @media (max-width: $grid) {
-        width: 80%;
-      }
+.How {
+  background-color: $background-light;
+  justify-content: flex-start;
+  font-size: 1.5em;
+  .Column--50 {
+    margin-top: 150px;
+  }
+  .TinyP {
+    font-size: 0.65em;
+  }
+}
+.SocialItem {
+  .SocialIcon {
+    width: 60px;
+    height: 60px;
+    &:hover {
+      transform: scale(1.5);
     }
-    .AmountRaised {
-      width: 60%;
-      font-size: 1.15em;
-      color: $primary-background;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      p {
-        font-size: 1.75em;
-        transform: rotate(15deg);
-        span {
-          color: #4fbf9f;
-        }
-      }
-      @media (max-width: $grid) {
-        margin-top: 50px;
-        width: 80%;
-        p {
-          font-size: 1em;
-          transform: rotate(-15deg);
-        }
-      }
+    svg {
+      width: 60px;
+      height: 60px;
     }
   }
-  .FeaturesList {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    min-height: 300px;
-    max-width: 100%;
-    img {
-      display: block;
-      width: 80px;
-      height: auto;
-      margin: 0 auto 25px;
+  &:nth-of-type(1) svg {
+    fill: $red;
+  }
+  &:nth-of-type(2) .SocialIcon svg {
+    width: 42px;
+    path {
+      fill: $yellow;
     }
-    div {
-      flex-direction: column;
-      text-align: center;
-      width: 22%;
-    }
-    @media (max-width: $grid) {
-      flex-direction: column;
-
-      > div {
-        width: 50%;
-        margin: 0 auto;
-        max-width: 100%;
-        text-align: center;
-        margin-bottom: 50px;
-      }
-    }
+  }
+  &:nth-of-type(3) svg {
+    fill: $secondary;
   }
 }
 
 .Communities {
   position: relative;
-  background-position: center center;
-  background-size: cover;
+  align-items: flex-start;
+  justify-content: center;
 
-  .CommunitiesHeading {
-    display: flex;
+  .Block__Contents {
+    background-position: center right;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    overflow: visible;
   }
-
-  .FeaturedCommunities {
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .FeaturedCommunity {
-      position: relative;
-      color: $primary;
-      z-index: 1;
-      height: auto;
-      h4,
-      p {
-        margin: 5px 0px;
-      }
-      &__Avatar {
-        z-index: -1;
-        position: absolute;
-        top: 50%;
-        left: -130px;
-        transform: translateY(-50%);
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background-size: cover;
-      }
-      @media (min-width: $grid + 1px) {
-        min-width: 25%;
-        &:nth-child(1) {
-          margin-top: -50px;
-          margin-left: 150px;
-        }
-        &:nth-child(2) {
-          margin-top: 400px;
-          margin-left: -100px;
-        }
-        &:nth-child(3) {
-          margin-top: 100px;
-          margin-left: 0px;
-        }
-        &:nth-child(4) {
-          margin-top: -200px;
-          margin-left: 0px;
-        }
-        &:nth-child(5) {
-          margin-top: 250px;
-          margin-left: -50px;
-        }
-      }
-      @media (max-width: $grid) {
-        margin-left: 130px;
-        margin-top: 25px;
-        margin-bottom: 50px;
-      }
-    }
-    @media (max-width: $grid) {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  .Button {
+    margin-top: 25px;
   }
 }
 
@@ -428,76 +369,15 @@
   min-height: 100px;
   padding: 50px 0px;
   background-color: $primary-background;
+  font-size: 1.15em;
   .Block__Contents {
-    display: flex;
-    flex-wrap: wrap;
-    div:first-of-type {
-      width: 50%;
-      img {
-        height: 70px;
-      }
-      @media (max-width: $grid) {
-        width: 100%;
-      }
-    }
-    .Social {
-      display: flex;
-      width: 50%;
-      align-items: center;
-      justify-content: flex-end;
-      a {
-        svg {
-          width: 40px;
-          height: auto;
-        }
-        &:hover {
-          color: $orange;
-        }
-        &:not(:first-child) {
-          margin-left: 15px;
-        }
-      }
-      @media (max-width: $grid) {
-        width: 100%;
-        margin-top: 25px;
-        justify-content: center;
-      }
+    a {
+      margin-top: 15px;
     }
   }
 }
 
-.Block.Primary.Home__Daolist {
-  padding-top: 0px;
-}
-
-.VersionToggle {
-  background-color: $primary;
-  padding: 25px;
-  width: calc(100% - 50px);
-  .Contents {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 60px;
-    > div {
-      font-size: 1.35em;
-      cursor: pointer;
-      transition: all 0.15s linear;
-      color: $secondary;
-      padding-bottom: 5px;
-      border-bottom: 4px solid transparent;
-      margin-right: 50px;
-      &:first-child {
-        margin-left: 10px;
-      }
-      &:hover {
-        color: $primary-background;
-        border-bottom: 4px solid $primary-background;
-      }
-      &.active {
-        color: $primary-background;
-        border-bottom: 4px solid $primary-background;
-      }
-    }
-  }
+.Built {
+  font-size: 0.75em;
+  color: white;
 }

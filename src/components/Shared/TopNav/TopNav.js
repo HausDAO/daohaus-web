@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import Brand from '../../../assets/logo.png';
+import DaohausIcon from '../../../assets/daohaus__brand--castle.svg';
+import DaohausLogo from '../../../assets/logo.png';
 import DaohausCastle from '../../../assets/daohaus__brand--castle--light.png';
 import './TopNav.scss';
 
@@ -21,24 +21,35 @@ const TopNav = () => {
   return (
     <header className="TopNav">
       <Link to={`/`} className="TopNav__Brand" alt="DAOHaus Home">
-        <img src={Brand} alt="DAOHAUS" />
+        <img src={DaohausLogo} alt="DaoHaus Logo" />
       </Link>
       <nav className="TopNav__Desktop">
-        <Link to={`/about`} alt="DAOHaus About">
-          About
-        </Link>
+        <a
+          href={`https://app.daohaus.club/explore`}
+          alt="Explore DAOs"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          Explore DAOs
+        </a>
+        <a
+          href={`https://app.daohaus.club/summon`}
+          alt="Summon a new DAO"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          Summon a DAO
+        </a>
         <Link to={`/help`} alt="DAOHaus Help">
           Help
         </Link>
         <a
-          className="Button Secondary"
-          style={{ color: 'white' }}
           href="https://app.daohaus.club"
           rel="noopener noreferrer"
           target="_blank"
         >
           <img
-            src={DaohausCastle}
+            src={DaohausIcon}
             width="36px"
             height="36px"
             style={{ marginRight: '10px' }}
@@ -58,14 +69,26 @@ const TopNav = () => {
           <Link to={`/`} onClick={toggleNav}>
             Home
           </Link>
-          <Link to="/about" onClick={toggleNav}>
-            About
-          </Link>
+          <a
+            href={`https://app.daohaus.club/explore`}
+            alt="Explore DAOs"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Explore DAOs
+          </a>
+          <a
+            href={`https://app.daohaus.club/summon`}
+            alt="Summon a new DAO"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Summon a DAO
+          </a>
           <Link to="/help" onClick={toggleNav}>
             Help
           </Link>
           <a
-            className="Button Secondary"
             style={{ color: 'white' }}
             href="https://app.daohaus.club"
             rel="noopener noreferrer"

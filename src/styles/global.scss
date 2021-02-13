@@ -26,7 +26,7 @@ h1 {
 
 h2 {
   font-family: $heading-font;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 2em;
   font-weight: 700;
 }
@@ -59,6 +59,9 @@ p {
   max-width: 800px;
   margin: 10px 0px 10px 0px;
   // color: darken($tertiary, 25%);
+  &.BigP {
+    font-size: 1.25em;
+  }
 }
 
 body {
@@ -121,9 +124,9 @@ button:not(.hamburger):not([role='switch']),
     }
   }
   &.Big {
-    padding: 25px;
-    font-size: 1.5em;
-    min-width: 200px;
+    padding: 15px;
+    font-size: 1.25em;
+    min-width: 150px;
     text-align: center;
     @media (max-width: $grid) {
       padding: 15px;
@@ -284,6 +287,32 @@ button:not(.hamburger):not([role='switch']),
       }
     }
   }
+  &.PrimaryBg {
+    background-color: $primary-background;
+    color: white;
+    p {
+      color: white;
+    }
+    a {
+      color: $orange;
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
+  &.PrimaryDark {
+    background-color: $primary-dark;
+    color: white;
+    p {
+      color: white;
+    }
+    a {
+      color: $orange;
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
   &.Secondary {
     background-color: $secondary;
     p {
@@ -310,6 +339,13 @@ button:not(.hamburger):not([role='switch']),
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: flex-start;
+  &--25 {
+    width: 25%;
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+  }
   &--33 {
     width: 30%;
     @media (max-width: $mobile) {
@@ -381,6 +417,8 @@ button:not(.hamburger):not([role='switch']),
   }
 }
 
+// Utils
+
 .SmallContainer {
   max-width: 600px;
   margin: 0 auto;
@@ -400,6 +438,33 @@ p.Large {
 }
 .Success {
   color: $success;
+}
+.tradColor {
+  color: $red;
+}
+
+.daoColor {
+  color: $secondary;
+}
+
+.JustifyCenter {
+  justify-content: center !important;
+}
+
+.JustifyStart {
+  justify-content: flex-start !important;
+}
+
+.AlignCenter {
+  align-items: center !important;
+}
+
+.AlignStart {
+  align-items: flex-start !important;
+}
+
+.yellowColor {
+  color: #ffe593;
 }
 
 .SuccessMessage {
