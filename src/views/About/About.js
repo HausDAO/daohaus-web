@@ -1,4 +1,5 @@
 import React from 'react';
+import { Carousel } from 'antd';
 
 import HeroBackground from '../../assets/random-bg.png';
 import PokemolBrand from '../../assets/pokemol__brand--standard.png';
@@ -8,7 +9,39 @@ import MolochBrand from '../../assets/moloch__logo.svg';
 
 import './About.scss';
 
+import { wtfSlides } from '../../content/home-content';
+
 const About = () => {
+  const renderSlides = () => {
+    return (
+      <Carousel
+        autoplay={false}
+        dots={true}
+        dotsClass="Carousel__Dots"
+        effect="fade"
+      >
+        {wtfSlides.map(slide => {
+          return (
+            <div key={slide.id} className="Carousel__Slide">
+              <div
+                className="Row"
+                style={{ position: 'relative', width: '100%' }}
+              >
+                <div className="Column--50">
+                  <h3>{slide.heading}</h3>
+                  <h1>{slide.content}</h1>
+                  <p>{slide.subcontent}</p>
+                </div>
+                <div className="Column--50">
+                  <img src={slide.image} alt="" />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </Carousel>
+    );
+  };
   return (
     <div className="About">
       <div
@@ -16,31 +49,25 @@ const About = () => {
         style={{ backgroundImage: 'url(' + HeroBackground + ')' }}
       >
         <div className="Hero__Contents SmallContainer">
-          <h1>Become one with the Haus of Daos.</h1>
-          <h2>Discover and pledge to join existing daos.</h2>
-          <h2>Or summon your own.</h2>
+          <h3>Become one with the Haus of Daos.</h3>
+          <h2>
+            DAOs are eating trad orgs, and here’s why that’s a very very cool
+            thing.
+          </h2>
         </div>
       </div>
-      {/* Commented out until content is ready 
-        <div className="Block Primary">
-            <div className="Block__Contents SmallContainer">
-                <h1>Examples of Daos</h1>
-                <h3>Moloch DAO</h3>
-                <p>Self-organize party</p>
-            </div>
+      <div className="Block PrimaryBg wtfSlides">
+        <div className="Block__Contents">
+          <div className="Carousel">{renderSlides()}</div>
         </div>
-        */}
+      </div>
       <div className="Block Tertiary">
         <div className="Block__Contents SmallContainer">
-          <h1>Daohaus is on a mission to lower coordination cost to ZERO.</h1>
-          <p>
-            Daos are a powerful new type of organization, where no one person is
-            in control. Instead, the power is distributed amongst all members of
-            the dao. In Moloch daos, Members are granted Shares in exchange for
-            Tribute, with which they vote on proposals. Once funds are in a dao,
-            not a single penny can be distributed without a proposal.
-          </p>
-          <h3>Further Reading</h3>
+          <h1>
+            The move to crypto and web3 enables humans to organize and
+            collaborate like never before.
+          </h1>
+          <h3>Enter the DAO</h3>
           <p>
             For more info about daos, and Molochs specifically, read the{' '}
             <a
@@ -51,72 +78,6 @@ const About = () => {
               Moloch Primer for Humans
             </a>
             .
-          </p>
-        </div>
-      </div>
-      <div className="Block Primary">
-        <div className="Block__Contents">
-          <h2>Daohaus is a complete dao experience.</h2>
-          <p className="Section">
-            <img className="PokemolBrand" src={DaohausBrand} alt="daohaus" />
-          </p>
-          <p>
-            <strong>Daohaus</strong> strives to be the most forward-thinking,
-            user-friendly dao experience. In Daohaus, you can discover and join
-            existing daos, as well as launch your own. Launching a dao on
-            Daohaus provides a landing page where others can pledge to join.
-            With our latest release, daos also get a Pokemol interface
-            automatically.
-          </p>
-          <p className="Section">
-            <img className="PokemolBrand" src={PokemolBrand} alt="pokemol" />
-          </p>
-          <p>
-            <strong>Pokemol</strong> is a mobile-friendly app where you view,
-            submit, and vote on dao proposals. It uses contract wallets via{' '}
-            <a
-              href="https://abridged.io"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Abridged SDK
-            </a>{' '}
-            to greatly enhance dao participation and overall user experience
-            such as:
-          </p>
-          <ul>
-            <li>
-              Can be used in any device/browser (no special Extensions or
-              Browsers needed)
-            </li>
-            <li>
-              One click interactions (no need for signing every transaction)
-            </li>
-            <li>Multiple transactions can be chained into one interaction</li>
-          </ul>
-          <p className="Section">
-            <a
-              href="https://github.com/MolochVentures/moloch"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img className="PokemolBrand" src={MolochBrand} alt="3Box" />
-            </a>
-          </p>
-          <p>
-            <strong>Moloch</strong> dao contracts are used because they are
-            simple, secure, and battle-tested in the real world. V2 is coming
-            soon with some great updates, allowing for more use cases.
-          </p>
-          <p className="Section">
-            <a href="https://3box.io" rel="noopener noreferrer" target="_blank">
-              <img className="ThreeBoxBrand" src={ThreeBoxBrand} alt="3Box" />
-            </a>
-          </p>
-          <p>
-            <strong>3Box</strong> is used to show social-friendly user profiles.
-            We'll be looking to integrate other social/coordination features
-            over time.
           </p>
         </div>
       </div>
@@ -209,16 +170,6 @@ const About = () => {
           </div>
         </div>
       </div>
-      {/* <div className="Block">
-        <div className="Block__Contents">
-          <h2>Our Team is a dao</h2>
-          <p>
-            All grants received have gone into a dao called Raid Guild, itself
-            launched on Daohaus, where the funds are distributed to those
-            contributing to the project.
-          </p>
-        </div>
-      </div> */}
     </div>
   );
 };
