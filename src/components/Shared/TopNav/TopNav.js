@@ -25,12 +25,20 @@ const TopNav = () => {
       </Link>
       <nav className="TopNav__Desktop">
         <a
-          href={`https://discord.gg/NPEJysW`}
-          alt="DAOHaus on Discord"
+          href={`https://app.daohaus.club/explore`}
+          alt="Explore DAOs"
           rel="noreferrer noopener"
           target="_blank"
         >
-          Community
+          Explore DAOs
+        </a>
+        <a
+          href={`https://app.daohaus.club/summon`}
+          alt="Summon a new DAO"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          Summon a DAO
         </a>
         <Link to={`/help`} alt="DAOHaus Help">
           Help
@@ -62,16 +70,23 @@ const TopNav = () => {
             Home
           </Link>
           <a
-            href={`https://discord.gg/NPEJysW`}
-            alt="DAOHaus on Discord"
-            onClick={toggleNav}
+            href={`https://app.daohaus.club/explore`}
+            alt="Explore DAOs"
             rel="noreferrer noopener"
             target="_blank"
           >
-            Community
+            Explore DAOs
+          </a>
+          <a
+            href={`https://app.daohaus.club/summon`}
+            alt="Summon a new DAO"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Summon a DAO
           </a>
           <Link to="/help" onClick={toggleNav}>
-            Docs
+            Help
           </Link>
           <a
             style={{ color: 'white' }}

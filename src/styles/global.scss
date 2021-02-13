@@ -124,9 +124,9 @@ button:not(.hamburger):not([role='switch']),
     }
   }
   &.Big {
-    padding: 25px;
-    font-size: 1.5em;
-    min-width: 200px;
+    padding: 15px;
+    font-size: 1.25em;
+    min-width: 150px;
     text-align: center;
     @media (max-width: $grid) {
       padding: 15px;

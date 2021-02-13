@@ -76,8 +76,9 @@ const Home = () => {
             in community coordination
           </h1>
           <p className="BigP daoColor" style={{ maxWidth: '500px' }}>
-            We believe in power to the people. Join us in pioneering a future
-            where communities replace corporations and humans own the web.
+            DAOs give direct <strong>power to the people</strong>. Join us in
+            pioneering a future where communities replace corporations and
+            humans own the web.
           </p>
           <p>
             Secured by the{' '}
@@ -133,7 +134,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="Button Big"
             >
-              Open App
+              Open the App
             </a>
           </div>
         </div>
@@ -451,14 +452,23 @@ const Home = () => {
       <div className="Block Footer">
         <div className="Block__Contents">
           <div className="Row">
-            <img
-              src={DaohausLogo}
-              alt="DaoHaus Logo"
-              height="40px !important"
-              style={{ marginBottom: 25 }}
-            />
-          </div>
-          <div className="Row">
+            <div className="Column Column--25">
+              <img
+                src={DaohausLogo}
+                alt="DaoHaus Logo"
+                height="40px !important"
+              />
+              <p className="Built">
+                Built by community via{' '}
+                <a
+                  href="https://app.daohaus.club/dao/0x64/0x283bdc900b6ec9397abb721c5bbff5ace46e0f50"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  HausDAO
+                </a>
+              </p>
+            </div>
             <div className="Column Column--25">
               <a
                 href="https://app.daohaus.club"
@@ -514,7 +524,6 @@ const Home = () => {
                 <DiGithubAlt /> Github
               </a>
             </div>
-            <div className="Column Column--25"></div>
             <div className="Column Column--25"></div>
           </div>
         </div>
