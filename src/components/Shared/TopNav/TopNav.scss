@@ -3,6 +3,7 @@
 .TopNav {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   position: relative;
   padding: 15px 50px;
   width: calc(100% - 100px);
@@ -12,12 +13,18 @@
     width: calc(100% - 50px);
   }
   &__Brand {
-    font-size: 36px;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
     margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 900;
     img {
       margin: 0;
+      margin-right: 5px;
       display: inline-block;
-      max-width: 200px;
+      max-width: 80px;
       @media (max-width: $mobile) {
         max-width: 160px;
       }

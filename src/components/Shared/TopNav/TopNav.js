@@ -23,21 +23,24 @@ const TopNav = () => {
         <img src={DaohausIcon} alt="DAOHAUS" /> DAOhaus
       </Link>
       <nav className="TopNav__Desktop">
-        <Link to={`/about`} alt="DAOHaus About">
-          About
-        </Link>
+        <a
+          to={`https://discord.gg/NPEJysW`}
+          alt="DAOHaus on Discord"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          Community
+        </a>
         <Link to={`/help`} alt="DAOHaus Help">
           Help
         </Link>
         <a
-          className="Button"
-          style={{ color: 'white' }}
           href="https://app.daohaus.club"
           rel="noopener noreferrer"
           target="_blank"
         >
           <img
-            src={DaohausCastle}
+            src={DaohausIcon}
             width="36px"
             height="36px"
             style={{ marginRight: '10px' }}
@@ -57,14 +60,19 @@ const TopNav = () => {
           <Link to={`/`} onClick={toggleNav}>
             Home
           </Link>
-          <Link to="/about" onClick={toggleNav}>
-            About
-          </Link>
+          <a
+            to={`https://discord.gg/NPEJysW`}
+            alt="DAOHaus on Discord"
+            onClick={toggleNav}
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Community
+          </a>
           <Link to="/help" onClick={toggleNav}>
-            Help
+            Docs
           </Link>
           <a
-            className="Button"
             style={{ color: 'white' }}
             href="https://app.daohaus.club"
             rel="noopener noreferrer"

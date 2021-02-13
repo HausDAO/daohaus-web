@@ -26,7 +26,7 @@ h1 {
 
 h2 {
   font-family: $heading-font;
-  font-weight: 700;
+  font-weight: 900;
   font-size: 2em;
   font-weight: 700;
 }
@@ -287,6 +287,32 @@ button:not(.hamburger):not([role='switch']),
       }
     }
   }
+  &.PrimaryBg {
+    background-color: $primary-background;
+    color: white;
+    p {
+      color: white;
+    }
+    a {
+      color: $orange;
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
+  &.PrimaryDark {
+    background-color: $primary-dark;
+    color: white;
+    p {
+      color: white;
+    }
+    a {
+      color: $orange;
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
   &.Secondary {
     background-color: $secondary;
     p {
@@ -385,6 +411,8 @@ button:not(.hamburger):not([role='switch']),
   }
 }
 
+// Utils
+
 .SmallContainer {
   max-width: 600px;
   margin: 0 auto;
@@ -404,6 +432,13 @@ p.Large {
 }
 .Success {
   color: $success;
+}
+.tradColor {
+  color: $red;
+}
+
+.daoColor {
+  color: $secondary;
 }
 
 .SuccessMessage {
@@ -922,7 +957,15 @@ label.Select {
 // Utils
 
 .JustifyCenter {
-  justify-content: center;
+  justify-content: center !important;
+}
+
+.AlignCenter {
+  align-items: center !important;
+}
+
+.yellowColor {
+  color: #ffe593;
 }
 
 // Breakpoint Utils

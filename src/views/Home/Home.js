@@ -1,32 +1,36 @@
 import React from 'react';
 import { Carousel } from 'antd';
 import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
+import { ImTwitter } from 'react-icons/im';
+import { DiGithubAlt } from 'react-icons/di';
 
 import InfographicTrad from '../../assets/infographic__trad.png';
 import InfographicDAO from '../../assets/infographic__dao.png';
 import GraphicCommunities from '../../assets/graphic__communities.png';
-import DaohausBauhaus from '../../assets/daohaus__bauhaus.png';
+import DaohausBauhaus from '../../assets/bauhaus__composable.png';
 import DaohausHugeType from '../../assets/daohaus__hugeType.png';
+import HausHugeType from '../../assets/haus__hugeType.png';
 
 import HowTreasury from '../../assets/how__treasury.png';
 import HowProposals from '../../assets/how__proposals.png';
 import HowMembers from '../../assets/how__members.png';
 
-import IconA from '../../assets/branding/Icon__A.png';
-import IconB from '../../assets/branding/Icon__B.png';
-import IconC from '../../assets/branding/Icon__D.png';
+import IconA from '../../assets/ico-grants.png';
+import IconB from '../../assets/ico-protocols.png';
+import IconC from '../../assets/ico-guilds.png';
+import IconD from '../../assets/ico-clubs.png';
 
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
+import { ReactComponent as SubstackSvg } from '../../assets/Substack.svg';
 
-import DaohausCastle from '../../assets/daohaus__brand--castle.svg';
 import DaohausCastleLight from '../../assets/daohaus__brand--castle--light.png';
 import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
-import FallingBackground from '../../assets/daohaus__hero--falling.png';
 import DaohausLogo from '../../assets/logo.png';
 
-import { heroSlides, integrationLogos } from '../../content/home-content';
+import { heroSlides } from '../../content/home-content';
 
 import './Home.scss';
+import { introspectionFromSchema } from 'graphql';
 
 const Home = () => {
   const renderSlides = () => {
@@ -35,10 +39,10 @@ const Home = () => {
         {heroSlides.map(slide => {
           return (
             <div key={slide.id} className="Carousel__Slide">
-              <div className="Content">
+              {/* <div className="Content">
                 <p>{slide.content}</p>
                 <h4>{slide.heading}</h4>
-              </div>
+              </div> */}
               <div
                 className="SlideBg"
                 style={{
@@ -61,15 +65,58 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className="Home">
       <div className="HomeHero">
         <div className="SummonHero">
-          <h1>Unlock the next tier in community coordination</h1>
-          <p className="BigP" style={{ maxWidth: '500px' }}>
+          <h1>
+            Unlock the next tier <br />
+            in community coordination
+          </h1>
+          <p className="BigP daoColor" style={{ maxWidth: '500px' }}>
             We believe in power to the people. Join us in pioneering a future
             where communities replace corporations and humans own the web.
-            <br />
           </p>
+          <p>
+            Secured by the{' '}
+            <a
+              href="https://ethereum.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ethereum
+            </a>{' '}
+            blockchain ❤️
+          </p>
+          <div className="Social">
+            <a
+              href="https://discord.gg/NPEJysW"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon component={DiscordSvg} />
+            </a>
+            <a
+              href="https://daohaus.substack.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon component={SubstackSvg} style={{ fill: '#513e97' }} />
+            </a>
+            <a
+              href="https://github.com/odyssy-automaton/daohaus-web"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <DiGithubAlt />
+            </a>
+            <a
+              href="https://twitter.com/nowdaoit"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ImTwitter />
+            </a>
+          </div>
           <div className="HeroButtonGroup">
             <a
               href="https://daohaus.club/about"
@@ -101,16 +148,20 @@ const Home = () => {
         <div className="Block__Contents">
           <div className="Row">
             <div className="Column--50">
-              <img src={InfographicDAO} alt="infographic dao" width="240px" />
-              <h5>DAO</h5>
-              <h2>Power shared by all</h2>
-              <p>Agile, Collaboration, Diversity, Transparency</p>
+              <img src={InfographicTrad} alt="infographic trad" width="240px" />
+              <h5 className="tradColor">Traditional Organization</h5>
+              <h2>Power held by few at the top</h2>
+              <p className="tradColor">
+                Rigid, Competition, Inequality, Opaque{' '}
+              </p>
             </div>
             <div className="Column--50">
-              <img src={InfographicTrad} alt="infographic trad" width="240px" />
-              <h5>Traditional Organization</h5>
-              <h2>Power held by few at the top</h2>
-              <p>Rigid, Competition, Inequality, Opaque </p>
+              <img src={InfographicDAO} alt="infographic dao" width="240px" />
+              <h5 className="daoColor">DAO</h5>
+              <h2>Power shared by all</h2>
+              <p className="daoColor">
+                Agile, Collaboration, Diversity, Transparent
+              </p>
             </div>
           </div>
         </div>
@@ -118,11 +169,13 @@ const Home = () => {
       <div className="Usecases Block">
         <div className="Block__Contents">
           <h3>How is it Used?</h3>
-          <p>How communities use DAOhaus today</p>
+          <p>
+            How communities use DAOhaus <span className="daoColor">TODAY</span>
+          </p>
           <div className="Row">
             <div className="Column--50">
-              <img src={IconA} alt="infographic dao" width="80px" />
-              <h5>Grants</h5>
+              <img src={IconA} alt="" width="80px" />
+              <h5>Grants & Investments</h5>
               <p>
                 The first major use of DAOs has been through community grants!
                 Millions have been raised and distributed to early developers of
@@ -130,17 +183,16 @@ const Home = () => {
               </p>
             </div>
             <div className="Column--50">
-              <img src={IconB} alt="infographic trad" width="80px" />
+              <img src={IconB} alt="" width="80px" />
               <h5>Ventures</h5>
               <p>
-                Freelancers rejoice! Guilds have re-emerged as a powerful
-                collective force. Some even have members who quit their day jobs
-                to work for a DAO.
+                The DAOhaus project is a prime example of a project based DAO.
+                Every community initiative can now become a funded reality.
               </p>
             </div>
             <div className="Column--50">
-              <img src={IconA} alt="infographic dao" width="80px" />
-              <h5>Guilds</h5>
+              <img src={IconC} alt="" width="80px" />
+              <h5>Guilds & Services</h5>
               <p>
                 Freelancers rejoice! Guilds have re-emerged as a powerful
                 collective force. Some even have members who quit their day jobs
@@ -148,19 +200,22 @@ const Home = () => {
               </p>
             </div>
             <div className="Column--50">
-              <img src={IconB} alt="infographic trad" width="80px" />
+              <img src={IconD} alt="" width="80px" />
               <h5>Social</h5>
               <p>
-                Freelancers rejoice! Guilds have re-emerged as a powerful
-                collective force. Some even have members who quit their day jobs
-                to work for a DAO.
+                Get your friends together and put your money where your mouth
+                is! Clubs are culture machines, and DAOhaus is flexible enough
+                to keep the party going.
               </p>
             </div>
           </div>
-          <p>How communities will use DAOs tomorrow</p>
+          <p style={{ marginTop: 75 }}>
+            How communities will use DAOs{' '}
+            <span className="yellowColor">TOMORROW</span>
+          </p>
           <div className="Row">
             <div className="Column--33">
-              <img src={IconA} alt="infographic dao" width="80px" />
+              <img src={IconA} alt="" width="80px" />
               <p>
                 Player-owned
                 <br />
@@ -168,7 +223,7 @@ const Home = () => {
               </p>
             </div>
             <div className="Column--33">
-              <img src={IconA} alt="infographic dao" width="80px" />
+              <img src={IconA} alt="" width="80px" />
               <p>
                 Brewer-owned
                 <br />
@@ -176,7 +231,7 @@ const Home = () => {
               </p>
             </div>
             <div className="Column--33">
-              <img src={IconC} alt="infographic dao" width="80px" />
+              <img src={IconC} alt="" width="80px" />
               <p>
                 User-owned
                 <br />
@@ -197,10 +252,18 @@ const Home = () => {
                 </span>{' '}
                 Communities
               </h3>
-              <p>
+              <p className="BigP">
                 DAOhaus communities have raised over $21m to build, hire and
                 invest as one unified voice.{' '}
               </p>
+              <a
+                href="https://app.daohaus.club/explore"
+                className="Button Outlined"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Explore DAOs
+              </a>
             </div>
             <div className="Column--50">
               <img src={GraphicCommunities} alt="dao communities" />
@@ -208,7 +271,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div
+      {/* <div
         className="Row GetStarted"
         style={{ backgroundImage: 'url(' + GetStartedBackground + ')' }}
       >
@@ -223,33 +286,35 @@ const Home = () => {
             Explore DAOs
           </a>
         </div>
-      </div>
+      </div> */}
       <div className="How Block">
         <div className="Block__Contents">
           <h3>How a DAO works</h3>
-          <p>How communities use DAOhaus today</p>
-          <div className="Row JustifyCenter">
+          <p>Just the basics.</p>
+          <div className="Row AlignCenter">
             <div className="Column--50">
               <h5>Shared Treasury</h5>
-              <p>Hold and distribute crypto.</p>
+              <p>Community funds are held by the DAO itself.</p>
             </div>
             <div className="Column--50">
               <img src={HowTreasury} alt="app screenshot of treasury" />
             </div>
           </div>
-          <div className="Row JustifyCenter">
+          <div className="Row AlignCenter">
             <div className="Column--50">
               <h5>Voting & Proposals</h5>
-              <p>All decisions allow for members to vote.</p>
+              <p>Decisions are made by voting on community proposals.</p>
             </div>
             <div className="Column--50">
               <img src={HowProposals} alt="app screenshot of proposals" />
             </div>
           </div>
-          <div className="Row JustifyCenter">
+          <div className="Row AlignCenter">
             <div className="Column--50">
               <h5>Dynamic Membership</h5>
-              <p>Add/remove members together. Members can exit anytime.</p>
+              <p>
+                Members are added by community vote and may leave at any time.
+              </p>
             </div>
             <div className="Column--50">
               <img src={HowMembers} alt="app screenshot of members" />
@@ -259,22 +324,85 @@ const Home = () => {
       </div>
       <div className="Block Communities">
         <div className="Block__Contents">
-          <h3>Interact with the entire Ethereum ecosystem of dApps.</h3>
-          <p>
-            Every community is unique, just like the people in it. DAOhaus can
-            integrate with whatever tools your community needs to get things
-            done. Join our discord and ask us anything. We love helping
-            communities level up.
-          </p>
-          <img src={DaohausBauhaus} alt="ethereum ecosystem of dapps" />
+          <div className="Row">
+            <div className="Column--50">
+              <h3>Interact with the entire Ethereum ecosystem of dApps.</h3>
+              <p>
+                Make trades on Uniswap, use a Gnosis safe, update a 3Box
+                profile- all as a community.
+              </p>
+              <p>
+                If you’re building something that could be useful for DAOs, hit
+                us up in our Discord ->
+              </p>
+            </div>
+            <div className="Column--50">
+              <img src={DaohausBauhaus} alt="ethereum ecosystem of dapps" />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="Block">
+      <div className="Block PrimaryDark">
         <div className="Block__Contents">
-          <h3>DAOhaus is community owned and operated.</h3>
-          <p>
-            Our mission is to foster an open economy of interconnected DAOs.
-          </p>
+          <div className="Row">
+            <div className="Column--50">
+              <img src={HausHugeType} alt="" />
+              <h3 className="whiteColor" style={{ margin: '75px 0px 25px' }}>
+                Our mission is to foster a diverse, open economy of transparent
+                collaboration.
+              </h3>
+              <p>
+                DAOhaus is owned and built by the community using DAOs to
+                coordinate.
+              </p>
+            </div>
+            <div className="Column--50"></div>
+          </div>
+
+          <div className="Row" style={{ marginTop: 75 }}>
+            <div className="Column--33 SocialItem">
+              <a
+                href="https://discord.gg/NPEJysW"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="SocialIcon"
+              >
+                <Icon component={DiscordSvg} />
+              </a>
+              <h4 className="daoColor">Discord</h4>
+              <p>Get support, provide feedback, ask anything about DAOs.</p>
+            </div>
+            <div className="Column--33 SocialItem">
+              <a
+                href="https://daohaus.substack.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="SocialIcon"
+              >
+                <Icon component={SubstackSvg} />
+              </a>
+              <h4 className="yellowColor">Substack</h4>
+              <p>
+                Stalk that alpha. Stay up to date and learn what’s on the
+                horizon from top web3 builders.
+              </p>
+            </div>
+            <div className="Column--33 SocialItem">
+              <a
+                href="https://github.com/odyssy-automaton/daohaus-web"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="SocialIcon"
+              >
+                <DiGithubAlt />
+              </a>
+              <h4 className="daoColor">Github</h4>
+              <p>
+                Check the code, it's open-source of course. Add an issue, submit
+                a PR.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div className="Block Footer">
@@ -307,7 +435,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

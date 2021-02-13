@@ -34,6 +34,35 @@ export const heroSlides = [
   },
 ];
 
+export const wtfSlides = [
+  {
+    id: 1,
+    heading: '1969',
+    content: 'The Internet begins with "Lo"',
+    subcontent:
+      'ARPANET was the military-funded goal for decentralized communication. Leonard Kleinrock, tells the story of the first internet message, which was going to be “login” but the computer crashed after the first two letters: Lo. “As in lo and behold,” Kleinrock says with an awed smile.',
+    image: HeroMGD,
+  },
+  {
+    id: 2,
+    heading: '1980',
+    content:
+      'It’s a great way to bring people together who want to get shit done. The process of building a DAO community is an experience that you will never regret.',
+    subcontent:
+      'ARPANET was the military-funded goal for decentralized communication. Leonard Kleinrock, tells the story of the first internet message, which was going to be “login” but the computer crashed after the first two letters: Lo. “As in lo and behold,” Kleinrock says with an awed smile.',
+    image: HeroMetaCartel,
+  },
+  {
+    id: 3,
+    heading: '2000s',
+    content:
+      'By summoning a DAO, I learned in and out of how a Moloch works and I can say that I turn from DAO noob to expert to the point that I was able to present at a meetup.',
+    subcontent:
+      'ARPANET was the military-funded goal for decentralized communication. Leonard Kleinrock, tells the story of the first internet message, which was going to be “login” but the computer crashed after the first two letters: Lo. “As in lo and behold,” Kleinrock says with an awed smile.',
+    image: HeroOrochi,
+  },
+];
+
 export const daohausFeatures = [
   {
     icon: IconA,

@@ -18,6 +18,7 @@
 }
 
 .HeroButtonGroup {
+  margin-top: 100px;
   @media (min-width: $mobile + 1) {
     .Button:not(:first-child) {
       margin-left: 25px;
@@ -35,11 +36,12 @@
 .SummonHero {
   padding-left: 100px;
   width: calc(50% - 100px);
-  background-color: $primary-background;
+  background-color: $primary-dark;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   h1 {
     font-size: 3em;
     @media (max-width: $mobile) {
@@ -55,30 +57,50 @@
     width: calc(100% - 50px);
     padding: 25px;
   }
+  .Social {
+    margin-top: 15px;
+    display: flex;
+    a {
+      margin-right: 15px;
+      width: 36px;
+      height: 36px;
+      transition: all 0.15s linear;
+      svg {
+        width: 36px;
+        height: 36px;
+        path {
+          fill: #513e97;
+        }
+      }
+    }
+    :hover svg path {
+      transition: all 0.15s linear;
+      fill: #433185;
+    }
+    :nth-child(2) {
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+      padding: 4px 0px 4px 4px;
+    }
+  }
 }
 
-.Carousel {
-  position: relative;
-  width: 50%;
-  .Overlay {
-    background-color: rgba(14, 15, 53, 0.85);
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 0;
-  }
-  &__Slide {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    .SlideBg {
+.Home {
+  .Carousel {
+    position: relative;
+    width: 50%;
+    .Overlay {
+      background-color: rgba(14, 15, 53, 0.85);
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
+    }
+    &__Slide {
       position: absolute;
       top: 0;
       right: 0;
@@ -87,33 +109,43 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
+      .SlideBg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+      .Content {
+        position: absolute;
+        right: 50px;
+        bottom: 50px;
+        text-align: right;
+        max-width: 420px;
+        z-index: 3;
+        h4 {
+          font-size: 1em;
+        }
+        p {
+          //font-family: $heading-font;
+          //line-height: 1.35em;
+          font-size: 1.25em;
+        }
+      }
     }
-    .Content {
-      position: absolute;
-      right: 50px;
-      bottom: 50px;
-      text-align: right;
-      max-width: 420px;
-      z-index: 3;
-      h4 {
-        font-size: 1em;
-      }
-      p {
-        //font-family: $heading-font;
-        //line-height: 1.35em;
-        font-size: 1.25em;
-      }
-    }
-  }
-  @media (max-width: $grid) {
-    width: 100%;
-    min-height: 420px;
-    .Content {
-      h4 {
-        font-size: 0.75em;
-      }
-      p {
-        font-size: 1em;
+    @media (max-width: $grid) {
+      width: 100%;
+      min-height: 420px;
+      .Content {
+        h4 {
+          font-size: 0.75em;
+        }
+        p {
+          font-size: 1em;
+        }
       }
     }
   }
@@ -124,11 +156,41 @@
   color: white;
   flex-direction: column;
   justify-content: flex-start;
+  .Column--50,
+  .Column--33 {
+    margin-top: 50px;
+  }
 }
 
 .How {
-  background-color: $background;
+  background-color: $background-light;
   justify-content: flex-start;
+  font-size: 1.5em;
+  .Column--50 {
+    margin-top: 100px;
+  }
+}
+.SocialItem {
+  .SocialIcon {
+    width: 60px;
+    height: 60px;
+    svg {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  &:nth-of-type(1) svg {
+    fill: red;
+  }
+  &:nth-of-type(2) .SocialIcon svg {
+    width: 42px;
+    path {
+      fill: yellow;
+    }
+  }
+  &:nth-of-type(3) svg {
+    fill: blue;
+  }
 }
 
 .Features {
@@ -216,6 +278,9 @@
     background-size: 50%;
     background-repeat: no-repeat;
     overflow: visible;
+  }
+  .Button {
+    margin-top: 25px;
   }
 }
 

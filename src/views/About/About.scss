@@ -1,31 +1,76 @@
+@import '../../styles/variables';
+
 .About .Hero {
-    padding: 50px 50px;
-    min-height: 75vh;
-    h2 { max-width: 600px; }
+  padding: 50px 50px;
+  min-height: 75vh;
+  h2 {
+    max-width: 600px;
+  }
 }
 
 .PokemolBrand {
-    height: 60px;
+  height: 60px;
 }
 
 .ThreeBoxBrand {
-    max-width: 120px;
+  max-width: 120px;
 }
 
 .History {
-    .Value { margin-bottom: 25px; }
+  .Value {
+    margin-bottom: 25px;
+  }
 }
 
 .About {
-    ul { 
-        list-style: square;
-        margin: 0;
-        padding: 0px;
-        padding-left: 25px;
-        li {
-            margin-bottom: 15px;
-            color: white;
-            padding: 0px;
-        }
+  .Carousel {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+    .Overlay {
+      background-color: rgba(14, 15, 53, 0.85);
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 0;
     }
+    &__Slide {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      h3 {
+        color: white;
+      }
+      h1 {
+        color: white;
+      }
+      p {
+        color: white;
+      }
+    }
+    @media (max-width: $grid) {
+      width: 100%;
+      min-height: 420px;
+      .Content {
+        h4 {
+          font-size: 0.75em;
+        }
+        p {
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}
+
+ul.slick-dots {
+  bottom: 0;
+  right: 0;
 }
