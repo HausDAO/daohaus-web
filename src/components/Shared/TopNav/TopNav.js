@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DaohausIcon from '../../../assets/daohaus__brand--castle.svg';
 import DaohausLogo from '../../../assets/logo.png';
-import DaohausCastle from '../../../assets/daohaus__brand--castle--light.png';
 import './TopNav.scss';
 
 const TopNav = () => {
