@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
-import Icon, { TwitterCircleFilled, GithubOutlined } from '@ant-design/icons';
+import Icon from '@ant-design/icons';
 import { ImTwitter } from 'react-icons/im';
 import { DiGithubAlt } from 'react-icons/di';
 
@@ -19,18 +20,20 @@ import IconA from '../../assets/ico-grants.png';
 import IconB from '../../assets/ico-protocols.png';
 import IconC from '../../assets/ico-guilds.png';
 import IconD from '../../assets/ico-clubs.png';
+import IconFA from '../../assets/ico__future--a.png';
+import IconFB from '../../assets/ico__future--b.png';
+import IconFC from '../../assets/ico__future--c.png';
+import IconHA from '../../assets/ico__how--a.png';
+import IconHB from '../../assets/ico__how--b.png';
+import IconHC from '../../assets/ico__how--c.png';
 
 import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
 import { ReactComponent as SubstackSvg } from '../../assets/Substack.svg';
-
-import DaohausCastleLight from '../../assets/daohaus__brand--castle--light.png';
-import GetStartedBackground from '../../assets/daohaus__seciton5-bg-shapes.png';
 import DaohausLogo from '../../assets/logo.png';
 
 import { heroSlides } from '../../content/home-content';
 
 import './Home.scss';
-import { introspectionFromSchema } from 'graphql';
 
 const Home = () => {
   const renderSlides = () => {
@@ -39,10 +42,10 @@ const Home = () => {
         {heroSlides.map(slide => {
           return (
             <div key={slide.id} className="Carousel__Slide">
-              {/* <div className="Content">
+              <div className="Content">
                 <p>{slide.content}</p>
                 <h4>{slide.heading}</h4>
-              </div> */}
+              </div>
               <div
                 className="SlideBg"
                 style={{
@@ -103,7 +106,7 @@ const Home = () => {
               <Icon component={SubstackSvg} style={{ fill: '#513e97' }} />
             </a>
             <a
-              href="https://github.com/odyssy-automaton/daohaus-web"
+              href="https://github.com/HausDAO/pokemol-web"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -119,8 +122,8 @@ const Home = () => {
           </div>
           <div className="HeroButtonGroup">
             <a
-              href="https://daohaus.club/about"
-              className="Button Big Secondary"
+              href="https://daohaus.club/help"
+              className="Button Big Secondary Outlined"
             >
               DAO Basics
             </a>
@@ -130,13 +133,6 @@ const Home = () => {
               rel="noopener noreferrer"
               className="Button Big"
             >
-              <img
-                src={DaohausCastleLight}
-                alt="DAOhaus Icon"
-                width="28px"
-                height="28px"
-                style={{ verticalAlign: 'middle', marginRight: '5px' }}
-              />
               Open App
             </a>
           </div>
@@ -144,23 +140,39 @@ const Home = () => {
         <div className="Carousel">{renderSlides()}</div>
       </div>
 
-      <div className="Features Block">
+      <div className="Block PrimaryBg">
         <div className="Block__Contents">
           <div className="Row">
             <div className="Column--50">
-              <img src={InfographicTrad} alt="infographic trad" width="240px" />
+              <img
+                src={InfographicTrad}
+                alt="infographic trad"
+                width="240px"
+                style={{ marginBottom: 25 }}
+              />
               <h5 className="tradColor">Traditional Organization</h5>
-              <h2>Power held by few at the top</h2>
-              <p className="tradColor">
-                Rigid, Competition, Inequality, Opaque{' '}
+              <h2 style={{ textDecoration: 'strikethrough' }}>
+                Power held by few at the top
+              </h2>
+              <p>
+                <span className="tradColor">
+                  Rigid, Competition, Inequality, Opaque
+                </span>
               </p>
             </div>
             <div className="Column--50">
-              <img src={InfographicDAO} alt="infographic dao" width="240px" />
+              <img
+                src={InfographicDAO}
+                alt="infographic dao"
+                width="240px"
+                style={{ marginBottom: 25 }}
+              />
               <h5 className="daoColor">DAO</h5>
               <h2>Power shared by all</h2>
-              <p className="daoColor">
-                Agile, Collaboration, Diversity, Transparent
+              <p>
+                <span className="daoColor">
+                  Agile, Collaboration, Diversity, Transparent
+                </span>
               </p>
             </div>
           </div>
@@ -215,28 +227,49 @@ const Home = () => {
           </p>
           <div className="Row">
             <div className="Column--33">
-              <img src={IconA} alt="" width="80px" />
-              <p>
-                Player-owned
-                <br />
-                <strong>Games</strong>
-              </p>
+              <div className="Row AlignCenter JustifyStart">
+                <img
+                  src={IconFA}
+                  alt=""
+                  width="40px"
+                  style={{ marginRight: '10px' }}
+                />
+                <p>
+                  Player-owned
+                  <br />
+                  <strong>Games</strong>
+                </p>
+              </div>
             </div>
             <div className="Column--33">
-              <img src={IconA} alt="" width="80px" />
-              <p>
-                Brewer-owned
-                <br />
-                <strong>Breweries</strong>
-              </p>
+              <div className="Row AlignCenter JustifyStart">
+                <img
+                  src={IconFB}
+                  alt=""
+                  width="40px"
+                  style={{ marginRight: '10px' }}
+                />
+                <p>
+                  Brewer-owned
+                  <br />
+                  <strong>Breweries</strong>
+                </p>
+              </div>
             </div>
             <div className="Column--33">
-              <img src={IconC} alt="" width="80px" />
-              <p>
-                User-owned
-                <br />
-                <strong>Platforms</strong>
-              </p>
+              <div className="Row AlignCenter JustifyStart">
+                <img
+                  src={IconFC}
+                  alt=""
+                  width="40px"
+                  style={{ marginRight: '10px' }}
+                />
+                <p>
+                  User-owned
+                  <br />
+                  <strong>Platforms</strong>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -253,8 +286,9 @@ const Home = () => {
                 Communities
               </h3>
               <p className="BigP">
-                DAOhaus communities have raised over $21m to build, hire and
-                invest as one unified voice.{' '}
+                DAOhaus communities have raised over $20M collectively and
+                distributed almost $10M throughout the ecoystem to support their
+                various goals.{' '}
               </p>
               <a
                 href="https://app.daohaus.club/explore"
@@ -271,28 +305,24 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* <div
-        className="Row GetStarted"
-        style={{ backgroundImage: 'url(' + GetStartedBackground + ')' }}
-      >
-        <div style={{ width: '100%', maxWidth: '800px' }}>
-          <h2>Ready to DAO it?</h2>
-          <a
-            href="https://app.daohaus.club/explore"
-            className="Button Big"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Explore DAOs
-          </a>
-        </div>
-      </div> */}
       <div className="How Block">
         <div className="Block__Contents">
           <h3>How a DAO works</h3>
           <p>Just the basics.</p>
+          <p className="TinyP">
+            Follow our{' '}
+            <a
+              href="https://daohaus.substack.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Substack
+            </a>{' '}
+            for the latest.
+          </p>
           <div className="Row AlignCenter">
             <div className="Column--50">
+              <img src={IconHA} alt="" width="40px" />
               <h5>Shared Treasury</h5>
               <p>Community funds are held by the DAO itself.</p>
             </div>
@@ -302,6 +332,7 @@ const Home = () => {
           </div>
           <div className="Row AlignCenter">
             <div className="Column--50">
+              <img src={IconHB} alt="" width="40px" />
               <h5>Voting & Proposals</h5>
               <p>Decisions are made by voting on community proposals.</p>
             </div>
@@ -311,6 +342,7 @@ const Home = () => {
           </div>
           <div className="Row AlignCenter">
             <div className="Column--50">
+              <img src={IconHC} alt="" width="40px" />
               <h5>Dynamic Membership</h5>
               <p>
                 Members are added by community vote and may leave at any time.
@@ -326,14 +358,25 @@ const Home = () => {
         <div className="Block__Contents">
           <div className="Row">
             <div className="Column--50">
-              <h3>Interact with the entire Ethereum ecosystem of dApps.</h3>
-              <p>
-                Make trades on Uniswap, use a Gnosis safe, update a 3Box
-                profile- all as a community.
+              <h3>
+                Interact with the entire Ethereum ecosystem of decentralized
+                apps.
+              </h3>
+              <p className="BigP" style={{ margin: '25px 0px' }}>
+                Swap tokens on Uniswap... spin up a Gnosis Safe... govern your
+                own protocol... all as a community.
               </p>
               <p>
-                If you’re building something that could be useful for DAOs, hit
-                us up in our Discord ->
+                <strong>Collaborative composability ftw.</strong> If you’re
+                building something useful for DAOs, hit us up in our{' '}
+                <a
+                  href="https://discord.gg/NPEJysW"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="SocialIcon"
+                >
+                  Discord ->
+                </a>
               </p>
             </div>
             <div className="Column--50">
@@ -351,8 +394,8 @@ const Home = () => {
                 Our mission is to foster a diverse, open economy of transparent
                 collaboration.
               </h3>
-              <p>
-                DAOhaus is owned and built by the community using DAOs to
+              <p className="BigP">
+                DAOhaus is built and run by the community using DAOs to
                 coordinate.
               </p>
             </div>
@@ -369,7 +412,7 @@ const Home = () => {
               >
                 <Icon component={DiscordSvg} />
               </a>
-              <h4 className="daoColor">Discord</h4>
+              <h4 className="tradColor">Discord</h4>
               <p>Get support, provide feedback, ask anything about DAOs.</p>
             </div>
             <div className="Column--33 SocialItem">
@@ -383,13 +426,13 @@ const Home = () => {
               </a>
               <h4 className="yellowColor">Substack</h4>
               <p>
-                Stalk that alpha. Stay up to date and learn what’s on the
-                horizon from top web3 builders.
+                Get the alpha while it's still alpha. Stay up to date and learn
+                what’s on the horizon.
               </p>
             </div>
             <div className="Column--33 SocialItem">
               <a
-                href="https://github.com/odyssy-automaton/daohaus-web"
+                href="https://github.com/HausDAO/pokemol-web"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="SocialIcon"
@@ -407,31 +450,72 @@ const Home = () => {
       </div>
       <div className="Block Footer">
         <div className="Block__Contents">
-          <div className="Mark">
-            <img src={DaohausLogo} alt="DaoHaus Logo" />
+          <div className="Row">
+            <img
+              src={DaohausLogo}
+              alt="DaoHaus Logo"
+              height="40px !important"
+              style={{ marginBottom: 25 }}
+            />
           </div>
-          <div className="Social">
-            <a
-              href="https://twitter.com/nowdaoit"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <TwitterCircleFilled />
-            </a>
-            <a
-              href="https://discord.gg/NPEJysW"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon component={DiscordSvg} />
-            </a>
-            <a
-              href="https://github.com/odyssy-automaton/daohaus-web"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <GithubOutlined />
-            </a>
+          <div className="Row">
+            <div className="Column Column--25">
+              <a
+                href="https://app.daohaus.club"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Launch the App
+              </a>
+              <a
+                href="https://app.daohaus.club/explore"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Explore DAOs
+              </a>
+              <a
+                href="https://app.daohaus.club/summon"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Summon a new DAO
+              </a>
+              <Link to="/help">How to DAO</Link>
+            </div>
+            <div className="Column Column--25">
+              <a
+                href="https://twitter.com/nowdaoit"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ImTwitter /> Twitter
+              </a>
+              <a
+                href="https://discord.gg/NPEJysW"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon component={DiscordSvg} /> Discord
+              </a>
+              <a
+                href="https://daohaus.substack.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon component={SubstackSvg} /> Substack
+              </a>
+
+              <a
+                href="https://github.com/HausDAO/pokemol-web"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <DiGithubAlt /> Github
+              </a>
+            </div>
+            <div className="Column Column--25"></div>
+            <div className="Column Column--25"></div>
           </div>
         </div>
       </div>

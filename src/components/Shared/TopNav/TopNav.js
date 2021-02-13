@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DaohausIcon from '../../../assets/daohaus__brand--castle.svg';
+import DaohausLogo from '../../../assets/logo.png';
 import DaohausCastle from '../../../assets/daohaus__brand--castle--light.png';
 import './TopNav.scss';
 
@@ -20,11 +21,11 @@ const TopNav = () => {
   return (
     <header className="TopNav">
       <Link to={`/`} className="TopNav__Brand" alt="DAOHaus Home">
-        <img src={DaohausIcon} alt="DAOHAUS" /> DAOhaus
+        <img src={DaohausLogo} alt="DaoHaus Logo" />
       </Link>
       <nav className="TopNav__Desktop">
         <a
-          to={`https://discord.gg/NPEJysW`}
+          href={`https://discord.gg/NPEJysW`}
           alt="DAOHaus on Discord"
           rel="noreferrer noopener"
           target="_blank"
@@ -61,7 +62,7 @@ const TopNav = () => {
             Home
           </Link>
           <a
-            to={`https://discord.gg/NPEJysW`}
+            href={`https://discord.gg/NPEJysW`}
             alt="DAOHaus on Discord"
             onClick={toggleNav}
             rel="noreferrer noopener"

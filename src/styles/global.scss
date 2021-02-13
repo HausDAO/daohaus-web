@@ -340,6 +340,12 @@ button:not(.hamburger):not([role='switch']),
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  &--25 {
+    width: 25%;
+    @media (max-width: $mobile) {
+      width: 100%;
+    }
+  }
   &--33 {
     width: 30%;
     @media (max-width: $mobile) {
@@ -439,6 +445,26 @@ p.Large {
 
 .daoColor {
   color: $secondary;
+}
+
+.JustifyCenter {
+  justify-content: center !important;
+}
+
+.JustifyStart {
+  justify-content: flex-start !important;
+}
+
+.AlignCenter {
+  align-items: center !important;
+}
+
+.AlignStart {
+  align-items: flex-start !important;
+}
+
+.yellowColor {
+  color: #ffe593;
 }
 
 .SuccessMessage {
@@ -952,20 +978,6 @@ label.Select {
     margin: 25px 0px;
     font-size: 1.5em;
   }
-}
-
-// Utils
-
-.JustifyCenter {
-  justify-content: center !important;
-}
-
-.AlignCenter {
-  align-items: center !important;
-}
-
-.yellowColor {
-  color: #ffe593;
 }
 
 // Breakpoint Utils

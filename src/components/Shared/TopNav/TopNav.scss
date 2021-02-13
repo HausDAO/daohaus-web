@@ -24,9 +24,9 @@
       margin: 0;
       margin-right: 5px;
       display: inline-block;
-      max-width: 80px;
+      max-width: 160px;
       @media (max-width: $mobile) {
-        max-width: 160px;
+        max-width: 120px;
       }
     }
   }

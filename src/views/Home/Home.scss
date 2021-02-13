@@ -77,13 +77,6 @@
       transition: all 0.15s linear;
       fill: #433185;
     }
-    :nth-child(2) {
-      svg {
-        width: 28px;
-        height: 28px;
-      }
-      padding: 4px 0px 4px 4px;
-    }
   }
 }
 
@@ -122,7 +115,7 @@
       .Content {
         position: absolute;
         right: 50px;
-        bottom: 50px;
+        top: 50px;
         text-align: right;
         max-width: 420px;
         z-index: 3;
@@ -167,104 +160,35 @@
   justify-content: flex-start;
   font-size: 1.5em;
   .Column--50 {
-    margin-top: 100px;
+    margin-top: 150px;
+  }
+  .TinyP {
+    font-size: 0.65em;
   }
 }
 .SocialItem {
   .SocialIcon {
     width: 60px;
     height: 60px;
+    &:hover {
+      transform: scale(1.5);
+    }
     svg {
       width: 60px;
       height: 60px;
     }
   }
   &:nth-of-type(1) svg {
-    fill: red;
+    fill: $red;
   }
   &:nth-of-type(2) .SocialIcon svg {
     width: 42px;
     path {
-      fill: yellow;
+      fill: $yellow;
     }
   }
   &:nth-of-type(3) svg {
-    fill: blue;
-  }
-}
-
-.Features {
-  background-color: $primary-background;
-  color: white;
-  flex-direction: column;
-  justify-content: flex-start;
-  .Row {
-    margin-bottom: 100px;
-    flex-wrap: wrap;
-    .FeaturesHeading {
-      width: 40%;
-      font-size: 1em;
-
-      span {
-        font-size: 0.75em;
-      }
-      @media (max-width: $grid) {
-        width: 80%;
-      }
-    }
-    .AmountRaised {
-      width: 60%;
-      font-size: 1.15em;
-      color: $primary-background;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      p {
-        font-size: 1.75em;
-        transform: rotate(15deg);
-        span {
-          color: #4fbf9f;
-        }
-      }
-      @media (max-width: $grid) {
-        margin-top: 50px;
-        width: 80%;
-        p {
-          font-size: 1em;
-          transform: rotate(-15deg);
-        }
-      }
-    }
-  }
-  .FeaturesList {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    min-height: 300px;
-    max-width: 100%;
-    img {
-      display: block;
-      width: 80px;
-      height: auto;
-      margin: 0 auto 25px;
-    }
-    div {
-      flex-direction: column;
-      text-align: center;
-      width: 22%;
-    }
-    @media (max-width: $grid) {
-      flex-direction: column;
-
-      > div {
-        width: 50%;
-        margin: 0 auto;
-        max-width: 100%;
-        text-align: center;
-        margin-bottom: 50px;
-      }
-    }
+    fill: $secondary;
   }
 }
 
@@ -445,76 +369,10 @@
   min-height: 100px;
   padding: 50px 0px;
   background-color: $primary-background;
+  font-size: 1.15em;
   .Block__Contents {
-    display: flex;
-    flex-wrap: wrap;
-    div:first-of-type {
-      width: 50%;
-      img {
-        height: 70px;
-      }
-      @media (max-width: $grid) {
-        width: 100%;
-      }
-    }
-    .Social {
-      display: flex;
-      width: 50%;
-      align-items: center;
-      justify-content: flex-end;
-      a {
-        svg {
-          width: 40px;
-          height: auto;
-        }
-        &:hover {
-          color: $orange;
-        }
-        &:not(:first-child) {
-          margin-left: 15px;
-        }
-      }
-      @media (max-width: $grid) {
-        width: 100%;
-        margin-top: 25px;
-        justify-content: center;
-      }
-    }
-  }
-}
-
-.Block.Primary.Home__Daolist {
-  padding-top: 0px;
-}
-
-.VersionToggle {
-  background-color: $primary;
-  padding: 25px;
-  width: calc(100% - 50px);
-  .Contents {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 60px;
-    > div {
-      font-size: 1.35em;
-      cursor: pointer;
-      transition: all 0.15s linear;
-      color: $secondary;
-      padding-bottom: 5px;
-      border-bottom: 4px solid transparent;
-      margin-right: 50px;
-      &:first-child {
-        margin-left: 10px;
-      }
-      &:hover {
-        color: $primary-background;
-        border-bottom: 4px solid $primary-background;
-      }
-      &.active {
-        color: $primary-background;
-        border-bottom: 4px solid $primary-background;
-      }
+    a {
+      margin-top: 15px;
     }
   }
 }
