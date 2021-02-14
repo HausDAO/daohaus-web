@@ -325,7 +325,10 @@ const Home = () => {
             <div className="Column--50">
               <img src={IconHA} alt="" width="40px" />
               <h5>Shared Treasury</h5>
-              <p>Community funds are held by the DAO itself.</p>
+              <p>
+                Community funds are held by the DAO itself and distributed
+                through Proposals.
+              </p>
             </div>
             <div className="Column--50">
               <img src={HowTreasury} alt="app screenshot of treasury" />
@@ -335,7 +338,11 @@ const Home = () => {
             <div className="Column--50">
               <img src={IconHB} alt="" width="40px" />
               <h5>Voting & Proposals</h5>
-              <p>Decisions are made by voting on community proposals.</p>
+              <p>
+                Proposals can be used for all types of decisions like
+                distributing funds, allocating shares, and even interacting with
+                other applications and communities.
+              </p>
             </div>
             <div className="Column--50">
               <img src={HowProposals} alt="app screenshot of proposals" />
@@ -344,9 +351,10 @@ const Home = () => {
           <div className="Row AlignCenter">
             <div className="Column--50">
               <img src={IconHC} alt="" width="40px" />
-              <h5>Dynamic Membership</h5>
+              <h5>Fluid Membership</h5>
               <p>
-                Members are added by community vote and may leave at any time.
+                Members are added and removed through proposals and may leave at
+                any time. Shares allow for truly distributed ownership.
               </p>
             </div>
             <div className="Column--50">
@@ -355,6 +363,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <div className="Block Communities">
         <div className="Block__Contents">
           <div className="Row">
