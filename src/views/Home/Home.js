@@ -77,8 +77,8 @@ const Home = () => {
           </h1>
           <p className="BigP daoColor" style={{ maxWidth: '500px' }}>
             DAOs give direct <strong>power to the people</strong>. Join us in
-            pioneering a future where communities replace corporations and
-            humans own the web.
+            pioneering a future where magic internet communities unlock the
+            power of human-centric coordination.
           </p>
           <p>
             Secured by the{' '}
