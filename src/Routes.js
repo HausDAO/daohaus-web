@@ -2,6 +2,8 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Home from './views/Home/Home';
+import Token from './views/Token/Token';
+import Community from './views/Community/Community';
 import Dao from './views/Dao/Dao';
 import DaoV2 from './views/Dao/DaoV2';
 import Apply from './views/Apply/Apply';
@@ -37,6 +39,8 @@ const Routes = () => (
       exact
       component={Profile}
     />
+    <Route path="/token" exact component={Token} />
+    <Route path="/community" exact component={Community} />
     <Route path="/explore" exact component={Explore} />
     <Route path="/help" exact component={Help} />
     <Route path="/about" exact component={About} />

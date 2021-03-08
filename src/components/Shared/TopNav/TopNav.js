@@ -39,6 +39,12 @@ const TopNav = () => {
         >
           Summon a DAO
         </a>
+        <Link to={`/token`} alt="HAUS token and governance">
+          Token
+        </Link>
+        <Link to={`/community`} alt="Community">
+          Community
+        </Link>
         <Link to={`/help`} alt="DAOHaus Help">
           Help
         </Link>
