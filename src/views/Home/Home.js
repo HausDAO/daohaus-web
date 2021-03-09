@@ -123,8 +123,10 @@ const Home = () => {
           </div>
           <div className="HeroButtonGroup">
             <a
-              href="https://daohaus.club/help"
+              href="https://docs.daohaus.club"
               className="Button Big Secondary Outlined"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               DAO Basics
             </a>
@@ -500,7 +502,13 @@ const Home = () => {
               >
                 Summon a new DAO
               </a>
-              <Link to="/help">How to DAO</Link>
+              <a
+                href="https://docs.daohaus.club"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                DAO Basics
+              </a>
             </div>
             <div className="Column Column--25">
               <a

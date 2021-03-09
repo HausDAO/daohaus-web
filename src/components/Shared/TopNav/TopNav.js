@@ -39,9 +39,13 @@ const TopNav = () => {
         >
           Summon a DAO
         </a>
-        <Link to={`/help`} alt="DAOHaus Help">
+        <a
+          href="https://docs.daohaus.club"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           Help
-        </Link>
+        </a>
         <a
           href="https://app.daohaus.club"
           rel="noopener noreferrer"
@@ -84,9 +88,13 @@ const TopNav = () => {
           >
             Summon a DAO
           </a>
-          <Link to="/help" onClick={toggleNav}>
+          <a
+            href="https://docs.daohaus.club"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             Help
-          </Link>
+          </a>
           <a
             style={{ color: 'white' }}
             href="https://app.daohaus.club"
