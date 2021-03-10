@@ -1,4 +1,6 @@
 import React from 'react';
+import Footer from '../../components/Shared/Footer/Footer';
+import CommunityBlock from '../../components/Shared/CommunityBlock/CommunityBlock';
 import { Link } from 'react-router-dom';
 import Icon from '@ant-design/icons';
 import { ImTwitter } from 'react-icons/im';
@@ -279,149 +281,8 @@ const Token = () => {
           </div>
         </div>
       </div>
-
-      <div className="Block PrimaryDark">
-        <div className="Block__Contents">
-          <div className="Row">
-            <div className="Column--50">
-              <img src={HausHugeType} alt="" />
-              <h3 className="whiteColor" style={{ margin: '75px 0px 25px' }}>
-                Our mission is to foster a diverse, open economy of transparent
-                collaboration.
-              </h3>
-              <p className="BigP">
-                DAOhaus is built and run by the community using DAOs to
-                coordinate.
-              </p>
-            </div>
-            <div className="Column--50"></div>
-          </div>
-
-          <div className="Row" style={{ marginTop: 75 }}>
-            <div className="Column--33 SocialItem">
-              <a
-                href="https://discord.gg/NPEJysW"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="SocialIcon"
-              >
-                <Icon component={DiscordSvg} />
-              </a>
-              <h4 className="tradColor">Discord</h4>
-              <p>Get support, provide feedback, ask anything about DAOs.</p>
-            </div>
-            <div className="Column--33 SocialItem">
-              <a
-                href="https://daohaus.substack.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="SocialIcon"
-              >
-                <Icon component={SubstackSvg} />
-              </a>
-              <h4 className="yellowColor">Substack</h4>
-              <p>
-                Get the alpha while it's still alpha. Stay up to date and learn
-                what’s on the horizon.
-              </p>
-            </div>
-            <div className="Column--33 SocialItem">
-              <a
-                href="https://github.com/HausDAO/pokemol-web"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="SocialIcon"
-              >
-                <DiGithubAlt />
-              </a>
-              <h4 className="daoColor">Github</h4>
-              <p>
-                Check the code, it's open-source of course. Add an issue, submit
-                a PR.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="Block Footer">
-        <div className="Block__Contents">
-          <div className="Row">
-            <div className="Column Column--25">
-              <img
-                src={DaohausLogo}
-                alt="DaoHaus Logo"
-                height="40px !important"
-              />
-              <p className="Built">
-                Built by community via{' '}
-                <a
-                  href="https://app.daohaus.club/dao/0x64/0x283bdc900b6ec9397abb721c5bbff5ace46e0f50"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  HausDAO
-                </a>
-              </p>
-            </div>
-            <div className="Column Column--25">
-              <a
-                href="https://app.daohaus.club"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Launch the App
-              </a>
-              <a
-                href="https://app.daohaus.club/explore"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Explore DAOs
-              </a>
-              <a
-                href="https://app.daohaus.club/summon"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Summon a new DAO
-              </a>
-              <Link to="/help">How to DAO</Link>
-            </div>
-            <div className="Column Column--25">
-              <a
-                href="https://twitter.com/nowdaoit"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ImTwitter /> Twitter
-              </a>
-              <a
-                href="https://discord.gg/NPEJysW"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icon component={DiscordSvg} /> Discord
-              </a>
-              <a
-                href="https://daohaus.substack.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icon component={SubstackSvg} /> Substack
-              </a>
-
-              <a
-                href="https://github.com/HausDAO/pokemol-web"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <DiGithubAlt /> Github
-              </a>
-            </div>
-            <div className="Column Column--25"></div>
-          </div>
-        </div>
-      </div>
+      <CommunityBlock />
+      <Footer />
     </div>
   );
 };

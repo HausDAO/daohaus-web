@@ -23,6 +23,12 @@ const TopNav = () => {
         <img src={DaohausLogo} alt="DaoHaus Logo" />
       </Link>
       <nav className="TopNav__Desktop">
+        <Link to={`/token`} alt="HAUS token and governance">
+          Token
+        </Link>
+        <Link to={`/community`} alt="Community">
+          Community
+        </Link>
         <a
           href={`https://app.daohaus.club/explore`}
           alt="Explore DAOs"
@@ -39,15 +45,13 @@ const TopNav = () => {
         >
           Summon a DAO
         </a>
-        <Link to={`/token`} alt="HAUS token and governance">
-          Token
-        </Link>
-        <Link to={`/community`} alt="Community">
-          Community
-        </Link>
-        <Link to={`/help`} alt="DAOHaus Help">
+        <a
+          href="https://docs.daohaus.club"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           Help
-        </Link>
+        </a>
         <a
           href="https://app.daohaus.club"
           rel="noopener noreferrer"
@@ -74,6 +78,12 @@ const TopNav = () => {
           <Link to={`/`} onClick={toggleNav}>
             Home
           </Link>
+          <Link to={`/token`} alt="HAUS token and governance">
+            Token
+          </Link>
+          <Link to={`/community`} alt="Community">
+            Community
+          </Link>
           <a
             href={`https://app.daohaus.club/explore`}
             alt="Explore DAOs"
@@ -90,9 +100,13 @@ const TopNav = () => {
           >
             Summon a DAO
           </a>
-          <Link to="/help" onClick={toggleNav}>
+          <a
+            href="https://docs.daohaus.club"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             Help
-          </Link>
+          </a>
           <a
             style={{ color: 'white' }}
             href="https://app.daohaus.club"

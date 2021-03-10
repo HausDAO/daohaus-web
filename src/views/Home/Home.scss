@@ -364,19 +364,6 @@
   }
 }
 
-.Block.Footer {
-  min-height: 1px;
-  min-height: 100px;
-  padding: 50px 0px;
-  background-color: $primary-background;
-  font-size: 1.15em;
-  .Block__Contents {
-    a {
-      margin-top: 15px;
-    }
-  }
-}
-
 .Built {
   font-size: 0.75em;
   color: white;
