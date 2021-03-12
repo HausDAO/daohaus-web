@@ -7,6 +7,7 @@ import { ImTwitter } from 'react-icons/im';
 import { DiGithubAlt } from 'react-icons/di';
 import GraphicCommunities from '../../assets/graphic__communities.png';
 import HausHugeType from '../../assets/haus__hugeType.png';
+import HausToken from '../../assets/haus__icon.png';
 
 import IconA from '../../assets/ico-grants.png';
 import IconB from '../../assets/ico-protocols.png';
@@ -30,30 +31,35 @@ const Token = () => {
     <div className="Home">
       <div className="Block PrimaryDark">
         <div className="Block__Contents">
-          <h1>
-            The HAUS token aligns all
-            <br />
-            DAOs on the platform
-          </h1>
-          <p className="BigP daoColor" style={{ maxWidth: '500px' }}>
-            As we create more value together, that value flows back to the HAUS
-            token, shared by all DAOs on the platform.
-          </p>
-          <div className="HeroButtonGroup">
-            <a
-              href="https://daohaus.club/help"
-              className="Button Big Secondary Outlined"
-            >
-              Get HAUS
-            </a>
-            <a
-              href="https://app.daohaus.club/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="Button Big"
-            >
-              FarmHaus
-            </a>
+          <div className="Row">
+            <div className="Column--50">
+              <h1>The HAUS token aligns all DAOs on the platform</h1>
+              <p className="BigP daoColor" style={{ maxWidth: '500px' }}>
+                As we create more value together, that value flows back to the
+                HAUS token, shared by all communities on the platform.
+              </p>
+              <div className="HeroButtonGroup">
+                <a
+                  href="https://medium.com/daohaus-club/haus-launch-bd781bbbf13a"
+                  className="Button Big Secondary Outlined"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Read the Launch Article
+                </a>
+                {/* <a
+                  href="https://medium.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="Button Big"
+                >
+                  FarmHaus
+                </a> */}
+              </div>
+            </div>
+            <div className="Column--50">
+              <img src={HausToken} />
+            </div>
           </div>
         </div>
       </div>
@@ -63,7 +69,7 @@ const Token = () => {
           <div className="Row">
             <div className="Column--50">
               <h2 style={{ textDecoration: 'strikethrough' }}>
-                The HAUS CCO is Open!
+                The HAUS CCO is coming
               </h2>
               <p className="BigP">
                 A CCO, or ‘Community Contribution Opportunity’, is exactly that.
@@ -74,20 +80,15 @@ const Token = () => {
                 We’ve scraped every DAO contract known to man. You should be
                 eligible if you have ever interacted with a DAO.
               </p>
+              <p className="yellowColor">
+                <i>Opens to eligible contributors 15 Mar 2021 at 8am EST</i>
+              </p>
               <div className="HeroButtonGroup">
                 <a
-                  href="https://daohaus.club/help"
+                  href="https://docs.daohaus.club/cco"
                   className="Button Secondary Outlined"
                 >
                   What's a CCO?
-                </a>
-                <a
-                  href="https://app.daohaus.club/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="Button"
-                >
-                  Get HAUS
                 </a>
               </div>
             </div>
@@ -202,13 +203,14 @@ const Token = () => {
               </p>
               <div className="ButtonGroup">
                 <a
-                  href="https://app.daohaus.club/explore"
+                  href="https://docs.daohaus.club/uberhaus-governance"
                   className="Button Outlined"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Join as a DAO
+                  More about UberHaus
                 </a>
+                {/* 
                 <a
                   href="https://app.daohaus.club/explore"
                   className="Button"
@@ -216,7 +218,7 @@ const Token = () => {
                   rel="noopener noreferrer"
                 >
                   Visit UberHaus
-                </a>
+                </a> */}
               </div>
             </div>
             <div className="Column--50">
@@ -237,46 +239,47 @@ const Token = () => {
                 Discuss new directions and features for the product or new
                 use-cases and strategies for the HAUS token itself.
               </p>
-              <a
+              {/* <a
                 className="Button Outlined"
                 href="discord.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Chat on Discord
-              </a>
+              </a> */}
             </div>
             <div className="Column--33" style={{ marginTop: 75 }}>
               <img src={IconHB} alt="" width="40px" />
               <h5>2. Propose</h5>
               <p>
                 Anyone can submit a proposal to the DAO. We can also collect
-                signal from all tokenholders via Snapshot to help inform.
+                signal from all tokenholders via Snapshot to help inform our
+                path.
               </p>
-              <a
+              {/* <a
                 className="Button Outlined"
                 href="discord.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Propose on Discourse
-              </a>
+              </a> */}
             </div>
             <div className="Column--33" style={{ marginTop: 75 }}>
               <img src={IconHC} alt="" width="40px" />
               <h5>3. Vote</h5>
               <p>
-                The Member DAOs vote directly on the proposals, governing the
+                The Member DAOs vote directly on these proposals, governing the
                 platform themselves.
               </p>
-              <a
+              {/* <a
                 className="Button Outlined"
                 href="discord.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Vote in the DAO
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import { DiGithubAlt } from 'react-icons/di';
 
 import GraphicCommunities from '../../assets/graphic__communities.png';
 import HausHugeType from '../../assets/haus__hugeType.png';
-
+import HausPartyPoap from '../../assets/HausParty__POAP--attendee.png';
 import IconA from '../../assets/ico-grants.png';
 import IconB from '../../assets/ico-protocols.png';
 import IconC from '../../assets/ico-guilds.png';
@@ -31,27 +31,12 @@ const Community = () => {
     <div className="Home">
       <div className="Block PrimaryDark">
         <div className="Block__Contents">
-          <h1>The HAUS doesn't build itself</h1>
+          <h1>This HAUS doesn't build itself</h1>
           <p className="BigP daoColor" style={{ maxWidth: '500px' }}>
-            As we create more value together, that value flows back to the HAUS
-            token, shared by all DAOs on the platform.
+            It takes a community, and HausDAO is the community of contributors
+            working together directly to design, build, and communicate the
+            actual product.
           </p>
-          <div className="HeroButtonGroup">
-            <a
-              href="https://daohaus.club/help"
-              className="Button Big Secondary Outlined"
-            >
-              Get HAUS
-            </a>
-            <a
-              href="https://app.daohaus.club/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="Button Big"
-            >
-              FarmHaus
-            </a>
-          </div>
         </div>
       </div>
 
@@ -59,127 +44,74 @@ const Community = () => {
         <div className="Block__Contents">
           <div className="Row">
             <div className="Column--50">
-              <h2 style={{ textDecoration: 'strikethrough' }}>
-                The HAUS CCO is Open!
-              </h2>
+              <h2>HausParty every Thursday</h2>
               <p className="BigP">
-                A CCO, or ‘Community Contribution Opportunity’, is exactly that.
-                An opportunity for the community to contribute capital or work
-                in exchange for the community’s token (HAUS in our case)
+                HausParty is the weekly community call and podcast open to all.
+                We usually start with some updates from the community, into some
+                conversation with a guest from the space, and
+              </p>
+              <p>
+                Join us and get a <a href="poap.xyz">POAP NFT</a> for attending.
               </p>
               <p className="yellowColor">
-                We’ve scraped every DAO contract known to man. You should be
-                eligible if you have ever interacted with a DAO.
-              </p>
-              <div className="HeroButtonGroup">
+                Weekly at 11am PST / 8pm CET in our{' '}
                 <a
-                  href="https://daohaus.club/help"
-                  className="Button Secondary Outlined"
-                >
-                  What's a CCO?
-                </a>
-                <a
-                  href="https://app.daohaus.club/"
-                  target="_blank"
+                  href="https://discord.gg/NPEJysW"
                   rel="noopener noreferrer"
-                  className="Button"
+                  target="_blank"
                 >
-                  Get HAUS
+                  Discord
                 </a>
-              </div>
+              </p>
             </div>
-            <div className="Column--50"></div>
+            <div className="Column--50">
+              <img src={HausPartyPoap} />
+            </div>
           </div>
         </div>
       </div>
       <div className="Usecases Block">
         <div className="Block__Contents">
-          <h3>What is HAUS used for?</h3>
+          <h3>How we work</h3>
           <p>
-            How HAUS is used <span className="daoColor">TODAY</span>
+            HausDAO is the hub from which each working group requests their
+            budget. Each ‘Department’ has its own DAO for optimal autonomy.
           </p>
           <div className="Row">
             <div className="Column--50">
               <img src={IconA} alt="" width="80px" />
-              <h5>Governance</h5>
+              <h5>Magesmiths (Product)</h5>
               <p>
-                Define, direct, and build the product for and with the
-                community. Also supports sustainable governance over the HAUS
-                token and its issuance.
+                Magesmiths are builders. Shipping code, designing user
+                experience, and generally making sure stuff works and feels
+                nice.
               </p>
             </div>
             <div className="Column--50">
               <img src={IconB} alt="" width="80px" />
-              <h5>Access</h5>
+              <h5>Rangers (Comms/Community)</h5>
               <p>
-                Get priority support and alpha access to new features on DAOhaus
+                Rangers are communicators. Distilling all our wild ideas into
+                content suitable for human consumption. Also running that
+                HausParty.
               </p>
             </div>
             <div className="Column--50">
               <img src={IconC} alt="" width="80px" />
-              <h5>Rewards</h5>
+              <h5>Paladins</h5>
               <p>
-                Earn rewards by providing liquidity to the community to build
-                more value into the platform.
+                Defenders of the realm, ensuring operational needs are met.
+                Working the budget, schedules, leading workshops. Generally
+                making sure we all have what we need to create value.
               </p>
             </div>
             <div className="Column--50">
               <img src={IconD} alt="" width="80px" />
-              <h5>Discounts</h5>
+              <h5>Alchemists</h5>
               <p>
-                Get discounts on advanced or custom features by paying with
-                HAUS.
+                Alchemists brew up the economic and governance design that ties
+                DAOs together, both internally and to each other.
               </p>
-            </div>
-          </div>
-          <p style={{ marginTop: 75 }}>
-            How HAUS will be used <span className="yellowColor">TOMORROW</span>
-          </p>
-          <div className="Row">
-            <div className="Column--33">
-              <div className="Row AlignCenter JustifyStart">
-                <img
-                  src={IconFA}
-                  alt=""
-                  width="40px"
-                  style={{ marginRight: '10px' }}
-                />
-                <p>
-                  Self-organized
-                  <br />
-                  <strong>User Union</strong>
-                </p>
-              </div>
-            </div>
-            <div className="Column--33">
-              <div className="Row AlignCenter JustifyStart">
-                <img
-                  src={IconFB}
-                  alt=""
-                  width="40px"
-                  style={{ marginRight: '10px' }}
-                />
-                <p>
-                  Curated DAO
-                  <br />
-                  <strong>Index Fund</strong>
-                </p>
-              </div>
-            </div>
-            <div className="Column--33">
-              <div className="Row AlignCenter JustifyStart">
-                <img
-                  src={IconFC}
-                  alt=""
-                  width="40px"
-                  style={{ marginRight: '10px' }}
-                />
-                <p>
-                  Seed Early
-                  <br />
-                  <strong>Communities</strong>
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -188,97 +120,38 @@ const Community = () => {
         <div className="Block__Contents">
           <div className="Row">
             <div className="Column--50">
-              <h5>Hello Meta Governance</h5>
-              <h3>UberHaus</h3>
+              <h2>Get involved</h2>
               <p className="BigP">
-                UberHaus is the DAO that governs the DAOhaus product as well as
-                the HAUS token. As DAOhaus is a platform for communities, there
-                are no individual members, only the communities themselves. Any
-                DAO can stake some HAUS and elect a delegate to represent them
-                in UberHaus governance proposals.
+                The Haus is constantly getting bigger and is always under
+                construction. We’re always looking for folks passionate about
+                building for decentralized communities.
               </p>
-              <div className="ButtonGroup">
+              <p className="daoColor">
+                For now, find us in our{' '}
                 <a
-                  href="https://app.daohaus.club/explore"
-                  className="Button Outlined"
-                  target="_blank"
+                  href="https://discord.gg/NPEJysW"
                   rel="noopener noreferrer"
-                >
-                  Join as a DAO
-                </a>
-                <a
-                  href="https://app.daohaus.club/explore"
-                  className="Button"
                   target="_blank"
-                  rel="noopener noreferrer"
                 >
-                  Visit UberHaus
+                  Discord
                 </a>
-              </div>
+              </p>
             </div>
             <div className="Column--50">
-              <img src={GraphicCommunities} alt="dao communities" />
+              <h4>Common areas of contribution:</h4>
+              <ul>
+                <li>Comms and Content</li>
+                <li>Community Building and Support</li>
+                <li>UX/UI Design</li>
+                <li>Frontend & Backend Dev</li>
+                <li>Smart Contracts</li>
+                <li>Token Engineering</li>
+                <li>Operations</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-      <div className="Block">
-        <div className="Block__Contents">
-          <h3>How HAUS governance works</h3>
-          <p>Just the basics, more to come.</p>
-          <div className="Row">
-            <div className="Column--33" style={{ marginTop: 75 }}>
-              <img src={IconHA} alt="" width="40px" />
-              <h5>1. Discuss</h5>
-              <p>
-                Discuss new directions and features for the product or new
-                use-cases and strategies for the HAUS token itself.
-              </p>
-              <a
-                className="Button Outlined"
-                href="discord.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Chat on Discord
-              </a>
-            </div>
-            <div className="Column--33" style={{ marginTop: 75 }}>
-              <img src={IconHB} alt="" width="40px" />
-              <h5>2. Propose</h5>
-              <p>
-                Anyone can submit a proposal to the DAO. We can also collect
-                signal from all tokenholders via Snapshot to help inform.
-              </p>
-              <a
-                className="Button Outlined"
-                href="discord.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Propose on Discourse
-              </a>
-            </div>
-            <div className="Column--33" style={{ marginTop: 75 }}>
-              <img src={IconHC} alt="" width="40px" />
-              <h5>3. Vote</h5>
-              <p>
-                The Member DAOs vote directly on the proposals, governing the
-                platform themselves.
-              </p>
-              <a
-                className="Button Outlined"
-                href="discord.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Vote in the DAO
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <CommunityBlock />
       <Footer />
     </div>
