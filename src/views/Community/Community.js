@@ -1,28 +1,12 @@
 import React from 'react';
 import Footer from '../../components/Shared/Footer/Footer';
 import CommunityBlock from '../../components/Shared/CommunityBlock/CommunityBlock';
-import { Link } from 'react-router-dom';
-import Icon from '@ant-design/icons';
-import { ImTwitter } from 'react-icons/im';
-import { DiGithubAlt } from 'react-icons/di';
-
-import GraphicCommunities from '../../assets/graphic__communities.png';
-import HausHugeType from '../../assets/haus__hugeType.png';
+import HausBuilding from '../../assets/haus_building.png';
 import HausPartyPoap from '../../assets/HausParty__POAP--attendee.png';
 import IconA from '../../assets/ico-grants.png';
 import IconB from '../../assets/ico-protocols.png';
 import IconC from '../../assets/ico-guilds.png';
 import IconD from '../../assets/ico-clubs.png';
-import IconFA from '../../assets/ico__future--a.png';
-import IconFB from '../../assets/ico__future--b.png';
-import IconFC from '../../assets/ico__future--c.png';
-import IconHA from '../../assets/ico__how--a.png';
-import IconHB from '../../assets/ico__how--b.png';
-import IconHC from '../../assets/ico__how--c.png';
-
-import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
-import { ReactComponent as SubstackSvg } from '../../assets/Substack.svg';
-import DaohausLogo from '../../assets/logo.png';
 
 import './Community.scss';
 
@@ -31,12 +15,19 @@ const Community = () => {
     <div className="Home">
       <div className="Block PrimaryDark">
         <div className="Block__Contents">
-          <h1>This HAUS doesn't build itself</h1>
-          <p className="BigP daoColor" style={{ maxWidth: '500px' }}>
-            It takes a community, and HausDAO is the community of contributors
-            working together directly to design, build, and communicate the
-            actual product.
-          </p>
+          <div className="Row">
+            <div className="Column--50">
+              <h1>This HAUS doesn't build itself</h1>
+              <p className="BigP daoColor" style={{ maxWidth: '500px' }}>
+                It takes a community, and HausDAO is the community of
+                contributors working together directly to design, build, and
+                communicate the actual product.
+              </p>
+            </div>
+            <div className="Column--50">
+              <img src={HausBuilding} alt="" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -65,7 +56,7 @@ const Community = () => {
               </p>
             </div>
             <div className="Column--50">
-              <img src={HausPartyPoap} />
+              <img src={HausPartyPoap} alt="" />
             </div>
           </div>
         </div>

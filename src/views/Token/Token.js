@@ -1,12 +1,7 @@
 import React from 'react';
 import Footer from '../../components/Shared/Footer/Footer';
 import CommunityBlock from '../../components/Shared/CommunityBlock/CommunityBlock';
-import { Link } from 'react-router-dom';
-import Icon from '@ant-design/icons';
-import { ImTwitter } from 'react-icons/im';
-import { DiGithubAlt } from 'react-icons/di';
 import GraphicCommunities from '../../assets/graphic__communities.png';
-import HausHugeType from '../../assets/haus__hugeType.png';
 import HausToken from '../../assets/haus__icon.png';
 
 import IconA from '../../assets/ico-grants.png';
@@ -19,10 +14,6 @@ import IconFC from '../../assets/ico__future--c.png';
 import IconHA from '../../assets/ico__how--a.png';
 import IconHB from '../../assets/ico__how--b.png';
 import IconHC from '../../assets/ico__how--c.png';
-
-import { ReactComponent as DiscordSvg } from '../../assets/branding/Discord.svg';
-import { ReactComponent as SubstackSvg } from '../../assets/Substack.svg';
-import DaohausLogo from '../../assets/logo.png';
 
 import './Token.scss';
 
@@ -58,7 +49,7 @@ const Token = () => {
               </div>
             </div>
             <div className="Column--50">
-              <img src={HausToken} />
+              <img src={HausToken} alt="" />
             </div>
           </div>
         </div>
@@ -73,8 +64,8 @@ const Token = () => {
               </h2>
               <p className="BigP">
                 A CCO, or ‘Community Contribution Opportunity’, is exactly that.
-                An opportunity for the community to contribute capital or work
-                in exchange for the community’s token (HAUS in our case)
+                An opportunity for the community to contribute in exchange for
+                the community’s token (HAUS in our case).
               </p>
               <p className="yellowColor">
                 We’ve scraped every DAO contract known to man. You should be
@@ -87,8 +78,19 @@ const Token = () => {
                 <a
                   href="https://docs.daohaus.club/cco"
                   className="Button Secondary Outlined"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   What's a CCO?
+                </a>
+                <a
+                  href="https://app.daohaus.club/cco"
+                  className="Button"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'white' }}
+                >
+                  Check Eligibility
                 </a>
               </div>
             </div>

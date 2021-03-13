@@ -3,7 +3,6 @@ import React from 'react';
 import Footer from '../../components/Shared/Footer/Footer';
 import CommunityBlock from '../../components/Shared/CommunityBlock/CommunityBlock';
 
-import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
 import Icon from '@ant-design/icons';
 import { ImTwitter } from 'react-icons/im';
@@ -16,7 +15,6 @@ import InfographicDAO from '../../assets/infographic__dao.png';
 import GraphicCommunities from '../../assets/graphic__communities.png';
 import DaohausBauhaus from '../../assets/bauhaus__composable.png';
 import DaohausHugeType from '../../assets/daohaus__hugeType.png';
-import HausHugeType from '../../assets/haus__hugeType.png';
 
 import HowTreasury from '../../assets/how__treasury.png';
 import HowProposals from '../../assets/how__proposals.png';
@@ -32,8 +30,6 @@ import IconFC from '../../assets/ico__future--c.png';
 import IconHA from '../../assets/ico__how--a.png';
 import IconHB from '../../assets/ico__how--b.png';
 import IconHC from '../../assets/ico__how--c.png';
-
-import DaohausLogo from '../../assets/logo.png';
 
 import { heroSlides } from '../../content/home-content';
 
