@@ -23,6 +23,12 @@ const TopNav = () => {
         <img src={DaohausLogo} alt="DaoHaus Logo" />
       </Link>
       <nav className="TopNav__Desktop">
+        <Link to={`/token`} alt="HAUS token and governance">
+          Token
+        </Link>
+        <Link to={`/community`} alt="Community">
+          Community
+        </Link>
         <a
           href={`https://app.daohaus.club/explore`}
           alt="Explore DAOs"
@@ -71,6 +77,12 @@ const TopNav = () => {
         <div className="TopNav__Mobile--Contents">
           <Link to={`/`} onClick={toggleNav}>
             Home
+          </Link>
+          <Link to={`/token`} alt="HAUS token and governance">
+            Token
+          </Link>
+          <Link to={`/community`} alt="Community">
+            Community
           </Link>
           <a
             href={`https://app.daohaus.club/explore`}
