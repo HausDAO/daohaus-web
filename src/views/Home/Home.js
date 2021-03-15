@@ -12,7 +12,7 @@ import { ReactComponent as SubstackSvg } from '../../assets/Substack.svg';
 
 import InfographicTrad from '../../assets/infographic__trad.png';
 import InfographicDAO from '../../assets/infographic__dao.png';
-import GraphicCommunities from '../../assets/graphic__communities.png';
+import GraphicCommunities from '../../assets/bauhaus_communities.png';
 import DaohausBauhaus from '../../assets/bauhaus__composable.png';
 import DaohausHugeType from '../../assets/daohaus__hugeType.png';
 
