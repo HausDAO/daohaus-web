@@ -60,19 +60,16 @@ const Token = () => {
           <div className="Row">
             <div className="Column--50">
               <h2 style={{ textDecoration: 'strikethrough' }}>
-                The HAUS CCO is coming
+                The HAUS CCO is complete!
               </h2>
               <p className="BigP">
                 A CCO, or ‘Community Contribution Opportunity’, is exactly that.
                 An opportunity for the community to contribute in exchange for
                 the community’s token (HAUS in our case).
               </p>
+              <p>1.1M raised in 75 seconds.</p>
               <p className="yellowColor">
-                We’ve scraped every DAO contract known to man. You should be
-                eligible if you have ever interacted with a DAO.
-              </p>
-              <p className="yellowColor">
-                <i>Opens to eligible contributors 15 Mar 2021 at 8am EST</i>
+                <i>Claiming opens in a few days.</i>
               </p>
               <div className="HeroButtonGroup">
                 <a
@@ -83,15 +80,15 @@ const Token = () => {
                 >
                   What's a CCO?
                 </a>
-                <a
+                {/* <a
                   href="https://app.daohaus.club/cco"
                   className="Button"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: 'white' }}
                 >
-                  Check Eligibility
-                </a>
+                  Claim
+                </a> */}
               </div>
             </div>
             <div className="Column--50"></div>
