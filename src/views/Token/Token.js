@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../../components/Shared/Footer/Footer';
 import CommunityBlock from '../../components/Shared/CommunityBlock/CommunityBlock';
-import GraphicCommunities from '../../assets/graphic__communities.png';
+import GraphicCommunities from '../../assets/bauhaus_communities.png';
 import HausToken from '../../assets/haus__icon.png';
 
 import IconA from '../../assets/ico-grants.png';

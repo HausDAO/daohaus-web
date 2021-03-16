@@ -90,3 +90,23 @@ https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-kovan
 https://api.thegraph.com/subgraphs/name/odyssy-automaton/daohaus-kovan-stats
 
 <table border="0"><tr>  <td><a href="https://gittron.me/bots/0x8f36df85f8e0bf32f2ffd20979d139cc"><img src="https://s3.amazonaws.com/od-flat-svg/0x8f36df85f8e0bf32f2ffd20979d139cc.png" alt="gittron" width="50"/></a></td><td><a href="https://gittron.me/bots/0x8f36df85f8e0bf32f2ffd20979d139cc">HELLO GITTRON</a></td></tr></table>
+ 
+
+### License
+
+DAOhaus is an easy user interface for decentralized autonomous organizations built on the Moloch DAO framework smart contracts <https://github.com/MolochVentures/moloch>. 
+
+Copyright (C) 2021 DAOhaus
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
