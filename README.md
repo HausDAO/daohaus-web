@@ -1,3 +1,8 @@
+# Deprecated.
+
+New website repo is here: [daohaus-website](https://github.com/HausDAO/daohaus-website).
+
+
 # daohaus-web
 
 Web app for exploring and summoning moloch daos.
